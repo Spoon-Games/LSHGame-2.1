@@ -1,0 +1,13 @@
+.unity-property-field__label{
+	color: rgb(0,1,0);
+	visibility: hidden;
+	display: None;
+	width: 0;
+}
+.unity-property-field__input{
+	aling-self: center;
+}
+
+.unity-property-field{
+	align-self: center;
+}

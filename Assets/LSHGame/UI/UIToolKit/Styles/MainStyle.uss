@@ -1,0 +1,85 @@
+.background {
+    background-color: rgb(17, 15, 18);
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    color: rgb(255, 255, 255);
+    -unity-font: url('/Assets/LSHGame/UI/UIToolKit/Fonts/IndieFlower-Regular.ttf');
+    font-size: 48px;
+    -unity-font-style: normal;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.button {
+    -unity-font: url('/Assets/LSHGame/UI/UIToolKit/Fonts/IndieFlower-Regular.ttf');
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(48, 48, 48, 0);
+    border-left-color: rgba(253, 253, 253, 0);
+    border-right-color: rgba(253, 253, 253, 0);
+    border-top-color: rgba(253, 253, 253, 0);
+    border-bottom-color: rgba(253, 253, 253, 0);
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 80%;
+    flex-basis: auto;
+    max-width: 600px;
+}
+
+.button:hover {
+    -unity-font-style: italic;
+    font-size: 32px;
+    white-space: normal;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+}
+
+.button:active {
+    background-color: rgba(65, 65, 65, 0.16);
+}
+
+.splitter {
+    background-color: rgb(255, 255, 255);
+    height: 2px;
+    width: 60%;
+    margin-bottom: 30px;
+}
+
+.background_translucent {
+    background-color: rgba(17, 15, 18, 0.38);
+}
+
+.transparent {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.text-main {
+    -unity-font: url('/Assets/LSHGame/UI/UIToolKit/Fonts/IndieFlower-Regular.ttf');
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    white-space: normal;
+}

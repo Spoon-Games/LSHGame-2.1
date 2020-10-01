@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2b91ca99ffe3141afc0a64ef8e4b06, type: 3}
+  m_Name: Settings Nav
+  m_EditorClassIdentifier: 
+  StartNode:
+    Guid: 1ad854ce-fa8f-4995-8f06-7f32c1137024
+    EditorPosition: {x: 0, y: 0}
+    OutputPort:
+      Name: 
+      ConnectedGuid: 67ea3421-1913-41d0-b866-f31ea66d4be6
+  NestedEndNode:
+    Guid: a45294a9-62f6-43c6-82ca-66b83c990ab9
+    EditorPosition: {x: 0, y: 200}
+    BackPort:
+      Name: 
+      ConnectedGuid: 
+  StateNodes:
+  - Guid: 67ea3421-1913-41d0-b866-f31ea66d4be6
+    EditorPosition: {x: 223, y: 90}
+    CoicePorts:
+    - Name: audio-button
+      ConnectedGuid: 927fcfdf-ec7b-4c66-b298-a8b12d0d9985
+    - Name: keylayout-button
+      ConnectedGuid: 4b0822fd-3fbd-4a31-8d2e-dda49fcc7f33
+    SourceAsset: {fileID: 9197481963319205126, guid: 7099b287e8d84434ca916fdbdaa2ea6b, type: 3}
+  - Guid: 927fcfdf-ec7b-4c66-b298-a8b12d0d9985
+    EditorPosition: {x: 771, y: 60}
+    CoicePorts: []
+    SourceAsset: {fileID: 9197481963319205126, guid: a188be8c3f743d149ae22602a257081a, type: 3}
+  - Guid: 4b0822fd-3fbd-4a31-8d2e-dda49fcc7f33
+    EditorPosition: {x: 728, y: 245}
+    CoicePorts: []
+    SourceAsset: {fileID: 9197481963319205126, guid: 4ff74d61a2f63a147965853e769d6104, type: 3}
+  NestedNodes: []

@@ -1,0 +1,17 @@
+{
+    "name": "SceneM.Editor",
+    "references": [
+        "GUID:cfefdd37cc1f8d044b54fab85afd323f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

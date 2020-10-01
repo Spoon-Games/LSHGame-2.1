@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:Label text="UI Navigation Component" style="-unity-text-align: upper-center; -unity-font-style: bold; font-size: 14px; margin-bottom: 5px;" />
+    <uie:ObjectField label="Source Tree" name="sourcetree-field" />
+    <ui:Label text="asdfas" style="-unity-font-style: bold; margin-left: 15px;" />
+    <ui:Foldout text="ClickEvents" style="-unity-font-style: bold;">
+        <ui:VisualElement name="clickevent-container" />
+        <ui:Button text="+" name="add-button" style="flex-wrap: wrap; align-items: stretch; width: auto; justify-content: center; left: auto; right: auto; flex-grow: 1; flex-shrink: 1; flex-basis: auto;" />
+    </ui:Foldout>
+</ui:UXML>

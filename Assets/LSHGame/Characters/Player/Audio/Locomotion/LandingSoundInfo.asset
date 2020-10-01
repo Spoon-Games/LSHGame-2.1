@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02b6c85a081dc7a4db270f031afe97cc, type: 3}
+  m_Name: LandingSoundInfo
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: ea217dc637f73b649a2866febb99c4a2, type: 3}
+  soundInfos: []
+  outputGroup: {fileID: 455653739544208706, guid: 011bb8008d04c6044847cd43f344c6fd, type: 2}
+  minVolume: 0.993
+  maxVolume: 1
+  minPitch: 0.19
+  maxPitch: -0.26
+  loop: 0
+  panStereo: 0
+  spatialBlend: 0
+  childSettingMode: 0

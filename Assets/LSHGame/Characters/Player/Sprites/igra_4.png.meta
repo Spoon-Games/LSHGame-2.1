@@ -1,0 +1,518 @@
+fileFormatVersion: 2
+guid: b25e58eea45c5a648b32a9b83d469045
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6116561745105201230
+    second: igra_4_0
+  - first:
+      213: 5813209199095329177
+    second: igra_4_1
+  - first:
+      213: -4086754574392642604
+    second: igra_4_2
+  - first:
+      213: 1583113967264037264
+    second: igra_4_3
+  - first:
+      213: 7196225261075113254
+    second: igra_4_4
+  - first:
+      213: 5243609706284091558
+    second: igra_4_5
+  - first:
+      213: -5215779265665344684
+    second: igra_4_6
+  - first:
+      213: 1312658693624438974
+    second: igra_4_7
+  - first:
+      213: 8241979946805285770
+    second: igra_4_8
+  - first:
+      213: -5983202685929469956
+    second: igra_4_9
+  - first:
+      213: -6477887074408731700
+    second: igra_4_10
+  - first:
+      213: 1194128510176574043
+    second: igra_4_11
+  - first:
+      213: 6753802341893987814
+    second: igra_4_12
+  - first:
+      213: -3053485725386810530
+    second: igra_4_13
+  - first:
+      213: 2984813911962630651
+    second: igra_4_14
+  - first:
+      213: 5208509765117331499
+    second: igra_4_15
+  - first:
+      213: -8400572850091876120
+    second: igra_4_16
+  - first:
+      213: -7135919458633772524
+    second: igra_4_17
+  - first:
+      213: -4876246229756007927
+    second: igra_4_18
+  - first:
+      213: -4406934158956747931
+    second: igra_4_19
+  - first:
+      213: 7149234192229063431
+    second: igra_4_20
+  - first:
+      213: -3440369726309695168
+    second: igra_4_21
+  - first:
+      213: -6767122221540681725
+    second: igra_4_22
+  - first:
+      213: -8519749694528427453
+    second: igra_4_23
+  - first:
+      213: 4545897624542517181
+    second: igra_4_24
+  - first:
+      213: 5336193513788770294
+    second: igra_4_25
+  - first:
+      213: -1439641600108964509
+    second: igra_4_26
+  - first:
+      213: 9160544966404342174
+    second: igra_4_27
+  - first:
+      213: -3168796148456850269
+    second: igra_4_28
+  - first:
+      213: -5663715463819734943
+    second: igra_4_29
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 512
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: tvOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Lumin
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: igra_4_1
+      rect:
+        serializedVersion: 2
+        x: 220
+        y: 3860
+        width: 505
+        height: 1009
+      alignment: 9
+      pivot: {x: 0.4, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9913c1587faaca050800000000000000
+      internalID: 5813209199095329177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: igra_4_3
+      rect:
+        serializedVersion: 2
+        x: 942
+        y: 3867
+        width: 505
+        height: 1009
+      alignment: 9
+      pivot: {x: 0.4, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0997bb9f3c958f510800000000000000
+      internalID: 1583113967264037264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: igra_4_5
+      rect:
+        serializedVersion: 2
+        x: 1672
+        y: 3846
+        width: 505
+        height: 1009
+      alignment: 9
+      pivot: {x: 0.4, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a88adbfe3b05c840800000000000000
+      internalID: 5243609706284091558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: igra_4_6
+      rect:
+        serializedVersion: 2
+        x: 2392
+        y: 3823
+        width: 505
+        height: 1009
+      alignment: 9
+      pivot: {x: 0.4, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45b5b2b6464dd97b0800000000000000
+      internalID: -5215779265665344684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: igra_4_7
+      rect:
+        serializedVersion: 2
+        x: 3115
+        y: 3823
+        width: 505
+        height: 1009
+      alignment: 9
+      pivot: {x: 0.4, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb020d88020873210800000000000000
+      internalID: 1312658693624438974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: igra_4_8
+      rect:
+        serializedVersion: 2
+        x: 3843
+        y: 3821
+        width: 505
+        height: 1009
+      alignment: 9
+      pivot: {x: 0.4, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a83d83ff715616270800000000000000
+      internalID: 8241979946805285770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: igra_4_9
+      rect:
+        serializedVersion: 2
+        x: 4561
+        y: 3801
+        width: 505
+        height: 1009
+      alignment: 9
+      pivot: {x: 0.4, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf7c2068bd467fca0800000000000000
+      internalID: -5983202685929469956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: igra_4_19
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 2500
+        width: 505
+        height: 1009
+      alignment: 9
+      pivot: {x: 0.4, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56329da3bbc67d2c0800000000000000
+      internalID: -4406934158956747931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: igra_4_21
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 2499
+        width: 505
+        height: 1009
+      alignment: 9
+      pivot: {x: 0.4, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0418d4736f95140d0800000000000000
+      internalID: -3440369726309695168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: igra_4_23
+      rect:
+        serializedVersion: 2
+        x: 1717
+        y: 2498
+        width: 505
+        height: 1009
+      alignment: 9
+      pivot: {x: 0.4, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34ae36adac4c3c980800000000000000
+      internalID: -8519749694528427453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: igra_4_25
+      rect:
+        serializedVersion: 2
+        x: 2480
+        y: 2475
+        width: 505
+        height: 1009
+      alignment: 9
+      pivot: {x: 0.4, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f78f1a7ab7fd0a40800000000000000
+      internalID: 5336193513788770294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: igra_4_29
+      rect:
+        serializedVersion: 2
+        x: 3137
+        y: 2503
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16053261bc07661b0800000000000000
+      internalID: -5663715463819734943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

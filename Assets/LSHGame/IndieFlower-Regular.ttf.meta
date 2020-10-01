@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 28e82d773f085d1478b42514a7a63a4e
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Indie Flower
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: ca1631c0ca753124ab66b796acf52b36, type: 3}
+  - {fileID: 12800000, guid: 75c90129c1b3edc4f9620459b193d880, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

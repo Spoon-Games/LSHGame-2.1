@@ -1,0 +1,18 @@
+{
+    "name": "LogicC.Editor",
+    "references": [
+        "GUID:4f5abdc639f8aa54e96d1be7a0c3a1b3",
+        "GUID:a06119ad96cb8134a8e0e77f9de98f61"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

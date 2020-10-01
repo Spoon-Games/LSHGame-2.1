@@ -1,0 +1,17 @@
+{
+    "name": "UIToolK.Editor",
+    "references": [
+        "GUID:57ab9230df9dd6049a7e285b08497427"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

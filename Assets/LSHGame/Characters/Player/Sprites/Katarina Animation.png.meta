@@ -1,0 +1,902 @@
+fileFormatVersion: 2
+guid: 95cdaad2b47ac9c4ea118e3058512eaf
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6246763069502144167
+    second: Katarina Animation_0
+  - first:
+      213: -6617518563804304470
+    second: Katarina Animation_1
+  - first:
+      213: -6281279213845048733
+    second: Katarina Animation_2
+  - first:
+      213: -8606367954970993801
+    second: Katarina Animation_3
+  - first:
+      213: 869574700757484017
+    second: Katarina Animation_4
+  - first:
+      213: 1545739586076811684
+    second: Katarina Animation_5
+  - first:
+      213: -733839744994870685
+    second: Katarina Animation_6
+  - first:
+      213: 8511331512977732384
+    second: Katarina Animation_7
+  - first:
+      213: -1275477517972819663
+    second: Katarina Animation_8
+  - first:
+      213: -2835184213375165493
+    second: Katarina Animation_9
+  - first:
+      213: 2665007324129749471
+    second: Katarina Animation_10
+  - first:
+      213: -2940608716926850283
+    second: Katarina Animation_11
+  - first:
+      213: -122490644674311758
+    second: Katarina Animation_12
+  - first:
+      213: 9155569937970603208
+    second: Katarina Animation_13
+  - first:
+      213: 8689112267864652900
+    second: Katarina Animation_14
+  - first:
+      213: -8512039420662584671
+    second: Katarina Animation_15
+  - first:
+      213: -2415849713983473729
+    second: Katarina Animation_16
+  - first:
+      213: 5607519070975236232
+    second: Katarina Animation_17
+  - first:
+      213: -6673434678419614866
+    second: Katarina Animation_18
+  - first:
+      213: 7242016847341940028
+    second: Katarina Animation_19
+  - first:
+      213: 3312919463309109579
+    second: Katarina Animation_20
+  - first:
+      213: 8804479449382104941
+    second: Katarina Animation_21
+  - first:
+      213: -8929512758220160151
+    second: Katarina Animation_22
+  - first:
+      213: -3274652842084400358
+    second: Katarina Animation_23
+  - first:
+      213: -5513423706460891730
+    second: Katarina Animation_24
+  - first:
+      213: 3948925209828385535
+    second: Katarina Animation_25
+  - first:
+      213: 5069998028928358228
+    second: Katarina Animation_26
+  - first:
+      213: 1486198122780770957
+    second: Katarina Animation_27
+  - first:
+      213: -1542820162282864144
+    second: Katarina Animation_28
+  - first:
+      213: 8305762001976109214
+    second: Katarina Animation_29
+  - first:
+      213: -8393617819570277229
+    second: Katarina Animation_30
+  - first:
+      213: -3392908577456242517
+    second: Katarina Animation_31
+  - first:
+      213: -5109115864790103047
+    second: Katarina Animation_32
+  - first:
+      213: -6812761454700623500
+    second: Katarina Animation_33
+  - first:
+      213: 7258330082759191179
+    second: Katarina Animation_34
+  - first:
+      213: -1775288362046925141
+    second: Katarina Animation_35
+  - first:
+      213: -6930793586578490528
+    second: Katarina Animation_36
+  - first:
+      213: -6797299571405370830
+    second: Katarina Animation_37
+  - first:
+      213: 7623188189910704093
+    second: Katarina Animation_38
+  - first:
+      213: 8411720579787108685
+    second: Katarina Animation_39
+  - first:
+      213: 3011302856434997908
+    second: Katarina Animation_40
+  - first:
+      213: -5084841023005180808
+    second: Katarina Animation_41
+  - first:
+      213: 5426890765356396913
+    second: Katarina Animation_42
+  - first:
+      213: 528821430917308550
+    second: Katarina Animation_43
+  - first:
+      213: 2627505444941994011
+    second: Katarina Animation_44
+  - first:
+      213: 7427135949416310824
+    second: Katarina Animation_45
+  - first:
+      213: -6710895006650098075
+    second: Katarina Animation_46
+  - first:
+      213: 9183253079495998678
+    second: Katarina Animation_47
+  - first:
+      213: 674458237357127836
+    second: Katarina Animation_48
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 256
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Katarina Animation_0
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 5888
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ae34b93ae5f0b650800000000000000
+      internalID: 6246763069502144167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_1
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 5888
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aab24e56de9d924a0800000000000000
+      internalID: -6617518563804304470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_2
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 5888
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36298bba5d964d8a0800000000000000
+      internalID: -6281279213845048733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_3
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 5888
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77b16a581f9009880800000000000000
+      internalID: -8606367954970993801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_4
+      rect:
+        serializedVersion: 2
+        x: 3328
+        y: 5888
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f101584599511c00800000000000000
+      internalID: 869574700757484017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_5
+      rect:
+        serializedVersion: 2
+        x: 4096
+        y: 5888
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a12e5fb6f1937510800000000000000
+      internalID: 1545739586076811684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_6
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36a7485d3a0e0d5f0800000000000000
+      internalID: -733839744994870685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_7
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02330a48ae25e1670800000000000000
+      internalID: 8511331512977732384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_8
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 131bb3684f79c4ee0800000000000000
+      internalID: -1275477517972819663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_9
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcb5af8baf667a8d0800000000000000
+      internalID: -2835184213375165493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_12
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 4352
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b901eb5863dc4ef0800000000000000
+      internalID: -122490644674311758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_13
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 4352
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c4abfca95e1f0f70800000000000000
+      internalID: 9155569937970603208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_14
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 4352
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46cbf8b129de59870800000000000000
+      internalID: 8689112267864652900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_15
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 4352
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1aae841ee392fd980800000000000000
+      internalID: -8512039420662584671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_16
+      rect:
+        serializedVersion: 2
+        x: 3328
+        y: 4352
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb7394f1c7d297ed0800000000000000
+      internalID: -2415849713983473729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_17
+      rect:
+        serializedVersion: 2
+        x: 4096
+        y: 4352
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88815b892e8e1dd40800000000000000
+      internalID: 5607519070975236232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_18
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e63960174823363a0800000000000000
+      internalID: -6673434678419614866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_19
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3de53be3ffc08460800000000000000
+      internalID: 7242016847341940028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_20
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b49640403bad9fd20800000000000000
+      internalID: 3312919463309109579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_24
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea55e20b9526c73b0800000000000000
+      internalID: -5513423706460891730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_25
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff2e7685e866dc630800000000000000
+      internalID: 3948925209828385535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_26
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 457943668504c5640800000000000000
+      internalID: 5069998028928358228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_27
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d824336815900a410800000000000000
+      internalID: 1486198122780770957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_28
+      rect:
+        serializedVersion: 2
+        x: 3328
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f1c1d29c3dc69ae0800000000000000
+      internalID: -1542820162282864144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_29
+      rect:
+        serializedVersion: 2
+        x: 4096
+        y: 2816
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9829b4f88ef34370800000000000000
+      internalID: 8305762001976109214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_30
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 394ff1c7011e38b80800000000000000
+      internalID: -8393617819570277229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_31
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba0485d00a7f9e0d0800000000000000
+      internalID: -3392908577456242517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_32
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fb8fd2b036c819b0800000000000000
+      internalID: -5109115864790103047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_33
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47988117d853471a0800000000000000
+      internalID: -6812761454700623500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_34
+      rect:
+        serializedVersion: 2
+        x: 3328
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8aa46501c4cab460800000000000000
+      internalID: 7258330082759191179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Katarina Animation_35
+      rect:
+        serializedVersion: 2
+        x: 4096
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba6de4ef3a8ec57e0800000000000000
+      internalID: -1775288362046925141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 203f0fba6a3cf4941b628bd598c3c885
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

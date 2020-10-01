@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:VisualElement style="flex-direction: row;">
+        <Style src="UINavComEditor_StyleSheet.uxml.uss" />
+        <ui:Button text="-" name="remove-button" style="width: auto; height: auto; margin-left: 3px; padding-left: 10px; padding-right: 10px; padding-top: 5px; padding-bottom: 5px;" />
+        <ui:Label text="Event" style="-unity-text-align: middle-center; -unity-font-style: bold; margin-left: 15px;" />
+    </ui:VisualElement>
+    <uie:ObjectField label="Visible tree" name="task-field">
+        <Style src="UINavComEditor_StyleSheet.uxml.uss" />
+    </uie:ObjectField>
+    <ui:TextField picking-mode="Ignore" label="Event name" value="filler text" name="event-text-field" class="unity-base-field__label hide-label">
+        <Style src="UINavComEditor_StyleSheet.uxml.uss" />
+    </ui:TextField>
+    <uie:PropertyField name="unityevent-field">
+        <Style src="UINavComEditor_StyleSheet.uxml.uss" />
+    </uie:PropertyField>
+</ui:UXML>

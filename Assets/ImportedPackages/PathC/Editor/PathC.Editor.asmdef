@@ -1,0 +1,17 @@
+{
+    "name": "PathC.Editor",
+    "references": [
+        "GUID:c9d8b3fe305165943a3f3bff96627f88"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
