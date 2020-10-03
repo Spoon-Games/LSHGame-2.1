@@ -1,5 +1,7 @@
 ﻿using LSHGame.Environment;
+using LSHGame.UI;
 using LSHGame.Util;
+using SceneM;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -61,6 +63,8 @@ namespace LSHGame.PlayerN
         //private float dashSpeed;
         //[SerializeField]
         //private float dashRecoverDurration;
+        [SerializeField]
+        private TransitionInfo deathTransition;
 
         [Header("Input")]
         [SerializeField]
@@ -452,6 +456,11 @@ namespace LSHGame.PlayerN
         }
 
         internal void Respawn(Vector2 position)
+        {
+            TransitionManager.Instance.ShowTransition(deathTransition, null,() => SetRespawn(position));
+        }
+
+        private void SetRespawn(Vector2 position)
         {
             transform.position = position;
             rb.velocity = Vector2.zero;

@@ -11,6 +11,8 @@ namespace AudioP
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
+
+            
         }
 
         public override void Play()

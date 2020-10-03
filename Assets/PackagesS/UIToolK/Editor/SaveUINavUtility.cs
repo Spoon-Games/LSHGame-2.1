@@ -7,7 +7,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UIToolK.Editor
+namespace UINavigation.Editor
 {
     public class SaveUINavUtility
     {
@@ -60,7 +60,7 @@ namespace UIToolK.Editor
 
                 if(node is NavStateNode stateNode)
                 {
-                    repository.StateNodes.Add(new NavStateNodeData(node.GUID, node.GetPosition().position, outputPorts,stateNode.VisualTreeAsset));
+                    repository.StateNodes.Add(new NavStateNodeData(node.GUID, node.GetPosition().position, outputPorts,stateNode.PanelName));
                 }else if(node is NavNestedNode nestedNode)
                 {
                     repository.NestedNodes.Add(new NavNestedNodeData(node.GUID, node.GetPosition().position, outputPorts.First(), outputPorts[1], nestedNode.Repository));
@@ -114,7 +114,7 @@ namespace UIToolK.Editor
 
             foreach(NavStateNodeData d in repository.StateNodes)
             {
-                NavStateNode stateNode = new NavStateNode(graphView, d.EditorPosition, d.Guid, d.SourceAsset);
+                NavStateNode stateNode = new NavStateNode(graphView, d.EditorPosition, d.Guid, d.PanelName);
 
                 foreach(var portData in d.CoicePorts)
                 {

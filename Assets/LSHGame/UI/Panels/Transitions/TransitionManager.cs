@@ -1,27 +1,48 @@
-﻿using LSHGame.Util;
-using SceneM;
+﻿using SceneM;
 using System;
-using UnityEngine;
+using UINavigation;
 
 namespace LSHGame.UI
 {
-    public class TransitionManager : BasePanelManager<TransitionInfo,Transition,TransitionManager>
+    public class TransitionManager : BasePanelManager<TransitionInfo, TransitionPanel, TransitionManager>
     {
+        public static TransitionManager Instance;
 
-        private void Start()
+        protected override void Awake()
         {
+            Instance = this;
+            base.Awake();
+        }
+
+        protected override void Start()
+        {
+            base.Start();
             LevelManager.OnStartLoadingMainScene += OnStartLoadingMainScene;
         }
 
 
-        private void OnStartLoadingMainScene(Func<float> getProgress,MainSceneInfo sceneInfo)
+        private void OnStartLoadingMainScene(Func<float> getProgress, MainSceneInfo sceneInfo)
         {
-            if(sceneInfo.Transition != null)
+
+            ShowTransition(sceneInfo.Transition, getProgress);
+
+        }
+
+        public void ShowTransition(TransitionInfo transInfo, Func<float> getProgress = null,Action onMiddle = null)
+        {
+            if (transInfo == null)
             {
-                Transition transition = base.ShowPanel(sceneInfo.Transition);
-                transition?.StartTransition(getProgress);
+                onMiddle?.Invoke();
+                return;
+            }
+            TransitionPanel transition = base.ShowPanel(transInfo);
+            transition?.StartTransition(getProgress);
+
+            if(onMiddle != null)
+            {
+                TimeSystem.Delay(transInfo.StartDurration,f => onMiddle.Invoke());
             }
         }
 
-    } 
+    }
 }

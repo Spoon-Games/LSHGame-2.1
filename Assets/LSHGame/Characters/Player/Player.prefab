@@ -5234,6 +5234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b09376ca117b44d85d7a4d003673ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathTransition: {fileID: 11400000, guid: 287a4bd7f6a8bb842a2fb8976d134f0f, type: 2}
   jumpInput:
     beforeConDeltaTime: 0.1
     afterConDeltaTime: 0.05

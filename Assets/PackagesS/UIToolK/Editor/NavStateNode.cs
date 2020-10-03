@@ -7,37 +7,42 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UIToolK.Editor
+namespace UINavigation.Editor
 {
     public class NavStateNode : NavBaseNode
     {
-        internal VisualTreeAsset VisualTreeAsset { get; private set; }
+        internal string PanelName { get; private set; }
+        //internal string PanelName { get; private set; }
 
-        public NavStateNode(UINavGraphView graphView, Vector2 position,string guid,VisualTreeAsset visualTreeAsset)
+        public NavStateNode(UINavGraphView graphView, Vector2 position,string guid,string panelName)
             : base(graphView, "NavState", position, guid)
         {
             AddChoicePortButton();
-            CreateMainContainer(visualTreeAsset);
+            CreateMainContainer(panelName);
 
             AddPort("In", Direction.Input, Port.Capacity.Multi);
         }
 
-        public NavStateNode(UINavGraphView graphView,Vector2 position) : this(graphView, position, null, null) { }
+        public NavStateNode(UINavGraphView graphView,Vector2 position) : this(graphView, position, null, "") { }
 
-        private void CreateMainContainer(VisualTreeAsset visualTreeAsset)
+        private void CreateMainContainer(string panelName)
         {
-            this.VisualTreeAsset = visualTreeAsset;
+            this.PanelName = panelName;
 
-            ObjectField visualTreeField = new ObjectField("Source Asset") { objectType = typeof(VisualTreeAsset),value = visualTreeAsset};
-            visualTreeField.RegisterValueChangedCallback(evt =>
-            {
-                if (evt.newValue is VisualTreeAsset v)
-                {
-                    VisualTreeAsset = v;
-                }
-            });
+            //ObjectField visualTreeField = new ObjectField("Source Asset") { objectType = typeof(VisualTreeAsset),value = panelName};
+            //visualTreeField.RegisterValueChangedCallback(evt =>
+            //{
+            //    if (evt.newValue is VisualTreeAsset v)
+            //    {
+            //        PanelName = v;
+            //    }
+            //});
+            TextField panelNameField = new TextField("PanelName");
+            panelNameField.SetValueWithoutNotify(panelName);
+            panelNameField.RegisterValueChangedCallback(s => PanelName = s.newValue);
 
-            mainContainer.Add(visualTreeField);
+
+            mainContainer.Add(panelNameField);
             mainContainer.style.backgroundColor = new Color(0.2f, 0.2f, 0.2f, 1);
         }
     }

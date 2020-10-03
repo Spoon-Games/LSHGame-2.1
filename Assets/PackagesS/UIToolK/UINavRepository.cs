@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UIToolK
+namespace UINavigation
 {
     [CreateAssetMenu(fileName = "UI Navigation Graph",menuName ="UI Navigation Graph")]
     public class UINavRepository : ScriptableObject
@@ -21,12 +21,12 @@ namespace UIToolK
     {
         public List<NavOutputPortData> CoicePorts;
 
-        public VisualTreeAsset SourceAsset;
+        public string PanelName;
 
-        public NavStateNodeData(string guid, Vector2 editorPosition, List<NavOutputPortData> coicePorts, VisualTreeAsset sourceAsset) : base(guid, editorPosition)
+        public NavStateNodeData(string guid, Vector2 editorPosition, List<NavOutputPortData> coicePorts, string panelName) : base(guid, editorPosition)
         {
             CoicePorts = coicePorts;
-            SourceAsset = sourceAsset;
+            this.PanelName = panelName;
         }
     }
 

@@ -3,7 +3,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UIToolK.Editor
+namespace UINavigation.Editor
 {
     public class UINavSearchWindow : ScriptableObject, ISearchWindowProvider
     {
