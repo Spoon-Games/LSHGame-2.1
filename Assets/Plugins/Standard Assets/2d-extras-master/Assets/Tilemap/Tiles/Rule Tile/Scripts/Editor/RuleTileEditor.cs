@@ -71,7 +71,7 @@ namespace UnityEditor
 		public RuleTile tile { get { return (target as RuleTile); } }
 		private Rect m_ListRect;
 
-		const float k_DefaultElementHeight = 48f;
+		const float k_DefaultElementHeight = 64f;
 		const float k_PaddingBetweenRules = 13f;
 		const float k_SingleLineHeight = 16f;
 		const float k_LabelWidth = 53f;
@@ -183,10 +183,16 @@ namespace UnityEditor
 							case RuleTile.TilingRule.Neighbor.NotThis:
 								GUI.DrawTexture(r, arrows[9]);
 								break;
+                            case RuleTile.TilingRule.Neighbor.Air:
+                                GUI.Label(r, "Ai");
+                                break;
+                            case RuleTile.TilingRule.Neighbor.Other:
+                                GUI.Label(r, "Ot");
+                                break;
 						}
 						if (Event.current.type == EventType.MouseDown && r.Contains(Event.current.mousePosition))
 						{
-							tilingRule.m_Neighbors[index] = (RuleTile.TilingRule.Neighbor) (((int)tilingRule.m_Neighbors[index] + 1) % 3);
+							tilingRule.m_Neighbors[index] = (RuleTile.TilingRule.Neighbor) (((int)tilingRule.m_Neighbors[index] + 1) % 5);
 							GUI.changed = true;
 							Event.current.Use();
 						}
@@ -249,7 +255,12 @@ namespace UnityEditor
 			GUI.Label(new Rect(rect.xMin, y, k_LabelWidth, k_SingleLineHeight), "Rule");
 			tilingRule.m_RuleTransform = (RuleTile.TilingRule.Transform)EditorGUI.EnumPopup(new Rect(rect.xMin + k_LabelWidth, y, rect.width - k_LabelWidth, k_SingleLineHeight), tilingRule.m_RuleTransform);
 			y += k_SingleLineHeight;
-			GUI.Label(new Rect(rect.xMin, y, k_LabelWidth, k_SingleLineHeight), "Collider");
+
+            GUI.Label(new Rect(rect.xMin, y, k_LabelWidth, k_SingleLineHeight), "Rot Sprite");
+            tilingRule.spriteRotation = (RuleTile.TilingRule.SpriteRotation)EditorGUI.EnumPopup(new Rect(rect.xMin + k_LabelWidth, y, rect.width - k_LabelWidth, k_SingleLineHeight), tilingRule.spriteRotation);
+            y += k_SingleLineHeight;
+
+            GUI.Label(new Rect(rect.xMin, y, k_LabelWidth, k_SingleLineHeight), "Collider");
 			tilingRule.m_ColliderType = (Tile.ColliderType)EditorGUI.EnumPopup(new Rect(rect.xMin + k_LabelWidth, y, rect.width - k_LabelWidth, k_SingleLineHeight), tilingRule.m_ColliderType);
 			y += k_SingleLineHeight;
 			GUI.Label(new Rect(rect.xMin, y, k_LabelWidth, k_SingleLineHeight), "Output");

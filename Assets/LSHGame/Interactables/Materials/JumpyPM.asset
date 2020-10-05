@@ -80,6 +80,19 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+  BounceSettings:
+    isDefault: 1
+    value:
+      BounceSpeed: 0
+      Rotation: 0
+      AddGameObjectRotation: 0
+      ConstantHeight: 1
+  PushingVelocity:
+    isDefault: 1
+    value: {x: 0, y: 0}
+  Gravity:
+    isDefault: 1
+    value: 0
   FallDamping:
     isDefault: 1
     value: 0

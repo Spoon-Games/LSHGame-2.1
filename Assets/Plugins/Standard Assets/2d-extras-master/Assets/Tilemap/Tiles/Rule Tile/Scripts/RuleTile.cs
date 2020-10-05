@@ -22,6 +22,8 @@ namespace UnityEngine
 			public OutputSprite m_Output;
 			public Tile.ColliderType m_ColliderType;
 			public Transform m_RandomTransform;
+
+            public SpriteRotation spriteRotation;
 			
 			public TilingRule()
 			{
@@ -32,12 +34,15 @@ namespace UnityEngine
 				m_PerlinScale = 0.5f;
 				m_ColliderType = Tile.ColliderType.Sprite;
 
+                spriteRotation = SpriteRotation.Default;
+
 				for(int i=0; i<m_Neighbors.Length; i++)
 					m_Neighbors[i] = Neighbor.DontCare;
 			}
 
+            public enum SpriteRotation { Default, R90,R180,R270}
 			public enum Transform { Fixed, Rotated, MirrorX, MirrorY }
-			public enum Neighbor { DontCare, This, NotThis }
+			public enum Neighbor { DontCare, This, NotThis, Other,Air }
 			public enum OutputSprite { Single, Random, Animation }
 		}
 
@@ -70,12 +75,13 @@ namespace UnityEngine
 					}
 					tileData.transform = transform;
 					tileData.colliderType = rule.m_ColliderType;
-					break;
-				}
-			}
-		}
 
-		private static float GetPerlinValue(Vector3Int position, float scale, float offset)
+                    break;
+                }
+            }
+        }
+
+        private static float GetPerlinValue(Vector3Int position, float scale, float offset)
 		{
 			return Mathf.PerlinNoise((position.x + offset) * scale, (position.y + offset) * scale);
 		}
@@ -115,12 +121,28 @@ namespace UnityEngine
 
 		public bool RuleMatches(TilingRule rule, Vector3Int position, ITilemap tilemap, ref Matrix4x4 transform)
 		{
-			// Check rule against rotations of 0, 90, 180, 270
-			for (int angle = 0; angle <= (rule.m_RuleTransform == TilingRule.Transform.Rotated ? 270 : 0); angle += 90)
+            int spriteAngle = 0;
+            switch (rule.spriteRotation)
+            {
+                case TilingRule.SpriteRotation.Default:
+                    break;
+                case TilingRule.SpriteRotation.R90:
+                    spriteAngle = 90;
+                            break;
+                case TilingRule.SpriteRotation.R180:
+                    spriteAngle = 180;
+                    break;
+                case TilingRule.SpriteRotation.R270:
+                    spriteAngle = 270;
+                    break;
+            }
+
+            // Check rule against rotations of 0, 90, 180, 270
+            for (int angle = 0; angle <= (rule.m_RuleTransform == TilingRule.Transform.Rotated ? 270 : 0); angle += 90)
 			{
 				if (RuleMatches(rule, position, tilemap, angle))
 				{
-					transform = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0f, 0f, -angle), Vector3.one);
+					transform = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0f, 0f, -angle + spriteAngle), Vector3.one);
 					return true;
 				}
 			}
@@ -128,14 +150,14 @@ namespace UnityEngine
 			// Check rule against x-axis mirror
 			if ((rule.m_RuleTransform == TilingRule.Transform.MirrorX) && RuleMatches(rule, position, tilemap, true, false))
 			{
-				transform = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(-1f, 1f, 1f));
+				transform = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0,0,spriteAngle), new Vector3(-1f, 1f, 1f));
 				return true;
 			}
 
 			// Check rule against y-axis mirror
 			if ((rule.m_RuleTransform == TilingRule.Transform.MirrorY) && RuleMatches(rule, position, tilemap, false, true))
 			{
-				transform = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(1f, -1f, 1f));
+				transform = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0, 0, spriteAngle), new Vector3(1f, -1f, 1f));
 				return true;
 			}
 
@@ -170,18 +192,41 @@ namespace UnityEngine
 						Vector3Int rotated = GetRotatedPos(offset, angle);
 						int index = GetIndexOfOffset(rotated);
 						TileBase tile = tilemap.GetTile(position + offset);
-						if (rule.m_Neighbors[index] == TilingRule.Neighbor.This && tile != this || rule.m_Neighbors[index] == TilingRule.Neighbor.NotThis && tile == this)
-						{
-							return false;
-						}	
-					}
-				}
-				
-			}
-			return true;
-		}
+                        bool isAcceptable = true;
+                        switch (rule.m_Neighbors[index])
+                        {
+                            case TilingRule.Neighbor.DontCare:
+                                isAcceptable = true;
+                                break;
+                            case TilingRule.Neighbor.This:
+                                isAcceptable = tile == this;
+                                break;
+                            case TilingRule.Neighbor.NotThis:
+                                isAcceptable = tile != this;
+                                break;
+                            case TilingRule.Neighbor.Other:
+                                isAcceptable = tile != this && tile != null;
+                                break;
+                            case TilingRule.Neighbor.Air:
+                                isAcceptable = tile == null;
+                                break;
+                        }
 
-		public bool RuleMatches(TilingRule rule, Vector3Int position, ITilemap tilemap, bool mirrorX, bool mirrorY)
+                        if (!isAcceptable)
+                            return false;
+      //                  if (rule.m_Neighbors[index] == TilingRule.Neighbor.This && tile != this 
+      //                      || rule.m_Neighbors[index] == TilingRule.Neighbor.NotThis && tile == this)
+						//{
+						//	return false;
+						//}
+                    }
+                }
+
+            }
+            return true;
+        }
+
+        public bool RuleMatches(TilingRule rule, Vector3Int position, ITilemap tilemap, bool mirrorX, bool mirrorY)
 		{
 			for (int y = -1; y <= 1; y++)
 			{
@@ -232,5 +277,5 @@ namespace UnityEngine
 		{
 			return new Vector3Int(original.x * (mirrorX ? -1 : 1), original.y * (mirrorY ? -1 : 1), original.z);
 		}
-	}
+    }
 }

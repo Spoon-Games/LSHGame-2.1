@@ -176,12 +176,12 @@ namespace LSHGame.PlayerN
                     Run(false);
                     SneekThrough();
                     ExeJumpPad();
-                    rb.gravityScale = playerColliders.gravityScaleAtStart;
+                    rb.gravityScale = stats.Gravity;
                     break;
                 case PlayerStates.Aireborne:
 
                     Run(true);
-                    rb.gravityScale = playerColliders.gravityScaleAtStart;
+                    rb.gravityScale = stats.Gravity;
 
                     if (rb.velocity.y < 0)
                         rb.velocity *= new Vector2(1, stats.FallDamping);
@@ -193,6 +193,7 @@ namespace LSHGame.PlayerN
                     rb.velocity = new Vector2(0, stats.ClimbingWallSlideSpeed * inputMovement.y);
                     break;
                 case PlayerStates.ClimbWallExhaust:
+                    rb.gravityScale = stats.Gravity;
                     rb.velocity = new Vector2(0, -stats.ClimbingWallExhaustSlideSpeed);
                     break;
                 case PlayerStates.ClimbLadder:
@@ -246,7 +247,7 @@ namespace LSHGame.PlayerN
                 climbWallExhaustTimer = float.PositiveInfinity;
             }
 
-            stateMachine.IsClimbWallExhausted = Time.fixedTime >= climbWallExhaustTimer;
+            stateMachine.IsClimbWallExhausted = Time.fixedTime - stats.ClimbWallExhaustDurration >= climbWallExhaustTimer;
 
             //if (stateMachine.IsTouchingClimbWall)
             //{
@@ -264,7 +265,7 @@ namespace LSHGame.PlayerN
             if (dashInput.Check(inputController.Player.Dash.GetBC().isPressed,
                 stateMachine.State != PlayerStates.Dash
                 && !isDashStartDisableByGround
-                && dashStartDisableTimer <= Time.fixedTime
+                && dashStartDisableTimer + stats.DashRecoverDurration <= Time.fixedTime
                 && input.sqrMagnitude > 0.1))
             {
                 stateMachine.IsDash = true;
@@ -275,7 +276,7 @@ namespace LSHGame.PlayerN
 
                 stateMachine.IsDash &= !inputController.Player.Dash.GetBC().wasReleasedThisFrame;
                 stateMachine.IsDash &= rb.velocity.Approximately(dashVelocity, 0.5f) && estimatedDashPosition.Approximately(rb.transform.position, 0.5f);
-                stateMachine.IsDash &= Time.fixedTime < dashEndTimer;
+                stateMachine.IsDash &= Time.fixedTime < dashEndTimer + stats.DashDurration;
 
                 estimatedDashPosition = ((Vector2)rb.transform.position) + (dashVelocity * Time.fixedDeltaTime);
             }
@@ -332,15 +333,15 @@ namespace LSHGame.PlayerN
         {
             if (to == PlayerStates.ClimbWall && climbWallExhaustTimer == float.PositiveInfinity)
             {
-                climbWallExhaustTimer = Time.fixedTime + stats.ClimbWallExhaustDurration;
+                climbWallExhaustTimer = Time.fixedTime;
             }
 
             if (to == PlayerStates.Dash)
             {
-                dashStartDisableTimer = Time.fixedTime + stats.DashRecoverDurration;
+                dashStartDisableTimer = Time.fixedTime;
                 isDashStartDisableByGround = true;
 
-                dashEndTimer = Time.time + stats.DashDurration;
+                dashEndTimer = Time.time ;
                 bool b = GetSign(inputMovement.x, out float sign) || GetSign(rb.velocity.x, out sign);
                 dashVelocity = new Vector2(sign * stats.DashSpeed, 0);
                 estimatedDashPosition = rb.transform.position;
