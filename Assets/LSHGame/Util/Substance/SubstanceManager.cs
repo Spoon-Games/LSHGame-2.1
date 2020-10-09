@@ -1,7 +1,8 @@
-﻿using SceneM;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
+using SceneM;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -21,9 +22,9 @@ namespace LSHGame.Util
             LoadSubstances();
         }
 
-        public static SubstanceProperty[] GetSubstances(Rect rect, ISubPropFilter filter)
+        public static void ReciveSubstanceData(Rect rect,IDataReciever reciever, ISubstanceFilter filter)
         {
-            HashSet<SubstanceProperty> subProps = new HashSet<SubstanceProperty>();
+            HashSet<ISubstance> substances = new HashSet<ISubstance>();
 
             List<Collider2D> colliders = GetTouchRect(rect, LayerMask.GetMask("Ground"));
 
@@ -31,20 +32,25 @@ namespace LSHGame.Util
             {
                 if (collider.TryGetComponent<Tilemap>(out Tilemap tilemap))
                 {
-                    GetSubstancesFromTilemap(rect, tilemap, subProps, filter);
+                    GetSubstancesFromTilemap(rect, tilemap, substances, filter);
                 }
 
                 foreach (var provider in collider.GetComponents<SubstanceProvider>())
                 {
-                    provider.Substance.GetSubProps(filter, subProps);
+                    provider.Substance.AddToSet(substances, filter);
                 }
 
-                GetSubstancesFromTag(collider.tag, subProps, filter);
+                GetSubstancesFromTag(collider.tag, substances, filter);
             }
-            return subProps.ToArray();
+            
+
+            foreach(var substance in substances)
+            {
+                substance.RecieveData(reciever);
+            }
         }
 
-        private static void GetSubstancesFromTilemap(Rect rect, Tilemap tilemap, HashSet<SubstanceProperty> subProps, ISubPropFilter filter)
+        private static void GetSubstancesFromTilemap(Rect rect, Tilemap tilemap, HashSet<ISubstance> substances, ISubstanceFilter filter)
         {
             RectInt tileRect = new RectInt() { min = (Vector2Int)tilemap.WorldToCell(rect.min), max = (Vector2Int)tilemap.WorldToCell(rect.max) };
             foreach (var tilePos in tileRect.allPositionsWithin)
@@ -54,12 +60,12 @@ namespace LSHGame.Util
                 if (Instance.tileBasedSubstances.TryGetValue(tile, out List<Substance> subs))
                 {
                     foreach (var s in subs)
-                        s.GetSubProps(filter, subProps);
+                        s.AddToSet(substances, filter);
                 }
             }
         }
 
-        private static void GetSubstancesFromTag(string tag, HashSet<SubstanceProperty> subProps, ISubPropFilter filter)
+        private static void GetSubstancesFromTag(string tag, HashSet<ISubstance> substances, ISubstanceFilter filter)
         {
             while (string.IsNullOrEmpty(tag))
             {
@@ -79,7 +85,7 @@ namespace LSHGame.Util
 
                 if (substanceName != "" && Instance.nameBasedSubstances.TryGetValue(substanceName, out Substance s))
                 {
-                    s.GetSubProps(filter, subProps);
+                    s.AddToSet(substances,filter);
                 }
 
                 if (endMat == -1)
@@ -101,10 +107,21 @@ namespace LSHGame.Util
         {
 #if UNITY_EDITOR
             List<Substance> substances = new List<Substance>();
-            var paths = UnityEditor.AssetDatabase.FindAssets("t:" + typeof(Substance).ToString());
-            foreach (var path in paths)
+            //var paths = UnityEditor.AssetDatabase.FindAssets("t:" + typeof(Substance).ToString());
+            //foreach (var path in paths)
+            //{
+            //    substances.Add(UnityEditor.AssetDatabase.LoadAssetAtPath<Substance>(path));
+            //}
+
+            string[] guids = AssetDatabase.FindAssets("t:GameObject");
+            foreach (var guid in guids)
             {
-                substances.Add(UnityEditor.AssetDatabase.LoadAssetAtPath<Substance>(path));
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                // Debug.Log("Path: " + path);
+
+                Substance s = AssetDatabase.LoadAssetAtPath<Substance>(path);
+                if (s != null)
+                    substances.Add(s);
             }
             serializedSubstances = substances.ToArray();
 #endif

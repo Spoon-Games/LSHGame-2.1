@@ -9,13 +9,9 @@ namespace LSHGame.PlayerN
     public class PlayerMaterial : ScriptableObject
     {
         [Header("Stats")]
-
         public DefaultableProperty<AnimationCurve> RunAccelCurve;
-
         public DefaultableProperty<AnimationCurve> RunDeaccelCurve;
-
         public DefaultableProperty<AnimationCurve> RunAccelAirborneCurve;
-
         public DefaultableProperty<AnimationCurve> RunDeaccelAirborneCurve;
 
         [Header("Environment")]
