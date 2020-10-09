@@ -41,7 +41,7 @@ namespace LSHGame.Util
 
         private void Press(CallbackContext ctx)
         {
-            Debug.Log("Press");
+            //Debug.Log("Press");
             if (!IsPressed && recieveInput)
             {
                 IsPressed = true;

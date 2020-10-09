@@ -54,8 +54,6 @@ namespace LSHGame.PlayerN
 
         internal List<InteractablePlatform> interactablePlatforms = new List<InteractablePlatform>();
 
-        internal float gravityScaleAtStart;
-
         internal bool IsTouchingClimbWallRight { get; private set; }
         internal bool IsTouchingClimbWallLeft { get; private set; }
 
@@ -65,11 +63,6 @@ namespace LSHGame.PlayerN
         #endregion
 
         #region Start
-        private void Start()
-        {
-            gravityScaleAtStart = rb.gravityScale;
-
-        }
 
         internal void Initialize(PlayerStateMachine stateMachine)
         {

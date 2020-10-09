@@ -64,12 +64,12 @@ namespace AudioP
         private float GetExpoFloat(string name)
         {
             mainAudioMixer.GetFloat(name, out float v);
-            return v;
+            return Mathf.InverseLerp(-80,0,v);
         }
 
         private void SetExpFloat(string name, float value)
         {
-            mainAudioMixer.SetFloat(name, value);
+            mainAudioMixer.SetFloat(name, Mathf.Lerp(-80,0,value));
         }
     }
 }

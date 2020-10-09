@@ -1,5 +1,6 @@
 ﻿using LSHGame.Util;
 using SceneM;
+using UINavigation;
 
 namespace LSHGame.UI
 {

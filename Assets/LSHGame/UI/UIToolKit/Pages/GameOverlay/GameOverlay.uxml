@@ -1,8 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement class="background transparent" style="justify-content: center; align-items: stretch;">
-        <Style src="/Assets/LSHGame/UI/UIToolKit/Styles/MainStyle.uss" />
-        <Style src="/Assets/LSHGame/UI/UIToolKit/Styles/SettingsUtilStyle.uss" />
-        <LSHGame.UI.SpeechBubble />
-        <ui:VisualElement name="VisualElement" style="flex-grow: 1; position: absolute; background-color: rgba(17, 15, 18, 0.62); left: 30%; top: 10%; right: 30%; bottom: 70%; display: none;" />
-    </ui:VisualElement>
-</ui:UXML>

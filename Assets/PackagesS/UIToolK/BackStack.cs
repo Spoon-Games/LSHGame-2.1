@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UIToolK
+namespace UINavigation
 {
     public class BackStack
     {

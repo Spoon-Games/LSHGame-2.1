@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UIToolK
+namespace UINavigation
 {
     public class Application
     {

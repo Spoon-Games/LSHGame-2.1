@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace UIToolK
+namespace UINavigation
 {
     internal class TaskStack
     {

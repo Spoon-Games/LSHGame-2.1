@@ -1,97 +1,109 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 
-namespace UIToolK
+namespace UINavigation
 {
     //[RequireComponent(typeof(UIDocument))]
-    public class UINavigationComponent : MonoBehaviour
+    public class UINavigationComponent : PanelManager
     {
         [SerializeField]
         private UINavRepository navigationGraph;
 
-        [SerializeField]
-        private List<GlobalUIEvent> globalUIEvents = new List<GlobalUIEvent>();
-
-        //private UIDocument document;
-
         public Application Application { get; private set; }
 
-        internal event Action<VisualTreeAsset> OnPanelChanged;
-
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+            Application = new Application();
+
+            if (navigationGraph != null)
+                NavigationGraph.SetUp(navigationGraph, Application, this)?.Run();
             //document = GetComponent<UIDocument>();
-
-            //Application = new Application();
-
-            //if (navigationGraph != null)
-            //    NavigationGraph.SetUp(navigationGraph, Application, this)?.Run();
         }
 
-        internal void SetAsset(VisualTreeAsset asset)
+        protected override void Start()
         {
-            //document.visualTreeAsset = asset;
-
-            OnPanelChanged?.Invoke(asset);
-
-            SetUpEvents();
         }
 
-        public VisualElement GetRootElement()
+        public override Panel ShowPanel(string panelName)
         {
-            return null;
-            //return document.rootVisualElement;
+            //Debug.Log("ShowPanel: " + panelName);
+            if (string.IsNullOrEmpty(panelName))
+                return base.CurrentPanel;
+
+            if (Application.Currant is NavStateTask navState)
+            {
+                navState.GoToNext(panelName);
+            }
+            return base.currentPanel;
         }
 
-        private void SetUpEvents()
+        internal void ShowRealPanel(string panelName)
         {
-            //VisualElement root = GetRootElement();
-
-            //Application.BackStack.OnBeforPopListener = null;
-
-            //foreach (GlobalUIEvent e in globalUIEvents)
-            //{
-            //    if (e.panel == null || Equals(e.panel, document.visualTreeAsset))
-            //    {
-            //        if (string.IsNullOrEmpty(e.eventName))
-            //            continue;
-
-            //        if (e.eventName.IsBackKey())
-            //        {
-            //            Application.BackStack.OnBeforPopListener += () =>
-            //            {
-            //                e.action.Invoke();
-            //            };
-            //        }
-            //        else
-            //        {
-            //            var buttons = root.Query<Button>(name: e.eventName).ToList();
-            //            foreach (var b in buttons)
-            //            {
-            //                b.RegisterCallback<ClickEvent>(evt => e.action.Invoke());
-            //            }
-            //        }
-            //    }
-            //}
+            //Debug.Log("ShowRealPanel: " + panelName);
+            base.ShowPanel(panelName);
         }
+
+        //internal void SetAsset(VisualTreeAsset asset)
+        //{
+        //    //document.visualTreeAsset = asset;
+
+        //    //OnPanelChanged?.Invoke(asset);
+
+        //    //SetUpEvents();
+        //}
+
+        //public VisualElement GetRootElement()
+        //{
+        //    return null;
+        //    //return document.rootVisualElement;
+        //}
+
+        //private void SetUpEvents()
+        //{
+        //    //VisualElement root = GetRootElement();
+
+        //    //Application.BackStack.OnBeforPopListener = null;
+
+        //    //foreach (GlobalUIEvent e in globalUIEvents)
+        //    //{
+        //    //    if (e.panel == null || Equals(e.panel, document.visualTreeAsset))
+        //    //    {
+        //    //        if (string.IsNullOrEmpty(e.eventName))
+        //    //            continue;
+
+        //    //        if (e.eventName.IsBackKey())
+        //    //        {
+        //    //            Application.BackStack.OnBeforPopListener += () =>
+        //    //            {
+        //    //                e.action.Invoke();
+        //    //            };
+        //    //        }
+        //    //        else
+        //    //        {
+        //    //            var buttons = root.Query<Button>(name: e.eventName).ToList();
+        //    //            foreach (var b in buttons)
+        //    //            {
+        //    //                b.RegisterCallback<ClickEvent>(evt => e.action.Invoke());
+        //    //            }
+        //    //        }
+        //    //    }
+        //    //}
+        //}
 
         public void PopBackStack()
         {
             Application.BackStack.Pop();
-            Debug.Log("PopBackStack");
+            //Debug.Log("PopBackStack");
         }
     }
 
-    [System.Serializable]
-    public class GlobalUIEvent
-    {
-        public string eventName;
+    //[System.Serializable]
+    //public class GlobalUIEvent
+    //{
+    //    public string eventName;
 
-        public VisualTreeAsset panel;
+    //    public VisualTreeAsset panel;
 
-        public UnityEvent action = new UnityEvent();
-    }
+    //    public UnityEvent action = new UnityEvent();
+    //}
 }

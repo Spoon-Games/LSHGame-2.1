@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 
-namespace UIToolK.Editor
+namespace UINavigation.Editor
 {
     //[CustomEditor(typeof(UINavigationComponent))]
     //public class UINavigationComponentEditor : UnityEditor.Editor

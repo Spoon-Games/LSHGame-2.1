@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2b91ca99ffe3141afc0a64ef8e4b06, type: 3}
+  m_Name: SettingsNav
+  m_EditorClassIdentifier: 
+  StartNode:
+    Guid: b83fb3ae-625f-4076-b60f-6af1fcb43d63
+    EditorPosition: {x: 11, y: 151}
+    OutputPort:
+      Name: 
+      ConnectedGuid: e9f4553b-09ad-4f7b-8dd5-2d97e37eb526
+  NestedEndNode:
+    Guid: e428bc51-316e-4586-ba9b-326f4af4eddd
+    EditorPosition: {x: -89, y: 401}
+    BackPort:
+      Name: 
+      ConnectedGuid: 
+  StateNodes:
+  - Guid: 32eaa264-e158-4e37-a4ee-41425d2bdcbe
+    EditorPosition: {x: 694, y: 175}
+    CoicePorts: []
+    PanelName: AudioPanel
+  - Guid: 59d6aad9-da11-4bf1-a084-16adbfdfbde2
+    EditorPosition: {x: 681, y: 344}
+    CoicePorts: []
+    PanelName: KeyLayoutPanel
+  - Guid: e9f4553b-09ad-4f7b-8dd5-2d97e37eb526
+    EditorPosition: {x: 225, y: 168}
+    CoicePorts:
+    - Name: AudioButton
+      ConnectedGuid: 32eaa264-e158-4e37-a4ee-41425d2bdcbe
+    - Name: KeyLayoutButton
+      ConnectedGuid: 59d6aad9-da11-4bf1-a084-16adbfdfbde2
+    PanelName: SettingsPanel
+  NestedNodes: []

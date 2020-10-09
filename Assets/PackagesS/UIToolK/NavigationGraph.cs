@@ -1,12 +1,10 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
-namespace UIToolK
+namespace UINavigation
 {
     public static class NavigationGraph
     {
@@ -17,7 +15,7 @@ namespace UIToolK
 
             end.ReplaceThis(null, null);
 
-            //if(start.next is NavStateTask t)
+            //if (start.next is NavStateTask t)
             //{
             //    Debug.Log("Debuging Graph:" + t.DebugGraph());
             //}
@@ -90,19 +88,7 @@ namespace UIToolK
         {
             base.OnEnter();
 
-            panel.SetAsset(data.SourceAsset);
-
-            VisualElement root = panel.GetRootElement();
-
-            foreach(string s in next.Keys)
-            {
-                if (s.IsBackKey())
-                    continue;
-
-                SetUpClickEvents(root, s);
-            }
-
-            SetUpClickEvents(root, "back");
+            panel.ShowRealPanel(data.PanelName);
         }
 
         public void GoToNext(string key)
@@ -150,18 +136,6 @@ namespace UIToolK
             }
         }
 
-        private void SetUpClickEvents(VisualElement root,string s)
-        {
-            var buttons = root.Query<Button>(name: s).ToList();
-            foreach (var b in buttons)
-            {
-                b.RegisterCallback<ClickEvent>(evt =>
-                {
-                    GoToNext(s);
-                });
-            }
-        }
-
         public bool OnPop()
         {
             if(next.TryGetValue("back",out Task backTask))
@@ -181,12 +155,12 @@ namespace UIToolK
                 return "";
             wasDebugged = true;
 
-            string res = "\n\n\nNode: "+data.SourceAsset.name+"\n";
+            string res = "\n\n\nNode: "+data.PanelName+"\n";
 
             foreach(var p in next)
             {
                 if (p.Value is NavStateTask task)
-                    res += " -> " + p.Key + ": " + task.data.SourceAsset.name+"\n";
+                    res += " -> " + p.Key + ": " + task.data.PanelName+"\n";
                 else if(p.Value == null)
                 {
                     res += " -> " + p.Key + ": null\n";

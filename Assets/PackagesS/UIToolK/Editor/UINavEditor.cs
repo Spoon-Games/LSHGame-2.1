@@ -5,7 +5,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UIToolK.Editor
+namespace UINavigation.Editor
 {
     public class UINavEditor : EditorWindow
     {

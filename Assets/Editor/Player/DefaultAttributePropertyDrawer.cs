@@ -8,6 +8,12 @@ namespace LSHGame.Editor
     [CustomPropertyDrawer(typeof(DefaultableProperty<>),true)]
     public class DefaultAttributePropertyDrawer : PropertyDrawer
     {
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            SerializedProperty valueProp = property.FindPropertyRelative("value");
+            float propHeight = EditorGUI.GetPropertyHeight(valueProp);
+            return Mathf.Max(propHeight,20);
+        }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -22,8 +28,10 @@ namespace LSHGame.Editor
             EditorGUI.LabelField(new Rect(position.x,position.y,position.width * 0.4f,position.height),new GUIContent { text = property.name }, labelStyle);
 
             EditorGUIUtility.labelWidth = 0;
+
+            float propertyHeight = EditorGUI.GetPropertyHeight(valueProp);
             EditorGUI.BeginChangeCheck();
-            EditorGUI.PropertyField(new Rect(position.x + position.width * 0.4f, position.y, position.width * 0.6f - 20, position.height), valueProp, new GUIContent { text = "" });
+            EditorGUI.PropertyField(new Rect(position.x + position.width * 0.4f, position.y, position.width * 0.6f - 20, propertyHeight), valueProp, new GUIContent { text = "" },true);
             if (EditorGUI.EndChangeCheck())
             {
                 isDefaultProp.boolValue = false;
