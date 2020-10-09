@@ -116,7 +116,7 @@ namespace LSHGame.PlayerN
 
         private void CheckTouch()
         {
-            stateMachine.IsTouchingClimbLadder = IsTouchingLayerRectRelative(climbLadderTouchRect, ladderLayers);
+            stateMachine.IsTouchingClimbLadder = IsTouchingLayerRectRelative(climbLadderTouchRect, ladderLayers,true);
 
             IsTouchingClimbWallRight = IsTouchingLayerRectRelative(rightClimbWallTouchRect, climbWallLayers);
 
@@ -353,11 +353,11 @@ namespace LSHGame.PlayerN
             return Physics2D.OverlapCircle(position, radius, layers) != null;
         }
 
-        private bool IsTouchingLayerRectRelative(Rect rect,LayerMask layers,out Transform touch)
+        private bool IsTouchingLayerRectRelative(Rect rect,LayerMask layers,out Transform touch,bool useTriggers = false)
         {
             rect = TransformRectPS(rect);
             List<Collider2D> collider2Ds = new List<Collider2D>();
-            Physics2D.OverlapBox(rect.center, rect.size, 0, new ContactFilter2D() { useTriggers = false, layerMask = layers, useLayerMask = true }, collider2Ds);
+            Physics2D.OverlapBox(rect.center, rect.size, 0, new ContactFilter2D() { useTriggers = useTriggers, layerMask = layers, useLayerMask = true }, collider2Ds);
             //Debug.Log("IsTouchingLayerRect: Center: " + ((Vector3)rect.center + transform.position) + "\n Size: " + rect.size + "\nLayers: " + layers.value + " isTouching: "+isTouching);
 
             if (collider2Ds.Count > 0)
@@ -373,10 +373,10 @@ namespace LSHGame.PlayerN
  
         }
 
-        private bool IsTouchingLayerRectRelative(Rect rect, LayerMask layers)
+        private bool IsTouchingLayerRectRelative(Rect rect, LayerMask layers,bool useTriggers = false)
         {
             rect = TransformRectPS(rect);
-            bool isTouching = Physics2D.OverlapBox(rect.center, rect.size, 0, new ContactFilter2D() {useTriggers = false,layerMask = layers,useLayerMask = true},new Collider2D[1]) > 0;
+            bool isTouching = Physics2D.OverlapBox(rect.center, rect.size, 0, new ContactFilter2D() {useTriggers = useTriggers, layerMask = layers,useLayerMask = true},new Collider2D[1]) > 0;
             //Debug.Log("IsTouchingLayerRect: Center: " + ((Vector3)rect.center + transform.position) + "\n Size: " + rect.size + "\nLayers: " + layers.value + " isTouching: "+isTouching);
             return isTouching;
         }
