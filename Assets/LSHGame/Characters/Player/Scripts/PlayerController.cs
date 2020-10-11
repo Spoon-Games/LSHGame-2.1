@@ -11,6 +11,11 @@ namespace LSHGame.PlayerN
     [RequireComponent(typeof(PlayerLSM))]
     public class PlayerController : MonoBehaviour
     {
+        [Header("Default Stats")]
+        [SerializeField]
+        private PlayerValues defaultStats = new PlayerValues();
+
+        internal PlayerValues stats;
         //[Range(0, 1)]
         //[SerializeField]
         //private float crouchSpeed = .36f; 
@@ -84,8 +89,6 @@ namespace LSHGame.PlayerN
         //[SerializeField]
         //private Collider2D m_CrouchDisableCollider;
 
-        private PlayerStats stats;
-
         private Rigidbody2D rb => playerColliders.rb;
         private EffectsController effectsController;
         private PlayerStateMachine stateMachine;
@@ -113,6 +116,8 @@ namespace LSHGame.PlayerN
 
         private void Awake()
         {
+            stats = defaultStats.Clone();
+
             effectsController = GetComponent<EffectsController>();
 
             stateMachine = new PlayerStateMachine(GetComponent<PlayerLSM>());
@@ -120,7 +125,7 @@ namespace LSHGame.PlayerN
 
             inputController = GameInput.Controller;
 
-            playerColliders.Initialize(stateMachine);
+            playerColliders.Initialize(this,stateMachine);
 
             localScale = transform.localScale;
 
@@ -132,11 +137,12 @@ namespace LSHGame.PlayerN
         internal void Initialize(Player parent,PlayerStats stats)
         {
             this.parent = parent;
-            this.stats = stats;
         }
 
         private void FixedUpdate()
         {
+            stats = defaultStats.Clone();
+
             inputMovement = inputController.Player.Movement.ReadValue<Vector2>();
 
             playerColliders.CheckUpdate();
@@ -247,7 +253,7 @@ namespace LSHGame.PlayerN
                 climbWallExhaustTimer = float.PositiveInfinity;
             }
 
-            stateMachine.IsClimbWallExhausted = Time.fixedTime - stats.ClimbWallExhaustDurration >= climbWallExhaustTimer;
+            stateMachine.IsClimbWallExhausted = Time.fixedTime - stats.ClimbingWallExhaustDurration >= climbWallExhaustTimer;
 
             //if (stateMachine.IsTouchingClimbWall)
             //{

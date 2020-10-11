@@ -1,10 +1,9 @@
-﻿using DG.Tweening;
-using DG.Tweening.Core.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 namespace LSHGame.Util
 {
@@ -139,6 +138,12 @@ namespace LSHGame.Util
         public static bool IsLayer(this LayerMask layermask,int layer)
         {
             return layermask == (layermask | (1 << layer));
+            //return layermask == (layermask | (1 << layer));
+        }
+
+        public static bool IsOtherAllInFlag(this int flag,int otherFlag)
+        {
+            return (flag & otherFlag) == otherFlag;
         }
 
         public static bool Approximately(this Vector2 a,Vector2 b)
@@ -154,6 +159,56 @@ namespace LSHGame.Util
         public static bool Approximately(this float a,float b,float accuracy)
         {
             return Mathf.Abs(a - b) <= accuracy;
+        }
+
+        public static Rect LocalToWorldRect(this Rect rect,Transform transform)
+        {
+            Rect r = new Rect() { size = rect.size * AbsVector2(transform.lossyScale) };
+            r.center = rect.center * transform.lossyScale + (Vector2)transform.position;
+            return r;
+        }
+
+        public static Vector2 AbsVector2(this Vector2 v)
+        {
+            return new Vector2(Mathf.Abs(v.x), Mathf.Abs(v.y));
+        }
+
+        //public static Rect LocalToWorldRect(this Rect rect,Matrix4x4 localToWorld)
+        //{
+        //    return new Rect() { min = localToWorld.MultiplyPoint(rect.min), max = localToWorld.MultiplyPoint(rect.max) };
+        //}
+
+        public static bool Overlap(this Rect a, Rect b,out Rect overlap)
+        {
+            overlap = new Rect()
+            {
+                min = new Vector2(Mathf.Max(a.min.x, b.min.x), Mathf.Max(a.min.y, b.min.y)),
+                max = new Vector2(Mathf.Min(a.max.x, b.max.x), Mathf.Min(a.max.y, b.max.y))
+            };
+            return overlap.width >= 0 && overlap.height >= 0;
+        }
+
+        public static bool IsTouchingRect(this Collider2D collider, Rect rect, ContactFilter2D cf)
+        {
+            List<Collider2D> collider2Ds = new List<Collider2D>();
+            Physics2D.OverlapBox(rect.center, rect.size, 0, cf, collider2Ds);
+            return collider2Ds.Contains(collider);
+        }
+
+        public static Rect GetRectAtPos(this Tilemap tilemap,Vector2Int pos)
+        {
+            return new Rect()
+            {
+                min = tilemap.CellToWorld((Vector3Int)pos),
+                max = tilemap.CellToWorld((Vector3Int)(pos + Vector2Int.one))
+            };
+        }
+
+        public static Rect InsetRect(this Rect rect, float inset)
+        {
+            rect.min += Vector2.one * inset;
+            rect.max -= Vector2.one * inset;
+            return rect;
         }
     }
 }

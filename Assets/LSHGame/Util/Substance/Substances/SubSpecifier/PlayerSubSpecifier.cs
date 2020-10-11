@@ -1,11 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace LSHGame.Util
 {
-    public enum PlayerSubstanceColliderType { Main, Feet, Sides, Head, All}
+    [Flags]
+    public enum PlayerSubstanceColliderType { Main = 1, Feet = 2, Sides = 4, Head = 8, Ladders = 16}
 
     [DisallowMultipleComponent]
-    public class PlayerSubSubstance : SubSubstance,IPlayerSubstanceFilterable
+    public class PlayerSubSpecifier : MonoBehaviour,IPlayerSubSpecifier
     {
         [SerializeField]
         private PlayerSubstanceColliderType colliderType = PlayerSubstanceColliderType.Main;
@@ -13,7 +15,7 @@ namespace LSHGame.Util
         public PlayerSubstanceColliderType ColliderType => colliderType;
     }
 
-    public interface IPlayerSubstanceFilterable
+    public interface IPlayerSubSpecifier : ISubstanceSpecifier
     {
         PlayerSubstanceColliderType ColliderType { get; }
     }
@@ -22,16 +24,13 @@ namespace LSHGame.Util
     {
         public PlayerSubstanceColliderType ColliderType;
 
-        public bool IsValidSubstance(ISubstance substance, out bool searchChildren)
+        public bool IsValidSubstance(ISubstanceSpecifier specifier)
         {
-            searchChildren = false;
-            if(substance is IPlayerSubstanceFilterable filterable)
+            if(specifier is IPlayerSubSpecifier spec)
             {
-
-            }else if(substance is Substance)
-            {
-
+                return GameUtil.IsOtherAllInFlag((int)spec.ColliderType, (int)ColliderType);
             }
+
             return false;
         }
     }

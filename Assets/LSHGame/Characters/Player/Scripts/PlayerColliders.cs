@@ -13,7 +13,7 @@ namespace LSHGame.PlayerN
         internal Rigidbody2D rb;
 
         [SerializeField]
-        internal Collider2D mainCollider;
+        internal BoxCollider2D mainCollider;
 
         [Header("Touchpoints")]
         [SerializeField]
@@ -43,6 +43,7 @@ namespace LSHGame.PlayerN
         #endregion
 
         #region Attributes
+        private PlayerController parent;
         private PlayerStateMachine stateMachine;
 
         private Vector3 lastVelocity;
@@ -64,9 +65,10 @@ namespace LSHGame.PlayerN
 
         #region Start
 
-        internal void Initialize(PlayerStateMachine stateMachine)
+        internal void Initialize(PlayerController parent,PlayerStateMachine stateMachine)
         {
             this.stateMachine = stateMachine;
+            this.parent = parent;
         }
         #endregion
 
@@ -116,14 +118,22 @@ namespace LSHGame.PlayerN
 
         private void CheckTouch()
         {
-            stateMachine.IsTouchingClimbLadder = IsTouchingLayerRectRelative(climbLadderTouchRect, ladderLayers,true);
 
-            IsTouchingClimbWallRight = IsTouchingLayerRectRelative(rightClimbWallTouchRect, climbWallLayers);
+            ///stateMachine.IsTouchingClimbLadder = IsTouchingLayerRectRelative(climbLadderTouchRect, ladderLayers,true);
+            ReciveDataOnRect(PlayerSubstanceColliderType.Ladders, climbLadderTouchRect);
+            stateMachine.IsTouchingClimbLadder = parent.stats.IsLadder;
 
-            IsTouchingClimbWallLeft = IsTouchingLayerRectRelative(InvertOnX(rightClimbWallTouchRect), climbWallLayers);
+            IsTouchingClimbWallRight = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, rightClimbWallTouchRect,true);//IsTouchingLayerRectRelative(rightClimbWallTouchRect, climbWallLayers);
+
+            IsTouchingClimbWallLeft = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, InvertOnX(rightClimbWallTouchRect),true);//IsTouchingLayerRectRelative(InvertOnX(rightClimbWallTouchRect), climbWallLayers);
             stateMachine.IsTouchingClimbWall = IsTouchingClimbWallLeft || IsTouchingClimbWallRight;
 
-            stateMachine.IsTouchingHazard = mainCollider.IsTouchingLayers(hazardsLayers);
+            //ReciveDataOnRect(PlayerSubstanceColliderType.Feet, movingPlatformTouchRect);
+
+            ReciveDataOnRect(PlayerSubstanceColliderType.Main, mainCollider);
+            //Debug.Log("MainRect: " + new Rect(mainCollider.offset, mainCollider.size));
+            stateMachine.IsTouchingHazard = parent.stats.IsDamage || mainCollider.IsTouchingLayers(hazardsLayers);
+            //stateMachine.IsTouchingHazard = mainCollider.IsTouchingLayers(hazardsLayers);
         }
         #endregion
 
@@ -305,6 +315,8 @@ namespace LSHGame.PlayerN
             DrawRectRelative(climbLadderTouchRect);
 
             DrawRectRelative(movingPlatformTouchRect);
+
+            DrawRectRelative(new Rect() { size = mainCollider.size, center = mainCollider.offset });
             //foreach(ContactPoint2D contactPoint2D in allCPs)
             //{
             //    Gizmos.color = Color.blue;
@@ -314,7 +326,7 @@ namespace LSHGame.PlayerN
 
         private void DrawRectRelative(Rect rect)
         {
-            Rect r = TransformRectPS(rect);
+            Rect r = rect.LocalToWorldRect(transform);//TransformRectPS(rect);
             Gizmos.DrawWireCube(r.center, r.size);
         }
 #endif
@@ -391,6 +403,29 @@ namespace LSHGame.PlayerN
             Rect r = new Rect() { size = rect.size * AbsVector2(transform.lossyScale) };
             r.center = rect.center * transform.lossyScale + (Vector2)transform.position;
             return r;
+        }
+
+        private bool ReciveDataOnRect(PlayerSubstanceColliderType colliderType,Rect localRect,bool noTouchOnTriggers = false)
+        {
+            SubstanceManager.ReciveSubstanceData(
+                localRect.LocalToWorldRect(transform),
+                parent.stats,
+                new PlayerSubstanceFilter { ColliderType = colliderType },
+                groundLayers,
+                out bool touch,
+                noTouchOnTriggers);
+            return touch;
+        }
+
+        private bool ReciveDataOnRect(PlayerSubstanceColliderType colliderType, BoxCollider2D collider)
+        {
+            SubstanceManager.ReciveSubstanceData(
+                collider,
+                parent.stats,
+                new PlayerSubstanceFilter { ColliderType = colliderType },
+                groundLayers,
+                out bool touch);
+            return touch;
         }
 
         private Vector2 AbsVector2(Vector2 v)
