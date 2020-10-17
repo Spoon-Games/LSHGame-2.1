@@ -4,15 +4,16 @@ using UnityEditor;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System;
 
 namespace LSHGame.Util
 {
     [DisallowMultipleComponent]
-    public class Substance : BaseSubstance
+    public class Substance : FilterableSubstance
     {
         public List<TileBase> tilesOfSubstance = new List<TileBase>();
 
-        
+
 #if UNITY_EDITOR
         [MenuItem("Assets/Create/LSHGame/Substance")]
         private static void CreateSubstancePrefab()
@@ -23,7 +24,8 @@ namespace LSHGame.Util
             go.AddComponent<Substance>();
 
             int i = 1;
-            while (AssetDatabase.GetMainAssetTypeAtPath(path+"/Substance "+i+".prefab") != null){
+            while (AssetDatabase.GetMainAssetTypeAtPath(path + "/Substance " + i + ".prefab") != null)
+            {
                 i++;
             }
             PrefabUtility.SaveAsPrefabAsset(go, path + "/Substance " + i + ".prefab");
@@ -57,65 +59,100 @@ namespace LSHGame.Util
 
     public abstract class BaseSubstance : MonoBehaviour, ISubstance
     {
-        private List<SubstanceProperty> m_substanceProperties;
-
-        private List<SubstanceProperty> SubstanceProperties
+        [NonSerialized]
+        private SubstanceProperty[] m_substanceProperties = null;
+        protected SubstanceProperty[] SubstanceProperties
         {
             get
             {
                 if (m_substanceProperties == null)
                 {
-                    m_substanceProperties = new List<SubstanceProperty>();
-
-                    m_substanceProperties.AddRange(GetComponents<SubstanceProperty>());
+                    m_substanceProperties = GetComponents<SubstanceProperty>();
                 }
                 return m_substanceProperties;
             }
         }
 
-        private List<SubSubstance> m_childSubstances;
-        private List<SubSubstance> ChildSubstances { get
+        private SubSubstance[] m_childSubstances;
+        protected SubSubstance[] ChildSubstances
+        {
+            get
             {
-                if(m_childSubstances == null)
+                if (m_childSubstances == null)
                 {
-                    m_childSubstances = new List<SubSubstance>();
-                    foreach(Transform child in transform)
+                    List<SubSubstance> tmp = new List<SubSubstance>();
+                    foreach (Transform child in transform)
                     {
-                        if(child.TryGetComponent<SubSubstance>(out SubSubstance sc))
+                        if (child.TryGetComponent<SubSubstance>(out SubSubstance sc))
                         {
-                            m_childSubstances.Add(sc);
+                            tmp.Add(sc);
                         }
                     }
+                    m_childSubstances = tmp.ToArray();
                 }
                 return m_childSubstances;
-            } }
-
-        public virtual void AddToSet(HashSet<ISubstance> set, ISubstanceFilter filter)
-        {
-            if(filter.IsValidSubstance(this,out bool searchChildren))
-            {
-                if (!set.Contains(this))
-                    set.Add(this);
             }
-
-            if (searchChildren)
-            {
-                foreach(var c in ChildSubstances)
-                {
-                    c.AddToSet(set, filter);
-                }
-            }
-
         }
 
         public virtual void RecieveData(IDataReciever dataReciever)
         {
+            //Debug.Log("Recieve Data Props: " + SubstanceProperties.Length);
             foreach (var prop in SubstanceProperties)
             {
                 prop.RecieveData(dataReciever);
             }
         }
+
+        public abstract void AddToSet(HashSet<ISubstance> set, ISubstanceFilter filter);
     }
+
+    public abstract class FilterableSubstance : BaseSubstance
+    {
+        private List<ISubstanceSpecifier> m_substanceSpecifier;
+        protected List<ISubstanceSpecifier> SubstanceSpecifier
+        {
+            get
+            {
+                if (m_substanceSpecifier == null)
+                {
+                    m_substanceSpecifier = new List<ISubstanceSpecifier>();
+                    GetComponents<ISubstanceSpecifier>(m_substanceSpecifier);
+                }
+                return m_substanceSpecifier;
+            }
+        }
+
+        public override void AddToSet(HashSet<ISubstance> set, ISubstanceFilter filter)
+        {
+            if (set.Contains(this))
+                return;
+            if (SubstanceSpecifier.Count == 0)
+            {
+                AddToSetHelper(set, filter);
+                return;
+            }
+            foreach (var specifier in SubstanceSpecifier)
+            {
+                if (filter.IsValidSubstance(specifier))
+                {
+                    AddToSetHelper(set, filter);
+                    return;
+                }
+            }
+        }
+
+        private void AddToSetHelper(HashSet<ISubstance> set, ISubstanceFilter filter)
+        {
+            set.Add(this);
+
+            foreach (var c in ChildSubstances)
+            {
+                c.AddToSet(set, filter);
+            }
+
+        }
+    }
+    public interface ISubstanceSpecifier { }
 
     public interface ISubstance
     {
@@ -124,7 +161,8 @@ namespace LSHGame.Util
         void RecieveData(IDataReciever reciever);
     }
 
-    public interface ISubstanceFilter {
-        bool IsValidSubstance(ISubstance substance, out bool searchChildren);
+    public interface ISubstanceFilter
+    {
+        bool IsValidSubstance(ISubstanceSpecifier specifier);
     }
 }

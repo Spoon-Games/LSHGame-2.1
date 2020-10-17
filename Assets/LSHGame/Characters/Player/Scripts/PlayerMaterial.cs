@@ -38,21 +38,12 @@ namespace LSHGame.PlayerN
         public DefaultableProperty<float> DashDurration;
         public DefaultableProperty<float> DashSpeed;
         public DefaultableProperty<float> DashRecoverDurration;
-    } 
-
-    [System.Serializable]
-    public class BounceSettings
-    {
-        public float BounceSpeed;
-        public float Rotation = 0;
-        public bool AddGameObjectRotation = true;
-        public bool ConstantHeight = true;
     }
 
     internal class PlayerStats
     {
-        public AnimationCurve RunAccelCurve => GetValue(m=>m.RunAccelCurve);
-        public AnimationCurve RunDeaccelCurve => GetValue(m=>m.RunDeaccelCurve);
+        public AnimationCurve RunAccelCurve => GetValue(m => m.RunAccelCurve);
+        public AnimationCurve RunDeaccelCurve => GetValue(m => m.RunDeaccelCurve);
         public AnimationCurve RunAccelAirborneCurve => GetValue(m => m.RunAccelAirborneCurve);
         public AnimationCurve RunDeaccelAirborneCurve => GetValue(m => m.RunDeaccelAirborneCurve);
 
@@ -87,7 +78,7 @@ namespace LSHGame.PlayerN
 
         public void AddMaterial(PlayerMaterial material)
         {
-            materials.Insert(0,material);
+            materials.Insert(0, material);
             //Update(material);
         }
 
