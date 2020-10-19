@@ -152,7 +152,15 @@ namespace LSHGame.PlayerN
             Vector2 stepUpOffset = default;
             bool stepUp = false;
             if (isGroundCPValid)
-                stepUp = FindStep(out stepUpOffset, allCPs, groundCP, velocity);
+            {
+                stepUp = FindStep(out stepUpOffset, allCPs, groundCP.point, velocity);
+                //Debug.Log("GroundCPPoint: " + groundCP.point);
+            }
+            else if (stateMachine.State == PlayerStates.ClimbLadder && velocity.y >= 0 && Mathf.Abs(velocity.x) > 0)
+            {
+                stepUp = FindStep(out stepUpOffset, allCPs, transform.TransformPoint(new Vector2(0, mainCollider.offset.y - mainCollider.size.y / 2 )), velocity);
+            }
+
 
             //Steps
             if (stepUp)
@@ -192,7 +200,7 @@ namespace LSHGame.PlayerN
         /// \param allCPs List to search
         /// \param stepUpOffset A Vector3 of the offset of the player to step up the step
         /// \return If we found a step
-        bool FindStep(out Vector2 stepUpOffset, List<ContactPoint2D> allCPs, ContactPoint2D groundCP, Vector3 currVelocity)
+        bool FindStep(out Vector2 stepUpOffset, List<ContactPoint2D> allCPs, Vector2 groundCPPoint, Vector3 currVelocity)
         {
             stepUpOffset = default;
             //No chance to step if the player is not moving
@@ -201,7 +209,7 @@ namespace LSHGame.PlayerN
 
             foreach (ContactPoint2D cp in allCPs)
             {
-                bool test = ResolveStepUp(out stepUpOffset, cp, groundCP);
+                bool test = ResolveStepUp(out stepUpOffset, cp, groundCPPoint);
                 if (test)
                     return test;
             }
@@ -213,7 +221,7 @@ namespace LSHGame.PlayerN
         /// \param groundCP ContactPoint on the ground.
         /// \param stepUpOffset The offset from the stepTestCP.point to the stepUpPoint (to add to the player's position so they're now on the step)
         /// \return If the passed ContactPoint was a step
-        bool ResolveStepUp(out Vector2 stepUpOffset, ContactPoint2D stepTestCP, ContactPoint2D groundCP)
+        bool ResolveStepUp(out Vector2 stepUpOffset, ContactPoint2D stepTestCP, Vector2 groundCPPoint)
         {
             stepUpOffset = default;
             Collider2D stepCol = stepTestCP.otherCollider;
@@ -225,15 +233,16 @@ namespace LSHGame.PlayerN
             {
                 return false;
             }
+
             //( 2 ) Make sure the contact point is low enough to be a step
-            if (!(stepTestCP.point.y - groundCP.point.y < maxStepHeight))
+            if (!(stepTestCP.point.y - groundCPPoint.y < maxStepHeight))
             {
                 return false;
             }
 
             //( 3 ) Check to see if there's actually a place to step in front of us
             //Fires one Raycast
-            float stepHeight = groundCP.point.y + maxStepHeight + 0.0001f;
+            float stepHeight = groundCPPoint.y + maxStepHeight + 0.0001f;
             Vector2 stepTestInvDir = new Vector2(-stepTestCP.normal.x, 0).normalized;
             Vector2 origin = new Vector2(stepTestCP.point.x, stepHeight) + (stepTestInvDir * stepSearchOvershoot);
             Vector2 direction = Vector3.down;
@@ -259,7 +268,7 @@ namespace LSHGame.PlayerN
 
             //We have enough info to calculate the points
             Vector2 stepUpPoint = new Vector2(stepTestCP.point.x, hit.point.y + 0.0001f) + (stepTestInvDir * stepSearchOvershoot);
-            Vector2 stepUpPointOffset = stepUpPoint - new Vector2(stepTestCP.point.x, groundCP.point.y);
+            Vector2 stepUpPointOffset = stepUpPoint - new Vector2(stepTestCP.point.x, groundCPPoint.y);
 
             //We passed all the checks! Calculate and return the point!
             if (stepUpPointOffset.y <= 0 || stepUpPointOffset.y >= maxStepHeight)

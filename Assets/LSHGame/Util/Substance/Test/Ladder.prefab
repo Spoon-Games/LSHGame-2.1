@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df5fd8cdfea0094f81cea9278241217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilesOfSubstance: []
+  tilesOfSubstance:
+  - {fileID: 11400000, guid: 6a4111af41588214aa413b901f81af4c, type: 2}
 --- !u!114 &-8668104921699187743
 MonoBehaviour:
   m_ObjectHideFlags: 0

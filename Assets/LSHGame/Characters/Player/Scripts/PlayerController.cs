@@ -104,6 +104,7 @@ namespace LSHGame.PlayerN
         private Vector2 estimatedDashPosition;
         private float dashEndTimer = 0;
 
+        private float climbLadderDisableTimer = float.NegativeInfinity;
         private float climbWallDisableTimer = float.NegativeInfinity;
         private float climbWallExhaustTimer = float.PositiveInfinity;
 
@@ -243,6 +244,11 @@ namespace LSHGame.PlayerN
 
         private void CheckClimbWall()
         {
+            if (inputMovement.y > 0)
+                stateMachine.IsTouchingClimbLadder &= rb.velocity.y <= inputMovement.y * stats.ClimbingLadderSpeed;
+            else
+                stateMachine.IsTouchingClimbLadder &= rb.velocity.y <= 0;
+
             stateMachine.IsTouchingClimbWall &= Time.fixedTime > climbWallDisableTimer;
             stateMachine.IsTouchingClimbWall &= inputController.Player.WallClimbHold.GetBC().isPressed;
 
@@ -299,13 +305,13 @@ namespace LSHGame.PlayerN
             ButtonControl j = inputController.Player.Jump.GetBC();
             bool buttonReleased = false;
 
-            if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.Locomotion, ref buttonReleased))
+            if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.Locomotion || stateMachine.State == PlayerStates.ClimbLadder, ref buttonReleased))
             {
                 Vector2 jumpVelocity = new Vector2(rb.velocity.x, stats.JumpSpeed);
 
-                if (jumpPadChache != null)
+                if (jumpPadChache != null) 
                 {
-                    jumpPadChache.ActivateJump(out jumpVelocity, rb.velocity);
+                    jumpPadChache.ActivateJump(out jumpVelocity, rb.velocity); 
                     jumpPadDisableTimer = Time.fixedTime + 0.1f;
                 }
 
