@@ -10,6 +10,7 @@ namespace LSHGame.Util
         {
             if(reciever is IMatVelocityRec r)
             {
+                Debug.Log("Recive Moving Platform Velocity");
                 r.MovingVelocity = MovingVelocity;
             }
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace LSHGame.PlayerN
 {
     [System.Serializable]
-    public class PlayerValues : IPlayerLocomotionRec, IPlayerJumpRec, IPlayerClimbingRec, IPlayerDashRec, IGravityRec, IDataReciever, IDamageRec, IIsLadderRec
+    public class PlayerValues : IPlayerLocomotionRec, IPlayerJumpRec, IPlayerClimbingRec, IPlayerDashRec, IGravityRec, IDataReciever, IDamageRec, IIsLadderRec,IMatVelocityRec
     {
         [SerializeField] private AnimationCurve _runAccelCurve;
         [SerializeField] private AnimationCurve _runDeaccelCurve;
@@ -41,6 +41,7 @@ namespace LSHGame.PlayerN
         public float FallDamping { get => _fallDamping; set => _fallDamping = value; }
         public bool IsDamage { get; set; } = false;
         public bool IsLadder { get; set; } = false;
+        public Vector2 MovingVelocity { get; set; } = Vector2.zero;
 
         public PlayerValues Clone()
         {

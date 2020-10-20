@@ -48,10 +48,10 @@ namespace LSHGame.PlayerN
 
         private Vector3 lastVelocity;
 
-        internal Vector2 movingPlatformVelocity = Vector2.zero;
-        internal Vector2 movingPlatformVelocityLastFrame = Vector2.zero;
-        private Transform lastMovingPlatform = null;
-        private Vector2 movingPlatformLastPos;
+        //internal Vector2 movingPlatformVelocity = Vector2.zero;
+        //internal Vector2 movingPlatformVelocityLastFrame = Vector2.zero;
+        //private Transform lastMovingPlatform = null;
+        //private Vector2 movingPlatformLastPos;
 
         internal List<InteractablePlatform> interactablePlatforms = new List<InteractablePlatform>();
 
@@ -90,20 +90,20 @@ namespace LSHGame.PlayerN
         #region Update Stuff
         private void CheckMovingPlatform()
         {
-            movingPlatformVelocityLastFrame = movingPlatformVelocity;
-            movingPlatformVelocity = Vector2.zero;
+            //movingPlatformVelocityLastFrame = movingPlatformVelocity;
+            //movingPlatformVelocity = Vector2.zero;
 
-            if(IsTouchingLayerRectRelative(movingPlatformTouchRect,interactablePlatformsLayers,out Transform movingPlatform)){
-                if (lastMovingPlatform == movingPlatform)
-                {
-                    movingPlatformVelocity = ((Vector2)movingPlatform.position - movingPlatformLastPos) / Time.fixedDeltaTime;
-                }
-                else
-                    lastMovingPlatform = movingPlatform;
-                movingPlatformLastPos = movingPlatform.position;
-            }
-            else if (lastMovingPlatform != null)
-                lastMovingPlatform = null;
+            //if(IsTouchingLayerRectRelative(movingPlatformTouchRect,interactablePlatformsLayers,out Transform movingPlatform)){
+            //    if (lastMovingPlatform == movingPlatform)
+            //    {
+            //        movingPlatformVelocity = ((Vector2)movingPlatform.position - movingPlatformLastPos) / Time.fixedDeltaTime;
+            //    }
+            //    else
+            //        lastMovingPlatform = movingPlatform;
+            //    movingPlatformLastPos = movingPlatform.position;
+            //}
+            //else if (lastMovingPlatform != null)
+            //    lastMovingPlatform = null;
         }
 
         private void CheckInteractablePlatforms()
@@ -119,22 +119,24 @@ namespace LSHGame.PlayerN
         private void CheckTouch()
         {
 
-            ///stateMachine.IsTouchingClimbLadder = IsTouchingLayerRectRelative(climbLadderTouchRect, ladderLayers,true);
             ReciveDataOnRect(PlayerSubstanceColliderType.Ladders, climbLadderTouchRect);
-            stateMachine.IsTouchingClimbLadder = parent.stats.IsLadder;
 
-            IsTouchingClimbWallRight = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, rightClimbWallTouchRect,true);//IsTouchingLayerRectRelative(rightClimbWallTouchRect, climbWallLayers);
+            IsTouchingClimbWallRight = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, rightClimbWallTouchRect,true);
 
-            IsTouchingClimbWallLeft = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, InvertOnX(rightClimbWallTouchRect),true);//IsTouchingLayerRectRelative(InvertOnX(rightClimbWallTouchRect), climbWallLayers);
+            IsTouchingClimbWallLeft = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, InvertOnX(rightClimbWallTouchRect),true);
             stateMachine.IsTouchingClimbWall = IsTouchingClimbWallLeft || IsTouchingClimbWallRight;
 
-            //ReciveDataOnRect(PlayerSubstanceColliderType.Feet, movingPlatformTouchRect);
+            ReciveDataOnRect(PlayerSubstanceColliderType.Feet, movingPlatformTouchRect);
 
             ReciveDataOnRect(PlayerSubstanceColliderType.Main, mainCollider);
-            //Debug.Log("MainRect: " + new Rect(mainCollider.offset, mainCollider.size));
+
+
+            stateMachine.IsTouchingClimbLadder = parent.stats.IsLadder;
             stateMachine.IsTouchingHazard = parent.stats.IsDamage || mainCollider.IsTouchingLayers(hazardsLayers);
-            //stateMachine.IsTouchingHazard = mainCollider.IsTouchingLayers(hazardsLayers);
+
         }
+
+        
         #endregion
 
         #region Update Grounded

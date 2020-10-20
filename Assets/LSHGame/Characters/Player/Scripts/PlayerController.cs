@@ -112,6 +112,8 @@ namespace LSHGame.PlayerN
 
         private Vector2 inputMovement;
 
+        private Vector2 lastFrameMovingVelocity = default;
+
         private JumpPad jumpPadChache;
         private float jumpPadDisableTimer = float.NegativeInfinity;
 
@@ -142,6 +144,8 @@ namespace LSHGame.PlayerN
 
         private void FixedUpdate()
         {
+            lastFrameMovingVelocity = stats.MovingVelocity;
+
             stats = defaultStats.Clone();
 
             inputMovement = inputController.Player.Movement.ReadValue<Vector2>();
@@ -160,7 +164,7 @@ namespace LSHGame.PlayerN
 
             FlipSprite();
 
-            stateMachine.Velocity = rb.velocity - playerColliders.movingPlatformVelocity;
+            stateMachine.Velocity = rb.velocity - stats.MovingVelocity;
             stateMachine.UpdateAnimator();
         }
 
@@ -224,7 +228,10 @@ namespace LSHGame.PlayerN
             //if (stateMaschine.IsCurrantState(PlayerLSM.States.Dash))
             //    Debug.Log("Run while dashState");
 
-            float horVelocityRel = rb.velocity.x - playerColliders.movingPlatformVelocityLastFrame.x;
+            if (stats.MovingVelocity != Vector2.zero)
+                Debug.Log("MovingVelocity: " + stats.MovingVelocity);
+
+            float horVelocityRel = rb.velocity.x - lastFrameMovingVelocity.x;
 
             if (Mathf.Abs(inputMovement.x) < 0.01f)
             {
@@ -236,7 +243,7 @@ namespace LSHGame.PlayerN
             }
 
             //Debug.Log("MovingPlatformVel: " + playerColliders.movingPlatformVelocity);
-            rb.velocity = new Vector2(horVelocityRel + playerColliders.movingPlatformVelocity.x, rb.velocity.y + Mathf.Min(0,playerColliders.movingPlatformVelocity.y));
+            rb.velocity = new Vector2(horVelocityRel + stats.MovingVelocity.x, rb.velocity.y + Mathf.Min(0,stats.MovingVelocity.y));
             //Debug.Log("MovingPlatformVel: " + playerColliders.movingPlatformVelocity);
 
 
@@ -426,7 +433,7 @@ namespace LSHGame.PlayerN
 
         private void FlipSprite()
         {
-            if (GetSign(rb.velocity.x - playerColliders.movingPlatformVelocity.x, out float sign))
+            if (GetSign(rb.velocity.x - stats.MovingVelocity.x, out float sign))
             {
                 SetFliped(sign);
             }
