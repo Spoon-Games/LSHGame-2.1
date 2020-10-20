@@ -228,8 +228,6 @@ namespace LSHGame.PlayerN
             //if (stateMaschine.IsCurrantState(PlayerLSM.States.Dash))
             //    Debug.Log("Run while dashState");
 
-            if (stats.MovingVelocity != Vector2.zero)
-                Debug.Log("MovingVelocity: " + stats.MovingVelocity);
 
             float horVelocityRel = rb.velocity.x - lastFrameMovingVelocity.x;
 
