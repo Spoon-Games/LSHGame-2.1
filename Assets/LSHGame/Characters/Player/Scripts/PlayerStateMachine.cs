@@ -64,11 +64,11 @@ namespace LSHGame.PlayerN
             if (IsDash)
                 return PlayerStates.Dash;
 
-            if (IsGrounded)
-                return PlayerStates.Locomotion;
-
             if (IsTouchingClimbLadder)
                 return PlayerStates.ClimbLadder;
+
+            if (IsGrounded)
+                return PlayerStates.Locomotion;
 
             if (IsTouchingClimbWall && IsClimbWallExhausted)
                 return PlayerStates.ClimbWallExhaust;

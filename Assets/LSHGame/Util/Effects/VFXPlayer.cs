@@ -4,7 +4,7 @@ using UnityEngine;
 namespace LSHGame.Util
 {
     [RequireComponent(typeof(ParticleSystem))]
-    public class VFXTrigger : EffectTrigger
+    public class VFXPlayer : MonoBehaviour, IEffectPlayer
     {
         private ParticleSystem m_ParticleSystem;
         private ParticleSystem ParticleSystem
@@ -24,12 +24,16 @@ namespace LSHGame.Util
             ParticleSystem.Play();
         }
 
-        /// <summary>
-        /// Trigger the particle system
-        /// </summary>
-        public override void Trigger(Bundle parameters)
+
+        private IEnumerator TriggerDelayed(bool flip,float delay)
         {
-            if(parameters == null)
+            yield return new WaitForSeconds(delay);
+            Trigger(flip);
+        }
+
+        public void Play(Bundle parameters)
+        {
+            if (parameters == null)
             {
                 Trigger(false);
                 return;
@@ -42,12 +46,6 @@ namespace LSHGame.Util
             }
             else
                 Trigger(flip);
-        }
-
-        private IEnumerator TriggerDelayed(bool flip,float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            Trigger(flip);
         }
     }
 }
