@@ -1,20 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace LSHGame.Util
 {
+    [DisallowMultipleComponent]
     public class EffectsController : MonoBehaviour
     {
-        private Dictionary<string, EffectTrigger> effectTriggers = new Dictionary<string, EffectTrigger>();
+        protected Dictionary<string, IEffectTrigger> effectTriggers = new Dictionary<string, IEffectTrigger>();
 
-        private void Awake()
+        protected virtual void Awake()
         {
-            EffectTrigger[] triggerArr = GetComponentsInChildren<EffectTrigger>();
-            foreach(EffectTrigger t in triggerArr)
-            {
-                effectTriggers.Add(t.effectName, t);
-            }
+            LoadEffectTriggers(transform);
         }
 
         /// <summary>
@@ -23,20 +19,47 @@ namespace LSHGame.Util
         /// <param name="name">The name of the trigger</param>
         public void Trigger(string name,Bundle parameters)
         {
-            if (effectTriggers.TryGetValue(name, out EffectTrigger trigger))
+            if (effectTriggers.TryGetValue(name, out IEffectTrigger trigger))
             {
                 trigger.Trigger(parameters);
             }
-            else
-                Debug.LogError("EffectTrigger " + name + " was not found");
+            //else
+            //    Debug.LogError("EffectTrigger " + name + " was not found");
+        }
+
+        public void SetAttributes(string name,Bundle values)
+        {
+            effectTriggers[name].SetAttributes(values);
+        }
+
+        private void LoadEffectTriggers(Transform transform)
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.TryGetComponent<IEffectTrigger>(out IEffectTrigger t))
+                {
+                    t.AddToDict(effectTriggers);
+                }
+                else if (child.TryGetComponent<EffectsRelay>(out EffectsRelay r))
+                {
+                    LoadEffectTriggers(child);
+                }
+            }
         }
     }
     
-    public abstract class EffectTrigger : MonoBehaviour
+    public interface IEffectTrigger
     {
-        [SerializeField]
-        internal string effectName;
+        void AddToDict(Dictionary<string, IEffectTrigger> triggers);
 
-        public abstract void Trigger(Bundle parameters);
+        void SetAttributes(Bundle values);
+
+        void Trigger(Bundle parameters);
+    }
+
+
+    public interface IEffectPlayer
+    {
+        void Play(Bundle parameters);
     }
 }

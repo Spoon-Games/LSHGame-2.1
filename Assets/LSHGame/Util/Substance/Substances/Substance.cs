@@ -11,7 +11,17 @@ namespace LSHGame.Util
     [DisallowMultipleComponent]
     public class Substance : FilterableSubstance
     {
-        public List<TileBase> tilesOfSubstance = new List<TileBase>();
+        internal List<TileBase> GetTilesFormPointer()
+        {
+            var pointers = GetComponents<SubstanceTilePointer>();
+            List<TileBase> tiles = new List<TileBase>();
+
+            foreach(var p in pointers)
+            {
+                tiles.AddRange(p.tilesOfSubstance);
+            }
+            return tiles;
+        }
 
 
 #if UNITY_EDITOR
@@ -22,6 +32,7 @@ namespace LSHGame.Util
 
             GameObject go = new GameObject();
             go.AddComponent<Substance>();
+            go.AddComponent<SubstanceTilePointer>();
 
             int i = 1;
             while (AssetDatabase.GetMainAssetTypeAtPath(path + "/Substance " + i + ".prefab") != null)
@@ -73,20 +84,25 @@ namespace LSHGame.Util
             }
         }
 
-        private SubSubstance[] m_childSubstances;
-        protected SubSubstance[] ChildSubstances
+        private ISubstance[] m_childSubstances;
+        protected ISubstance[] ChildSubstances
         {
             get
             {
                 if (m_childSubstances == null)
                 {
-                    List<SubSubstance> tmp = new List<SubSubstance>();
+                    List<ISubstance> tmp = new List<ISubstance>();
                     foreach (Transform child in transform)
                     {
-                        if (child.TryGetComponent<SubSubstance>(out SubSubstance sc))
+                        if (child.TryGetComponent<ISubstance>(out ISubstance sc))
                         {
                             tmp.Add(sc);
                         }
+                    }
+
+                    foreach(var provider in GetComponents<SubstanceProvider>())
+                    {
+                        tmp.Add(provider.Substance);
                     }
                     m_childSubstances = tmp.ToArray();
                 }

@@ -69,9 +69,14 @@ namespace LSHGame.Util
                     GetSubstancesFromTilemap(rect, tilemap,collider,cf, substances, filter);
                 }
 
+                if (collider.TryGetComponent<Substance>(out Substance substance))
+                {
+                    substance.AddToSet(substances, filter);
+                }
+
                 foreach (var provider in collider.GetComponents<SubstanceProvider>())
                 {
-                    provider.Substance.AddToSet(substances, filter);
+                    provider.Substance?.AddToSet(substances, filter);
                 }
 
                 GetSubstancesFromTag(collider.gameObject.tag, substances, filter);
@@ -167,7 +172,7 @@ namespace LSHGame.Util
 
             foreach (var s in serializedSubstances)
             {
-                foreach (TileBase tileBase in s.tilesOfSubstance)
+                foreach (TileBase tileBase in s.GetTilesFormPointer())
                     AddTileSubsEntry(s, tileBase);
             }
 
