@@ -22,7 +22,7 @@ namespace AudioP
 
     }
 
-    public abstract class BaseAudioPlayer : EffectTrigger
+    public abstract class BaseAudioPlayer : MonoBehaviour, IEffectPlayer
     {
         public SoundInfo soundInfo;
 
@@ -38,7 +38,7 @@ namespace AudioP
 
         public abstract void Play();
 
-        public override void Trigger(Bundle parameters)
+        public void Play(Bundle parameters)
         {
             Play();
         }
