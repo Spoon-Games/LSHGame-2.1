@@ -124,9 +124,9 @@ namespace LSHGame.PlayerN
 
             ReciveDataOnRect(PlayerSubstanceColliderType.Ladders, climbLadderTouchRect);
 
-            IsTouchingClimbWallRight = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, rightClimbWallTouchRect,true);
+            IsTouchingClimbWallRight = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, rightClimbWallTouchRect, true);
 
-            IsTouchingClimbWallLeft = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, InvertOnX(rightClimbWallTouchRect),true);
+            IsTouchingClimbWallLeft = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, InvertOnX(rightClimbWallTouchRect), true);
             stateMachine.IsTouchingClimbWall = IsTouchingClimbWallLeft || IsTouchingClimbWallRight;
 
             ReciveDataOnRect(PlayerSubstanceColliderType.Feet, movingPlatformTouchRect);
@@ -135,8 +135,13 @@ namespace LSHGame.PlayerN
 
 
             stateMachine.IsTouchingClimbLadder = parent.stats.IsLadder;
-            stateMachine.IsTouchingHazard = parent.stats.IsDamage || mainCollider.IsTouchingLayers(hazardsLayers);
 
+            if (parent.stats.IsDamage || mainCollider.IsTouchingLayers(hazardsLayers)) // if touching hazard
+            {
+                stateMachine.IsDead = true;
+                Debug.Log("IsDamage");
+            }
+        
         }
 
 

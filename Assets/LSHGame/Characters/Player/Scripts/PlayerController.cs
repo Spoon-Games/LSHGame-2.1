@@ -96,8 +96,6 @@ namespace LSHGame.PlayerN
         private InputController inputController;
         private Player parent;
 
-        internal bool IsHazard => stateMachine.IsTouchingHazard;
-
         private bool isDashStartDisableByGround = true;
         private float dashStartDisableTimer = float.NegativeInfinity;
         private Vector2 dashVelocity;
@@ -128,7 +126,7 @@ namespace LSHGame.PlayerN
 
             inputController = GameInput.Controller;
 
-            playerColliders.Initialize(this,stateMachine);
+            playerColliders.Initialize(this, stateMachine);
 
             localScale = transform.localScale;
 
@@ -137,7 +135,12 @@ namespace LSHGame.PlayerN
             //inputMaster.Enable();
         }
 
-        internal void Initialize(Player parent,PlayerStats stats)
+        private void Start()
+        {
+            Respawn();
+        }
+
+        internal void Initialize(Player parent, PlayerStats stats)
         {
             this.parent = parent;
         }
@@ -218,6 +221,9 @@ namespace LSHGame.PlayerN
 
                     rb.gravityScale = 0;
                     break;
+                case PlayerStates.Death:
+
+                    break;
             }
         }
 
@@ -241,7 +247,7 @@ namespace LSHGame.PlayerN
             }
 
             //Debug.Log("MovingPlatformVel: " + playerColliders.movingPlatformVelocity);
-            rb.velocity = new Vector2(horVelocityRel + stats.MovingVelocity.x, rb.velocity.y + Mathf.Min(0,stats.MovingVelocity.y));
+            rb.velocity = new Vector2(horVelocityRel + stats.MovingVelocity.x, rb.velocity.y + Mathf.Min(0, stats.MovingVelocity.y));
             //Debug.Log("MovingPlatformVel: " + playerColliders.movingPlatformVelocity);
 
 
@@ -314,9 +320,9 @@ namespace LSHGame.PlayerN
             {
                 Vector2 jumpVelocity = new Vector2(rb.velocity.x, stats.JumpSpeed);
 
-                if (jumpPadChache != null) 
+                if (jumpPadChache != null)
                 {
-                    jumpPadChache.ActivateJump(out jumpVelocity, rb.velocity); 
+                    jumpPadChache.ActivateJump(out jumpVelocity, rb.velocity);
                     jumpPadDisableTimer = Time.fixedTime + 0.1f;
                 }
 
@@ -358,12 +364,17 @@ namespace LSHGame.PlayerN
                 dashStartDisableTimer = Time.fixedTime;
                 isDashStartDisableByGround = true;
 
-                dashEndTimer = Time.time ;
+                dashEndTimer = Time.time;
                 bool b = GetSign(inputMovement.x, out float sign) || GetSign(rb.velocity.x, out sign);
                 dashVelocity = new Vector2(sign * stats.DashSpeed, 0);
                 estimatedDashPosition = rb.transform.position;
                 rb.velocity = dashVelocity;
                 stateMachine.IsDash = true;
+            }
+
+            if(to == PlayerStates.Death)
+            {
+                Respawn();
             }
         }
 
@@ -441,12 +452,12 @@ namespace LSHGame.PlayerN
             }
         }
 
-        private bool GetSign(float v,out float sign)
+        private bool GetSign(float v, out float sign)
         {
             return GetSign(v, out sign, Mathf.Epsilon);
         }
 
-        private bool GetSign(float v, out float sign,float accuracy)
+        private bool GetSign(float v, out float sign, float accuracy)
         {
             sign = Mathf.Sign(v);
             return Mathf.Abs(v) > accuracy;
@@ -473,15 +484,25 @@ namespace LSHGame.PlayerN
 
         }
 
-        internal void Respawn(Vector2 position)
+        public void Kill()
         {
-            TransitionManager.Instance.ShowTransition(deathTransition, null,() => SetRespawn(position));
+            stateMachine.IsDead = true;
+        }
+
+        private void Respawn()
+        {
+            Vector2 position = CheckpointManager.GetCheckpointPos();
+            TransitionManager.Instance.ShowTransition(deathTransition, null, () => SetRespawn(position));
         }
 
         private void SetRespawn(Vector2 position)
         {
             transform.position = position;
             rb.velocity = Vector2.zero;
+
+            stateMachine.IsDead = false;
+
+            Debug.Log("Set Respawn");
         }
     }
 }

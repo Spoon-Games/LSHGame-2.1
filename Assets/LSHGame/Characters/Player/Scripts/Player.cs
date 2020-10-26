@@ -29,24 +29,6 @@ namespace LSHGame.PlayerN
             characterController.Initialize(this,stats);
         }
 
-        private void Start()
-        {
-            Respawn();
-        }
-
-        private void Update()
-        {
-            if (characterController.IsHazard)
-            {
-                Respawn();
-            }
-        }
-
-        public void Respawn()
-        {
-            characterController.Respawn(CheckpointManager.GetCheckpointPos());
-        }
-
         public void PlayFootstep()
         {
             characterController.PlayFootstep();
