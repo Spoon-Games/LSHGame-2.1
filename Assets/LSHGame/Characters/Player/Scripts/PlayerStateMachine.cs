@@ -46,8 +46,6 @@ namespace LSHGame.PlayerN
 
                 OnStateChanged?.Invoke(oldState, newState);
             }
-
-            Debug.Log(State + "Is dead: " + IsDead);
         }
 
         internal void UpdateAnimator()

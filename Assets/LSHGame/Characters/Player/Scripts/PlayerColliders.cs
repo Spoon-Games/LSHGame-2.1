@@ -138,8 +138,7 @@ namespace LSHGame.PlayerN
 
             if (parent.stats.IsDamage || mainCollider.IsTouchingLayers(hazardsLayers)) // if touching hazard
             {
-                stateMachine.IsDead = true;
-                Debug.Log("IsDamage");
+                parent.Kill();
             }
         
         }

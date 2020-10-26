@@ -137,7 +137,7 @@ namespace LSHGame.PlayerN
 
         private void Start()
         {
-            Respawn();
+            Spawn();
         }
 
         internal void Initialize(Player parent, PlayerStats stats)
@@ -486,7 +486,13 @@ namespace LSHGame.PlayerN
 
         public void Kill()
         {
-            stateMachine.IsDead = true;
+            if (stateMachine.State != PlayerStates.Death)
+                stateMachine.IsDead = true;
+        }
+
+        private void Spawn()
+        {
+            SetRespawn(CheckpointManager.GetCheckpointPos());
         }
 
         private void Respawn()
@@ -501,8 +507,6 @@ namespace LSHGame.PlayerN
             rb.velocity = Vector2.zero;
 
             stateMachine.IsDead = false;
-
-            Debug.Log("Set Respawn");
         }
     }
 }
