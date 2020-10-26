@@ -68,6 +68,7 @@ namespace LSHGame.Util
 #endif
     }
 
+    [DisallowMultipleComponent]
     public abstract class BaseSubstance : MonoBehaviour, ISubstance
     {
         [NonSerialized]
@@ -122,6 +123,7 @@ namespace LSHGame.Util
         public abstract void AddToSet(HashSet<ISubstance> set, ISubstanceFilter filter);
     }
 
+    [DisallowMultipleComponent]
     public abstract class FilterableSubstance : BaseSubstance
     {
         private List<ISubstanceSpecifier> m_substanceSpecifier;
@@ -165,7 +167,6 @@ namespace LSHGame.Util
             {
                 c.AddToSet(set, filter);
             }
-
         }
     }
     public interface ISubstanceSpecifier { }

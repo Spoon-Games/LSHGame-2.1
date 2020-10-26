@@ -61,6 +61,8 @@ namespace LSHGame.PlayerN
         private List<ContactPoint2D> allCPs = new List<ContactPoint2D>();
         private ContactPoint2D groundCP;
         private bool isGroundCPValid = false;
+
+        private PlayerValues stats => parent.stats;
         #endregion
 
         #region Start
@@ -83,6 +85,7 @@ namespace LSHGame.PlayerN
 
         internal void ExeUpdate()
         {
+            ExeBounce();
             ExeStep();
         }
         #endregion
@@ -136,7 +139,38 @@ namespace LSHGame.PlayerN
 
         }
 
-        
+
+        #endregion
+
+        #region Exe Bounce
+
+        private void ExeBounce()
+        {
+            if (allCPs.Count == 0 || stats.BounceSettings == null)
+                return;
+
+            Vector2 velocity = lastVelocity;
+
+            Vector2 normal = allCPs[0].normal;
+            for (int i = 1; i < allCPs.Count; i++)
+            {
+                normal += allCPs[i].normal;
+            }
+            normal.Normalize();
+
+            normal = stats.BounceSettings.GetRotation(normal);
+            float bounceSpeed = stats.BounceSettings.GetBounceSpeed(Mathf.Abs(Vector2.Dot(normal, velocity)));
+
+            Vector2 bounceVelocity = normal * bounceSpeed;
+
+            Vector2 orthogonalVel = Vector2.Perpendicular(normal);
+            orthogonalVel = orthogonalVel * Vector2.Dot(orthogonalVel, velocity);
+
+            bounceVelocity += orthogonalVel;
+
+            rb.velocity = bounceVelocity;
+        }
+
         #endregion
 
         #region Update Grounded
