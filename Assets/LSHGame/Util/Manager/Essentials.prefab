@@ -28,11 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012914411020360935}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-<<<<<<< Updated upstream
   m_LocalPosition: {x: -0.00000023841858, y: 0.00000011920929, z: -10}
-=======
-  m_LocalPosition: {x: 0, y: 0, z: -10}
->>>>>>> Stashed changes
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1012914411172450842}
@@ -1935,15 +1931,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1577570779117535842, guid: 07e7fdeea92021847a0cebc9763ea179, type: 3}
       propertyPath: m_LocalPosition.x
-<<<<<<< Updated upstream
       value: -0.00000029802322
-=======
-      value: 0
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 1577570779117535842, guid: 07e7fdeea92021847a0cebc9763ea179, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.00000014901161
       objectReference: {fileID: 0}
     - target: {fileID: 1655533208021629947, guid: 07e7fdeea92021847a0cebc9763ea179, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1999,15 +1991,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6612796185755390954, guid: 07e7fdeea92021847a0cebc9763ea179, type: 3}
       propertyPath: m_LocalPosition.x
-<<<<<<< Updated upstream
       value: -0.00000023841858
-=======
-      value: 0
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 6612796185755390954, guid: 07e7fdeea92021847a0cebc9763ea179, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.00000011920929
       objectReference: {fileID: 0}
     - target: {fileID: 8125427478024771605, guid: 07e7fdeea92021847a0cebc9763ea179, type: 3}
       propertyPath: m_BoundingShape2D
@@ -2019,15 +2007,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8243378837472630230, guid: 07e7fdeea92021847a0cebc9763ea179, type: 3}
       propertyPath: m_LocalPosition.x
-<<<<<<< Updated upstream
       value: -0.00000017881393
-=======
-      value: 0
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 8243378837472630230, guid: 07e7fdeea92021847a0cebc9763ea179, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.00000011920929
       objectReference: {fileID: 0}
     - target: {fileID: 9150332450214215227, guid: 07e7fdeea92021847a0cebc9763ea179, type: 3}
       propertyPath: m_ChildCameras.Array.size
