@@ -75,6 +75,14 @@ namespace LSHGame.Util
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""CameraLook"",
+                    ""type"": ""Button"",
+                    ""id"": ""3d8f97d9-2020-4ed2-a821-3477e52116b5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -253,6 +261,17 @@ namespace LSHGame.Util
                     ""action"": ""SneekThroughPlatform"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""954f8b51-98d0-44db-b69b-c6edb30e4d0f"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraLook"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -312,6 +331,7 @@ namespace LSHGame.Util
             m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
             m_Player_WallClimbHold = m_Player.FindAction("WallClimbHold", throwIfNotFound: true);
             m_Player_SneekThroughPlatform = m_Player.FindAction("SneekThroughPlatform", throwIfNotFound: true);
+            m_Player_CameraLook = m_Player.FindAction("CameraLook", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
@@ -371,6 +391,7 @@ namespace LSHGame.Util
         private readonly InputAction m_Player_Dash;
         private readonly InputAction m_Player_WallClimbHold;
         private readonly InputAction m_Player_SneekThroughPlatform;
+        private readonly InputAction m_Player_CameraLook;
         public struct PlayerActions
         {
             private @InputController m_Wrapper;
@@ -382,6 +403,7 @@ namespace LSHGame.Util
             public InputAction @Dash => m_Wrapper.m_Player_Dash;
             public InputAction @WallClimbHold => m_Wrapper.m_Player_WallClimbHold;
             public InputAction @SneekThroughPlatform => m_Wrapper.m_Player_SneekThroughPlatform;
+            public InputAction @CameraLook => m_Wrapper.m_Player_CameraLook;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -412,6 +434,9 @@ namespace LSHGame.Util
                     @SneekThroughPlatform.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSneekThroughPlatform;
                     @SneekThroughPlatform.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSneekThroughPlatform;
                     @SneekThroughPlatform.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSneekThroughPlatform;
+                    @CameraLook.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraLook;
+                    @CameraLook.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraLook;
+                    @CameraLook.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraLook;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -437,6 +462,9 @@ namespace LSHGame.Util
                     @SneekThroughPlatform.started += instance.OnSneekThroughPlatform;
                     @SneekThroughPlatform.performed += instance.OnSneekThroughPlatform;
                     @SneekThroughPlatform.canceled += instance.OnSneekThroughPlatform;
+                    @CameraLook.started += instance.OnCameraLook;
+                    @CameraLook.performed += instance.OnCameraLook;
+                    @CameraLook.canceled += instance.OnCameraLook;
                 }
             }
         }
@@ -492,6 +520,7 @@ namespace LSHGame.Util
             void OnDash(InputAction.CallbackContext context);
             void OnWallClimbHold(InputAction.CallbackContext context);
             void OnSneekThroughPlatform(InputAction.CallbackContext context);
+            void OnCameraLook(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

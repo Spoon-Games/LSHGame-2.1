@@ -60,6 +60,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "CameraLook",
+                    "type": "Button",
+                    "id": "3d8f97d9-2020-4ed2-a821-3477e52116b5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -236,6 +244,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SneekThroughPlatform",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "954f8b51-98d0-44db-b69b-c6edb30e4d0f",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraLook",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

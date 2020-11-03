@@ -1,4 +1,5 @@
-﻿using LSHGame.Environment;
+﻿using Cinemachine;
+using LSHGame.Environment;
 using LSHGame.UI;
 using LSHGame.Util;
 using SceneM;
@@ -161,8 +162,7 @@ namespace LSHGame.PlayerN
             if (dashInput.Check(inputController.Player.Dash.GetBC().isPressed,
                 stateMachine.State != PlayerStates.Dash
                 && !isDashStartDisableByGround
-                && dashStartDisableTimer + Stats.DashRecoverDurration <= Time.fixedTime
-                && input.sqrMagnitude > 0.1))
+                && dashStartDisableTimer + Stats.DashRecoverDurration <= Time.fixedTime))
             {
                 stateMachine.IsDash = true;
             }
@@ -211,7 +211,7 @@ namespace LSHGame.PlayerN
                 isDashStartDisableByGround = true;
 
                 dashEndTimer = Time.time;
-                bool b = GetSign(inputMovement.x, out float sign) || GetSign(rb.velocity.x, out sign);
+                bool b = GetSign(inputMovement.x, out float sign) || GetSign(transform.localScale.x, out sign);
                 dashVelocity = new Vector2(sign * Stats.DashSpeed, 0);
                 estimatedDashPosition = rb.transform.position;
                 rb.velocity = dashVelocity;

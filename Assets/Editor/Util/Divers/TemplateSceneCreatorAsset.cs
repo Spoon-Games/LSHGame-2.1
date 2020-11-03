@@ -9,23 +9,21 @@ namespace LSHGame.Util
         [SerializeField]
         private SceneAsset templateScene;
 
-        private static TemplateSceneCreatorAsset instance;
-
-        private void OnEnable()
-        {
-            instance = this;
-        }
-
         [MenuItem("Assets/Create/LSHGame/TemplateScene")]
         private static void CreateSubstancePrefab()
         {
             string path = AssetDatabase.GetAssetPath(Selection.activeObject);
 
-            if(instance == null)
+            string[] guids = AssetDatabase.FindAssets("t:TemplateSceneCreatorAsset");
+            if (guids.Length == 0)
             {
-                Debug.Log("Create TemplateSceneCreatorAsset");
+                Debug.LogError("You have to create a 'TemplateSceneCreatorAsset'");
                 return;
             }
+            else if (guids.Length > 1)
+                Debug.LogError("You have more than one 'TemplateSceneCreatorAsset', this will lead to unexpected behaviour.");
+
+            TemplateSceneCreatorAsset instance = AssetDatabase.LoadAssetAtPath<TemplateSceneCreatorAsset>(AssetDatabase.GUIDToAssetPath(guids[0]));
 
             if(instance.templateScene == null)
             {
