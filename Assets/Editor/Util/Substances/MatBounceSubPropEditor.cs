@@ -40,14 +40,14 @@ namespace LSHGame.Editor
             if (!s.FixedRotation)
             {
                 s.MinMaxRotation.x = EditorGUILayout.FloatField("Min Rotation", s.MinMaxRotation.x);
-                if (s.MinMaxRotation.x < 0)
-                    s.MinMaxRotation.x = -1;
+                if (s.MinMaxRotation.x < -360)
+                    s.MinMaxRotation.x = -1000;
                 else if (s.MinMaxRotation.x > 360)
                     s.MinMaxRotation.x %= 360;
 
                 s.MinMaxRotation.y = EditorGUILayout.FloatField("Max Rotation", s.MinMaxRotation.y);
-                if (s.MinMaxRotation.y < 0)
-                    s.MinMaxRotation.y = -1;
+                if (s.MinMaxRotation.y < -360)
+                    s.MinMaxRotation.y = -1000;
                 else if (s.MinMaxRotation.y > 360)
                     s.MinMaxRotation.y %= 360;
                 else if (s.MinMaxRotation.x > s.MinMaxRotation.y)
@@ -59,6 +59,9 @@ namespace LSHGame.Editor
             }
 
             matBounceSubProp.AddGameObjectRotation = EditorGUILayout.Toggle("AddGameObjectRotation", matBounceSubProp.AddGameObjectRotation);
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("OnBounceEvent"));
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }

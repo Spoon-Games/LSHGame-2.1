@@ -9,7 +9,7 @@ using System;
 namespace LSHGame.Util
 {
     [DisallowMultipleComponent]
-    public class Substance : FilterableSubstance
+    public class Substance : FilterableSubstance 
     {
         internal List<TileBase> GetTilesFormPointer()
         {
@@ -21,6 +21,8 @@ namespace LSHGame.Util
                 tiles.AddRange(p.tilesOfSubstance);
             }
             return tiles;
+
+           
         }
 
 
@@ -120,7 +122,7 @@ namespace LSHGame.Util
             }
         }
 
-        public abstract void AddToSet(HashSet<ISubstance> set, ISubstanceFilter filter);
+        public abstract void AddToSet(SubstanceSet set, ISubstanceFilter filter);
     }
 
     [DisallowMultipleComponent]
@@ -140,7 +142,7 @@ namespace LSHGame.Util
             }
         }
 
-        public override void AddToSet(HashSet<ISubstance> set, ISubstanceFilter filter)
+        public override void AddToSet(SubstanceSet set, ISubstanceFilter filter)
         {
             if (set.Contains(this))
                 return;
@@ -159,7 +161,7 @@ namespace LSHGame.Util
             }
         }
 
-        private void AddToSetHelper(HashSet<ISubstance> set, ISubstanceFilter filter)
+        private void AddToSetHelper(SubstanceSet set, ISubstanceFilter filter)
         {
             set.Add(this);
 
@@ -173,7 +175,7 @@ namespace LSHGame.Util
 
     public interface ISubstance
     {
-        void AddToSet(HashSet<ISubstance> set, ISubstanceFilter filter);
+        void AddToSet(SubstanceSet set, ISubstanceFilter filter);
 
         void RecieveData(IDataReciever reciever);
     }

@@ -4955,24 +4955,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 50169568435895746}
   mainCollider: {fileID: 1741236179}
+  headTouchRect:
+    serializedVersion: 2
+    x: -0.45
+    y: 0.89
+    width: 0.9
+    height: 0.18
   climbLadderTouchRect:
     serializedVersion: 2
     x: -0.35
     y: -0.96
     width: 0.7
     height: 1.22
-  rightClimbWallTouchRect:
+  rightSideTouchRect:
     serializedVersion: 2
-    x: 0
-    y: -0.96
-    width: 0.52
-    height: 1.81
-  movingPlatformTouchRect:
+    x: 0.33
+    y: -0.54
+    width: 0.18
+    height: 1.23
+  feetTouchRect:
     serializedVersion: 2
-    x: -0.39
-    y: -1.12
-    width: 0.78
-    height: 0.25
+    x: -0.37
+    y: -1.09
+    width: 0.74
+    height: 0.15
   groundLayers:
     serializedVersion: 2
     m_Bits: 246784
@@ -5208,7 +5214,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDashEnabled: 1
   IsWallClimbEnabled: 1
-  defaultPlayerMaterial: {fileID: 11400000, guid: a035c675e61fbb346a86b6cdc3dfa33b, type: 2}
 --- !u!114 &501302906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5433,6 +5438,7 @@ MonoBehaviour:
     _gravity: 0.75
     _fallDamping: 0.948
   deathTransition: {fileID: 11400000, guid: 287a4bd7f6a8bb842a2fb8976d134f0f, type: 2}
+  testSpeedMultiplier: 1
   jumpInput:
     beforeConDeltaTime: 0.1
     afterConDeltaTime: 0.15
@@ -5707,8 +5713,8 @@ MonoBehaviour:
   m_ConfineMode: 0
   m_BoundingVolume: {fileID: 0}
   m_BoundingShape2D: {fileID: 0}
-  m_ConfineScreenEdges: 1
-  m_Damping: 0
+  m_ConfineScreenEdges: 0
+  m_Damping: 0.69
 --- !u!1 &1590951703991050667
 GameObject:
   m_ObjectHideFlags: 0
@@ -16082,8 +16088,8 @@ MonoBehaviour:
   m_ConfineMode: 0
   m_BoundingVolume: {fileID: 0}
   m_BoundingShape2D: {fileID: 0}
-  m_ConfineScreenEdges: 1
-  m_Damping: 0
+  m_ConfineScreenEdges: 0
+  m_Damping: 0.45
 --- !u!1 &6323230302755376610
 GameObject:
   m_ObjectHideFlags: 0
@@ -16167,8 +16173,8 @@ MonoBehaviour:
   m_ConfineMode: 0
   m_BoundingVolume: {fileID: 0}
   m_BoundingShape2D: {fileID: 0}
-  m_ConfineScreenEdges: 1
-  m_Damping: 0
+  m_ConfineScreenEdges: 0
+  m_Damping: 0.94
 --- !u!1 &7681345734097294405
 GameObject:
   m_ObjectHideFlags: 0

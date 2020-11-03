@@ -210,5 +210,10 @@ namespace LSHGame.Util
             rect.max -= Vector2.one * inset;
             return rect;
         }
+
+        public static Rect GetGlobalRectOfBox(this BoxCollider2D boxCollider)
+        {
+            return new Rect() { size = boxCollider.size, center = boxCollider.offset }.LocalToWorldRect(boxCollider.transform);
+        }
     }
 }

@@ -11,65 +11,20 @@ namespace LSHGame.PlayerN
     [RequireComponent(typeof(PlayerLSM))]
     public class PlayerController : MonoBehaviour
     {
+        #region Attributes
+
         [Header("Default Stats")]
         [SerializeField]
-        private PlayerValues defaultStats = new PlayerValues();
+        private PlayerStats defaultStats = new PlayerStats();
 
-        internal PlayerValues stats;
-        //[Range(0, 1)]
-        //[SerializeField]
-        //private float crouchSpeed = .36f; 
-        //[SerializeField]
-        //private PlayerMaterial defaultPlayerMaterial;
+        internal PlayerStats Stats { get; private set; }
+        internal SubstanceSet SubstanceSet { get; private set; }
 
-        //[Header("Stats")]
-
-        //[SerializeField]
-        //private AnimationCurve runAccelCurve;
-
-        //[SerializeField]
-        //private AnimationCurve runDeaccelCurve;
-
-        //[SerializeField]
-        //private AnimationCurve runAccelAirborneCurve;
-
-        //[SerializeField]
-        //private AnimationCurve runDeaccelAirborneCurve;
-
-        //[SerializeField]
-        //[Range(0, 1)]
-        //private float fallDamping = 0.3f;
-
-        //[Header("Jump")]
-        //[SerializeField]
-        //private float jumpSpeed = 30f;
-        //[SerializeField]
-        //[Range(0, 1)]
-        //private float jumpSpeedCutter = 0.5f;
-
-        //[Header("Climbing Ladder")]
-        //[SerializeField]
-        //private float climbingLadderSpeed = 0.5f;
-
-        //[Header("Climbing Wall")]
-        //[SerializeField]
-        //private float climbingWallSlideSpeed = 0.6f;
-        //[SerializeField]
-        //private float climbingWallExhaustSlideSpeed = 6f;
-        //[SerializeField]
-        //private float climbWallExhaustDurration = -1;
-        //[SerializeField]
-        //private Vector2 climbingWallJumpVelocity;
-
-        //[Header("Dash")]
-        //[SerializeField]
-        //private float dashDurration;
-        //[SerializeField]
-        //private float dashSpeed;
-        //[SerializeField]
-        //private float dashRecoverDurration;
         [SerializeField]
         private TransitionInfo deathTransition;
+
+        [SerializeField]
+        private float testSpeedMultiplier = 0.7f;
 
         [Header("Input")]
         [SerializeField]
@@ -81,13 +36,6 @@ namespace LSHGame.PlayerN
         [Header("References")]
         [SerializeField]
         private PlayerColliders playerColliders;
-
-        //public InputActionAsset inputAsset;
-
-        //[SerializeField]
-        //private Transform ceilingCheck;
-        //[SerializeField]
-        //private Collider2D m_CrouchDisableCollider;
 
         private Rigidbody2D rb => playerColliders.rb;
         private EffectsController effectsController;
@@ -112,12 +60,14 @@ namespace LSHGame.PlayerN
 
         private Vector2 lastFrameMovingVelocity = default;
 
-        private JumpPad jumpPadChache;
-        private float jumpPadDisableTimer = float.NegativeInfinity;
+        private bool isJumpSpeedCutterActivated = false;
+        #endregion
 
+        #region Initialization
         private void Awake()
         {
-            stats = defaultStats.Clone();
+            Stats = defaultStats.Clone();
+            SubstanceSet = new SubstanceSet();
 
             effectsController = GetComponent<EffectsController>();
 
@@ -140,16 +90,18 @@ namespace LSHGame.PlayerN
             Spawn();
         }
 
-        internal void Initialize(Player parent, PlayerStats stats)
+        internal void Initialize(Player parent)
         {
             this.parent = parent;
-        }
+        } 
+        #endregion
 
+        #region Update Loop
         private void FixedUpdate()
         {
-            lastFrameMovingVelocity = stats.MovingVelocity;
+            lastFrameMovingVelocity = Stats.MovingVelocity;
 
-            stats = defaultStats.Clone();
+            Stats = defaultStats.Clone();
 
             inputMovement = inputController.Player.Movement.ReadValue<Vector2>();
 
@@ -157,6 +109,7 @@ namespace LSHGame.PlayerN
             CheckClimbWall();
             CheckDash();
             CheckPlayerEnabled();
+            CheckGravity();
 
             stateMachine.UpdateState();
 
@@ -167,96 +120,16 @@ namespace LSHGame.PlayerN
 
             FlipSprite();
 
-            stateMachine.Velocity = rb.velocity - stats.MovingVelocity;
+            stateMachine.Velocity = rb.velocity - Stats.MovingVelocity;
             stateMachine.UpdateAnimator();
-        }
+        } 
+        #endregion
 
-        private void ExeUpdate()
-        {
-            //if(stateMaschine.IsDash ^ stateMaschine.IsCurrantState(PlayerLSM.States.Dash)){
-            //    Debug.Log("IsDash: " + stateMaschine.IsDash + " State: " + stateMaschine.CurrentState);
-            //}
-
-            //if (stateMachine.IsTouchingClimbWall)
-            //{
-            //    Debug.Log("TouchingClimbWall: Exhausted" + stateMachine.IsClimbWallExhausted + "\nIsGrounded: " + stateMachine.IsGrounded +
-            //        "\nIsClimbLadder: " + stateMachine.IsTouchingClimbLadder + " \nIsDash: " + stateMachine.IsDash);
-            //}
-
-            switch (stateMachine.State)
-            {
-                case PlayerStates.Locomotion:
-
-                    Run(false);
-                    SneekThrough();
-                    ExeJumpPad();
-                    rb.gravityScale = stats.Gravity;
-                    break;
-                case PlayerStates.Aireborne:
-
-                    Run(true);
-                    rb.gravityScale = stats.Gravity;
-
-                    if (rb.velocity.y < 0)
-                        rb.velocity *= new Vector2(1, stats.FallDamping);
-                    break;
-                case PlayerStates.ClimbWall:
-
-                    //Run(true);
-                    rb.gravityScale = 0;
-                    rb.velocity = new Vector2(0, stats.ClimbingWallSlideSpeed * inputMovement.y);
-                    break;
-                case PlayerStates.ClimbWallExhaust:
-                    rb.gravityScale = stats.Gravity;
-                    rb.velocity = new Vector2(0, -stats.ClimbingWallExhaustSlideSpeed);
-                    break;
-                case PlayerStates.ClimbLadder:
-
-                    Run(false);
-                    rb.gravityScale = 0;
-                    rb.velocity = GetVelocity(1, stats.ClimbingLadderSpeed);
-
-                    break;
-                case PlayerStates.Dash:
-
-                    rb.gravityScale = 0;
-                    break;
-                case PlayerStates.Death:
-
-                    break;
-            }
-        }
-
-        private void Run(bool airborneCurve)
-        {
-            //if (stateMaschine.IsDash)
-            //    Debug.Log("Run while isDash");
-            //if (stateMaschine.IsCurrantState(PlayerLSM.States.Dash))
-            //    Debug.Log("Run while dashState");
-
-
-            float horVelocityRel = rb.velocity.x - lastFrameMovingVelocity.x;
-
-            if (Mathf.Abs(inputMovement.x) < 0.01f)
-            {
-                horVelocityRel = (!airborneCurve ? stats.RunDeaccelCurve : stats.RunDeaccelAirborneCurve).EvaluateValueByStep(Mathf.Abs(horVelocityRel), Time.fixedDeltaTime, true) * Mathf.Sign(horVelocityRel);
-            }
-            else
-            {
-                horVelocityRel = (!airborneCurve ? stats.RunAccelCurve : stats.RunAccelAirborneCurve).EvaluateValueByStep(horVelocityRel * Mathf.Sign(inputMovement.x), Time.fixedDeltaTime) * Mathf.Sign(inputMovement.x);
-            }
-
-            //Debug.Log("MovingPlatformVel: " + playerColliders.movingPlatformVelocity);
-            rb.velocity = new Vector2(horVelocityRel + stats.MovingVelocity.x, rb.velocity.y + Mathf.Min(0, stats.MovingVelocity.y));
-            //Debug.Log("MovingPlatformVel: " + playerColliders.movingPlatformVelocity);
-
-
-        }
-
+        #region Check Methods
         private void CheckClimbWall()
         {
             if (inputMovement.y > 0)
-                stateMachine.IsTouchingClimbLadder &= rb.velocity.y <= inputMovement.y * stats.ClimbingLadderSpeed;
+                stateMachine.IsTouchingClimbLadder &= rb.velocity.y <= inputMovement.y * Stats.ClimbingLadderSpeed;
             else
                 stateMachine.IsTouchingClimbLadder &= rb.velocity.y <= 0;
 
@@ -270,7 +143,7 @@ namespace LSHGame.PlayerN
                 climbWallExhaustTimer = float.PositiveInfinity;
             }
 
-            stateMachine.IsClimbWallExhausted = Time.fixedTime - stats.ClimbingWallExhaustDurration >= climbWallExhaustTimer;
+            stateMachine.IsClimbWallExhausted = Time.fixedTime - Stats.ClimbingWallExhaustDurration >= climbWallExhaustTimer;
 
             //if (stateMachine.IsTouchingClimbWall)
             //{
@@ -288,7 +161,7 @@ namespace LSHGame.PlayerN
             if (dashInput.Check(inputController.Player.Dash.GetBC().isPressed,
                 stateMachine.State != PlayerStates.Dash
                 && !isDashStartDisableByGround
-                && dashStartDisableTimer + stats.DashRecoverDurration <= Time.fixedTime
+                && dashStartDisableTimer + Stats.DashRecoverDurration <= Time.fixedTime
                 && input.sqrMagnitude > 0.1))
             {
                 stateMachine.IsDash = true;
@@ -299,7 +172,7 @@ namespace LSHGame.PlayerN
 
                 stateMachine.IsDash &= !inputController.Player.Dash.GetBC().wasReleasedThisFrame;
                 stateMachine.IsDash &= rb.velocity.Approximately(dashVelocity, 0.5f) && estimatedDashPosition.Approximately(rb.transform.position, 0.5f);
-                stateMachine.IsDash &= Time.fixedTime < dashEndTimer + stats.DashDurration;
+                stateMachine.IsDash &= Time.fixedTime < dashEndTimer + Stats.DashDurration;
 
                 estimatedDashPosition = ((Vector2)rb.transform.position) + (dashVelocity * Time.fixedDeltaTime);
             }
@@ -311,47 +184,20 @@ namespace LSHGame.PlayerN
             stateMachine.IsDash &= parent.IsDashEnabled;
         }
 
-        private void Jump()
+        private void CheckGravity()
         {
-            ButtonControl j = inputController.Player.Jump.GetBC();
-            bool buttonReleased = false;
-
-            if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.Locomotion || stateMachine.State == PlayerStates.ClimbLadder, ref buttonReleased))
+            if(rb.velocity.y > 0 && isJumpSpeedCutterActivated)
             {
-                Vector2 jumpVelocity = new Vector2(rb.velocity.x, stats.JumpSpeed);
-
-                if (jumpPadChache != null)
-                {
-                    jumpPadChache.ActivateJump(out jumpVelocity, rb.velocity);
-                    jumpPadDisableTimer = Time.fixedTime + 0.1f;
-                }
-
-                rb.velocity = jumpVelocity;
-                climbWallDisableTimer = Time.fixedTime + 0.2f;
-                //rb.AddForce(new Vector2(0, jumpSpeed),ForceMode2D.Impulse);
+                Stats.Gravity /= Stats.JumpSpeedCutter;
             }
-            else if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.ClimbWall, ref buttonReleased, 1))
+            else
             {
-                rb.velocity = stats.ClimbingWallJumpVelocity * new Vector2(inputMovement.x, 1);
-                climbWallDisableTimer = Time.fixedTime + 0.2f;
-            }
-            else if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.ClimbWallExhaust, ref buttonReleased, 2))
-            {
-                rb.velocity = stats.ClimbingWallJumpVelocity * new Vector2(JumpXVelClimbWallDir(), 1);
-                climbWallDisableTimer = Time.fixedTime + 0.2f;
-            }
-
-            if (buttonReleased && rb.velocity.y > 0.05f)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * stats.JumpSpeedCutter);
+                isJumpSpeedCutterActivated = false;
             }
         }
+        #endregion
 
-        private float JumpXVelClimbWallDir()
-        {
-            return GetFliped() ^ playerColliders.IsTouchingClimbWallLeft ? 1 : -1;
-        }
-
+        #region State Changed
         private void OnPlayerStateChanged(PlayerStates from, PlayerStates to)
         {
             if (to == PlayerStates.ClimbWall && climbWallExhaustTimer == float.PositiveInfinity)
@@ -366,73 +212,133 @@ namespace LSHGame.PlayerN
 
                 dashEndTimer = Time.time;
                 bool b = GetSign(inputMovement.x, out float sign) || GetSign(rb.velocity.x, out sign);
-                dashVelocity = new Vector2(sign * stats.DashSpeed, 0);
+                dashVelocity = new Vector2(sign * Stats.DashSpeed, 0);
                 estimatedDashPosition = rb.transform.position;
                 rb.velocity = dashVelocity;
                 stateMachine.IsDash = true;
             }
 
-            if(to == PlayerStates.Death)
+            if (to == PlayerStates.Death)
             {
                 Respawn();
             }
-        }
+        } 
+        #endregion
 
-        //private void Climb()
-        //{
-        //    float gravityScale = playerColliders.gravityScaleAtStart;
-
-        //    if (playerColliders.isTouchingClimbWall && Time.time > climbWallTimer && Time.time <= climbWallSlideTimer)
-        //    {
-        //        if (climbWallSlideTimer == float.PositiveInfinity && climbWallDurration > 0)
-        //            climbWallSlideTimer = Time.time + climbWallDurration;
-        //        gravityScale = 0;
-        //        Vector2 climbVel = GetVelocity(1, 1);
-        //        if (climbVel.y > 0)
-        //            climbVel.y = -climbingWallSlideSlowSpeed;
-        //        else
-        //            climbVel.y = -climbingWallSlideSpeed;
-        //        rb.velocity = climbVel;
-        //    }
-        //    else if (climbWallSlideTimer != float.PositiveInfinity)
-        //    {
-        //        climbWallTimer = Time.time + 1f;
-        //        climbWallSlideTimer = float.PositiveInfinity;
-        //    }
-        //}
-
-        private void SneekThrough()
+        #region Exe Methods
+        private void ExeUpdate()
         {
-            if (inputController.Player.SneekThroughPlatform.GetBC().isPressed)
+            switch (stateMachine.State)
             {
-                foreach (var i in playerColliders.interactablePlatforms)
-                {
-                    if (i is SneekThroughPlatform platform)
-                    {
-                        platform.DisableCollider();
-                    }
-                }
+                case PlayerStates.Locomotion:
+
+                    Run(false);
+                    ExeSneek();
+                    rb.gravityScale = Stats.Gravity;
+                    break;
+                case PlayerStates.Aireborne:
+
+                    Run(true);
+                    rb.gravityScale = Stats.Gravity;
+
+                    if (rb.velocity.y < 0)
+                        rb.velocity *= new Vector2(1, Stats.FallDamping);
+                    break;
+                case PlayerStates.ClimbWall:
+
+                    //Run(true);
+                    rb.gravityScale = 0;
+                    rb.velocity = new Vector2(0, Stats.ClimbingWallSlideSpeed * inputMovement.y);
+                    break;
+                case PlayerStates.ClimbWallExhaust:
+                    rb.gravityScale = Stats.Gravity;
+                    rb.velocity = new Vector2(0, -Stats.ClimbingWallExhaustSlideSpeed);
+                    break;
+                case PlayerStates.ClimbLadder:
+
+                    Run(false);
+                    rb.gravityScale = 0;
+                    rb.velocity = GetVelocity(1, Stats.ClimbingLadderSpeed);
+
+                    break;
+                case PlayerStates.Dash:
+
+                    rb.gravityScale = 0;
+                    break;
+                case PlayerStates.Death:
+
+                    break;
             }
         }
 
-        private void ExeJumpPad()
+        private void Run(bool airborneCurve)
         {
-            jumpPadChache = null;
+            float horVelocityRel = rb.velocity.x - lastFrameMovingVelocity.x;
 
-            if (Time.fixedTime < jumpPadDisableTimer)
-                return;
-
-            foreach (var i in playerColliders.interactablePlatforms)
+            if (Mathf.Abs(inputMovement.x) < 0.01f)
             {
-                if (i is JumpPad jumpPad)
-                {
-                    jumpPad.Activate(out Vector2 bounceVelocity, rb.velocity);
-                    rb.velocity = bounceVelocity;
+                horVelocityRel = (!airborneCurve ? Stats.RunDeaccelCurve : Stats.RunDeaccelAirborneCurve).EvaluateValueByStep(Mathf.Abs(horVelocityRel), Time.fixedDeltaTime, true) * Mathf.Sign(horVelocityRel);
+            }
+            else
+            {
+                horVelocityRel = (!airborneCurve ? Stats.RunAccelCurve : Stats.RunAccelAirborneCurve).EvaluateValueByStep(horVelocityRel * Mathf.Sign(inputMovement.x), Time.fixedDeltaTime) * Mathf.Sign(inputMovement.x);
+            }
 
-                    jumpPadChache = jumpPad;
-                }
+            //Debug.Log("MovingPlatformVel: " + playerColliders.movingPlatformVelocity);
+
+            //Debug
+            horVelocityRel *= testSpeedMultiplier;
+            rb.velocity = new Vector2(horVelocityRel + Stats.MovingVelocity.x, rb.velocity.y + Mathf.Min(0, Stats.MovingVelocity.y));
+            //Debug.Log("MovingPlatformVel: " + playerColliders.movingPlatformVelocity);
+        }
+
+        private void Jump()
+        {
+            ButtonControl j = inputController.Player.Jump.GetBC();
+            bool buttonReleased = false;
+
+            if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.Locomotion || stateMachine.State == PlayerStates.ClimbLadder, ref buttonReleased))
+            {
+                Vector2 jumpVelocity = new Vector2(rb.velocity.x, Stats.JumpSpeed);
+
+                rb.velocity = jumpVelocity;
+                climbWallDisableTimer = Time.fixedTime + 0.2f;
+
+                Stats.OnJump?.Invoke();
+                //rb.AddForce(new Vector2(0, jumpSpeed),ForceMode2D.Impulse);
+            }
+            else if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.ClimbWall, ref buttonReleased, 1))
+            {
+                rb.velocity = Stats.ClimbingWallJumpVelocity * new Vector2(inputMovement.x, 1);
+                climbWallDisableTimer = Time.fixedTime + 0.2f;
+            }
+            else if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.ClimbWallExhaust, ref buttonReleased, 2))
+            {
+                rb.velocity = Stats.ClimbingWallJumpVelocity * new Vector2(JumpXVelClimbWallDir(), 1);
+                climbWallDisableTimer = Time.fixedTime + 0.2f;
+            }
+
+            if (buttonReleased && rb.velocity.y > 0.05f)
+            {
+                isJumpSpeedCutterActivated = true;
             }
         }
+
+        private float JumpXVelClimbWallDir()
+        {
+            return GetFliped() ^ playerColliders.IsTouchingClimbWallLeft ? 1 : -1;
+        }
+
+        private void ExeSneek()
+        {
+            if(inputMovement.y < 0)
+            {
+                Stats.OnSneek?.Invoke();
+            }
+        }
+        #endregion
+
+        #region Helper Methods
 
         public void PlayFootstep()
         {
@@ -442,7 +348,7 @@ namespace LSHGame.PlayerN
 
         private void FlipSprite()
         {
-            if (GetSign(rb.velocity.x - stats.MovingVelocity.x, out float sign))
+            if (GetSign(rb.velocity.x - Stats.MovingVelocity.x, out float sign))
             {
                 SetFliped(sign);
             }
@@ -484,6 +390,9 @@ namespace LSHGame.PlayerN
 
         }
 
+        #endregion
+
+        #region Spawning
         public void Kill()
         {
             if (stateMachine.State != PlayerStates.Death)
@@ -503,10 +412,11 @@ namespace LSHGame.PlayerN
 
         private void SetRespawn(Vector2 position)
         {
-            transform.position = position;
+            playerColliders.SetPositionCorrected(position);
             rb.velocity = Vector2.zero;
 
             stateMachine.IsDead = false;
-        }
+        } 
+        #endregion
     }
 }

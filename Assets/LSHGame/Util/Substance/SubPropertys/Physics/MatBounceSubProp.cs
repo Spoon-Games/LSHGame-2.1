@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace LSHGame.Util
 {
@@ -8,11 +10,14 @@ namespace LSHGame.Util
 
         public bool AddGameObjectRotation = false;
 
+        public UnityEvent OnBounceEvent;
+
         protected internal override void RecieveData(IDataReciever reciever)
         {
             if(reciever is IMatBounceRec r)
             {
                 r.BounceSettings = BounceSettings;
+                r.OnBounce += () => { OnBounceEvent.Invoke(); };
             }
         }
     }
@@ -20,6 +25,8 @@ namespace LSHGame.Util
     public interface IMatBounceRec
     {
         BounceSettings BounceSettings { get; set; }
+
+        Action OnBounce { get; set; }
     }
 
     [System.Serializable]
@@ -33,7 +40,7 @@ namespace LSHGame.Util
 
 
         public bool FixedRotation = false;
-        public Vector2 MinMaxRotation;
+        public Vector2 MinMaxRotation = -Vector2.one * 1000;
         public float Rotation;
 
         public float GetBounceSpeed(float initialSpeed)
@@ -57,19 +64,19 @@ namespace LSHGame.Util
         {
             if (FixedRotation)
             {
-                return GetDirDeg(Rotation);
+                return GetDirDeg(Rotation + 90);
             }
             else
             {
-                float initRot = GetAngleDeg(initialDirection);
+                float initRot = GetAngleDeg(initialDirection) - 90;
 
-                if (MinMaxRotation.x >= 0)
+                if (MinMaxRotation.x >= -360)
                     initRot = Mathf.Max(initRot, MinMaxRotation.x);
 
-                if (MinMaxRotation.y >= 0)
+                if (MinMaxRotation.y >= -360)
                     initRot = Mathf.Min(initRot, MinMaxRotation.y);
 
-                return GetDirDeg(initRot);
+                return GetDirDeg(initRot + 90);
             }
         }
 

@@ -1,45 +1,72 @@
-﻿using SceneM;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LSHGame.Util
 {
-    public class DelayedSubstance : FilterableSubstance
+    public class DelayedSubstance : Substance
     {
         [SerializeField]
         public float Delay = 0;
 
-        private ISubstanceFilter currentFilter;
-
-        public override void AddToSet(HashSet<ISubstance> set, ISubstanceFilter filter)
+        public override void AddToSet(SubstanceSet set, ISubstanceFilter filter)
         {
             if (set.Contains(this))
                 return;
             if (SubstanceSpecifier.Count == 0)
             {
-                set.Add(this);
-                currentFilter = filter;
+                AddToSetP(set, filter);
                 return;
             }
             foreach (var specifier in SubstanceSpecifier)
             {
                 if (filter.IsValidSubstance(specifier))
                 {
-                    set.Add(this);
-                    currentFilter = filter;
+                    AddToSetP(set, filter);
                     return;
                 }
             }
         }
 
-        public override void RecieveData(IDataReciever dataReciever)
+        private void AddToSetP(SubstanceSet set, ISubstanceFilter filter)
         {
-            TimeSystem.Delay(Delay, DelayedRecive, true);
+            if (Delay <= 0)
+            {
+                DelayedAddToSet(set, filter);
+                return;
+            }
+            set.SubSetQuery.Add(new DelayedSubExecutable(Delay, this, filter));
         }
 
-        private void DelayedRecive(float t)
+        private void DelayedAddToSet(SubstanceSet set,ISubstanceFilter filter)
         {
+            set.Add(this);
+            foreach (var c in ChildSubstances)
+            {
+                c.AddToSet(set, filter);
+            }
+        }
 
+        public class DelayedSubExecutable : ISubSetQueryable
+        {
+            private readonly float exeTime;
+            private DelayedSubstance parent;
+            private ISubstanceFilter filter;
+
+            public DelayedSubExecutable(float delay, DelayedSubstance parent,ISubstanceFilter filter)
+            {
+                exeTime = delay + Time.fixedTime;
+                this.parent = parent;
+                this.filter = filter;
+            }
+
+            public bool ExeAddToSet(SubstanceSet substanceSet)
+            {
+                if (Time.fixedTime >= exeTime)
+                {
+                    parent.DelayedAddToSet(substanceSet, filter);
+                    return true;
+                }
+                return false;
+            }
         }
     }
 }

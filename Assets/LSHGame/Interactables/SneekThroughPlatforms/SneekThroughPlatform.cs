@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using LSHGame.Util;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace LSHGame.Environment
 {
     [RequireComponent(typeof(Collider2D))]
-    public class SneekThroughPlatform : MonoBehaviour,InteractablePlatform
+    [RequireComponent(typeof(Substance))]
+    public class SneekThroughPlatform : SneekCallbackSubProp
     {
         private const float disableIntervall = 0.5f;
         private Collider2D mainCollider;
@@ -15,6 +17,7 @@ namespace LSHGame.Environment
         private void Awake()
         {
             mainCollider = GetComponent<Collider2D>();
+            base.OnSneekEvent.AddListener(DisableCollider);
         }
 
         private void Update()
