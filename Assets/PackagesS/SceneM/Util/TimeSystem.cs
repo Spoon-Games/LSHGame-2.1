@@ -36,7 +36,7 @@ namespace SceneM
                 delayActions.Add(Time.fixedTime + delay, action);
         }
 
-        public static void Delay(Action<float> action,float endTime)
+        public static void DelayAbsolut(Action<float> action,float endTime)
         {
             if (endTime <= Time.time)
                 action.Invoke(Time.time);

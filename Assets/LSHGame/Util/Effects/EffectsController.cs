@@ -23,8 +23,8 @@ namespace LSHGame.Util
             {
                 trigger.Trigger(parameters);
             }
-            //else
-            //    Debug.LogError("EffectTrigger " + name + " was not found");
+            else
+                Debug.Log("EffectTrigger " + name + " was not found");
         }
 
         public void SetAttributes(string name,Bundle values)

@@ -6,7 +6,6 @@ namespace LSHGame.Util
     {
         protected internal override void RecieveData(IDataReciever reciever)
         {
-            Debug.Log("RecieveData");
             if(reciever is IDamageRec r)
             {
                 r.IsDamage = true;

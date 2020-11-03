@@ -17,13 +17,16 @@ namespace LSHGame.PlayerN
 
         [Header("Touchpoints")]
         [SerializeField]
+        private Rect headTouchRect;
+
+        [SerializeField]
         private Rect climbLadderTouchRect;
 
         [SerializeField]
-        private Rect rightClimbWallTouchRect;
+        private Rect rightSideTouchRect;
 
         [SerializeField]
-        private Rect movingPlatformTouchRect;
+        private Rect feetTouchRect;
 
         [Header("LayerMasks")]
         [SerializeField]
@@ -53,14 +56,14 @@ namespace LSHGame.PlayerN
         //private Transform lastMovingPlatform = null;
         //private Vector2 movingPlatformLastPos;
 
-        internal List<InteractablePlatform> interactablePlatforms = new List<InteractablePlatform>();
-
         internal bool IsTouchingClimbWallRight { get; private set; }
         internal bool IsTouchingClimbWallLeft { get; private set; }
 
         private List<ContactPoint2D> allCPs = new List<ContactPoint2D>();
         private ContactPoint2D groundCP;
         private bool isGroundCPValid = false;
+
+        private PlayerStats Stats => parent.Stats;
         #endregion
 
         #region Start
@@ -76,67 +79,86 @@ namespace LSHGame.PlayerN
         internal void CheckUpdate()
         {
             CheckGrounded();
-            CheckMovingPlatform();
-            CheckInteractablePlatforms();
             CheckTouch();
         }
 
         internal void ExeUpdate()
         {
+            ExeBounce();
             ExeStep();
         }
         #endregion
 
         #region Update Stuff
-        private void CheckMovingPlatform()
-        {
-            //movingPlatformVelocityLastFrame = movingPlatformVelocity;
-            //movingPlatformVelocity = Vector2.zero;
-
-            //if(IsTouchingLayerRectRelative(movingPlatformTouchRect,interactablePlatformsLayers,out Transform movingPlatform)){
-            //    if (lastMovingPlatform == movingPlatform)
-            //    {
-            //        movingPlatformVelocity = ((Vector2)movingPlatform.position - movingPlatformLastPos) / Time.fixedDeltaTime;
-            //    }
-            //    else
-            //        lastMovingPlatform = movingPlatform;
-            //    movingPlatformLastPos = movingPlatform.position;
-            //}
-            //else if (lastMovingPlatform != null)
-            //    lastMovingPlatform = null;
-        }
-
-        private void CheckInteractablePlatforms()
-        {
-            interactablePlatforms.Clear();
-
-            if (isGroundCPValid && interactablePlatformsLayers.IsLayer(groundCP.collider.gameObject.layer))
-            {
-                interactablePlatforms.AddRange(groundCP.collider.GetComponents<InteractablePlatform>());
-            }
-        }
 
         private void CheckTouch()
         {
+            /* Retrive substances */
+            RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Ladders, climbLadderTouchRect);
 
-            ReciveDataOnRect(PlayerSubstanceColliderType.Ladders, climbLadderTouchRect);
-
-            IsTouchingClimbWallRight = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, rightClimbWallTouchRect,true);
-
-            IsTouchingClimbWallLeft = ReciveDataOnRect(PlayerSubstanceColliderType.Sides, InvertOnX(rightClimbWallTouchRect),true);
+            IsTouchingClimbWallRight = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Sides, rightSideTouchRect, true);
+            IsTouchingClimbWallLeft = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Sides, InvertOnX(rightSideTouchRect), true);
             stateMachine.IsTouchingClimbWall = IsTouchingClimbWallLeft || IsTouchingClimbWallRight;
 
-            ReciveDataOnRect(PlayerSubstanceColliderType.Feet, movingPlatformTouchRect);
+            RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Feet, feetTouchRect);
 
-            ReciveDataOnRect(PlayerSubstanceColliderType.Main, mainCollider);
+            RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Main, mainCollider);
+
+            RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Head, headTouchRect);
 
 
-            stateMachine.IsTouchingClimbLadder = parent.stats.IsLadder;
-            stateMachine.IsTouchingHazard = parent.stats.IsDamage || mainCollider.IsTouchingLayers(hazardsLayers);
+            /* Activate queried substances */
+            parent.SubstanceSet.ExecuteQuery();
 
+            /* Recieve data */
+            parent.SubstanceSet.RecieveDataAndReset(parent.Stats); 
+
+
+            /* Update internal values */
+            stateMachine.IsTouchingClimbLadder = parent.Stats.IsLadder;
+
+            if (parent.Stats.IsDamage || mainCollider.IsTouchingLayers(hazardsLayers)) // if touching hazard
+            {
+                parent.Kill();
+            }
+        
         }
 
-        
+
+        #endregion
+
+        #region Exe Bounce
+
+        private void ExeBounce()
+        {
+            if (allCPs.Count == 0 || Stats.BounceSettings == null)
+                return;
+
+            Vector2 normal = allCPs[0].normal;
+            for (int i = 1; i < allCPs.Count; i++)
+            {
+                normal += allCPs[i].normal;
+            }
+            normal.Normalize();
+
+            normal = Stats.BounceSettings.GetRotation(normal);
+            float bounceSpeed = Stats.BounceSettings.GetBounceSpeed(Mathf.Abs(Vector2.Dot(normal, lastVelocity)));
+
+            Vector2 bounceVelocity = normal * bounceSpeed;
+
+            Vector2 orthogonalVel = Vector2.Perpendicular(normal);
+            orthogonalVel = orthogonalVel * Vector2.Dot(orthogonalVel, lastVelocity);
+
+            bounceVelocity += orthogonalVel;
+
+            if ((bounceVelocity - ((Vector2)lastVelocity)).SqrMagnitude() < 0.1f)
+                return;
+
+            rb.velocity = bounceVelocity;
+
+            Stats.OnBounce?.Invoke();
+        }
+
         #endregion
 
         #region Update Grounded
@@ -312,6 +334,24 @@ namespace LSHGame.PlayerN
         }
         #endregion
 
+        #region Spawnig
+
+        internal void SetPositionCorrected(Vector2 position)
+        {
+            int i = 0;
+            do
+            {
+                parent.transform.position = position;
+                position += Vector2.up * 0.1f;
+
+                if (i > 1000)
+                    break;
+                i++;
+            } while (IsTouchingLayerRectAbsolute(mainCollider.GetGlobalRectOfBox(),groundLayers));
+        }
+
+        #endregion
+
         #region Helper Methods
 
 #if UNITY_EDITOR
@@ -320,14 +360,14 @@ namespace LSHGame.PlayerN
             Gizmos.color = Color.red;
             //if (ladderTouchPoint != null)
             //Gizmos.DrawWireSphere(ladderTouchPoint.position, ladderTouchRadius);
-            DrawRectRelative(rightClimbWallTouchRect);
-            DrawRectRelative(InvertOnX(rightClimbWallTouchRect));
+            DrawRectRelative(rightSideTouchRect);
+            DrawRectRelative(InvertOnX(rightSideTouchRect));
 
             DrawRectRelative(climbLadderTouchRect);
 
-            DrawRectRelative(movingPlatformTouchRect);
+            DrawRectRelative(feetTouchRect);
 
-            DrawRectRelative(new Rect() { size = mainCollider.size, center = mainCollider.offset });
+            DrawRectRelative(headTouchRect);
             //foreach(ContactPoint2D contactPoint2D in allCPs)
             //{
             //    Gizmos.color = Color.blue;
@@ -399,9 +439,12 @@ namespace LSHGame.PlayerN
         private bool IsTouchingLayerRectRelative(Rect rect, LayerMask layers,bool useTriggers = false)
         {
             rect = TransformRectPS(rect);
-            bool isTouching = Physics2D.OverlapBox(rect.center, rect.size, 0, new ContactFilter2D() {useTriggers = useTriggers, layerMask = layers,useLayerMask = true},new Collider2D[1]) > 0;
-            //Debug.Log("IsTouchingLayerRect: Center: " + ((Vector3)rect.center + transform.position) + "\n Size: " + rect.size + "\nLayers: " + layers.value + " isTouching: "+isTouching);
-            return isTouching;
+            return IsTouchingLayerRectAbsolute(rect,layers,useTriggers);
+        }
+
+        private bool IsTouchingLayerRectAbsolute(Rect rect, LayerMask layers, bool useTriggers = false)
+        {
+            return Physics2D.OverlapBox(rect.center, rect.size, 0, new ContactFilter2D() { useTriggers = useTriggers, layerMask = layers, useLayerMask = true }, new Collider2D[1]) > 0;
         }
 
         private Rect InvertOnX(Rect rect)
@@ -416,11 +459,11 @@ namespace LSHGame.PlayerN
             return r;
         }
 
-        private bool ReciveDataOnRect(PlayerSubstanceColliderType colliderType,Rect localRect,bool noTouchOnTriggers = false)
+        private bool RetrieveSubstanceOnRect(PlayerSubstanceColliderType colliderType,Rect localRect,bool noTouchOnTriggers = false)
         {
-            SubstanceManager.ReciveSubstanceData(
+            SubstanceManager.RetrieveSubstances(
                 localRect.LocalToWorldRect(transform),
-                parent.stats,
+                parent.SubstanceSet,
                 new PlayerSubstanceFilter { ColliderType = colliderType },
                 groundLayers,
                 out bool touch,
@@ -428,11 +471,11 @@ namespace LSHGame.PlayerN
             return touch;
         }
 
-        private bool ReciveDataOnRect(PlayerSubstanceColliderType colliderType, BoxCollider2D collider)
+        private bool RetrieveSubstanceOnRect(PlayerSubstanceColliderType colliderType, BoxCollider2D collider)
         {
-            SubstanceManager.ReciveSubstanceData(
+            SubstanceManager.RetrieveSubstances(
                 collider,
-                parent.stats,
+                parent.SubstanceSet,
                 new PlayerSubstanceFilter { ColliderType = colliderType },
                 groundLayers,
                 out bool touch);
