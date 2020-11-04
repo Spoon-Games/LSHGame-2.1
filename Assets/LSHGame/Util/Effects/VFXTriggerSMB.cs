@@ -13,6 +13,9 @@ namespace LSHGame.Util
         private bool OnEnter = true;
         [SerializeField]
         private bool OnExit = false;
+        [SerializeField]
+        private float TriggerAgainThreshold = 0.1f;
+        private float triggerAgainTimer = float.NegativeInfinity;
 
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -32,6 +35,11 @@ namespace LSHGame.Util
 
         private void Trigger(Transform transform)
         {
+            if (Time.time < triggerAgainTimer)
+                return;
+
+            triggerAgainTimer = Time.time + TriggerAgainThreshold;
+
             Bundle bundle = new Bundle();
             bundle.Put("startDelay", startDelay);
 
@@ -41,7 +49,7 @@ namespace LSHGame.Util
 
             if (string.IsNullOrEmpty(vFXName))
                 return;
-            transform.GetComponent<EffectsController>().Trigger(vFXName, bundle);
+            transform.GetComponent<EffectsController>().TriggerEffectParams(vFXName, bundle);
         }
     } 
 }

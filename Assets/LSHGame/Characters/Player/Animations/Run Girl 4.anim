@@ -20,35 +20,25 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 6246763069502144167, guid: 95cdaad2b47ac9c4ea118e3058512eaf,
-        type: 3}
+      value: {fileID: 6246763069502144167, guid: 95cdaad2b47ac9c4ea118e3058512eaf, type: 3}
     - time: 0.083333336
-      value: {fileID: -6617518563804304470, guid: 95cdaad2b47ac9c4ea118e3058512eaf,
-        type: 3}
+      value: {fileID: -6617518563804304470, guid: 95cdaad2b47ac9c4ea118e3058512eaf, type: 3}
     - time: 0.16666667
-      value: {fileID: -6281279213845048733, guid: 95cdaad2b47ac9c4ea118e3058512eaf,
-        type: 3}
+      value: {fileID: -6281279213845048733, guid: 95cdaad2b47ac9c4ea118e3058512eaf, type: 3}
     - time: 0.25
-      value: {fileID: -8606367954970993801, guid: 95cdaad2b47ac9c4ea118e3058512eaf,
-        type: 3}
+      value: {fileID: -8606367954970993801, guid: 95cdaad2b47ac9c4ea118e3058512eaf, type: 3}
     - time: 0.33333334
-      value: {fileID: 869574700757484017, guid: 95cdaad2b47ac9c4ea118e3058512eaf,
-        type: 3}
+      value: {fileID: 869574700757484017, guid: 95cdaad2b47ac9c4ea118e3058512eaf, type: 3}
     - time: 0.41666666
-      value: {fileID: 1545739586076811684, guid: 95cdaad2b47ac9c4ea118e3058512eaf,
-        type: 3}
+      value: {fileID: 1545739586076811684, guid: 95cdaad2b47ac9c4ea118e3058512eaf, type: 3}
     - time: 0.5
-      value: {fileID: -733839744994870685, guid: 95cdaad2b47ac9c4ea118e3058512eaf,
-        type: 3}
+      value: {fileID: -733839744994870685, guid: 95cdaad2b47ac9c4ea118e3058512eaf, type: 3}
     - time: 0.5833333
-      value: {fileID: 8511331512977732384, guid: 95cdaad2b47ac9c4ea118e3058512eaf,
-        type: 3}
+      value: {fileID: 8511331512977732384, guid: 95cdaad2b47ac9c4ea118e3058512eaf, type: 3}
     - time: 0.6666667
-      value: {fileID: -1275477517972819663, guid: 95cdaad2b47ac9c4ea118e3058512eaf,
-        type: 3}
+      value: {fileID: -1275477517972819663, guid: 95cdaad2b47ac9c4ea118e3058512eaf, type: 3}
     - time: 0.75
-      value: {fileID: -2835184213375165493, guid: 95cdaad2b47ac9c4ea118e3058512eaf,
-        type: 3}
+      value: {fileID: -2835184213375165493, guid: 95cdaad2b47ac9c4ea118e3058512eaf, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -102,4 +92,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.33333334
+    functionName: TriggerEffect
+    data: Footstep
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

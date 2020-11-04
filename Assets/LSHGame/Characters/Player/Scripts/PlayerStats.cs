@@ -1,10 +1,13 @@
-﻿using LSHGame.Util;
+﻿using System;
+using System.Collections.Generic;
+using LSHGame.Util;
 using UnityEngine;
 
 namespace LSHGame.PlayerN
 {
     [System.Serializable]
-    public class PlayerValues : IPlayerLocomotionRec, IPlayerJumpRec, IPlayerClimbingRec, IPlayerDashRec, IGravityRec, IDataReciever, IDamageRec, IIsLadderRec,IMatVelocityRec
+    public class PlayerStats : IPlayerLocomotionRec, IPlayerJumpRec, IPlayerClimbingRec, IPlayerDashRec, IGravityRec, 
+        IDataReciever, IDamageRec, IIsLadderRec,IMatVelocityRec,IMatBounceRec, IJumpCallbackRec, ISneekCallbackRec, IEffectsMaterialRec
     {
         [SerializeField] private AnimationCurve _runAccelCurve;
         [SerializeField] private AnimationCurve _runDeaccelCurve;
@@ -42,10 +45,15 @@ namespace LSHGame.PlayerN
         public bool IsDamage { get; set; } = false;
         public bool IsLadder { get; set; } = false;
         public Vector2 MovingVelocity { get; set; } = Vector2.zero;
+        public BounceSettings BounceSettings { get; set; } = null;
+        public Action OnJump { get; set; }
+        public Action OnBounce { get; set; }
+        public Action OnSneek { get; set; }
+        public Dictionary<string, string> EffectMaterials { get; } = new Dictionary<string, string>();
 
-        public PlayerValues Clone()
+        public PlayerStats Clone()
         {
-            return (PlayerValues)this.MemberwiseClone();
+            return (PlayerStats)this.MemberwiseClone();
         }
     }
 }

@@ -6,6 +6,8 @@ namespace AudioP
     [CreateAssetMenu(fileName = "SoundInfo", menuName = "AudioP/RandomSoundInfo", order = 0)]
     public class RandomSoundInfo : SoundInfo
     {
+        public override AudioClip GetAudioClip => audioClips[0];
+
         [Header("Sounds to play")]
         [SerializeField]
         private AudioClip[] audioClips = new AudioClip[0];

@@ -26,7 +26,7 @@ namespace LSHGame.Util
             LoadSubstances();
         }
 
-        public static void ReciveSubstanceData(BoxCollider2D collider2D, IDataReciever reciever, ISubstanceFilter filter, LayerMask layerMask, out bool touch)
+        public static void RetrieveSubstances(BoxCollider2D collider2D, SubstanceSet set, ISubstanceFilter filter, LayerMask layerMask, out bool touch)
         {
             List<Collider2D> colliders = new List<Collider2D>();
                 collider2D.OverlapCollider(GetContactFilter(layerMask), colliders);
@@ -35,10 +35,10 @@ namespace LSHGame.Util
             //Debug.Log("Colliders: " + colliders.Count);
             //if (touch)
                // Debug.Log("Touching: " + colliders[0].name);
-            ReciveSubstanceData(new Rect() { size = collider2D.size, center = collider2D.offset }.LocalToWorldRect(collider2D.transform), reciever, filter, colliders, GetContactFilter(layerMask));
+            RetrieveSubstances(new Rect() { size = collider2D.size, center = collider2D.offset }.LocalToWorldRect(collider2D.transform), set, filter, colliders, GetContactFilter(layerMask));
         }
 
-        public static void ReciveSubstanceData(Rect rect,IDataReciever reciever, ISubstanceFilter filter, LayerMask layerMask,out bool touch,bool noTouchOnTriggers = false)
+        public static void RetrieveSubstances(Rect rect, SubstanceSet set, ISubstanceFilter filter, LayerMask layerMask,out bool touch,bool noTouchOnTriggers = false)
         {
             List<Collider2D> colliders = GetTouchRect(rect, GetContactFilter(layerMask));
             if (noTouchOnTriggers)
@@ -55,44 +55,34 @@ namespace LSHGame.Util
             }else
                 touch = colliders.Count > 0;
             //Debug.Log("Colliders: " + colliders.Count);
-            ReciveSubstanceData(rect, reciever, filter, colliders, GetContactFilter(layerMask));
+            RetrieveSubstances(rect, set, filter, colliders, GetContactFilter(layerMask));
         }
 
-        private static void ReciveSubstanceData(Rect rect, IDataReciever reciever, ISubstanceFilter filter, List<Collider2D> colliders,ContactFilter2D cf)
+        private static void RetrieveSubstances(Rect rect, SubstanceSet set, ISubstanceFilter filter, List<Collider2D> colliders,ContactFilter2D cf)
         {
-            substances.Clear();
-
             foreach (Collider2D collider in colliders)
             {
                 if (collider.TryGetComponent<Tilemap>(out Tilemap tilemap))
                 {
-                    GetSubstancesFromTilemap(rect, tilemap,collider,cf, substances, filter);
+                    GetSubstancesFromTilemap(rect, tilemap,collider,cf, set, filter);
                 }
 
                 if (collider.TryGetComponent<Substance>(out Substance substance))
                 {
-                    substance.AddToSet(substances, filter);
+                    substance.AddToSet(set, filter);
                 }
 
                 foreach (var provider in collider.GetComponents<SubstanceProvider>())
                 {
-                    provider.Substance?.AddToSet(substances, filter);
+                    provider.Substance?.AddToSet(set, filter);
                 }
 
-                GetSubstancesFromTag(collider.gameObject.tag, substances, filter);
+                GetSubstancesFromTag(collider.gameObject.tag, set, filter);
             }
 
-
-            foreach (var substance in substances)
-            {
-                //Debug.Log("Substance ReciveData");
-                substance.RecieveData(reciever);
-            }
-
-            substances.Clear();
         }
 
-            private static void GetSubstancesFromTilemap(Rect rect, Tilemap tilemap,Collider2D collider, ContactFilter2D cf,HashSet<ISubstance> substances, ISubstanceFilter filter)
+            private static void GetSubstancesFromTilemap(Rect rect, Tilemap tilemap,Collider2D collider, ContactFilter2D cf, SubstanceSet set, ISubstanceFilter filter)
         {
             RectInt tileRect = new RectInt() { min = (Vector2Int)tilemap.WorldToCell(rect.min), max = (Vector2Int)tilemap.WorldToCell(rect.max) };
             tileRect.height += 1;
@@ -113,7 +103,7 @@ namespace LSHGame.Util
                         {
                             //Debug.Log("Add TileBase: " + tile.name);
                             foreach (var s in subs)
-                                s.AddToSet(substances, filter);
+                                s.AddToSet(set, filter);
                         }
                         //Instance.debugRects.Add(overlap);
                     }
@@ -122,7 +112,7 @@ namespace LSHGame.Util
             }
         }
 
-        private static void GetSubstancesFromTag(string tag, HashSet<ISubstance> substances, ISubstanceFilter filter)
+        private static void GetSubstancesFromTag(string tag, SubstanceSet set, ISubstanceFilter filter)
         {
             while (!string.IsNullOrEmpty(tag) && !Equals(tag,"Untagged"))
             {
@@ -142,7 +132,7 @@ namespace LSHGame.Util
 
                 if (substanceName != "" && Instance.nameBasedSubstances.TryGetValue(substanceName, out Substance s))
                 {
-                    s.AddToSet(substances,filter);
+                    s.AddToSet(set,filter);
                 }
 
                 if (endMat == -1)

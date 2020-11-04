@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 8094791337167420095}
   - component: {fileID: 8094791337167420089}
   - component: {fileID: 8094791337167420094}
+  - component: {fileID: 7005234209457979267}
+  - component: {fileID: 988654062922567610}
+  - component: {fileID: 8649533382577167952}
   m_Layer: 17
   m_Name: MovingPlatform
   m_TagString: Untagged
@@ -190,3 +193,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7005234209457979267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8094791337167420068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9427c0979c5fb75419a5e01a4f36145e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovingVelocity: {x: 0, y: 0}
+--- !u!114 &988654062922567610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8094791337167420068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12e2c6e974ab5a47a1adb6ec7527d36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliderType: 2
+--- !u!114 &8649533382577167952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8094791337167420068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4df5fd8cdfea0094f81cea9278241217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

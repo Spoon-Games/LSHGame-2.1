@@ -6,6 +6,8 @@ namespace AudioP
     [CreateAssetMenu(fileName = "SoundInfo", menuName = "AudioP/BasicSoundInfo", order = 0)]
     public class BasicSoundInfo : SoundInfo
     {
+
+
         [SerializeField]
         private AudioClip audioClip;
 

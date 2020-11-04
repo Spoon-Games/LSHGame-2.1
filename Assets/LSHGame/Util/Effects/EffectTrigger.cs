@@ -27,11 +27,11 @@ namespace LSHGame.Util
             triggers.Add(name, this);
         }
 
-        public void SetAttributes(Bundle values){}
+        public void SetMaterial(string material){}
 
         public void Trigger(Bundle parameters)
         {
-            foreach(var p in effectPlayers)
+            foreach(var p in EffectPlayers)
             {
                 p.Play(parameters);
             }

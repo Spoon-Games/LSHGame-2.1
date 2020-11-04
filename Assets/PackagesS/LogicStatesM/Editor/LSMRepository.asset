@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animators:
   - {fileID: 9100000, guid: 0d9e70963defed948903e1441d7475dd, type: 2}
+  - {fileID: 9100000, guid: ac6cf2dfb03a8934a9f9c566f4ab61d3, type: 2}
   generateScripts: 0

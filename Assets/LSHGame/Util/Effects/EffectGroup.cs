@@ -10,17 +10,19 @@ namespace LSHGame.Util
         public const string MATERIAL_ID = "Material";
 
         [SerializeField]
+        private string defaultMaterial = "Default";
+
         private string currentMaterial = "";
 
         public void Trigger(Bundle parameters)
         {
             if (string.IsNullOrEmpty(currentMaterial))
             {
-                effectTriggers.Values.FirstOrDefault()?.Trigger(parameters);
+                base.TriggerEffectParams(defaultMaterial,parameters);
             }
             else
             {
-                base.Trigger(currentMaterial, parameters);
+                base.TriggerEffectParams(currentMaterial, parameters);
             }
         }
 
@@ -29,9 +31,9 @@ namespace LSHGame.Util
             triggers.Add(name, this);
         }
 
-        public void SetAttributes(Bundle values)
+        public void SetMaterial(string material)
         {
-            values.TryGet(MATERIAL_ID, out currentMaterial);
+            currentMaterial = material;
         }
     }
 }
