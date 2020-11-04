@@ -15,6 +15,23 @@ BlendTree:
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 0
+--- !u!114 &-9096185391108251968
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 348e2cc0b5072b34bbf70b2274acedfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vFXName: Death
+  startDelay: 0
+  OnEnter: 1
+  OnExit: 0
+  TriggerAgainThreshold: 1
 --- !u!114 &-8313649652871562422
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31,6 +48,7 @@ MonoBehaviour:
   startDelay: 0
   OnEnter: 1
   OnExit: 0
+  TriggerAgainThreshold: 0.1
 --- !u!1101 &-8213839941319508506
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -216,6 +234,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: IsGrounded
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsDeath
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102105724234260244}
   m_Solo: 0
@@ -261,6 +282,7 @@ MonoBehaviour:
   startDelay: 0
   OnEnter: 1
   OnExit: 0
+  TriggerAgainThreshold: 0.1
 --- !u!1101 &-5502879359097783270
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -271,6 +293,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: IsDash
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsDeath
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4841827150166645598}
@@ -302,6 +327,7 @@ MonoBehaviour:
   startDelay: 0
   OnEnter: 1
   OnExit: 0
+  TriggerAgainThreshold: 0.1
 --- !u!1101 &-5008293689857418860
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -321,6 +347,9 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: IsDash
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsDeath
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8161441958454089159}
@@ -482,6 +511,7 @@ MonoBehaviour:
   startDelay: 0
   OnEnter: 1
   OnExit: 0
+  TriggerAgainThreshold: 0.1
 --- !u!114 &-961791876824177306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -498,6 +528,7 @@ MonoBehaviour:
   startDelay: 0
   OnEnter: 1
   OnExit: 0
+  TriggerAgainThreshold: 0.1
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -512,49 +543,43 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: Death
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsGrounded
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: HorizontalSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: VerticalSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsTouchingClimbWall
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: IsDash
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: IsTouchingHazard
+    m_Controller: {fileID: 9100000}
+  - m_Name: IsDeath
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -591,7 +616,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Death
+    m_ConditionEvent: IsDeath
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102709919964654982}
@@ -645,8 +670,10 @@ AnimatorState:
   m_Name: Deathd
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
+  m_Transitions:
+  - {fileID: 9003533998306008907}
+  m_StateMachineBehaviours:
+  - {fileID: -9096185391108251968}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -675,7 +702,7 @@ AnimatorStateMachine:
     m_Position: {x: 60, y: 490, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102709919964654982}
-    m_Position: {x: -150, y: 560, z: 0}
+    m_Position: {x: -80, y: 680, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3992436742124753962}
     m_Position: {x: 110, y: -30, z: 0}
@@ -825,10 +852,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 348e2cc0b5072b34bbf70b2274acedfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vFXName: DustPuff
+  vFXName: Landing
   startDelay: 0
   OnEnter: 1
   OnExit: 0
+  TriggerAgainThreshold: 0.1
 --- !u!1102 &3992436742124753962
 AnimatorState:
   serializedVersion: 5
@@ -871,6 +899,7 @@ MonoBehaviour:
   startDelay: 0
   OnEnter: 1
   OnExit: 0
+  TriggerAgainThreshold: 0.1
 --- !u!1109 &4435464474392413928
 AnimatorTransition:
   m_ObjectHideFlags: 1
@@ -1024,6 +1053,7 @@ MonoBehaviour:
   startDelay: 0
   OnEnter: 1
   OnExit: 0
+  TriggerAgainThreshold: 0.1
 --- !u!1109 &7968450619057264243
 AnimatorTransition:
   m_ObjectHideFlags: 1
@@ -1081,6 +1111,32 @@ MonoBehaviour:
   startDelay: 0
   OnEnter: 1
   OnExit: 0
+  TriggerAgainThreshold: 0.1
+--- !u!1101 &9003533998306008907
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsDeath
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 0}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 1
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &9057821132401116461
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1102,7 +1158,7 @@ AnimatorStateTransition:
     m_ConditionEvent: IsTouchingClimbWall
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: IsTouchingHazard
+    m_ConditionEvent: IsDeath
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3323329823182523419}

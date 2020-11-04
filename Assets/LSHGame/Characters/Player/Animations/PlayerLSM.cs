@@ -22,12 +22,6 @@ get => animator.GetBool(IsTouchingLadderHash);
 set => animator.SetBool(IsTouchingLadderHash,value); 
 }
 
-private const int DeathHash = 646380074;
-public bool Death {
-get => animator.GetBool(DeathHash);
-set => animator.SetBool(DeathHash,value); 
-}
-
 private const int IsGroundedHash = 507951781;
 public bool IsGrounded {
 get => animator.GetBool(IsGroundedHash);
@@ -58,10 +52,10 @@ get => animator.GetBool(IsDashHash);
 set => animator.SetBool(IsDashHash,value); 
 }
 
-private const int IsTouchingHazardHash = -1896057813;
-public bool IsTouchingHazard {
-get => animator.GetBool(IsTouchingHazardHash);
-set => animator.SetBool(IsTouchingHazardHash,value); 
+private const int IsDeathHash = 569220492;
+public bool IsDeath {
+get => animator.GetBool(IsDeathHash);
+set => animator.SetBool(IsDeathHash,value); 
 }
 
 public enum Layers { 

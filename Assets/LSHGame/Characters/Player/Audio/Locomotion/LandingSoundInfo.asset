@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClips:
   - {fileID: 8300000, guid: ea217dc637f73b649a2866febb99c4a2, type: 3}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: ea217dc637f73b649a2866febb99c4a2, type: 3}
   soundInfos: []
   outputGroup: {fileID: 455653739544208706, guid: 011bb8008d04c6044847cd43f344c6fd, type: 2}
-  minVolume: 0.993
+  minVolume: 0.921
   maxVolume: 1
-  minPitch: 0.19
-  maxPitch: -0.26
+  minPitch: 1.03
+  maxPitch: 1.4
   loop: 0
   panStereo: 0
   spatialBlend: 0

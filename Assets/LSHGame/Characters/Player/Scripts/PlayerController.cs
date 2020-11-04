@@ -195,6 +195,14 @@ namespace LSHGame.PlayerN
                 isJumpSpeedCutterActivated = false;
             }
         }
+
+        private void AsignEffectMaterials()
+        {
+            foreach(var em in Stats.EffectMaterials)
+            {
+                effectsController.SetMaterial(em.Key, em.Value);
+            }
+        }
         #endregion
 
         #region State Changed
@@ -266,7 +274,7 @@ namespace LSHGame.PlayerN
                     rb.gravityScale = 0;
                     break;
                 case PlayerStates.Death:
-
+                    rb.velocity = Vector2.zero;
                     break;
             }
         }
@@ -339,12 +347,6 @@ namespace LSHGame.PlayerN
         #endregion
 
         #region Helper Methods
-
-        public void PlayFootstep()
-        {
-            effectsController.Trigger("FootstepVFX", null);
-            effectsController.Trigger("FootstepAudio", null);
-        }
 
         private void FlipSprite()
         {

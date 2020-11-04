@@ -56,7 +56,7 @@ namespace LSHGame.PlayerN
             animatorMachine.IsTouchingClimbWall = IsTouchingClimbWall;
             animatorMachine.IsTouchingLadder = IsTouchingClimbLadder;
             animatorMachine.IsDash = IsDash;
-            animatorMachine.IsTouchingHazard = IsDead;
+            animatorMachine.IsDeath = IsDead;
         }
 
         private PlayerStates GetStateFromAny()

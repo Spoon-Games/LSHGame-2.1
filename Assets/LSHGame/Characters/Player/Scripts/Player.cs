@@ -23,10 +23,5 @@ namespace LSHGame.PlayerN
 
             characterController.Initialize(this);
         }
-
-        public void PlayFootstep()
-        {
-            characterController.PlayFootstep();
-        }
     }
 }

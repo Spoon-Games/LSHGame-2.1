@@ -1,13 +1,19 @@
-﻿using UnityEditor;
+﻿using System;
+using System.Collections;
+using System.Reflection;
+using UnityEditor;
 using UnityEngine;
-using UnityEditor.Audio;
 
 namespace AudioP
 {
-    [CustomEditor(typeof(SoundInfo),true)]
+    [CustomEditor(typeof(SoundInfo), true)]
     public class SoundInfoEditor : Editor
     {
         private SoundInfo SoundInfo => target as SoundInfo;
+
+        private AudioSource currentAudioSource = null;
+
+        private bool IsPlaying => currentAudioSource != null && currentAudioSource.isPlaying;
 
         public override void OnInspectorGUI()
         {
@@ -15,10 +21,60 @@ namespace AudioP
 
             GUILayout.Space(20);
 
-            if (GUILayout.Button("Preview"))
+            if (!IsPlaying)
             {
-                
+                if (GUILayout.Button("Preview"))
+                {
+                    PlaySound();
+                }
+            }
+            else
+            {
+                if (GUILayout.Button("Stop"))
+                {
+                    StopSound();
+                }
+            }
+
+        }
+
+        private void PlaySound()
+        {
+            CreateAudioSource();
+
+            StopSound();
+
+            SoundInfo.Play(currentAudioSource);
+        }
+
+        private void StopSound()
+        {
+            if (currentAudioSource.isPlaying)
+                currentAudioSource.Stop();
+        }
+
+        private void OnDisable()
+        {
+            DestroyAudioSource();
+        }
+
+        private void DestroyAudioSource()
+        {
+            if(currentAudioSource != null)
+            {
+                DestroyImmediate(currentAudioSource.gameObject);
             }
         }
-    } 
+
+        private void CreateAudioSource()
+        {
+            if(currentAudioSource == null)
+            {
+                GameObject soundPlayer = new GameObject("SoundPlayer");
+                soundPlayer.hideFlags = HideFlags.HideAndDontSave;
+                currentAudioSource = soundPlayer.AddComponent<AudioSource>();
+            }
+        }
+
+    }
 }

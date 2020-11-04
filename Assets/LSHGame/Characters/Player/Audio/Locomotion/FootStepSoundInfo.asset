@@ -19,10 +19,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 234b586e812e70b419affbe33e30dcfe, type: 3}
   soundInfos: []
   outputGroup: {fileID: 455653739544208706, guid: 011bb8008d04c6044847cd43f344c6fd, type: 2}
-  minVolume: 1
+  minVolume: 0.911
   maxVolume: 1
-  minPitch: 0
-  maxPitch: 0
+  minPitch: 1.21
+  maxPitch: 2.08
   loop: 0
   panStereo: 0
   spatialBlend: 0

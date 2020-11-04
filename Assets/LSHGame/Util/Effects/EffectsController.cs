@@ -17,7 +17,7 @@ namespace LSHGame.Util
         /// Use this function if you don't have the direct refrence to the VFXTrigger, like in an animator (VFXTriggerSMB).
         /// </summary>
         /// <param name="name">The name of the trigger</param>
-        public void Trigger(string name,Bundle parameters)
+        public void TriggerEffectParams(string name,Bundle parameters)
         {
             if (effectTriggers.TryGetValue(name, out IEffectTrigger trigger))
             {
@@ -27,9 +27,14 @@ namespace LSHGame.Util
                 Debug.Log("EffectTrigger " + name + " was not found");
         }
 
-        public void SetAttributes(string name,Bundle values)
+        public void TriggerEffect(string name)
         {
-            effectTriggers[name].SetAttributes(values);
+            TriggerEffectParams(name, null);
+        }
+
+        public void SetMaterial(string effect,string material)
+        {
+            effectTriggers[name].SetMaterial(material);
         }
 
         private void LoadEffectTriggers(Transform transform)
@@ -52,7 +57,7 @@ namespace LSHGame.Util
     {
         void AddToDict(Dictionary<string, IEffectTrigger> triggers);
 
-        void SetAttributes(Bundle values);
+        void SetMaterial(string material);
 
         void Trigger(Bundle parameters);
     }
