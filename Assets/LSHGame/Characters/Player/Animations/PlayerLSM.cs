@@ -16,18 +16,6 @@ private const string animatorPath = "Assets/LSHGame/Characters/Player/Animations
 private Animator animator;
 public Animator Animator => animator;
 
-private const int IsTouchingLadderHash = 1379395005;
-public bool IsTouchingLadder {
-get => animator.GetBool(IsTouchingLadderHash);
-set => animator.SetBool(IsTouchingLadderHash,value); 
-}
-
-private const int IsGroundedHash = 507951781;
-public bool IsGrounded {
-get => animator.GetBool(IsGroundedHash);
-set => animator.SetBool(IsGroundedHash,value); 
-}
-
 private const int HorizontalSpeedHash = -1118621987;
 public float HorizontalSpeed {
 get => animator.GetFloat(HorizontalSpeedHash);
@@ -40,22 +28,40 @@ get => animator.GetFloat(VerticalSpeedHash);
 set => animator.SetFloat(VerticalSpeedHash,value); 
 }
 
-private const int IsTouchingClimbWallHash = 1250088830;
-public bool IsTouchingClimbWall {
-get => animator.GetBool(IsTouchingClimbWallHash);
-set => animator.SetBool(IsTouchingClimbWallHash,value); 
+private const int SLocomotionHash = -366921587;
+public bool SLocomotion {
+get => animator.GetBool(SLocomotionHash);
+set => animator.SetBool(SLocomotionHash,value); 
 }
 
-private const int IsDashHash = 1040174394;
-public bool IsDash {
-get => animator.GetBool(IsDashHash);
-set => animator.SetBool(IsDashHash,value); 
+private const int SAireborneHash = -2058483014;
+public bool SAireborne {
+get => animator.GetBool(SAireborneHash);
+set => animator.SetBool(SAireborneHash,value); 
 }
 
-private const int IsDeathHash = 569220492;
-public bool IsDeath {
-get => animator.GetBool(IsDeathHash);
-set => animator.SetBool(IsDeathHash,value); 
+private const int SClimbingWallHash = 559333848;
+public bool SClimbingWall {
+get => animator.GetBool(SClimbingWallHash);
+set => animator.SetBool(SClimbingWallHash,value); 
+}
+
+private const int SClimbinLadderHash = 1327845802;
+public bool SClimbinLadder {
+get => animator.GetBool(SClimbinLadderHash);
+set => animator.SetBool(SClimbinLadderHash,value); 
+}
+
+private const int SDashHash = -1551241436;
+public bool SDash {
+get => animator.GetBool(SDashHash);
+set => animator.SetBool(SDashHash,value); 
+}
+
+private const int SDeathHash = -612575539;
+public bool SDeath {
+get => animator.GetBool(SDeathHash);
+set => animator.SetBool(SDeathHash,value); 
 }
 
 public enum Layers { 
