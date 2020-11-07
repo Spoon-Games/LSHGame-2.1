@@ -52,11 +52,14 @@ namespace LSHGame.PlayerN
         {
             animatorMachine.VerticalSpeed = Velocity.y;
             animatorMachine.HorizontalSpeed = Velocity.x;
-            animatorMachine.IsGrounded = IsGrounded;
-            animatorMachine.IsTouchingClimbWall = IsTouchingClimbWall;
-            animatorMachine.IsTouchingLadder = IsTouchingClimbLadder;
-            animatorMachine.IsDash = IsDash;
-            animatorMachine.IsDeath = IsDead;
+
+            animatorMachine.SAireborne = State == PlayerStates.Aireborne;
+            animatorMachine.SClimbingWall = State == PlayerStates.ClimbWall || State == PlayerStates.ClimbWallExhaust;
+            animatorMachine.SClimbinLadder = State == PlayerStates.ClimbLadder;
+            animatorMachine.SDash = State == PlayerStates.Dash;
+            animatorMachine.SDeath = State == PlayerStates.Death;
+            animatorMachine.SLocomotion = State == PlayerStates.Locomotion;
+
         }
 
         private PlayerStates GetStateFromAny()
@@ -70,14 +73,14 @@ namespace LSHGame.PlayerN
             if (IsTouchingClimbLadder)
                 return PlayerStates.ClimbLadder;
 
-            if (IsGrounded)
-                return PlayerStates.Locomotion;
-
             if (IsTouchingClimbWall && IsClimbWallExhausted)
                 return PlayerStates.ClimbWallExhaust;
 
             if (IsTouchingClimbWall)
                 return PlayerStates.ClimbWall;
+
+            if (IsGrounded)
+                return PlayerStates.Locomotion;
 
             return PlayerStates.Aireborne;
         }

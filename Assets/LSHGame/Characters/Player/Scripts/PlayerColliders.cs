@@ -142,19 +142,19 @@ namespace LSHGame.PlayerN
             normal.Normalize();
 
             normal = Stats.BounceSettings.GetRotation(normal);
-            float bounceSpeed = Stats.BounceSettings.GetBounceSpeed(Mathf.Abs(Vector2.Dot(normal, lastVelocity)));
+            float bounceSpeed = Stats.BounceSettings.GetBounceSpeed(Mathf.Abs(Vector2.Dot(normal, rb.velocity)));
 
             Vector2 bounceVelocity = normal * bounceSpeed;
 
             Vector2 orthogonalVel = Vector2.Perpendicular(normal);
-            orthogonalVel = orthogonalVel * Vector2.Dot(orthogonalVel, lastVelocity);
+            orthogonalVel = orthogonalVel * Vector2.Dot(orthogonalVel, rb.velocity);
 
             bounceVelocity += orthogonalVel;
 
-            if ((bounceVelocity - ((Vector2)lastVelocity)).SqrMagnitude() < 0.1f)
+            if ((bounceVelocity - ((Vector2)rb.velocity)).SqrMagnitude() < 0.1f)
                 return;
 
-            rb.velocity = bounceVelocity;
+            parent.localVelocity = bounceVelocity - parent.lastFrameMovingVelocity;
 
             Stats.OnBounce?.Invoke();
         }
@@ -180,9 +180,11 @@ namespace LSHGame.PlayerN
                 stepUp = FindStep(out stepUpOffset, allCPs, groundCP.point, velocity);
                 //Debug.Log("GroundCPPoint: " + groundCP.point);
             }
-            else if (stateMachine.State == PlayerStates.ClimbLadder && velocity.y >= 0 && Mathf.Abs(velocity.x) > 0)
+            else if ((stateMachine.State == PlayerStates.ClimbLadder || stateMachine.State == PlayerStates.ClimbWall || stateMachine.State == PlayerStates.Dash)
+                && parent.GreaterEqualY(velocity.y,0) && Mathf.Abs(velocity.x) > 0)
             {
-                stepUp = FindStep(out stepUpOffset, allCPs, transform.TransformPoint(new Vector2(0, mainCollider.offset.y - mainCollider.size.y / 2 )), velocity);
+                stepUp = FindStep(out stepUpOffset, allCPs, transform.TransformPoint(new Vector2(0, mainCollider.offset.y - mainCollider.size.y / 2)), velocity);
+                //Debug.Log("FindStep: " + stepUp);
             }
 
 
@@ -191,7 +193,7 @@ namespace LSHGame.PlayerN
             {
                 //Debug.Log("StepUp: " + stepUp + " grounded: " + grounded + " steUpOffset: " + stepUpOffset);
                 rb.position += stepUpOffset;
-                rb.velocity = lastVelocity;
+                parent.localVelocity = lastVelocity;
             }
 
             allCPs.Clear();
@@ -210,13 +212,16 @@ namespace LSHGame.PlayerN
             foreach (ContactPoint2D cp in allCPs)
             {
                 //Pointing with some up direction
-                if (cp.normal.y > 0.0001f && (found == false || cp.normal.y > groundCP.normal.y))
+                //Debug.Log("CP: " + cp.collider.name + " normalY "+cp.normal.y+"" +
+                //    " GreaterAbs: "+parent.GreaterYAbs(cp.normal.y,0.0001f) + " groundCp.NormalY: "+groundCP.normal.y+" GreaterY: "+ parent.GreaterY(cp.normal.y, groundCP.normal.y));
+                if (parent.GreaterYAbs(cp.normal.y,0.0001f) && (found == false || parent.GreaterY(cp.normal.y,groundCP.normal.y)))
                 {
                     groundCP = cp;
                     found = true;
                 }
             }
-
+            //if (found)
+                //Debug.Log("FindGround: " + allCPs.Count);
             return found;
         }
 
@@ -229,13 +234,18 @@ namespace LSHGame.PlayerN
             stepUpOffset = default;
             //No chance to step if the player is not moving
             if (currVelocity.sqrMagnitude < 0.0001f)
-                return false;
+              return false;
+
+            //Debug.Log("Find Step Up Exe Step " + allCPs.Count);
 
             foreach (ContactPoint2D cp in allCPs)
             {
-                bool test = ResolveStepUp(out stepUpOffset, cp, groundCPPoint);
-                if (test)
-                    return test;
+                //Debug.Log("CP Find Step: " + cp.collider.name);
+                if (ResolveStepUp(out stepUpOffset, cp, groundCPPoint))
+                {
+                    //Debug.Log("Resolve Step Up");
+                    return true;
+                }
             }
             return false;
         }
@@ -247,33 +257,42 @@ namespace LSHGame.PlayerN
         /// \return If the passed ContactPoint was a step
         bool ResolveStepUp(out Vector2 stepUpOffset, ContactPoint2D stepTestCP, Vector2 groundCPPoint)
         {
+
+            //Debug.Log("ResolveStepUp 0 CollName" + stepTestCP.collider.name);
+
             stepUpOffset = default;
             Collider2D stepCol = stepTestCP.otherCollider;
 
             if (!groundLayers.IsLayer(stepTestCP.collider.gameObject.layer))
                 return false;
+
             //( 1 ) Check if the contact point normal matches that of a step (y close to 0)
             if (Mathf.Abs(stepTestCP.normal.y) >= 0.01f)
             {
                 return false;
             }
 
+            //Debug.Log("ResolveStepUp 1");
+
             //( 2 ) Make sure the contact point is low enough to be a step
-            if (!(stepTestCP.point.y - groundCPPoint.y < maxStepHeight))
+            if (!(parent.SmalerYAbs(stepTestCP.point.y - groundCPPoint.y, maxStepHeight)))
             {
                 return false;
             }
 
+            //Debug.Log("ResolveStepUp 2");
+
             //( 3 ) Check to see if there's actually a place to step in front of us
             //Fires one Raycast
-            float stepHeight = groundCPPoint.y + maxStepHeight + 0.0001f;
+            float stepHeight = (groundCPPoint.y + (maxStepHeight + 0.0001f) * parent.flipedDirection.y); 
             Vector2 stepTestInvDir = new Vector2(-stepTestCP.normal.x, 0).normalized;
             Vector2 origin = new Vector2(stepTestCP.point.x, stepHeight) + (stepTestInvDir * stepSearchOvershoot);
-            Vector2 direction = Vector3.down;
+            Vector2 direction = new Vector2(0, -parent.flipedDirection.y);
 
             RaycastHit2D hit = Physics2D.Raycast(origin, direction, maxStepHeight, groundLayers);
 
-            //Debug.Log("Resolvestep Origin: "+origin + " stepTestInvDir: "+stepTestInvDir);
+            //Debug.Log("Resolvestep Origin: "+origin + " stepTestInvDir: "+stepTestInvDir + " stepHeight: "+stepHeight+" direchtion: "+direction+"" +
+            //    " hit: "+ (hit.collider != null && hit.collider != stepCol));
             //Vector2 hitPoint = default;
 
             //if (stepCol.bounds.IntersectRay(new Ray(origin, direction), out float distance))
@@ -290,13 +309,17 @@ namespace LSHGame.PlayerN
             if (hit.collider == null || hit.collider == stepCol)
                 return false;
 
+            //Debug.Log("ResolveStepUp 3");
+
             //We have enough info to calculate the points
-            Vector2 stepUpPoint = new Vector2(stepTestCP.point.x, hit.point.y + 0.0001f) + (stepTestInvDir * stepSearchOvershoot);
+            Vector2 stepUpPoint = new Vector2(stepTestCP.point.x, hit.point.y + 0.0001f * parent.flipedDirection.y) + (stepTestInvDir * stepSearchOvershoot);
             Vector2 stepUpPointOffset = stepUpPoint - new Vector2(stepTestCP.point.x, groundCPPoint.y);
 
             //We passed all the checks! Calculate and return the point!
-            if (stepUpPointOffset.y <= 0 || stepUpPointOffset.y >= maxStepHeight)
+            if ( !parent.GreaterYAbs(stepUpPointOffset.y,0) || !parent.SmalerYAbs(stepUpPointOffset.y ,maxStepHeight))
                 return false;
+
+            //Debug.Log("ResolveStepUp 4");
 
             stepUpOffset = stepUpPointOffset;
             return true;
