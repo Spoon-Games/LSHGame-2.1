@@ -36,18 +36,14 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - <noninit>: 0
     - Boolean_F2711A20: 0
     - Vector1_57F3B4B7: 0.4
     - Vector1_83C9A472: 0
     - Vector1_C1BF8DEA: 0.4
     - _EnableExternalAlpha: 0
-
+    - _T: 0
     m_Colors:
-    - Color_AD364FC9: {r: 1, g: 0, b: 0, a: 1}
-    - Vector2_315DBC4C: {r: 0.64, g: 0.43, b: 0, a: 0}
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _MainColor: {r: 1, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _Origin: {r: 0.64, g: 0.43, b: 0, a: 0}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
