@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2062801156896699901}
   - component: {fileID: 116942218449414920}
   - component: {fileID: 8329249737724864029}
-  - component: {fileID: 1536336414947081548}
   m_Layer: 12
   m_Name: Dust Puff
   m_TagString: Untagged
@@ -4873,18 +4872,6 @@ ParticleSystemRenderer:
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
 --- !u!114 &8329249737724864029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 151956564411870306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12512e760fcbe784cad96783c60c814f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1536336414947081548
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
