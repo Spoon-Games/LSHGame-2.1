@@ -24,8 +24,10 @@ namespace LSHGame.PlayerN
         [SerializeField]
         private TransitionInfo deathTransition;
 
+        [Header("Experimental")]
         [SerializeField]
-        private float testSpeedMultiplier = 0.7f;
+        private float verticalDashSpeed = 0;
+
 
         [Header("Input")]
         [SerializeField]
@@ -162,8 +164,6 @@ namespace LSHGame.PlayerN
             {
                 climbWallExhaustTimer = float.PositiveInfinity;
             }
-            else if (Mathf.Abs(localGravity) < 0.06f)
-                climbWallExhaustTimer = Time.fixedTime;
 
             stateMachine.IsClimbWallExhausted = Time.fixedTime - Stats.ClimbingWallExhaustDurration >= climbWallExhaustTimer;
 
@@ -229,7 +229,8 @@ namespace LSHGame.PlayerN
         {
             if (to == PlayerStates.ClimbWall && climbWallExhaustTimer == float.PositiveInfinity)
             {
-                climbWallExhaustTimer = Time.fixedTime;
+                if (Mathf.Abs(localGravity) > 0.06f)
+                    climbWallExhaustTimer = Time.fixedTime;
             }
 
             if (to == PlayerStates.Dash)
@@ -241,7 +242,9 @@ namespace LSHGame.PlayerN
                 if (!GetSign(inputMovement.x, out float sign))
                     sign = flipedDirection.x;
 
-                dashVelocity = new Vector2(sign * Stats.DashSpeed, 0);
+                Vector2 direction = verticalDashSpeed > 0 ? inputMovement.normalized : new Vector2(sign,0);
+
+                dashVelocity = new Vector2(direction.x * Stats.DashSpeed, direction.y * verticalDashSpeed);
                 estimatedDashPosition = rb.transform.position;
                 localVelocity = dashVelocity;
                 stateMachine.IsDash = true;
@@ -318,7 +321,6 @@ namespace LSHGame.PlayerN
             //Debug.Log("MovingPlatformVel: " + playerColliders.movingPlatformVelocity);
 
             //Debug
-            horVelocityRel *= testSpeedMultiplier;
             localVelocity.x = horVelocityRel;
             //Debug.Log("MovingPlatformVel: " + playerColliders.movingPlatformVelocity);
         }
