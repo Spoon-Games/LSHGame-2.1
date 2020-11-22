@@ -42,7 +42,7 @@ Material:
     - Vector1_83C9A472: 0
     - Vector1_C1BF8DEA: 0.4
     - _EnableExternalAlpha: 0
-    - _T: 0.23570961
+    - _T: 0.127989
     m_Colors:
     - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _Origin: {r: 0.64, g: 0.43, b: 0, a: 0}
