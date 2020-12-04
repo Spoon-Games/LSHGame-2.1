@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: LSHGame-FMod-Project/Build/Desktop/Master.bank
   Name: Master
-  lastModified: 637424208656696254
+  lastModified: 637413109872215501
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -40,7 +40,7 @@ MonoBehaviour:
   - {fileID: -4685344978179966641}
   StringsBanks:
   - {fileID: 1828586509490823273}
-  stringsBankWriteTime: 637424208656696254
+  stringsBankWriteTime: 637413109872275309
   cacheVersion: 5
 --- !u!114 &1828586509490823273
 MonoBehaviour:
@@ -56,7 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: LSHGame-FMod-Project/Build/Desktop/Master.strings.bank
   Name: Master.strings
-  lastModified: 637424208656696254
+  lastModified: 637413109872275309
   LoadResult: 0
   FileSizes:
   - Name: Desktop
