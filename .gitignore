@@ -58,3 +58,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+
+# FMOD
+/LSHGame-FMod-Project/.chache/
+/LSHGame-FMod-Project/.user/
+/LSHGame-FMod-Project/.unsaved/
+
