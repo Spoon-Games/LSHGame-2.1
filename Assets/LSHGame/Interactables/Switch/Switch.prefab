@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 1025030841201935575}
   - component: {fileID: 1025030841201935578}
   - component: {fileID: 1025030841201935576}
+  - component: {fileID: 2034258272}
+  - component: {fileID: 2034258271}
+  - component: {fileID: 2034258273}
   m_Layer: 16
   m_Name: Switch
   m_TagString: Untagged
@@ -31,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 1025030841201935569}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15.35, y: 1.77, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: -1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -76,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: -1339141039
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0ea86d4d18a28de4fb8f8cf356f3ed07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf6219cd473f08a40973b9e527665327, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,8 +108,10 @@ MonoBehaviour:
     capacityMode: 1
     direction: 1
     portType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-    refParents: []
-    refNames: []
+    refParents:
+    - {fileID: 2034258271}
+    refNames:
+    - Input
   fired: 0
 --- !u!61 &1025030841201935572
 BoxCollider2D:
@@ -125,7 +130,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.72, y: 2.48}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.72, y: 2.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -219,22 +224,10 @@ MonoBehaviour:
   OnPressedButton:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1025030841201935579}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_sprite
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 21300000, guid: 74ba093a6a11c524993f4c1be5ef8da1, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1025030841201935573}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_Fired
-        m_Mode: 6
+        m_TargetAssemblyTypeName: LogicC.LogicSource, LogicC
+        m_MethodName: Flip
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -245,31 +238,7 @@ MonoBehaviour:
         m_CallState: 2
   OnReleasedButton:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1025030841201935579}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_sprite
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 21300000, guid: 0ea86d4d18a28de4fb8f8cf356f3ed07, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1025030841201935573}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: set_Fired
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   recieveInput: 0
 --- !u!114 &1025030841201935576
 MonoBehaviour:
@@ -284,3 +253,75 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: Press [I] to interact
+--- !u!95 &2034258272
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025030841201935569}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2b7fd9397e4396b40b04e6a9e64f4e5d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2034258271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025030841201935569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b776c0bcc2baff24f8f100938009864a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeOffset: {x: 136.10287, y: 12.406952}
+  serializedPorts:
+  - name: Input
+    capacityMode: 0
+    direction: 0
+    portType: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+    refParents:
+    - {fileID: 1025030841201935573}
+    refNames:
+    - Output
+  OnActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeactivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  active: 0
+  boolName: IsOn
+--- !u!114 &2034258273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025030841201935569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Scene/Interactables/Switch_Flipping
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20

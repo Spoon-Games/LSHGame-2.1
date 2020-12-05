@@ -233,7 +233,7 @@ namespace LSHGame.PlayerN
                     climbWallExhaustTimer = Time.fixedTime;
             }
 
-            if (to == PlayerStates.Dash)
+            if (from != PlayerStates.Dash && to == PlayerStates.Dash)
             {
                 dashStartDisableTimer = Time.fixedTime;
                 isDashStartDisableByGround = true;
@@ -247,7 +247,6 @@ namespace LSHGame.PlayerN
                 dashVelocity = new Vector2(direction.x * Stats.DashSpeed, direction.y * verticalDashSpeed);
                 estimatedDashPosition = rb.transform.position;
                 localVelocity = dashVelocity;
-                stateMachine.IsDash = true;
             }
 
             if (to == PlayerStates.Death)

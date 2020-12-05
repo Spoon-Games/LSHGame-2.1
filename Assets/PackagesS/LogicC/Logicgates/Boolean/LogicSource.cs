@@ -31,5 +31,10 @@ namespace LogicC
         {
             OutputPort.Output = fired;
         }
+
+        public void Flip()
+        {
+            Fired = !Fired;
+        }
     }
 }
