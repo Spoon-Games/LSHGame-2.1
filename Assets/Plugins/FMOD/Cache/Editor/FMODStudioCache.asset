@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7315949509313280550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Scene/Interactables/Switch_Flipping
+  m_EditorClassIdentifier: 
+  Path: event:/Scene/Interactables/Switch_Flipping
+  guid: 8592e75276a8de4d95c1b810cd3e0b82
+  Banks:
+  - {fileID: -4685344978179966641}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 566
+--- !u!114 &-6987799255977066831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/IsDirt
+  m_EditorClassIdentifier: 
+  Name: IsDirt
+  Min: 0
+  Max: 1
+  Default: 1
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 0
+--- !u!114 &-5991708314888084273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/IsStone
+  m_EditorClassIdentifier: 
+  Name: IsStone
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 0
 --- !u!114 &-4685344978179966641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14,10 +77,139 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: LSHGame-FMod-Project/Build/Desktop/Master.bank
   Name: Master
-  lastModified: 637413109872215501
+  lastModified: 637429598766264114
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &-4305427086280609081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/IsDirt
+  m_EditorClassIdentifier: 
+  Name: IsDirt
+  Min: 0
+  Max: 1
+  Default: 1
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 0
+--- !u!114 &-2711318737721133362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Death
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Death
+  guid: f6175aca9640c24caa07f3d3ad6e9fdc
+  Banks:
+  - {fileID: -4685344978179966641}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &-2551409524388168385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/IsDirt
+  m_EditorClassIdentifier: 
+  Name: IsDirt
+  Min: 0
+  Max: 1
+  Default: 1
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
+--- !u!114 &-446960535915571189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Locomotion/Falling
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Locomotion/Falling
+  guid: 3a0646f7a86a834eba48bf76ff22dc90
+  Banks:
+  - {fileID: -4685344978179966641}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 11500
+--- !u!114 &-233031377111328894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/IsStone
+  m_EditorClassIdentifier: 
+  Name: IsStone
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
+--- !u!114 &-184375663629763939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Locomotion/Jumping
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Locomotion/Jumping
+  guid: 7a9713ec3c294a4785180bb0f4734323
+  Banks:
+  - {fileID: -4685344978179966641}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 702
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35,13 +227,69 @@ MonoBehaviour:
   - {fileID: -4685344978179966641}
   EditorEvents:
   - {fileID: 5879160255431110406}
+  - {fileID: 247811235535938574}
+  - {fileID: -184375663629763939}
+  - {fileID: 3044887859210983423}
+  - {fileID: -7315949509313280550}
+  - {fileID: 291239621042472825}
+  - {fileID: 5522383988340382321}
+  - {fileID: -2711318737721133362}
+  - {fileID: 2832070086284423452}
+  - {fileID: -446960535915571189}
+  - {fileID: 5745046885351815852}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4685344978179966641}
   StringsBanks:
   - {fileID: 1828586509490823273}
-  stringsBankWriteTime: 637413109872275309
+  stringsBankWriteTime: 637429598766333999
   cacheVersion: 5
+--- !u!114 &247811235535938574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Locomotion/Landing
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Locomotion/Landing
+  guid: 776fb0f7e25f3e438db15a1c3cef6f62
+  Banks:
+  - {fileID: -4685344978179966641}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 900
+--- !u!114 &291239621042472825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Locomotion/Ladder_Climbing
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Locomotion/Ladder_Climbing
+  guid: ae0198886cf7274db7fd219733e893fb
+  Banks:
+  - {fileID: -4685344978179966641}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 624
 --- !u!114 &1828586509490823273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,12 +304,124 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: LSHGame-FMod-Project/Build/Desktop/Master.strings.bank
   Name: Master.strings
-  lastModified: 637413109872275309
+  lastModified: 637429598766333999
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 764
+    Value: 1788
   Exists: 1
+--- !u!114 &2832070086284423452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Scene/Interactables/Jumppad
+  m_EditorClassIdentifier: 
+  Path: event:/Scene/Interactables/Jumppad
+  guid: fda1c08faee15744bdb85e34bc02ea70
+  Banks:
+  - {fileID: -4685344978179966641}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &3044887859210983423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/New Snapshot
+  m_EditorClassIdentifier: 
+  Path: snapshot:/New Snapshot
+  guid: 7c8be29ca1273b4f9de7e0a91c97be34
+  Banks:
+  - {fileID: -4685344978179966641}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &5073949148855035600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/IsStone
+  m_EditorClassIdentifier: 
+  Name: IsStone
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 0
+--- !u!114 &5522383988340382321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Locomotion/Wall_Jump
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Locomotion/Wall_Jump
+  guid: dd076e8afd33c84296e1efcefba4965b
+  Banks:
+  - {fileID: -4685344978179966641}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 912
+--- !u!114 &5745046885351815852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Locomotion/Dash
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Locomotion/Dash
+  guid: 4cb793592995754cac04bd1d4f6e4ad8
+  Banks:
+  - {fileID: -4685344978179966641}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 530
 --- !u!114 &5879160255431110406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,7 +441,9 @@ MonoBehaviour:
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
-  Parameters: []
+  Parameters:
+  - {fileID: -233031377111328894}
+  - {fileID: -2551409524388168385}
   MinDistance: 0
   MaxDistance: 0
-  Length: 0
+  Length: 405

@@ -6673,11 +6673,7 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: -8316609973937687875, guid: 1a1c05c3f96e1e946b43bc4a5508cb9d, type: 3}
   m_TileMatrixArray:
-<<<<<<< HEAD
-  - m_RefCount: 212
-=======
   - m_RefCount: 603
->>>>>>> 80c75f8f3f6e551535b6530ce3b3d0ec0882c972
     m_Data:
       e00: 1
       e01: 0
@@ -6810,11 +6806,7 @@ Tilemap:
     m_Data: {r: -5.011785e-29, g: -5.011785e-29, b: -5.011785e-29, a: -5.011785e-29}
   - m_RefCount: 0
     m_Data: {r: -5.011785e-29, g: -5.011785e-29, b: -5.011785e-29, a: -5.011785e-29}
-<<<<<<< HEAD
-  - m_RefCount: 207
-=======
   - m_RefCount: 598
->>>>>>> 80c75f8f3f6e551535b6530ce3b3d0ec0882c972
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: -5.011785e-29, g: -5.011785e-29, b: -5.011785e-29, a: -5.011785e-29}
@@ -7008,11 +7000,7 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
-<<<<<<< HEAD
---- !u!114 &4736431808132520247
-=======
 --- !u!114 &5744285966428693206
->>>>>>> 80c75f8f3f6e551535b6530ce3b3d0ec0882c972
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
