@@ -242,7 +242,7 @@ namespace LSHGame.PlayerN
                 if (!GetSign(inputMovement.x, out float sign))
                     sign = flipedDirection.x;
 
-                Vector2 direction = verticalDashSpeed > 0 ? inputMovement.normalized : new Vector2(sign,0);
+                Vector2 direction = verticalDashSpeed > 0 ? inputMovement.normalized     : new Vector2(sign,0);
 
                 dashVelocity = new Vector2(direction.x * Stats.DashSpeed, direction.y * verticalDashSpeed);
                 estimatedDashPosition = rb.transform.position;
