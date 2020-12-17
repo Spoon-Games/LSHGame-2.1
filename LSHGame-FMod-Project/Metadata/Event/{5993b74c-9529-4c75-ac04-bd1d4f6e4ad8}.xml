@@ -34,6 +34,9 @@
 		<relationship name="parameters">
 			<destination>{8849c487-5714-460f-b26f-3ba3c582d94b}</destination>
 		</relationship>
+		<relationship name="banks">
+			<destination>{a27e273a-2b8d-420c-b37d-4fc2182c096c}</destination>
+		</relationship>
 	</object>
 	<object class="EventMixer" id="{a492d30f-6bde-4404-8aeb-a83315993bad}">
 		<relationship name="masterBus">
@@ -104,11 +107,15 @@
 		<property name="timelockedOffset">
 			<value>0.11905507889761503</value>
 		</property>
+		<property name="volume">
+			<value>-10.5</value>
+		</property>
 		<property name="pitch">
-			<value>-16</value>
+			<value>-14</value>
 		</property>
 		<relationship name="modulators">
 			<destination>{93060735-f917-4362-81e9-6d4885c9c311}</destination>
+			<destination>{6dd24147-b495-4797-a29e-c746105f04eb}</destination>
 		</relationship>
 		<relationship name="fadeInCurve">
 			<destination>{492e518d-6afa-43f3-a395-18952291fc4e}</destination>
@@ -143,7 +150,15 @@
 			<value>pitch</value>
 		</property>
 		<property name="amount">
-			<value>20.5</value>
+			<value>9</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{6dd24147-b495-4797-a29e-c746105f04eb}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>3.19999981</value>
 		</property>
 	</object>
 	<object class="FadeCurve" id="{492e518d-6afa-43f3-a395-18952291fc4e}">

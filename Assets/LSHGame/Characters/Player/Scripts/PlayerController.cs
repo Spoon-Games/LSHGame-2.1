@@ -1,10 +1,7 @@
-﻿using Cinemachine;
-using LSHGame.Environment;
-using LSHGame.UI;
+﻿using LSHGame.UI;
 using LSHGame.Util;
 using SceneM;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
 namespace LSHGame.PlayerN
@@ -55,7 +52,7 @@ namespace LSHGame.PlayerN
 
         private float climbLadderDisableTimer = float.NegativeInfinity;
         private float climbWallDisableTimer = float.NegativeInfinity;
-        private float climbWallExhaustTimer = float.PositiveInfinity;
+        private float climbWallExhaustTimer = 0;
 
         private Vector2 localScale;
 
@@ -103,7 +100,7 @@ namespace LSHGame.PlayerN
         internal void Initialize(Player parent)
         {
             this.parent = parent;
-        } 
+        }
         #endregion
 
         #region Update Loop
@@ -143,8 +140,8 @@ namespace LSHGame.PlayerN
 
             rb.gravityScale = localGravity;
             rb.AddForce(Stats.MovingVelocity, ForceMode2D.Impulse);
-            
-        } 
+
+        }
         #endregion
 
         #region Check Methods
@@ -162,10 +159,10 @@ namespace LSHGame.PlayerN
 
             if (stateMachine.IsGrounded)
             {
-                climbWallExhaustTimer = float.PositiveInfinity;
+                climbWallExhaustTimer = 0;
             }
 
-            stateMachine.IsClimbWallExhausted = Time.fixedTime - Stats.ClimbingWallExhaustDurration >= climbWallExhaustTimer;
+            stateMachine.IsClimbWallExhausted = Stats.ClimbingWallExhaustDurration <= climbWallExhaustTimer;
 
             //if (stateMachine.IsTouchingClimbWall)
             //{
@@ -205,7 +202,7 @@ namespace LSHGame.PlayerN
 
         private void CheckGravity()
         {
-            if(GreaterYAbs(localVelocity.y,0) && isJumpSpeedCutterActivated)
+            if (GreaterYAbs(localVelocity.y, 0) && isJumpSpeedCutterActivated)
             {
                 Stats.Gravity /= Stats.JumpSpeedCutter;
             }
@@ -217,7 +214,7 @@ namespace LSHGame.PlayerN
 
         private void AsignEffectMaterials()
         {
-            foreach(var em in Stats.EffectMaterials)
+            foreach (var em in Stats.EffectMaterials)
             {
                 effectsController.SetMaterial(em.Key, em.Value);
             }
@@ -227,11 +224,6 @@ namespace LSHGame.PlayerN
         #region State Changed
         private void OnPlayerStateChanged(PlayerStates from, PlayerStates to)
         {
-            if (to == PlayerStates.ClimbWall && climbWallExhaustTimer == float.PositiveInfinity)
-            {
-                if (Mathf.Abs(localGravity) > 0.06f)
-                    climbWallExhaustTimer = Time.fixedTime;
-            }
 
             if (from != PlayerStates.Dash && to == PlayerStates.Dash)
             {
@@ -242,7 +234,7 @@ namespace LSHGame.PlayerN
                 if (!GetSign(inputMovement.x, out float sign))
                     sign = flipedDirection.x;
 
-                Vector2 direction = verticalDashSpeed > 0 ? inputMovement.normalized     : new Vector2(sign,0);
+                Vector2 direction = verticalDashSpeed > 0 ? inputMovement.normalized : new Vector2(sign, 0);
 
                 dashVelocity = new Vector2(direction.x * Stats.DashSpeed, direction.y * verticalDashSpeed);
                 estimatedDashPosition = rb.transform.position;
@@ -253,7 +245,7 @@ namespace LSHGame.PlayerN
             {
                 Respawn();
             }
-        } 
+        }
         #endregion
 
         #region Exe Methods
@@ -272,7 +264,7 @@ namespace LSHGame.PlayerN
                     Run(true);
                     localGravity = Stats.Gravity;
 
-                    if (SmalerY(localVelocity.y,0))
+                    if (SmalerY(localVelocity.y, 0))
                         localVelocity.y *= Stats.FallDamping;
                     break;
                 case PlayerStates.ClimbWall:
@@ -281,6 +273,9 @@ namespace LSHGame.PlayerN
                     localGravity = 0;
                     SetClimbWallSpeedX();
                     localVelocity.y = Stats.ClimbingWallSlideSpeed * inputMovement.y;
+
+                    if (Mathf.Abs(Stats.Gravity) > 0.06f)
+                        climbWallExhaustTimer += Time.fixedDeltaTime;
                     break;
                 case PlayerStates.ClimbWallExhaust:
                     localGravity = Stats.Gravity;
@@ -348,7 +343,7 @@ namespace LSHGame.PlayerN
                 climbWallDisableTimer = Time.fixedTime + 0.2f;
             }
 
-            if (buttonReleased && GreaterYAbs(localVelocity.y,0.05f))
+            if (buttonReleased && GreaterYAbs(localVelocity.y, 0.05f))
             {
                 isJumpSpeedCutterActivated = true;
             }
@@ -361,7 +356,7 @@ namespace LSHGame.PlayerN
 
         private void ExeSneek()
         {
-            if(inputMovement.y < 0)
+            if (inputMovement.y < 0)
             {
                 Stats.OnSneek?.Invoke();
             }
@@ -376,9 +371,9 @@ namespace LSHGame.PlayerN
             if (GetSign(localGravity, out float ysign))
                 flipedDirection.y = ysign;
 
-            if ((stateMachine.State == PlayerStates.ClimbWall || stateMachine.State == PlayerStates.ClimbWallExhaust ))
+            if ((stateMachine.State == PlayerStates.ClimbWall || stateMachine.State == PlayerStates.ClimbWallExhaust))
             {
-                if(GetSign(inputMovement.x, out float sign2))
+                if (GetSign(inputMovement.x, out float sign2))
                     flipedDirection.x = sign2;
             }
             else if (GetSign(localVelocity.x, out float sign) || GetSign(inputMovement.x, out sign))
@@ -423,7 +418,7 @@ namespace LSHGame.PlayerN
             {
                 localVelocity.x = isLeftAbs ? 1 : -1;
             }
-            
+
         }
 
         internal bool SmalerY(float y, float y2)
@@ -444,7 +439,7 @@ namespace LSHGame.PlayerN
 
         internal bool SmalerEqualY(float y, float y2) => !GreaterY(y, y2);
 
-        internal bool GreaterYAbs(float y,float abs)
+        internal bool GreaterYAbs(float y, float abs)
         {
             if (!isYFliped)
                 return y > abs;
@@ -452,7 +447,7 @@ namespace LSHGame.PlayerN
                 return y < -abs;
         }
 
-        internal bool GreaterY(float y,float y2)
+        internal bool GreaterY(float y, float y2)
         {
             if (!isYFliped)
                 return y > y2;
@@ -488,7 +483,7 @@ namespace LSHGame.PlayerN
             rb.velocity = Vector2.zero;
 
             stateMachine.IsDead = false;
-        } 
+        }
         #endregion
     }
 }
