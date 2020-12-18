@@ -321,7 +321,9 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 6834504851210295907}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras: []
+  m_ChildCameras:
+  - {fileID: 7708654348104632169}
+  - {fileID: 3795789133498224059}
   m_Instructions:
   - m_FullHash: 1725647286
     m_VirtualCamera: {fileID: 3795789133498224059}
@@ -399,7 +401,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6896542352020222434}
   - component: {fileID: 3149916133870087236}
-  - component: {fileID: 100561738787128443}
   m_Layer: 12
   m_Name: Vertual Camera Run
   m_TagString: Untagged
@@ -415,7 +416,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2079007982201975617}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00000047683716, y: 0.00000014901161, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4040871883599861573}
@@ -457,23 +458,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 4040871883599861573}
---- !u!114 &100561738787128443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079007982201975617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a75dfef6af2604eb4247f8e9d80f89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BoundingShape2D: {fileID: 0}
-  smoothThreshold: 1
-  smoothing: 1
-  transitionTime: 0.7
-  m_MaxWindowSize: 0
 --- !u!1 &2130616643484925538
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +468,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4050853285161805398}
   - component: {fileID: 308309393216335302}
-  - component: {fileID: 6760665436023900352}
   m_Layer: 12
   m_Name: Vertual Camera Climbing
   m_TagString: Untagged
@@ -500,7 +483,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130616643484925538}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00000035762787, y: 0.00000011920929, z: -10}
+  m_LocalPosition: {x: -0.00000023841858, y: 0.00000011920929, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2952968657043973926}
@@ -542,23 +525,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2952968657043973926}
---- !u!114 &6760665436023900352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2130616643484925538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a75dfef6af2604eb4247f8e9d80f89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BoundingShape2D: {fileID: 0}
-  smoothThreshold: 1
-  smoothing: 1
-  transitionTime: 0.7
-  m_MaxWindowSize: 0
 --- !u!1 &2532647622148778159
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +608,7 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 0}
   smoothThreshold: 1
   smoothing: 1
-  transitionTime: 0.7
+  transitionTime: 2
   m_MaxWindowSize: 0
 --- !u!1 &4068199577950966896
 GameObject:
@@ -741,7 +707,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6944187439335823388}
   - component: {fileID: 3795789133498224059}
-  - component: {fileID: 6988612415557498397}
+  - component: {fileID: 8230873548523488084}
   m_Layer: 12
   m_Name: VC Player Animator
   m_TagString: Untagged
@@ -789,7 +755,10 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 0}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras: []
+  m_ChildCameras:
+  - {fileID: 3149916133870087236}
+  - {fileID: 1607685507205838464}
+  - {fileID: 308309393216335302}
   m_Instructions:
   - m_FullHash: 0
     m_VirtualCamera: {fileID: 3149916133870087236}
@@ -856,23 +825,23 @@ MonoBehaviour:
     m_ParentHash: 756556552
   - m_Hash: -646947155
     m_ParentHash: 304293996
---- !u!114 &6988612415557498397
+--- !u!114 &8230873548523488084
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5660602677977465423}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
+  m_Script: {fileID: 11500000, guid: c8a75dfef6af2604eb4247f8e9d80f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ConfineMode: 0
-  m_BoundingVolume: {fileID: 0}
   m_BoundingShape2D: {fileID: 0}
-  m_ConfineScreenEdges: 1
-  m_Damping: 2
+  smoothThreshold: 1
+  smoothing: 1
+  transitionTime: 2
+  m_MaxWindowSize: 0
 --- !u!1 &6430982709819717503
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,7 +882,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1266786797511139434}
   - component: {fileID: 1607685507205838464}
-  - component: {fileID: 8202480009491822556}
   m_Layer: 12
   m_Name: Vertual Camera Idle
   m_TagString: Untagged
@@ -929,7 +897,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6836974365805742832}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00000035762787, y: 0.00000011920929, z: -10}
+  m_LocalPosition: {x: -0.00000023841858, y: 0.00000011920929, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1207517173942401115}
@@ -971,20 +939,3 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1207517173942401115}
---- !u!114 &8202480009491822556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6836974365805742832}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a75dfef6af2604eb4247f8e9d80f89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BoundingShape2D: {fileID: 0}
-  smoothThreshold: 1
-  smoothing: 1
-  transitionTime: 0.7
-  m_MaxWindowSize: 0
