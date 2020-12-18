@@ -77,10 +77,11 @@ namespace LSHGame.Util
 
             if(newCollider == null && currentCollider != null)
             {
-                if((currentCollider.ClosestPoint(targetPos) - targetPos).magnitude <= removeConfinerThreshold)
+                Vector2 closestPoint = currentCollider.ClosestPoint(targetPos);
+                if((closestPoint - targetPos).magnitude <= removeConfinerThreshold)
                 {
-                    currentCollider = newCollider;
-                } 
+                    newCollider = currentCollider;
+                }
             }
 
             if (currentCollider != newCollider)

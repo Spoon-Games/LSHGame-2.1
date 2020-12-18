@@ -70,10 +70,13 @@ namespace LSHGame.Util
         [Range(0,3)]
         private float smoothing = 1f;
 
+        [SerializeField]
+        private float transitionTime = 0.7f;
+
         /// <summary>Damping applied automatically around corners to avoid jumps.</summary>
-        [Tooltip("Damping applied around corners to avoid jumps.  Higher numbers are more gradual.")]
-        [Range(0, 5)]
-        public float m_Damping;
+        //[Tooltip("Damping applied around corners to avoid jumps.  Higher numbers are more gradual.")]
+        //[Range(0, 5)]
+        //public float m_Damping;
 
         /// <summary>
         /// To optimize computation and memory costs, set this to the largest view size that the camera 
@@ -110,56 +113,104 @@ namespace LSHGame.Util
         private const float m_cornerAngleTreshold = 10f;
 
         private float m_currentFrustumHeight = 0;
-        
+
+        private Vector2 debugCameraPos;
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(debugCameraPos, 0.3f);
+        }
+
         protected override void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, 
             CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
         {
             if (stage == CinemachineCore.Stage.Body)
             {
+                Vector3 displacement = Vector3.zero;
+                var extra = GetExtraState<VcamExtraState>(vcam);
+
                 var aspectRatio = state.Lens.Aspect;
                 if (!m_shapeCache.ValidateCache(
                     m_BoundingShape2D, m_MaxWindowSize, m_confinerBaker,
                     aspectRatio, out bool confinerStateChanged))
                 {
-                    return; // invalid path
+                    debugCameraPos = state.CorrectedPosition;
+                    //invalid
                 }
-                
-                var oldCameraPos = state.CorrectedPosition;
-                var cameraPosLocal = m_shapeCache.m_DeltaWorldToBaked.MultiplyPoint3x4(oldCameraPos);
-                m_currentFrustumHeight = CalculateHalfFrustumHeight(state, cameraPosLocal.z);
-                var extra = GetExtraState<VcamExtraState>(vcam);
-                extra.m_vcam = vcam;
-                extra.m_VcamShapeCache.ValidateCache(
-                    m_confinerBaker, confinerStateChanged, 
-                    aspectRatio, m_currentFrustumHeight);
-                
-                cameraPosLocal = ConfinePoint(cameraPosLocal, 
-                    extra.m_VcamShapeCache.m_Path, extra.m_VcamShapeCache.m_PathHasBone,
-                    state.Lens.Aspect * m_currentFrustumHeight, m_currentFrustumHeight);
-                var newCameraPos = m_shapeCache.m_DeltaBakedToWorld.MultiplyPoint3x4(cameraPosLocal);
-
-                // Don't move the camera along its z-axis
-                var fwd = state.CorrectedOrientation * Vector3.forward;
-                newCameraPos -= fwd * Vector3.Dot(fwd, newCameraPos - oldCameraPos);
-
-                // Remember the desired displacement for next frame
-                var displacement = newCameraPos - oldCameraPos;
-                var prev = extra.m_PreviousDisplacement;
-                extra.m_PreviousDisplacement = displacement;
-
-                if (!VirtualCamera.PreviousStateIsValid || deltaTime < 0 || m_Damping <= 0)
-                    extra.m_DampedDisplacement = Vector3.zero;
                 else
                 {
-                    // If a big change from previous frame's desired displacement is detected, 
-                    // assume we are going around a corner and extract that difference for damping
-                    if (prev.sqrMagnitude > 0.01f && Vector2.Angle(prev, displacement) > m_cornerAngleTreshold)
-                        extra.m_DampedDisplacement += displacement - prev;
 
-                    extra.m_DampedDisplacement -= Damper.Damp(extra.m_DampedDisplacement, m_Damping, deltaTime);
-                    displacement -= extra.m_DampedDisplacement;
+                    var oldCameraPos = state.CorrectedPosition;
+                    var cameraPosLocal = m_shapeCache.m_DeltaWorldToBaked.MultiplyPoint3x4(oldCameraPos);
+                    m_currentFrustumHeight = CalculateHalfFrustumHeight(state, cameraPosLocal.z);
+                    extra.m_vcam = vcam;
+                    extra.m_VcamShapeCache.ValidateCache(
+                        m_confinerBaker, confinerStateChanged,
+                        aspectRatio, m_currentFrustumHeight);
+
+                    cameraPosLocal = ConfinePoint(cameraPosLocal,
+                        extra.m_VcamShapeCache.m_Path, extra.m_VcamShapeCache.m_PathHasBone,
+                        state.Lens.Aspect * m_currentFrustumHeight, m_currentFrustumHeight);
+                    var newCameraPos = m_shapeCache.m_DeltaBakedToWorld.MultiplyPoint3x4(cameraPosLocal);
+
+                    // Don't move the camera along its z-axis
+                    var fwd = state.CorrectedOrientation * Vector3.forward;
+                    newCameraPos -= fwd * Vector3.Dot(fwd, newCameraPos - oldCameraPos);
+
+                    displacement = newCameraPos - oldCameraPos;
+                    debugCameraPos = newCameraPos;
                 }
+
+                // Remember the desired displacement for next frame
+
+                var prev = extra.prevDisplacementTarget;
+                extra.prevDisplacementTarget = displacement;
+                bool startTransition = (displacement - prev).sqrMagnitude > 0.1f && transitionTime > 0;
+
+                if (startTransition)
+                {
+                    extra.startTimeTransition = Time.time;
+                    extra.isInTransition = true;
+                }
+
+                if (extra.isInTransition)
+                {
+                    Vector2 delta = displacement - extra.transitionStartPos;
+
+                    float p = Mathf.Min(1, Mathf.SmoothStep(0, 1, (Time.time - extra.startTimeTransition) / transitionTime));
+                    delta *= p;
+
+                    //Debug.Log("Transition: " + p);
+
+                    displacement = (Vector3)delta + extra.transitionStartPos;
+
+                    extra.isInTransition &= p != 1;
+                }
+
+                extra.transitionStartPos = displacement;
+
+                //Vector2 delta = displacement - prev;
+                //if(delta.sqrMagnitude > 0.1f)
+                //{
+                //    Debug.Log("Great Change: dis: "+displacement+" prev: "+prev);
+                //}
+
+                //if (!VirtualCamera.PreviousStateIsValid || deltaTime < 0 || transitionSpeed <= 0)
+                //    extra.m_DampedDisplacement = Vector3.zero;
+                //else
+                //{
+                //    // If a big change from previous frame's desired displacement is detected, 
+                //    // assume we are going around a corner and extract that difference for damping
+                //    if (prev.sqrMagnitude > 0.01f && Vector2.Angle(prev, displacement) > m_cornerAngleTreshold)
+                //        extra.m_DampedDisplacement += displacement - prev;
+
+                //    extra.m_DampedDisplacement -= Damper.Damp(extra.m_DampedDisplacement, transitionSpeed, deltaTime);
+                //    displacement -= extra.m_DampedDisplacement;
+                //}
                 state.PositionCorrection += displacement;
+                //state.PositionCorrection = newCameraPos;
+                //extra.lastFrameCameraPos = newCameraPos;
             }
         }
 
@@ -266,8 +317,12 @@ namespace LSHGame.Util
         
         private class VcamExtraState
         {
-            public Vector3 m_PreviousDisplacement;
-            public Vector3 m_DampedDisplacement;
+            public Vector3 prevDisplacementTarget;
+
+            public Vector3 transitionStartPos;  
+            public bool isInTransition = false;
+            public float startTimeTransition = 0;
+
             public VcamShapeCache m_VcamShapeCache;
             
             internal CinemachineVirtualCameraBase m_vcam;
@@ -462,13 +517,16 @@ namespace LSHGame.Util
 
         private void OnValidate()
         {
-            m_Damping = Mathf.Max(0, m_Damping);
+            smoothThreshold = Mathf.Max(0, smoothThreshold);
+            smoothing = Mathf.Max(0, smoothing);
             m_MaxWindowSize = Mathf.Max(0, m_MaxWindowSize);
         }
 
         private void Reset()
         {
-            m_Damping = 0.5f;
+            //m_Damping = 0.5f;
+            smoothing = 1;
+            smoothThreshold = 1;
             m_MaxWindowSize = 0;
         }
     }

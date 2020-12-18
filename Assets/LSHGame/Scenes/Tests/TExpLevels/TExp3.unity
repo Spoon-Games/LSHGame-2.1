@@ -210,6 +210,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4988304955234348068, guid: b9c5fa5be5a2cb740a21e75caa06f637, type: 3}
+      propertyPath: smoothing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4988304955234348068, guid: b9c5fa5be5a2cb740a21e75caa06f637, type: 3}
+      propertyPath: smoothThreshold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4988304955234348068, guid: b9c5fa5be5a2cb740a21e75caa06f637, type: 3}
+      propertyPath: transitionSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6182254069734246453, guid: b9c5fa5be5a2cb740a21e75caa06f637, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00000023841858
@@ -1239,7 +1251,7 @@ MonoBehaviour:
   - {fileID: 454274095}
   - {fileID: 2004627338}
   - {fileID: 1975770338}
-  removeConfinerThreshold: 2
+  removeConfinerThreshold: 0
   roomColliders:
   - {fileID: 569377757}
 --- !u!1 &1861818234

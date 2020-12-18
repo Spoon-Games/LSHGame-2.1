@@ -472,7 +472,7 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 0}
   smoothThreshold: 1
   smoothing: 1
-  m_Damping: 0
+  transitionTime: 0.7
   m_MaxWindowSize: 0
 --- !u!1 &2130616643484925538
 GameObject:
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 0}
   smoothThreshold: 1
   smoothing: 1
-  m_Damping: 0
+  transitionTime: 0.7
   m_MaxWindowSize: 0
 --- !u!1 &2532647622148778159
 GameObject:
@@ -642,7 +642,7 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 0}
   smoothThreshold: 1
   smoothing: 1
-  m_Damping: 0
+  transitionTime: 0.7
   m_MaxWindowSize: 0
 --- !u!1 &4068199577950966896
 GameObject:
@@ -986,5 +986,5 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 0}
   smoothThreshold: 1
   smoothing: 1
-  m_Damping: 0
+  transitionTime: 0.7
   m_MaxWindowSize: 0
