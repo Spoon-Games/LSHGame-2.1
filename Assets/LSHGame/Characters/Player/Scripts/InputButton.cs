@@ -33,25 +33,25 @@ namespace LSHGame.PlayerN
         //    this.afterConDeltaTime = afterTime;
         //}
 
-        public bool Check(bool buttonDown,bool condition,int conIndex = 0)
+        public bool Check(bool buttonDown, bool condition, int conIndex = 0)
         {
             bool tmp = false;
-            return Check(buttonDown, condition,ref tmp, conIndex);
+            return Check(buttonDown, condition, ref tmp, conIndex);
         }
 
-        public bool Check(bool buttonDown, bool condition,ref bool wasReleased, int conIndex = 0)
+        public bool Check(bool buttonDown, bool condition, ref bool wasReleased, int conIndex = 0)
         {
             if (CheckRaw2(buttonDown, condition, conIndex))
             {
-               if(!buttonDown)
+                if (!buttonDown)
                     wasReleased = true;
-               else
+                else
                     wasButtonPressedAndActive = true;
 
                 return true;
             }
 
-            if(!buttonDown && wasButtonPressedAndActive)
+            if (!buttonDown && wasButtonPressedAndActive)
             {
                 wasReleased = true;
                 wasButtonPressedAndActive = false;
@@ -60,8 +60,20 @@ namespace LSHGame.PlayerN
             return false;
         }
 
+        public void Reset()
+        {
+            beforeConTime = float.NegativeInfinity;
+            afterConTime = float.NegativeInfinity;
+            conIndex = 0;
+            lastActiveTime = float.NegativeInfinity;
 
-        private bool CheckRaw2(bool buttonDown,bool condition,int conIndex)
+            wasRealeasedSinceActivate = true;
+
+            wasButtonPressedAndActive = false;
+        }
+
+
+        private bool CheckRaw2(bool buttonDown, bool condition, int conIndex)
         {
             condition &= Time.time - lastActiveTime >= resetTimer;
 
@@ -69,7 +81,7 @@ namespace LSHGame.PlayerN
             if (needRepress && !wasRealeasedSinceActivate)
                 buttonDown = false;
 
-            if (CheckRaw(buttonDown, condition,conIndex))
+            if (CheckRaw(buttonDown, condition, conIndex))
             {
                 lastActiveTime = Time.time;
                 wasRealeasedSinceActivate = false;
@@ -78,7 +90,7 @@ namespace LSHGame.PlayerN
             return false;
         }
 
-        private bool CheckRaw(bool buttonDown,bool condition,int conIndex)
+        private bool CheckRaw(bool buttonDown, bool condition, int conIndex)
         {
             if (condition && buttonDown)
             {
@@ -116,5 +128,5 @@ namespace LSHGame.PlayerN
 
             return false;
         }
-    } 
+    }
 }

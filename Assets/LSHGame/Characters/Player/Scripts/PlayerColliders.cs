@@ -377,6 +377,11 @@ namespace LSHGame.PlayerN
 
         #region Helper Methods
 
+        internal void Reset()
+        {
+            lastVelocity = Vector3.zero;
+        }
+
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
