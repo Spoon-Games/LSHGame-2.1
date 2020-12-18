@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{1ebe2cc8-694a-45c9-a244-85da743f1dcb}">
+		<property name="assetPath">
+			<value>Zapsplat/Lever/weapon_gun_marlin_336_I_5.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.60081632653061223</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ccf96a22-e71e-4232-b834-b96734b35963}</destination>
+		</relationship>
+	</object>
+</objects>

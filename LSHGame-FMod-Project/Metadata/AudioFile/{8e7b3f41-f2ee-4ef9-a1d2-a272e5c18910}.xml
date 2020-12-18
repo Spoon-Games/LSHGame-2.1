@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{8e7b3f41-f2ee-4ef9-a1d2-a272e5c18910}">
+		<property name="assetPath">
+			<value>Zapsplat/Lever/zapsplat_industrial_lever_pump_metal_old_handle_pumping_single_003_52699.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>32</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.4039999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ccf96a22-e71e-4232-b834-b96734b35963}</destination>
+		</relationship>
+	</object>
+</objects>

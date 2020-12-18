@@ -1,6 +1,4 @@
-﻿using AudioP;
-using System.Collections;
-using System.Collections.Generic;
+﻿using LSHGame.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +9,7 @@ namespace LSHGame.UI
         [SerializeField]
         private Slider masterVolumeSlider;
 
-        [SerializeField]
+        [SerializeField] 
         private Slider musicSlider;
 
         [SerializeField]
@@ -23,17 +21,18 @@ namespace LSHGame.UI
 
         void Start()
         {
-            masterVolumeSlider.value = AudioManager.Instance.MasterVolume;
-            masterVolumeSlider.onValueChanged.AddListener(f => AudioManager.Instance.MasterVolume = f);
 
-            musicSlider.value = AudioManager.Instance.MasterVolume;
-            musicSlider.onValueChanged.AddListener(f => AudioManager.Instance.MusicVolume = f);
+            masterVolumeSlider.value = AudioManager.MasterVolume;
+            masterVolumeSlider.onValueChanged.AddListener(f => AudioManager.MasterVolume = f);
 
-            gameSlider.value = AudioManager.Instance.MasterVolume;
-            gameSlider.onValueChanged.AddListener(f => AudioManager.Instance.SFXVolume = f);
+            musicSlider.value = AudioManager.MasterVolume;
+            musicSlider.onValueChanged.AddListener(f => AudioManager.MusicVolume = f);
 
-            guiSlider.value = AudioManager.Instance.MasterVolume;
-            guiSlider.onValueChanged.AddListener(f => AudioManager.Instance.GUIVolume = f);
+            gameSlider.value = AudioManager.MasterVolume;
+            gameSlider.onValueChanged.AddListener(f => AudioManager.SFXVolume = f);
+
+            guiSlider.value = AudioManager.MasterVolume;
+            guiSlider.onValueChanged.AddListener(f => AudioManager.GUIVolume = f);
         }
 
 

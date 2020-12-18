@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{66d5a6b0-7937-490e-bf1a-b786378a7d0d}">
+		<property name="assetPath">
+			<value>Zapsplat/Dirt/zapsplat_foley_dirt_brush_off_plastic_box_inside_pov_24453.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3.3599999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ccf96a22-e71e-4232-b834-b96734b35963}</destination>
+		</relationship>
+	</object>
+</objects>

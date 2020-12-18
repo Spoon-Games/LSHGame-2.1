@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{f41aaef2-e4d1-4e9f-bc26-89ca98a9c3f4}">
+		<property name="assetPath">
+			<value>Zapsplat/Wood/zapsplat_foley_soil_dirt_handful_throw_against_wood_001_37825.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.1279999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ccf96a22-e71e-4232-b834-b96734b35963}</destination>
+		</relationship>
+	</object>
+</objects>

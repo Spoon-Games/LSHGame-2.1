@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{1b9b4f79-944b-4a75-99ef-5f0b3d252291}">
+		<property name="assetPath">
+			<value>Zapsplat/Impact/zapsplat_impacts_body_person_heavy_002_43765.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>32</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.86399999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ccf96a22-e71e-4232-b834-b96734b35963}</destination>
+		</relationship>
+	</object>
+</objects>

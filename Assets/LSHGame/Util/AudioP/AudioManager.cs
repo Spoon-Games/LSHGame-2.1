@@ -1,75 +1,24 @@
-﻿using SceneM;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-using UnityEngine.Audio;
+﻿using FMOD.Studio;
+using FMODUnity;
 
-namespace AudioP
+namespace LSHGame.Util
 {
-    public class AudioManager : Singleton<AudioManager>
+    public static class AudioManager  
     {
-        public float MasterVolume { get => GetExpoFloat("Master_Volume"); set => SetExpFloat("Master_Volume", value); }
-        public float GUIVolume { get => GetExpoFloat("GUI_Volume"); set => SetExpFloat("GUI_Volume", value); }
-        public float SFXVolume { get => GetExpoFloat("SFX_Volume"); set => SetExpFloat("SFX_Volume", value); }
-        public float MusicVolume { get => GetExpoFloat("Music_Volume"); set => SetExpFloat("Music_Volume", value); }
+        private static Bus Master = RuntimeManager.GetBus("bus:/Master");
+        private static Bus Music = RuntimeManager.GetBus("bus:/Master/Music");
+        private static Bus SFXBus = RuntimeManager.GetBus("bus:/Master/SFX");
+        private static Bus GUIBus = RuntimeManager.GetBus("bus:/Master/GUI");
 
-        [SerializeField]
-        private AudioMixer mainAudioMixer;
+        public static float MasterVolume { get => Master.GetVolume(); set => Master.setVolume(value); }
+        public static float MusicVolume { get => Music.GetVolume(); set => Music.setVolume(value); }
+        public static float SFXVolume { get => SFXBus.GetVolume(); set => SFXBus.setVolume(value); }
+        public static float GUIVolume { get => GUIBus.GetVolume(); set => GUIBus.setVolume(value); }
 
-        private Dictionary<SoundInfo, AudioSource> audioSources = new Dictionary<SoundInfo, AudioSource>();
-
-        private GameObject audioSourceParent;
-
-        public override void Awake()
+        private static float GetVolume(this Bus bus)
         {
-            base.Awake();
-
-            GetAudioSourcesParent(out audioSourceParent);
-
-            if (mainAudioMixer == null)
-            {
-                Debug.LogError("AudioMixer has to be asigned to AudioManager");
-            }
-        }
-
-        public static void Play(SoundInfo soundInfo)
-        {
-            Instance.PlayInstance(soundInfo);
-        }
-
-        private void PlayInstance(SoundInfo soundInfo)
-        {
-            if (!audioSources.TryGetValue(soundInfo, out AudioSource audioSource))
-            {
-                audioSource = audioSourceParent.AddComponent<AudioSource>();
-                audioSources.Add(soundInfo, audioSource);
-            }
-
-            soundInfo.Play(audioSource);
-
-        }
-
-        private void GetAudioSourcesParent(out GameObject parent)
-        {
-            Transform audioSourcesTransform = transform.Find("AudioSources");
-            if (audioSourcesTransform == null)
-            {
-                parent = new GameObject("AudioSources");
-                parent.transform.SetParent(transform);
-            }
-            else
-                parent = audioSourcesTransform.gameObject;
-        }
-
-        private float GetExpoFloat(string name)
-        {
-            mainAudioMixer.GetFloat(name, out float v);
-            return Mathf.InverseLerp(-80,0,v);
-        }
-
-        private void SetExpFloat(string name, float value)
-        {
-            mainAudioMixer.SetFloat(name, Mathf.Lerp(-80,0,value));
+            bus.getVolume(out float volume);
+            return volume;
         }
     }
 }
