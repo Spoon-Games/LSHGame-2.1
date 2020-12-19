@@ -59,6 +59,7 @@ namespace LSHGame
 
         private void FixedUpdate()
         {
+
             if(target != null)
             {
                 Vector2 origin = transform.position;
@@ -89,18 +90,21 @@ namespace LSHGame
                 }
                 else
                 {
-                    lastTargetDistance = float.NegativeInfinity;
                     isFocusTarget = false;
                 }
             }
             else
             {
                 isFocusTarget = false;
+            }
+
+            if (!isFocusTarget)
+            {
                 lastTargetDistance = float.NegativeInfinity;
 
                 if (focusIK.localPosition != Vector3.zero)
                 {
-                    focusIK.localPosition *= 0.5f;
+                    focusIK.localPosition *= 0.3f;
                 }
             }
 

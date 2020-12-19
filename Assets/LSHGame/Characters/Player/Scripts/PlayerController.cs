@@ -462,8 +462,8 @@ namespace LSHGame.PlayerN
         #region Spawning
         public void Kill()
         {
-            if (stateMachine.State != PlayerStates.Death)
-                stateMachine.IsDead = true;
+            //if (stateMachine.State != PlayerStates.Death)
+              //  stateMachine.IsDead = true;
         }
 
         private void Spawn()
