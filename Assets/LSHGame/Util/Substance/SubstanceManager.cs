@@ -1,10 +1,14 @@
-﻿#if UNITY_EDITOR
+﻿//#define DEBUG_THIS
+
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 using SceneM;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System;
+
 
 namespace LSHGame.Util
 {
@@ -18,7 +22,11 @@ namespace LSHGame.Util
 
         private static HashSet<ISubstance> substances = new HashSet<ISubstance>();
 
-        //private List<Rect> debugRects = new List<Rect>();
+
+#if DEBUG_THIS
+        private List<Tuple<Rect, Color>> debugRects = new List<Tuple<Rect, Color>>();
+        private List<Tuple<Vector3, Color>> debugPoints = new List<Tuple<Vector3, Color>>(); 
+#endif
 
         public override void Awake()
         {
@@ -29,22 +37,22 @@ namespace LSHGame.Util
         public static void RetrieveSubstances(BoxCollider2D collider2D, SubstanceSet set, ISubstanceFilter filter, LayerMask layerMask, out bool touch)
         {
             List<Collider2D> colliders = new List<Collider2D>();
-                collider2D.OverlapCollider(GetContactFilter(layerMask), colliders);
+            collider2D.OverlapCollider(GetContactFilter(layerMask), colliders);
             //Debug.Log("Colliders: " + colliders.Count);
             touch = colliders.Count > 0;
             //Debug.Log("Colliders: " + colliders.Count);
             //if (touch)
-               // Debug.Log("Touching: " + colliders[0].name);
-            RetrieveSubstances(new Rect() { size = collider2D.size, center = collider2D.offset }.LocalToWorldRect(collider2D.transform), set, filter, colliders, GetContactFilter(layerMask));
+            // Debug.Log("Touching: " + colliders[0].name);
+            RetrieveSubstances(new Rect() { size = collider2D.size, center = collider2D.offset + Vector2.one * 0.05f }.LocalToWorldRect(collider2D.transform), set, filter, colliders, GetContactFilter(layerMask));
         }
 
-        public static void RetrieveSubstances(Rect rect, SubstanceSet set, ISubstanceFilter filter, LayerMask layerMask,out bool touch,bool noTouchOnTriggers = false)
+        public static void RetrieveSubstances(Rect rect, SubstanceSet set, ISubstanceFilter filter, LayerMask layerMask, out bool touch, bool noTouchOnTriggers = false)
         {
             List<Collider2D> colliders = GetTouchRect(rect, GetContactFilter(layerMask));
             if (noTouchOnTriggers)
             {
                 touch = false;
-                foreach(var col in colliders)
+                foreach (var col in colliders)
                 {
                     if (!col.isTrigger)
                     {
@@ -52,19 +60,20 @@ namespace LSHGame.Util
                         break;
                     }
                 }
-            }else
+            }
+            else
                 touch = colliders.Count > 0;
             //Debug.Log("Colliders: " + colliders.Count);
             RetrieveSubstances(rect, set, filter, colliders, GetContactFilter(layerMask));
         }
 
-        private static void RetrieveSubstances(Rect rect, SubstanceSet set, ISubstanceFilter filter, List<Collider2D> colliders,ContactFilter2D cf)
+        private static void RetrieveSubstances(Rect rect, SubstanceSet set, ISubstanceFilter filter, List<Collider2D> colliders, ContactFilter2D cf)
         {
             foreach (Collider2D collider in colliders)
             {
                 if (collider.TryGetComponent<Tilemap>(out Tilemap tilemap))
                 {
-                    GetSubstancesFromTilemap(rect, tilemap,collider,cf, set, filter);
+                    GetSubstancesFromTilemap(rect, tilemap, collider, cf, set, filter);
                 }
 
                 if (collider.TryGetComponent<Substance>(out Substance substance))
@@ -82,11 +91,44 @@ namespace LSHGame.Util
 
         }
 
-            private static void GetSubstancesFromTilemap(Rect rect, Tilemap tilemap,Collider2D collider, ContactFilter2D cf, SubstanceSet set, ISubstanceFilter filter)
+        private static void GetSubstancesFromTilemap(Rect rect, Tilemap tilemap, Collider2D collider, ContactFilter2D cf, SubstanceSet set, ISubstanceFilter filter)
         {
+            if ((cf.useLayerMask && tilemap.gameObject.layer.IsOtherAllInFlag(cf.layerMask))
+                || (!cf.useTriggers && collider.isTrigger))
+                return;
+
             RectInt tileRect = new RectInt() { min = (Vector2Int)tilemap.WorldToCell(rect.min), max = (Vector2Int)tilemap.WorldToCell(rect.max) };
             tileRect.height += 1;
             tileRect.width += 1;
+
+
+#if DEBUG_THIS
+            bool debug = filter is PlayerSubstanceFilter f && f.ColliderType == PlayerSubstanceColliderType.Main;
+            if (debug)
+            {
+                Instance.debugRects.Clear();
+                Instance.debugPoints.Clear();
+
+                Rect debugRect = new Rect()
+                {
+                    min = tilemap.CellToWorld((Vector3Int)tileRect.min),
+                    max = tilemap.CellToWorld((Vector3Int)tileRect.max)
+                };
+                Instance.debugRects.Add(new Tuple<Rect, Color>(debugRect, Color.blue));
+
+                Instance.debugRects.Add(new Tuple<Rect, Color>(rect, Color.green));
+
+                List<ContactPoint2D> contacts = new List<ContactPoint2D>();
+                collider.GetContacts(contacts);
+
+                foreach (var c in contacts)
+                {
+                    Instance.debugPoints.Add(new Tuple<Vector3, Color>(c.point, Color.yellow));
+                }
+
+            } 
+#endif
+
             //Debug.Log("TileRect: " + tileRect);
             foreach (var tilePos in tileRect.allPositionsWithin)
             {
@@ -97,24 +139,25 @@ namespace LSHGame.Util
 
                 if (tile != null && Instance.tileBasedSubstances.TryGetValue(tile, out List<Substance> subs))
                 {
-                    if (rect.Overlap(tilemap.GetRectAtPos(tilePos).InsetRect(0.03f), out Rect overlap)){
+                    if (rect.Overlap(tilemap.GetRectAtPos(tilePos), out Rect overlap))
+                    {
 
-                        if (collider.IsTouchingRect(overlap, cf))
-                        {
-                            //Debug.Log("Add TileBase: " + tile.name);
-                            foreach (var s in subs)
-                                s.AddToSet(set, filter);
-                        }
-                        //Instance.debugRects.Add(overlap);
+                        foreach (var s in subs)
+                            s.AddToSet(set, filter);
+
+#if DEBUG_THIS
+                        if (debug)
+                            Instance.debugRects.Add(new Tuple<Rect, Color>(overlap, Color.magenta)); 
+#endif
                     }
-                    
+
                 }
             }
         }
 
         private static void GetSubstancesFromTag(string tag, SubstanceSet set, ISubstanceFilter filter)
         {
-            while (!string.IsNullOrEmpty(tag) && !Equals(tag,"Untagged"))
+            while (!string.IsNullOrEmpty(tag) && !Equals(tag, "Untagged"))
             {
                 int startMat = tag.IndexOf("m:");
                 if (startMat == -1)
@@ -126,13 +169,13 @@ namespace LSHGame.Util
                 string substanceName = tag;
                 if (endMat != -1)
                 {
-                    substanceName = tag.Substring(0,endMat);
+                    substanceName = tag.Substring(0, endMat);
                     tag = tag.Substring(endMat + 1);
                 }
 
                 if (substanceName != "" && Instance.nameBasedSubstances.TryGetValue(substanceName, out Substance s))
                 {
-                    s.AddToSet(set,filter);
+                    s.AddToSet(set, filter);
                 }
 
                 if (endMat == -1)
@@ -203,15 +246,22 @@ namespace LSHGame.Util
 
 #endif
 
-        //private void OnDrawGizmos()
-        //{
-        //    foreach(Rect r in debugRects)
-        //    {
-        //        Gizmos.color = Color.green;
-        //        Gizmos.DrawCube(r.center, r.size);
-        //    }
-        //    debugRects.Clear();
-        //}
+#if DEBUG_THIS
+        private void OnDrawGizmos()
+        {
+            foreach (var t in debugRects)
+            {
+                Gizmos.color = t.Item2;
+                Gizmos.DrawWireCube(t.Item1.center, t.Item1.size);
+            }
+
+            foreach (var p in debugPoints)
+            {
+                Gizmos.color = p.Item2;
+                Gizmos.DrawWireSphere(p.Item1, 0.1f);
+            }
+        } 
+#endif
 
         private void AddTileSubsEntry(Substance s, TileBase tileBase)
         {

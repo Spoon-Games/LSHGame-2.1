@@ -462,8 +462,8 @@ namespace LSHGame.PlayerN
         #region Spawning
         public void Kill()
         {
-            if (stateMachine.State != PlayerStates.Death)
-                stateMachine.IsDead = true;
+            //if (stateMachine.State != PlayerStates.Death)
+              //  stateMachine.IsDead = true;
         }
 
         private void Spawn()
@@ -479,10 +479,35 @@ namespace LSHGame.PlayerN
 
         private void SetRespawn(Vector2 position)
         {
+            Reset();
+
             playerColliders.SetPositionCorrected(position);
             rb.velocity = Vector2.zero;
 
             stateMachine.IsDead = false;
+        }
+
+        private void Reset()
+        {
+            stateMachine.Reset();
+            playerColliders.Reset();
+
+            jumpInput.Reset();
+            dashInput.Reset();
+
+
+            isDashStartDisableByGround = true;
+            dashStartDisableTimer = float.NegativeInfinity;
+            dashVelocity = Vector2.zero;
+            estimatedDashPosition = Vector2.zero;
+            dashEndTimer = 0;
+
+            climbLadderDisableTimer = float.NegativeInfinity;
+            climbWallDisableTimer = float.NegativeInfinity;
+            climbWallExhaustTimer = 0;
+            lastFrameMovingVelocity = default;
+            localGravity = 0;
+            Vector2 flipedDirection = Vector2.zero;
         }
         #endregion
     }

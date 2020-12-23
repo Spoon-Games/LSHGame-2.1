@@ -62,6 +62,17 @@ namespace LSHGame.PlayerN
 
         }
 
+        internal void Reset()
+        {
+            Velocity = Vector2.zero;
+            IsGrounded = false;
+            IsTouchingClimbLadder = false;
+            IsClimbWallExhausted = false;
+            IsTouchingClimbWall = false;
+            IsDash = false;
+            IsDead = false;
+        }
+
         private PlayerStates GetStateFromAny()
         {
             if (IsDead)

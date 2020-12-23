@@ -172,6 +172,8 @@ namespace LSHGame.Util
                 {
                     extra.startTimeTransition = Time.time;
                     extra.isInTransition = true;
+
+                    extra.transitionStartPos = extra.prevDisplacement;
                 }
 
                 if (extra.isInTransition)
@@ -188,7 +190,7 @@ namespace LSHGame.Util
                     extra.isInTransition &= p != 1;
                 }
 
-                extra.transitionStartPos = displacement;
+                extra.prevDisplacement = displacement;
 
                 //Vector2 delta = displacement - prev;
                 //if(delta.sqrMagnitude > 0.1f)
@@ -319,7 +321,8 @@ namespace LSHGame.Util
         {
             public Vector3 prevDisplacementTarget;
 
-            public Vector3 transitionStartPos;  
+            public Vector3 transitionStartPos;
+            public Vector3 prevDisplacement;
             public bool isInTransition = false;
             public float startTimeTransition = 0;
 
