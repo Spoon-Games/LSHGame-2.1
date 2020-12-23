@@ -35,6 +35,16 @@ MonoBehaviour:
     m_ColliderType: 1
     m_RandomTransform: 0
     spriteRotation: 0
+  - m_Neighbors: 0000000001000000000000000100000001000000000000000100000000000000
+    m_Sprites:
+    - {fileID: -8037028911842189910, guid: 6d45fec36b8fc9d49bb5293d854603e1, type: 3}
+    m_AnimationSpeed: 1
+    m_PerlinScale: 0.5
+    m_RuleTransform: 0
+    m_Output: 0
+    m_ColliderType: 1
+    m_RandomTransform: 0
+    spriteRotation: 0
   - m_Neighbors: 0000000002000000000000000100000002000000000000000100000000000000
     m_Sprites:
     - {fileID: -8008478553420094020, guid: 6d45fec36b8fc9d49bb5293d854603e1, type: 3}
@@ -48,16 +58,6 @@ MonoBehaviour:
   - m_Neighbors: 0000000001000000000000000200000001000000000000000100000000000000
     m_Sprites:
     - {fileID: -4769141482698913144, guid: 6d45fec36b8fc9d49bb5293d854603e1, type: 3}
-    m_AnimationSpeed: 1
-    m_PerlinScale: 0.5
-    m_RuleTransform: 0
-    m_Output: 0
-    m_ColliderType: 1
-    m_RandomTransform: 0
-    spriteRotation: 0
-  - m_Neighbors: 0000000001000000000000000100000001000000000000000100000000000000
-    m_Sprites:
-    - {fileID: -8037028911842189910, guid: 6d45fec36b8fc9d49bb5293d854603e1, type: 3}
     m_AnimationSpeed: 1
     m_PerlinScale: 0.5
     m_RuleTransform: 0
