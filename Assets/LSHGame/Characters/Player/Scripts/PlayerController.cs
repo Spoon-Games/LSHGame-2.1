@@ -25,6 +25,9 @@ namespace LSHGame.PlayerN
         [SerializeField]
         private float verticalDashSpeed = 0;
 
+        [SerializeField]
+        private bool isInvincible = false;
+
 
         [Header("Input")]
         [SerializeField]
@@ -462,8 +465,8 @@ namespace LSHGame.PlayerN
         #region Spawning
         public void Kill()
         {
-            //if (stateMachine.State != PlayerStates.Death)
-              //  stateMachine.IsDead = true;
+            if (stateMachine.State != PlayerStates.Death && !isInvincible)
+                stateMachine.IsDead = true;
         }
 
         private void Spawn()
