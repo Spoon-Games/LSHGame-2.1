@@ -162,11 +162,14 @@ namespace LSHGame.Util
                     debugCameraPos = newCameraPos;
                 }
 
-                // Remember the desired displacement for next frame
+                bool isTeleport = (vcam.Follow.position - extra.prevFollowPos).sqrMagnitude > 1f;
+                extra.prevFollowPos = vcam.Follow.position;
+                
 
                 var prev = extra.prevDisplacementTarget;
                 extra.prevDisplacementTarget = displacement;
-                bool startTransition = (displacement - prev).sqrMagnitude > 0.1f && transitionTime > 0;
+                
+                bool startTransition = (displacement - prev).sqrMagnitude > 0.1f && transitionTime > 0 && !isTeleport;
 
                 if (startTransition)
                 {
@@ -175,6 +178,8 @@ namespace LSHGame.Util
 
                     extra.transitionStartPos = extra.prevDisplacement;
                 }
+
+                extra.isInTransition &= !isTeleport;
 
                 if (extra.isInTransition)
                 {
@@ -319,6 +324,8 @@ namespace LSHGame.Util
         
         private class VcamExtraState
         {
+            public Vector3 prevFollowPos = Vector3.negativeInfinity;
+
             public Vector3 prevDisplacementTarget;
 
             public Vector3 transitionStartPos;

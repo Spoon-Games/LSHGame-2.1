@@ -94,6 +94,7 @@ namespace LSHGame.PlayerN
         private void CheckTouch()
         {
             /* Retrive substances */
+
             RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Ladders, climbLadderTouchRect);
 
             IsTouchingClimbWallRight = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Sides, rightSideTouchRect, true);
@@ -116,6 +117,7 @@ namespace LSHGame.PlayerN
 
             /* Update internal values */
             stateMachine.IsTouchingClimbLadder = parent.Stats.IsLadder;
+            stateMachine.IsFeetTouchingClimbLadder = parent.Stats.IsFeetLadder;
 
             if (parent.Stats.IsDamage || mainCollider.IsTouchingLayers(hazardsLayers)) // if touching hazard
             {
@@ -364,7 +366,7 @@ namespace LSHGame.PlayerN
             int i = 0;
             do
             {
-                parent.transform.position = position;
+                parent.Teleport(position);
                 position += Vector2.up * 0.1f;
 
                 if (i > 1000)
