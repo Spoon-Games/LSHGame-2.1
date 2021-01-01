@@ -25,6 +25,9 @@ namespace LSHGame.PlayerN
         [SerializeField]
         private float verticalDashSpeed = 0;
 
+        [SerializeField]
+        private bool isInvincible = false;
+
 
         [Header("Input")]
         [SerializeField]
@@ -59,6 +62,7 @@ namespace LSHGame.PlayerN
         private Vector2 inputMovement;
 
         internal Vector2 lastFrameMovingVelocity = default;
+        internal Vector2 lastFramePosition = default;
 
         internal Vector2 localVelocity = Vector2.zero;
         internal float localGravity = 0;
@@ -107,10 +111,12 @@ namespace LSHGame.PlayerN
         private void FixedUpdate()
         {
             flipedDirection = transform.localScale;
-            Vector2 rbVelocity = rb.velocity;
+            
+            Vector2 rbVelocity = ((Vector2)transform.position - lastFramePosition) / Time.fixedDeltaTime;
+            lastFramePosition = transform.position;
 
             lastFrameMovingVelocity = Stats.MovingVelocity;
-            localVelocity = rb.velocity - lastFrameMovingVelocity;
+            localVelocity = rbVelocity - lastFrameMovingVelocity;
 
             Stats = defaultStats.Clone();
 
@@ -126,7 +132,6 @@ namespace LSHGame.PlayerN
 
             ExeUpdate();
 
-            rb.velocity = localVelocity;
             playerColliders.ExeUpdate();
 
             Jump();
@@ -136,10 +141,17 @@ namespace LSHGame.PlayerN
             stateMachine.Velocity = localVelocity;
             stateMachine.UpdateAnimator();
 
-            rb.velocity = localVelocity;// + Stats.MovingVelocity;
+            rb.velocity = localVelocity + Stats.MovingVelocity;
+
+            //Debug.Log("State: " + stateMachine.State + " MovingVelocity: " + Stats.MovingVelocity.x + " Local: " + localVelocity.x +
+            //    "\nRB: " + rb.velocity.x + " previous RB: " + rbVelocity.x + " previous MV: " + lastFrameMovingVelocity.x);
+
+            //Debug.Log("State: " + stateMachine.State + " MovingVelocity: " + Stats.MovingVelocity.y + " Local: " + localVelocity.y +
+            //    "\nRB: " + rb.velocity.y + " previous RB: " + rbVelocity.y + " previous MV: " + lastFrameMovingVelocity);
 
             rb.gravityScale = localGravity;
-            rb.AddForce(Stats.MovingVelocity, ForceMode2D.Impulse);
+            //rb.MovePosition(rb.position + (localVelocity + Stats.MovingVelocity) * Time.fixedDeltaTime);
+            //rb.AddForce(Stats.MovingVelocity, ForceMode2D.Impulse);
 
         }
         #endregion
@@ -148,16 +160,18 @@ namespace LSHGame.PlayerN
         private void CheckClimbWall()
         {
             if (inputMovement.y > 0)
-                stateMachine.IsTouchingClimbLadder &= localVelocity.y <= inputMovement.y * Stats.ClimbingLadderSpeed;
+                stateMachine.IsTouchingClimbLadder &= localVelocity.y <= inputMovement.y * Stats.ClimbingLadderSpeed + 0.1f;
             else
-                stateMachine.IsTouchingClimbLadder &= localVelocity.y <= 0;
+                stateMachine.IsTouchingClimbLadder &= localVelocity.y <= 0 + 0.1f;
+
+            stateMachine.IsFeetTouchingClimbLadder &= localVelocity.y <= 0 + 0.1f;
 
             stateMachine.IsTouchingClimbWall &= Time.fixedTime > climbWallDisableTimer;
             stateMachine.IsTouchingClimbWall &= inputController.Player.WallClimbHold.GetBC().isPressed;
 
             //Debug.Log("CheckClimbWall: " + stateMachine.IsTouchingClimbWall + " isPress: " + inputController.Player.WallClimbHold.GetBC().isPressed);
 
-            if (stateMachine.IsGrounded)
+            if (stateMachine.IsGrounded || stateMachine.IsTouchingClimbLadder)
             {
                 climbWallExhaustTimer = 0;
             }
@@ -286,8 +300,14 @@ namespace LSHGame.PlayerN
 
                     Run(false);
                     localGravity = 0;
-                    localVelocity = GetVelocity(1, Stats.ClimbingLadderSpeed);
+                    localVelocity.y = inputMovement.y * Stats.ClimbingLadderSpeed;
 
+                    break;
+                case PlayerStates.ClimbLadderTop:
+                    Run(false);
+                    localGravity = 0;
+                    //Only move downwards vertically
+                    localVelocity.y = Mathf.Min(0, inputMovement.y * Stats.ClimbingLadderSpeed);
                     break;
                 case PlayerStates.Dash:
 
@@ -324,7 +344,7 @@ namespace LSHGame.PlayerN
             ButtonControl j = inputController.Player.Jump.GetBC();
             bool buttonReleased = false;
 
-            if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.Locomotion || stateMachine.State == PlayerStates.ClimbLadder, ref buttonReleased))
+            if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.Locomotion || stateMachine.State == PlayerStates.ClimbLadder || stateMachine.State == PlayerStates.ClimbLadderTop, ref buttonReleased))
             {
                 localVelocity.y = Stats.JumpSpeed * flipedDirection.y;
                 climbWallDisableTimer = Time.fixedTime + 0.2f;
@@ -395,17 +415,6 @@ namespace LSHGame.PlayerN
             return Mathf.Abs(v) > accuracy;
         }
 
-        private Vector2 GetVelocity(int axis, float speed)
-        {
-            if (axis == 0)
-            {
-                return new Vector2(GameInput.Controller.Player.Movement.ReadValue<Vector2>().x * speed, localVelocity.y);
-            }
-            else
-                return new Vector2(localVelocity.x, GameInput.Controller.Player.Movement.ReadValue<Vector2>().y * speed);
-
-        }
-
         private void SetClimbWallSpeedX()
         {
             bool isLeftAbs = playerColliders.IsTouchingClimbWallLeft ^ transform.localScale.x > 0;
@@ -462,8 +471,8 @@ namespace LSHGame.PlayerN
         #region Spawning
         public void Kill()
         {
-            //if (stateMachine.State != PlayerStates.Death)
-              //  stateMachine.IsDead = true;
+            if (stateMachine.State != PlayerStates.Death && !isInvincible)
+                stateMachine.IsDead = true;
         }
 
         private void Spawn()
@@ -482,9 +491,15 @@ namespace LSHGame.PlayerN
             Reset();
 
             playerColliders.SetPositionCorrected(position);
-            rb.velocity = Vector2.zero;
 
             stateMachine.IsDead = false;
+        }
+
+        public void Teleport(Vector2 position)
+        {
+            transform.position = position;
+            lastFramePosition = position;
+            rb.velocity = Vector2.zero;
         }
 
         private void Reset()

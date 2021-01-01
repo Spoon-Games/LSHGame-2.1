@@ -2,7 +2,7 @@
 
 namespace LSHGame.PlayerN
 {
-    internal enum PlayerStates { Locomotion,Aireborne,ClimbWall,ClimbWallExhaust,ClimbLadder,Dash,Death}
+    internal enum PlayerStates { Locomotion,Aireborne,ClimbWall,ClimbWallExhaust,ClimbLadder,ClimbLadderTop,Dash,Death}
 
     internal class PlayerStateMachine
     {
@@ -20,6 +20,8 @@ namespace LSHGame.PlayerN
         public bool IsClimbWallExhausted { get; set; }
 
         public bool IsTouchingClimbLadder { get; set; }
+
+        public bool IsFeetTouchingClimbLadder { get; set; }
 
         public bool IsDash { get; set; }
 
@@ -58,7 +60,7 @@ namespace LSHGame.PlayerN
             animatorMachine.SClimbinLadder = State == PlayerStates.ClimbLadder;
             animatorMachine.SDash = State == PlayerStates.Dash;
             animatorMachine.SDeath = State == PlayerStates.Death;
-            animatorMachine.SLocomotion = State == PlayerStates.Locomotion;
+            animatorMachine.SLocomotion = State == PlayerStates.Locomotion || State == PlayerStates.ClimbLadderTop;
 
         }
 
@@ -92,6 +94,9 @@ namespace LSHGame.PlayerN
 
             if (IsGrounded)
                 return PlayerStates.Locomotion;
+
+            if (IsFeetTouchingClimbLadder)
+                return PlayerStates.ClimbLadderTop;
 
             return PlayerStates.Aireborne;
         }
