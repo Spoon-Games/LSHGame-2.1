@@ -136,6 +136,7 @@ namespace LSHGame.Util
                     aspectRatio, out bool confinerStateChanged))
                 {
                     debugCameraPos = state.CorrectedPosition;
+                    //return;
                     //invalid
                 }
                 else
@@ -164,11 +165,11 @@ namespace LSHGame.Util
 
                 bool isTeleport = (vcam.Follow.position - extra.prevFollowPos).sqrMagnitude > 1f;
                 extra.prevFollowPos = vcam.Follow.position;
-                
+
 
                 var prev = extra.prevDisplacementTarget;
                 extra.prevDisplacementTarget = displacement;
-                
+
                 bool startTransition = (displacement - prev).sqrMagnitude > 0.1f && transitionTime > 0 && !isTeleport;
 
                 if (startTransition)
@@ -196,6 +197,8 @@ namespace LSHGame.Util
                 }
 
                 extra.prevDisplacement = displacement;
+
+                //Debug.Log("Transition: " + extra.isInTransition + " Teleport: " + isTeleport);
 
                 //Vector2 delta = displacement - prev;
                 //if(delta.sqrMagnitude > 0.1f)
@@ -293,7 +296,7 @@ namespace LSHGame.Util
                 }
             }
 
-            if(smoothing > 0 && smoothThreshold > 0)
+            if (smoothing > 0 && smoothThreshold > 0)
             {
                 float distance = (closest - positionToConfine).magnitude;
                 distance /= smoothThreshold * smoothing;

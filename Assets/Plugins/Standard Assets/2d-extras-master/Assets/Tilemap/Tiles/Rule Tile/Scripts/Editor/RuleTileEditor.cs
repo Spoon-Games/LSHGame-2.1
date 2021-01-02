@@ -95,6 +95,7 @@ namespace UnityEditor
 
 		private float GetElementHeight(int index)
 		{
+            //Debug.Log("GetElementHeight: ");
 			if (tile.m_TilingRules != null && tile.m_TilingRules.Count > 0)
 			{
 				switch (tile.m_TilingRules[index].m_Output)
@@ -145,8 +146,11 @@ namespace UnityEditor
 			tile.m_DefaultColliderType = (Tile.ColliderType)EditorGUILayout.EnumPopup("Default Collider", tile.m_DefaultColliderType);
 			EditorGUILayout.Space();
 
-			if (m_ReorderableList != null && tile.m_TilingRules != null)
-				m_ReorderableList.DoLayoutList();
+            if (m_ReorderableList != null && tile.m_TilingRules != null)
+            {
+                m_ReorderableList.DoLayoutList();
+                //Debug.Log("DoLayoutList");
+            }
 		}
 
 		private static void RuleMatrixOnGUI(Rect rect, RuleTile.TilingRule tilingRule)
