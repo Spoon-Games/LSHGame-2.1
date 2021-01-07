@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a02e9282f4e21854d8b6806266d7b10d, type: 3}
+  m_Name: New Behaviour Tree
+  m_EditorClassIdentifier: 
+  nodes:
+  - id: 0
+  - id: 1
+  - id: 2
+  - id: 3
+  - id: 4
+  - id: 5
+  - id: 6
+  dataExNodes: []
+  references:
+    version: 1
+    00000000:
+      type: {class: RootTask, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 419, y: -50}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+    00000001:
+      type: {class: LogTask, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts:
+        - outputPortNode:
+            id: 7
+          outputPortName: 
+          portName: Message
+        editorPos: {x: 114, y: 428}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        message: log 1
+    00000002:
+      type: {class: WaitTask, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 316, y: 428}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        waitTime: 3
+    00000003:
+      type: {class: Sequence, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 352, y: 203}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+    00000004:
+      type: {class: LogTask, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts:
+        - outputPortNode:
+            id: 7
+          outputPortName: 
+          portName: Message
+        editorPos: {x: 488, y: 421}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        message: log 2
+    00000005:
+      type: {class: LogTask, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts:
+        - outputPortNode:
+            id: 7
+          outputPortName: 
+          portName: Message
+        editorPos: {x: 864, y: 446}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        message: hello world
+    00000006:
+      type: {class: WaitTask, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 702, y: 433}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        waitTime: 2
+    00000007:
+      type: {class: , ns: , asm: }

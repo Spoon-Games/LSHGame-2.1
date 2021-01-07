@@ -60,6 +60,7 @@ namespace LSHGame.PlayerN
         internal bool IsTouchingClimbWallLeft { get; private set; }
 
         private List<ContactPoint2D> allCPs = new List<ContactPoint2D>();
+        private List<ContactPoint2D> faultyCPs = new List<ContactPoint2D>();
         private ContactPoint2D groundCP;
         private bool isGroundCPValid = false;
 
@@ -177,6 +178,7 @@ namespace LSHGame.PlayerN
 
             Vector2 stepUpOffset = default;
             bool stepUp = false;
+            ValidateCps();
             if (isGroundCPValid)
             {
                 stepUp = FindStep(out stepUpOffset, allCPs, groundCP.point, velocity);
@@ -225,6 +227,23 @@ namespace LSHGame.PlayerN
             //if (found)
                 //Debug.Log("FindGround: " + allCPs.Count);
             return found;
+        }
+
+        private void ValidateCps()
+        {
+            faultyCPs.Clear();
+            foreach(var cp in allCPs)
+            {
+                if(cp.collider == null || cp.collider.gameObject == null)
+                {
+                    faultyCPs.Add(cp);
+                }
+            }
+            foreach(var cp in faultyCPs)
+            {
+                allCPs.Remove(cp);
+            }
+            faultyCPs.Clear();
         }
 
         /// Find the first step up point if we hit a step
@@ -361,6 +380,11 @@ namespace LSHGame.PlayerN
 
         #region Spawnig
 
+        internal void SetToDeadBody()
+        {
+            this.gameObject.layer = 19;
+        }
+
         internal void SetPositionCorrected(Vector2 position)
         {
             int i = 0;
@@ -382,6 +406,7 @@ namespace LSHGame.PlayerN
         internal void Reset()
         {
             lastVelocity = Vector3.zero;
+            gameObject.layer = 12;
         }
 
 #if UNITY_EDITOR

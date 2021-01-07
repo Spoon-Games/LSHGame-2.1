@@ -35,5 +35,17 @@ namespace LSHGame.Util
         {
             currentMaterial = material;
         }
+
+        public void Stop()
+        {
+            if (string.IsNullOrEmpty(currentMaterial))
+            {
+                base.StopEffect(defaultMaterial);
+            }
+            else
+            {
+                base.StopEffect(currentMaterial);
+            }
+        }
     }
 }

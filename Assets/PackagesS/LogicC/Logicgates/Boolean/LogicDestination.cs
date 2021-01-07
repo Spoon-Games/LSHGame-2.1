@@ -19,6 +19,7 @@ namespace LogicC
         [ReadOnly]
         [SerializeField]
         private bool active;
+        public bool Active => active;
 
         protected override List<BasePort> GetPorts(List<BasePort> ports)
         {

@@ -47,5 +47,10 @@ namespace LSHGame.Util
             else
                 Trigger(flip);
         }
+
+        public void Stop()
+        {
+            ParticleSystem.Stop();
+        }
     }
 }

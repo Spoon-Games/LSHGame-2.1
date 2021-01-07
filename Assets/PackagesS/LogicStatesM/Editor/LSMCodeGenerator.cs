@@ -33,7 +33,7 @@ namespace LogicStateM.Editor
             builder.AppendLine("[RequireComponent(typeof(Animator))]");
             builder.AppendLine("public class " + name + " : MonoBehaviour \n{\n");
 
-            builder.AppendLine("private const string animatorPath = \"" + path + "\";\n");
+            builder.AppendLine("private const string animatorPath = \"" + AssetDatabase.GetAssetPath(controller) + "\";\n");
             builder.AppendLine("private Animator animator;");
             builder.AppendLine("public Animator Animator => animator;\n");
 

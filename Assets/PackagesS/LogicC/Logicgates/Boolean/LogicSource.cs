@@ -15,8 +15,11 @@ namespace LogicC
         {
             get => fired;
             set{
-                fired = value;
-                UpdateConnection();
+                if (fired != value)
+                {
+                    fired = value;
+                    UpdateConnection();
+                }
             }
         }
         private OutputPort<bool> OutputPort = new OutputPort<bool>("Output", PortCapacityMode.Multiple);

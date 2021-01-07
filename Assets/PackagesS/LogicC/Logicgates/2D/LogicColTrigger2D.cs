@@ -10,20 +10,19 @@ namespace LogicC
         [SerializeField]
         protected LayerMask layerMask;
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private Collider2D triggerCollider;
+
+        protected override void Awake()
         {
-            if (layerMask == (layerMask | (1 << collision.gameObject.layer)))
-            {
-                Fired = true;
-            }
+            base.Awake();
+            triggerCollider = GetComponent<Collider2D>();
         }
 
-        private void OnTriggerExit2D(Collider2D collision)
+        private void FixedUpdate()
         {
-            if (layerMask == (layerMask | (1 << collision.gameObject.layer)))
-            {
-                Fired = false;
-            }
+            bool isTouching = Physics2D.IsTouchingLayers(triggerCollider, layerMask);
+            base.Fired = isTouching;
         }
+
     }
 }

@@ -14,6 +14,8 @@ namespace SceneM
 
         private static List<int> loadedScenesInLevel = new List<int>();
 
+        public static Action OnResetLevel;
+
         #endregion
 
         #region Scene Managment
@@ -70,6 +72,11 @@ namespace SceneM
             LoadMainSceneRaw(levelInfo.StartScene);
 
         } 
+
+        public static void ResetLevel()
+        {
+            OnResetLevel?.Invoke();
+        }
         #endregion
 
         #region Load Scene Methods

@@ -29,6 +29,14 @@ namespace LSHGame.Util
 
         public void SetMaterial(string material){}
 
+        public void Stop()
+        {
+            foreach (var p in EffectPlayers)
+            {
+                p.Stop();
+            }
+        }
+
         public void Trigger(Bundle parameters)
         {
             foreach(var p in EffectPlayers)

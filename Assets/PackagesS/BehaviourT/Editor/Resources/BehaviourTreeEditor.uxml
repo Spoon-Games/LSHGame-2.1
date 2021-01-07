@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+  <Style src="BehaviourTreeEditor.uss" />
+  <uie:Toolbar>
+    <ui:VisualElement style="flex-direction: row; flex-grow: 1;">
+      <uie:ToolbarToggle value="false" text="Inspector" name="InspectorToggle" class="ToolbarElement" />
+      <uie:ToolbarToggle value="false" text="Properties" name="PropertiesToggle" class="ToolbarElement" />
+    </ui:VisualElement>
+    <ui:VisualElement style="flex-grow: 0; flex-direction: row; flex-basis: 70%;">
+      <uie:ToolbarButton text="Save" display-tooltip-when-elided="true" name="SaveButton" class="ToolbarElement" />
+      <uie:ToolbarToggle value="true" text="Generate Script" name="GenerateScriptToogle" class="ToolbarElement" />
+    </ui:VisualElement>
+  </uie:Toolbar>
+  <ui:VisualElement name="Content" style="flex-direction: row; flex-grow: 1;">
+    <ui:VisualElement style="flex-grow: 1;">
+      <ui:VisualElement name="InspectorContainer" style="flex-grow: 1;" />
+      <ui:VisualElement name="PropertiesContainer" style="flex-grow: 1; display: none;">
+        <ui:Label text="Not jet implemented" display-tooltip-when-elided="true" />
+      </ui:VisualElement>
+    </ui:VisualElement>
+    <uie:ToolbarBreadcrumbs style="background-color: rgba(0, 0, 0, 255); min-width: 1px;" />
+    <ui:VisualElement name="GraphViewContainer" style="flex-grow: 0; flex-basis: 70%;" />
+  </ui:VisualElement>
+</ui:UXML>

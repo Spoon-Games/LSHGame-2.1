@@ -258,6 +258,7 @@ namespace LSHGame.PlayerN
             if (to == PlayerStates.Death)
             {
                 Respawn();
+                playerColliders.SetToDeadBody();
             }
         }
         #endregion
@@ -488,6 +489,7 @@ namespace LSHGame.PlayerN
 
         private void SetRespawn(Vector2 position)
         {
+            LevelManager.ResetLevel();
             Reset();
 
             playerColliders.SetPositionCorrected(position);

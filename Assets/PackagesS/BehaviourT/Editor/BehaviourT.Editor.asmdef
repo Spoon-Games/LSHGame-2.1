@@ -1,0 +1,18 @@
+{
+    "name": "BehaviourT.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7817ae229ac56514eb1286fc68217b9c"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

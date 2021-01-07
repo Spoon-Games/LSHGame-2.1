@@ -37,6 +37,16 @@ namespace LSHGame.Util
             effectTriggers[name].SetMaterial(material);
         }
 
+        public void StopEffect(string name)
+        {
+            if (effectTriggers.TryGetValue(name, out IEffectTrigger trigger))
+            {
+                trigger.Stop(); ;
+            }
+            else
+                Debug.Log("EffectTrigger " + name + " was not found");
+        }
+
         private void LoadEffectTriggers(Transform transform)
         {
             foreach (Transform child in transform)
@@ -60,11 +70,15 @@ namespace LSHGame.Util
         void SetMaterial(string material);
 
         void Trigger(Bundle parameters);
+
+        void Stop();
     }
 
 
     public interface IEffectPlayer
     {
         void Play(Bundle parameters);
+
+        void Stop();
     }
 }

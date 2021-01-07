@@ -17,5 +17,10 @@ namespace LSHGame.Util
         {
             emitter?.Play();
         }
+
+        public void Stop()
+        {
+            emitter?.Stop();
+        }
     }
 }

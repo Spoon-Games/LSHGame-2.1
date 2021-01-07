@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd4d37b75361f34cb6c5f44a491edd7, type: 3}
   m_Name: Template Scene Creator Asset
   m_EditorClassIdentifier: 
-  templateScene: {fileID: 102900000, guid: e8a9f30de8982614e813af13f4614ac8, type: 3}
+  templateScene: {fileID: 102900000, guid: dcccf05b9bd8efc499dcfdc0406331af, type: 3}
