@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LogicC
 {
-    public class LogicSpawner2D: LogicDestination
+    public class LogicSpawner2D : LogicDestination
     {
         [SerializeField]
         public GameObject prefab;
@@ -33,11 +33,22 @@ namespace LogicC
         private float timeOffset = 0;
         private float spawnTimer = float.PositiveInfinity;
 
+        [SerializeField]
+        private float animationOffset = 0;
+
+        private Animator animator;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            animator = GetComponent<Animator>();
+        }
+
         private void Start()
         {
             if (base.Active)
             {
-                spawnTimer = Time.fixedTime + timeOffset;
+                spawnTimer = Time.fixedTime + timeOffset + animationOffset;
                 cicleIndex = 0;
             }
         }
@@ -45,9 +56,15 @@ namespace LogicC
         protected override void OnActivated()
         {
             base.OnActivated();
-            spawnTimer = Time.fixedTime + timeOffset;
+            spawnTimer = Time.fixedTime + timeOffset + animationOffset;
             cicleIndex = 0;
             Spawn();
+        }
+
+        protected override void OnDeactivated()
+        {
+            base.OnDeactivated();
+            animator?.Play("Idle");
         }
 
         private void FixedUpdate()
@@ -57,14 +74,25 @@ namespace LogicC
 
         private void Spawn()
         {
+            if (base.Active && spawnTimer - animationOffset <= Time.fixedTime && (cicleIndex < cicles || cicles <= 0) && count > 0 && prefab != null)
+            {
+                animator?.SetBool("Fired", true);
+            }
+
             if (base.Active && spawnTimer <= Time.fixedTime && (cicleIndex < cicles || cicles <= 0) && count > 0 && prefab != null)
             {
                 for (int i = 0; i < count; i++)
                 {
                     SpawnSingle();
                 }
-                spawnTimer =Time.fixedTime+ intervall;
+                spawnTimer = Time.fixedTime + intervall;
                 cicleIndex++;
+                animator?.SetBool("Fired", false);
+            }
+
+            if (!base.Active)
+            {
+                animator?.SetBool("Fired", false);
             }
         }
 
@@ -76,9 +104,9 @@ namespace LogicC
 
         private Matrix4x4 GetRandomTRS()
         {
-            Vector3 position = new Vector3(Random.Range(spawnArea.xMin,spawnArea.xMax),Random.Range(spawnArea.yMin,spawnArea.yMax));
+            Vector3 position = new Vector3(Random.Range(spawnArea.xMin, spawnArea.xMax), Random.Range(spawnArea.yMin, spawnArea.yMax));
             float r = Random.Range(rotation - angle / 2, rotation + angle / 2);
-            return this.transform.localToWorldMatrix * Matrix4x4.TRS(position, Quaternion.Euler(0, 0, r), Vector3.one);
+            return transform.localToWorldMatrix * Matrix4x4.TRS(position, Quaternion.Euler(0, 0, r), Vector3.one);
         }
 
 #if UNITY_EDITOR
@@ -91,7 +119,7 @@ namespace LogicC
             Handles.matrix = transform.localToWorldMatrix;
 
             Gizmos.DrawWireCube(spawnArea.center, spawnArea.size);
-            Handles.DrawSolidArc(spawnArea.position, Vector3.forward, Quaternion.Euler(0,0,rotation - angle / 2) * Vector3.up, angle, 1);
+            Handles.DrawSolidArc(spawnArea.position, Vector3.forward, Quaternion.Euler(0, 0, rotation - angle / 2) * Vector3.up, angle, 1);
 
             Gizmos.matrix = Matrix4x4.identity;
             Handles.matrix = Matrix4x4.identity;

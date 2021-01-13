@@ -26,7 +26,6 @@ namespace BehaviourT.Editor
                         this.titleContent.text = "*" + repository?.name;
                     else
                         this.titleContent.text = repository?.name;
-                    Debug.Log("IsUnsaved: " + _isUnsaved);
 
                 }
             } }

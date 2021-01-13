@@ -184,7 +184,7 @@ namespace LSHGame.PlayerN
                 stepUp = FindStep(out stepUpOffset, allCPs, groundCP.point, velocity);
                 //Debug.Log("GroundCPPoint: " + groundCP.point);
             }
-            else if ((stateMachine.State == PlayerStates.ClimbLadder || stateMachine.State == PlayerStates.ClimbWall || stateMachine.State == PlayerStates.Dash)
+            else if ((stateMachine.State == PlayerStates.ClimbLadder || stateMachine.State == PlayerStates.ClimbWall || stateMachine.State == PlayerStates.Dash || stateMachine.State == PlayerStates.ClimbLadderTop)
                 && parent.GreaterEqualY(velocity.y,0) && Mathf.Abs(velocity.x) > 0)
             {
                 stepUp = FindStep(out stepUpOffset, allCPs, transform.TransformPoint(new Vector2(0, mainCollider.offset.y - mainCollider.size.y / 2)), velocity);

@@ -10,7 +10,7 @@ namespace BehaviourT
             {
                 _behaviourTree.Destroy();
                 _behaviourTree = value;
-                _behaviourTree.Initialize();
+                _behaviourTree.Initialize(this);
             }
         }
 
@@ -19,7 +19,7 @@ namespace BehaviourT
 
         protected virtual void Awake()
         {
-            BehaviourTree?.Initialize();
+            BehaviourTree?.Initialize(this);
         }
 
         protected virtual void FixedUpdate()
@@ -63,5 +63,12 @@ namespace BehaviourT
         {
             BehaviourTree?.Reset();
         }
+
+#if UNITY_EDITOR
+        protected virtual void OnDrawGizmosSelected()
+        {
+            BehaviourTree?.DrawGizmos(this);
+        }
+#endif
     }
 }

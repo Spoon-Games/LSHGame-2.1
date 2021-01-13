@@ -80,6 +80,12 @@ namespace BehaviourT
                 return false;
             }
 
+            if (type.IsSubclassOf(typeof(Enum)))
+            {
+                element = LogicExtensions.GetElementOfEnumField((Enum)startValue, label, setValue, getValue);
+                return true;
+            }
+
             if(!converters.Any(p => p.Key.From.Equals(type)))
             {
                 element = null;
@@ -207,6 +213,14 @@ namespace BehaviourT
             field.SetValueWithoutNotify(startValue);
             field.RegisterValueChangedCallback(s => setValue.Invoke(s.newValue));
             getValue += o => field.SetValueWithoutNotify((bool)o);
+            return field;
+        }
+
+        [ElementFieldConversion]
+        public static VisualElement GetElementOfLayerMaskField(LayerMask startValue, string fieldName, Action<object> setValue, Action<object> getValue)
+        {
+            LayerMaskField field = new LayerMaskField(fieldName, startValue);
+            field.RegisterValueChangedCallback(s => setValue.Invoke(new LayerMask() { value = s.newValue }));
             return field;
         }
     }

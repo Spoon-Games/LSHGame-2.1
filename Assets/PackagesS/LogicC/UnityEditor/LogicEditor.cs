@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityToolbarExtender;
 
 namespace LogicC
@@ -89,6 +90,19 @@ namespace LogicC
             foreach (SceneView sceneView in SceneView.sceneViews)
             {
                 graphViews.Add(new LogicGraphView(sceneView, drawGrid));
+                //VisualElement visualElement = new VisualElement();
+                //visualElement.StretchToParentSize();
+
+                //visualElement.Add(new Button() { text = "testButton" });
+                //VisualElement testElement = new VisualElement();
+                //testElement.style.backgroundColor = new Color(255, 0, 0, 64);
+                //testElement.style.opacity = 0.3f;
+                //testElement.StretchToParentSize();
+                //testElement.pickingMode = PickingMode.Ignore;
+               
+                //visualElement.Add(testElement);
+
+                //sceneView.rootVisualElement.Add(visualElement);
             }
             SceneView.duringSceneGui += OnSceneGUI;
             graphViewEnabled = true;

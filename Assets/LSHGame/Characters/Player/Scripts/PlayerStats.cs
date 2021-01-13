@@ -7,7 +7,7 @@ namespace LSHGame.PlayerN
 {
     [System.Serializable]
     public class PlayerStats : IPlayerLocomotionRec, IPlayerJumpRec, IPlayerClimbingRec, IPlayerDashRec, IGravityRec, 
-        IDataReciever, IDamageRec, IIsLadderRec, IIsLadderFeetRec, IMatVelocityRec,IMatBounceRec, IJumpCallbackRec, ISneekCallbackRec, IEffectsMaterialRec
+        IDataReciever, IDamageRec, IIsLadderRec, IIsLadderFeetRec, IMatVelocityRec,IMatBounceRec, IJumpCallbackRec, ISneekCallbackRec, IEffectsMaterialRec,IPlayerIsJumpableSubProp
     {
         [SerializeField] private AnimationCurve _runAccelCurve;
         [SerializeField] private AnimationCurve _runDeaccelCurve;
@@ -51,6 +51,7 @@ namespace LSHGame.PlayerN
         public Action OnSneek { get; set; }
         public Dictionary<string, string> EffectMaterials { get; } = new Dictionary<string, string>();
         public bool IsFeetLadder { get; set; }
+        public bool IsJumpableInAir { get; set; } = false;
 
         public PlayerStats Clone()
         {

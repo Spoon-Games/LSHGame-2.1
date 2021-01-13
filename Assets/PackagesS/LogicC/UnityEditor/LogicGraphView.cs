@@ -48,6 +48,7 @@ namespace LogicC
             Insert(0, gridBackground);
             gridBackground.StretchToParentSize();
             gridBackground.visible = drawGrid;
+            gridBackground.style.display = drawGrid ? DisplayStyle.Flex : DisplayStyle.None;
 
             viewTransform.position = new Vector3(100, 100, 0);
 
@@ -57,6 +58,7 @@ namespace LogicC
 
 
             this.StretchToParentSize();
+            this.pickingMode = PickingMode.Ignore;
             sceneView.rootVisualElement.Add(this);
         }
 
