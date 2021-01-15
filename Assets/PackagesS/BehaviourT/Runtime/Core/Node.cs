@@ -35,6 +35,8 @@ namespace BehaviourT
         internal void Initialize(BehaviourTree parent)
         {
             Parent = parent;
+            if (_portList == null)
+                _portList = new PortList();
             _portList.Clear();
             GetPorts(_portList);
         }

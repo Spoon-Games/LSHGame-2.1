@@ -244,7 +244,7 @@ namespace LSHGame.PlayerN
                 dashStartDisableTimer = Time.fixedTime;
                 isDashStartDisableByGround = true;
 
-                dashEndTimer = Time.time;
+                dashEndTimer = Time.fixedTime;
                 if (!GetSign(inputMovement.x, out float sign))
                     sign = flipedDirection.x;
 
