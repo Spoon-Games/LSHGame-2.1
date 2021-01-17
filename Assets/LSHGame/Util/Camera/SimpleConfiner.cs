@@ -1,3 +1,7 @@
+﻿#if !UNITY_2019_3_OR_NEWER
+#define CINEMACHINE_PHYSICS_2D
+#endif
+
 using System;
 using System.Collections.Generic;
 using Cinemachine;
@@ -52,31 +56,22 @@ namespace LSHGame.Util
     /// idea to set it carefully. Leaving it at 0 will cause the maximum number of polygons to be generated.
     /// </para>
     /// </summary>
-    //[AddComponentMenu("")] // Hide in menu
+    [SaveDuringPlay]
     [ExecuteAlways]
     [DisallowMultipleComponent]
-    //[HelpURL(Documentation.BaseURL + "manual/CinemachineConfiner2D.html")]
-    public class SmoothConfiner : CinemachineExtension
+    public class SimpleConfiner : CinemachineExtension
     {
         /// <summary>The 2D shape within which the camera is to be contained.</summary>
         [Tooltip("The 2D shape within which the camera is to be contained.  " +
                  "Can be a 2D polygon or 2D composite collider.")]
         public Collider2D m_BoundingShape2D;
 
-        [SerializeField]
-        private float smoothThreshold = 1f;
-
-        [SerializeField]
-        [Range(0,3)]
-        private float smoothing = 1f;
-
-        [SerializeField]
-        private float transitionTime = 0.7f;
-
         /// <summary>Damping applied automatically around corners to avoid jumps.</summary>
-        //[Tooltip("Damping applied around corners to avoid jumps.  Higher numbers are more gradual.")]
-        //[Range(0, 5)]
-        //public float m_Damping;
+        [Tooltip("Damping applied around corners to avoid jumps.  Higher numbers are more gradual.")]
+        [Range(0, 5)]
+        public float m_Damping;
+
+        public float smoothThreashold = 1;
 
         /// <summary>
         /// To optimize computation and memory costs, set this to the largest view size that the camera 
@@ -113,94 +108,41 @@ namespace LSHGame.Util
         private const float m_cornerAngleTreshold = 10f;
 
         private float m_currentFrustumHeight = 0;
-
-        private Vector2 debugCameraPos;
-
-        private void OnDrawGizmosSelected()
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawSphere(debugCameraPos, 0.3f);
-        }
-
+        
         protected override void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, 
             CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
         {
             if (stage == CinemachineCore.Stage.Body)
             {
-                Vector3 displacement = Vector3.zero;
-                var extra = GetExtraState<VcamExtraState>(vcam);
-
                 var aspectRatio = state.Lens.Aspect;
                 if (!m_shapeCache.ValidateCache(
                     m_BoundingShape2D, m_MaxWindowSize, m_confinerBaker,
                     aspectRatio, out bool confinerStateChanged))
                 {
-                    debugCameraPos = state.CorrectedPosition;
-                    //return;
-                    //invalid
+                    return; // invalid path
                 }
-                else
-                {
+                
+                var oldCameraPos = state.CorrectedPosition;
+                var cameraPosLocal = m_shapeCache.m_DeltaWorldToBaked.MultiplyPoint3x4(oldCameraPos);
+                m_currentFrustumHeight = CalculateHalfFrustumHeight(state, cameraPosLocal.z);
+                var extra = GetExtraState<VcamExtraState>(vcam);
+                extra.m_vcam = vcam;
+                extra.m_VcamShapeCache.ValidateCache(
+                    m_confinerBaker, confinerStateChanged, 
+                    aspectRatio, m_currentFrustumHeight);
+                
+                cameraPosLocal = ConfinePoint(cameraPosLocal, 
+                    extra.m_VcamShapeCache.m_Path, extra.m_VcamShapeCache.m_PathHasBone,
+                    state.Lens.Aspect * m_currentFrustumHeight, m_currentFrustumHeight);
+                var newCameraPos = m_shapeCache.m_DeltaBakedToWorld.MultiplyPoint3x4(cameraPosLocal);
 
-                    var oldCameraPos = state.CorrectedPosition;
-                    var cameraPosLocal = m_shapeCache.m_DeltaWorldToBaked.MultiplyPoint3x4(oldCameraPos);
-                    m_currentFrustumHeight = CalculateHalfFrustumHeight(state, cameraPosLocal.z);
-                    extra.m_vcam = vcam;
-                    extra.m_VcamShapeCache.ValidateCache(
-                        m_confinerBaker, confinerStateChanged,
-                        aspectRatio, m_currentFrustumHeight);
+                // Don't move the camera along its z-axis
+                var fwd = state.CorrectedOrientation * Vector3.forward;
+                newCameraPos -= fwd * Vector3.Dot(fwd, newCameraPos - oldCameraPos);
 
-                    cameraPosLocal = ConfinePoint(cameraPosLocal,
-                        extra.m_VcamShapeCache.m_Path, extra.m_VcamShapeCache.m_PathHasBone,
-                        state.Lens.Aspect * m_currentFrustumHeight, m_currentFrustumHeight);
-                    var newCameraPos = m_shapeCache.m_DeltaBakedToWorld.MultiplyPoint3x4(cameraPosLocal);
-
-                    // Don't move the camera along its z-axis
-                    var fwd = state.CorrectedOrientation * Vector3.forward;
-                    newCameraPos -= fwd * Vector3.Dot(fwd, newCameraPos - oldCameraPos);
-
-                    displacement = newCameraPos - oldCameraPos;
-                    debugCameraPos = newCameraPos;
-                }
-
-                bool isTeleport = (vcam.Follow.position - extra.prevFollowPos).sqrMagnitude > 1f;
-                extra.prevFollowPos = vcam.Follow.position;
-
-
-                var prev = extra.prevDisplacementTarget;
-                extra.prevDisplacementTarget = displacement;
-
-                bool startTransition = (displacement - prev).sqrMagnitude > 0.1f && transitionTime > 0 && !isTeleport;
-
-                if (startTransition)
-                {
-                    extra.startTimeTransition = Time.time;
-                    extra.isInTransition = true;
-
-                    extra.transitionStartPos = extra.prevDisplacement;
-                }
-
-                extra.isInTransition &= !isTeleport;
-
-                if (extra.isInTransition)
-                {
-                    Vector2 delta = displacement - extra.transitionStartPos;
-
-                    float p = Mathf.Min(1, Mathf.SmoothStep(0, 1, (Time.time - extra.startTimeTransition) / transitionTime));
-                    delta *= p;
-
-                    //Debug.Log("Transition: " + p);
-
-                    displacement = (Vector3)delta + extra.transitionStartPos;
-
-                    extra.isInTransition &= p != 1;
-                }
-
-                extra.prevDisplacement = displacement;
-
+                // Remember the desired displacement for next frame
+                var displacement = newCameraPos - oldCameraPos;
                 state.PositionCorrection += displacement;
-                //state.PositionCorrection = newCameraPos;
-                //extra.lastFrameCameraPos = newCameraPos;
             }
         }
 
@@ -225,7 +167,7 @@ namespace LSHGame.Util
                 frustumHeight = distance * Mathf.Tan(state.Lens.FieldOfView * 0.5f * Mathf.Deg2Rad);
             }
 
-            return Mathf.Abs(frustumHeight) + smoothThreshold;
+            return Mathf.Abs(frustumHeight) + smoothThreashold;
         }
         
         /// <summary>
@@ -237,7 +179,7 @@ namespace LSHGame.Util
             in bool hasBone, in float windowWidth, in float windowHeight)
         {
             if (ShrinkablePolygon.IsInside(pathCache, positionToConfine))
-            {   
+            {
                 return positionToConfine;
             }
 
@@ -276,15 +218,6 @@ namespace LSHGame.Util
                 }
             }
 
-            if (smoothing > 0 && smoothThreshold > 0)
-            {
-                float distance = (closest - positionToConfine).magnitude;
-                distance /= smoothThreshold * smoothing;
-
-                distance = -1 / (distance + 1) + 1;
-                closest += (positionToConfine - closest).normalized * distance * smoothThreshold;
-            }
-
             return closest;
         }
 
@@ -307,15 +240,8 @@ namespace LSHGame.Util
         
         private class VcamExtraState
         {
-            public Vector3 prevFollowPos = Vector3.negativeInfinity;
-
-            public Vector3 prevDisplacementTarget;
-
-            public Vector3 transitionStartPos;
-            public Vector3 prevDisplacement;
-            public bool isInTransition = false;
-            public float startTimeTransition = 0;
-
+            public Vector3 m_PreviousDisplacement;
+            public Vector3 m_DampedDisplacement;
             public VcamShapeCache m_VcamShapeCache;
             
             internal CinemachineVirtualCameraBase m_vcam;
@@ -464,7 +390,7 @@ namespace LSHGame.Util
                        m_boundingShape2D != null && m_boundingShape2D == boundingShape2D && // same boundingShape?
                        m_OriginalPath != null && // first time?
                        m_confinerStates != null && // cache not empty? 
-                       Mathf.Abs(m_aspectRatio - aspectRatio) < MyCinemachine.UnityVectorExtensions.Epsilon && // aspect changed?
+                       Mathf.Abs(m_aspectRatio - aspectRatio) < Cinemachine.Utility.UnityVectorExtensions.Epsilon && // aspect changed?
                        Mathf.Abs(m_maxOrthoSize - maxOrthoSize) < MyCinemachine.UnityVectorExtensions.Epsilon; // max ortho changed?
             }
 
@@ -510,16 +436,13 @@ namespace LSHGame.Util
 
         private void OnValidate()
         {
-            smoothThreshold = Mathf.Max(0, smoothThreshold);
-            smoothing = Mathf.Max(0, smoothing);
+            m_Damping = Mathf.Max(0, m_Damping);
             m_MaxWindowSize = Mathf.Max(0, m_MaxWindowSize);
         }
 
         private void Reset()
         {
-            //m_Damping = 0.5f;
-            smoothing = 1;
-            smoothThreshold = 1;
+            m_Damping = 0.5f;
             m_MaxWindowSize = 0;
         }
     }
