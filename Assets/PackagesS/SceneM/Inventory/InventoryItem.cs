@@ -7,6 +7,13 @@ namespace SceneM
     {
         public string ItemName;
 
+        public string ItemType;
+
         public PersistenceType PersistenceType;
+    }
+
+    public static class InvetoryTags
+    {
+        public const string SCORE_TAG = "score";
     }
 }

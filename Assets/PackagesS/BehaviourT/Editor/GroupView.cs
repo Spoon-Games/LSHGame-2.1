@@ -11,7 +11,6 @@ namespace BehaviourT.Editor
         {
             this.title = title;
             SetPosition(position);
-            capabilities |= Capabilities.Resizable;
         }
 
         public GroupView(string title, Vector2 position) : this(title,new Rect(position,new Vector2(200,200)))

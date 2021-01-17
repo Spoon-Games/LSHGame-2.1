@@ -244,7 +244,7 @@ namespace LSHGame.PlayerN
                 dashStartDisableTimer = Time.fixedTime;
                 isDashStartDisableByGround = true;
 
-                dashEndTimer = Time.time;
+                dashEndTimer = Time.fixedTime;
                 if (!GetSign(inputMovement.x, out float sign))
                     sign = flipedDirection.x;
 
@@ -345,7 +345,7 @@ namespace LSHGame.PlayerN
             ButtonControl j = inputController.Player.Jump.GetBC();
             bool buttonReleased = false;
 
-            if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.Locomotion || stateMachine.State == PlayerStates.ClimbLadder || stateMachine.State == PlayerStates.ClimbLadderTop, ref buttonReleased))
+            if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.Locomotion || stateMachine.State == PlayerStates.ClimbLadder || stateMachine.State == PlayerStates.ClimbLadderTop || (stateMachine.State == PlayerStates.Aireborne && Stats.IsJumpableInAir), ref buttonReleased))
             {
                 localVelocity.y = Stats.JumpSpeed * flipedDirection.y;
                 climbWallDisableTimer = Time.fixedTime + 0.2f;
@@ -485,6 +485,7 @@ namespace LSHGame.PlayerN
         {
             Vector2 position = CheckpointManager.GetCheckpointPos();
             TransitionManager.Instance.ShowTransition(deathTransition, null, () => SetRespawn(position));
+            //LevelManager.LoadScene(LevelManager.CurrantLevel.StartScene, deathTransition);
         }
 
         private void SetRespawn(Vector2 position)

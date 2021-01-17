@@ -198,26 +198,6 @@ namespace LSHGame.Util
 
                 extra.prevDisplacement = displacement;
 
-                //Debug.Log("Transition: " + extra.isInTransition + " Teleport: " + isTeleport);
-
-                //Vector2 delta = displacement - prev;
-                //if(delta.sqrMagnitude > 0.1f)
-                //{
-                //    Debug.Log("Great Change: dis: "+displacement+" prev: "+prev);
-                //}
-
-                //if (!VirtualCamera.PreviousStateIsValid || deltaTime < 0 || transitionSpeed <= 0)
-                //    extra.m_DampedDisplacement = Vector3.zero;
-                //else
-                //{
-                //    // If a big change from previous frame's desired displacement is detected, 
-                //    // assume we are going around a corner and extract that difference for damping
-                //    if (prev.sqrMagnitude > 0.01f && Vector2.Angle(prev, displacement) > m_cornerAngleTreshold)
-                //        extra.m_DampedDisplacement += displacement - prev;
-
-                //    extra.m_DampedDisplacement -= Damper.Damp(extra.m_DampedDisplacement, transitionSpeed, deltaTime);
-                //    displacement -= extra.m_DampedDisplacement;
-                //}
                 state.PositionCorrection += displacement;
                 //state.PositionCorrection = newCameraPos;
                 //extra.lastFrameCameraPos = newCameraPos;

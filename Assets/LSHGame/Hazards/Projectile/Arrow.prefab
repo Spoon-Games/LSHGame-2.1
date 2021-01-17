@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 819508708100778404}
   - component: {fileID: 1271923549175646995}
   - component: {fileID: 5974293600262653200}
+  - component: {fileID: 5186005134395803810}
   m_Layer: 14
   m_Name: Arrow
   m_TagString: Untagged
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 6.21
   Activated: 1
+  BoostOnStart: 0
 --- !u!114 &1271923549175646995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +130,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 5186005134395803810}
+        m_TargetAssemblyTypeName: LSHGame.Util.SimpleSpawnModule, Assembly-CSharp
+        m_MethodName: Spawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggerOnlyOnce: 1
 --- !u!114 &5974293600262653200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,6 +156,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0.05
+  destroyOnStart: 0
+--- !u!114 &5186005134395803810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2675020391027749981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 213f8003c783cc3438d9cb296130f0e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 3850105641923951572, guid: 33a4cd8b143baa842b2630193caa7503, type: 3}
+  trs:
+    e00: 0.9999736
+    e01: 0
+    e02: 0
+    e03: 0.84
+    e10: 0
+    e11: 0.9999736
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
 --- !u!1 &8657072814207247267
 GameObject:
   m_ObjectHideFlags: 0

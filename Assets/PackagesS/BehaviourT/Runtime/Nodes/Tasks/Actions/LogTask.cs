@@ -11,16 +11,18 @@ namespace BehaviourT
         [NodeEditorField(NodeEditorField.NodePlace.PortContainer,"",true,"Message")]
         private string message = "hello world";
 
+        InputPort<string> MessagePort = null;
+
         protected internal override void GetPorts(PortList portList)
         {
             base.GetPorts(portList);
-            InputPort<string> MessagePort = new InputPort<string>("Message", () => message);
+            MessagePort = new InputPort<string>("Message", () => message);
             portList.Add(MessagePort);
         }
 
         protected override TaskState OnEvaluate()
         {
-            Debug.Log(message);
+            Debug.Log(MessagePort.Input);
             return TaskState.Success;
         }
     }

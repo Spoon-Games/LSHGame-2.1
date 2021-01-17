@@ -12,8 +12,10 @@ namespace LogicC
 
         public override string Title => "Destination";
 
-        protected InputPort<bool> inputPort = new InputPort<bool>("Input", PortCapacityMode.Single);
+        protected InputPort<bool> inputPort;
 
+        [SerializeField]
+        private bool defaultActive = false;
 
         [NodeEditorField]
         [ReadOnly]
@@ -23,6 +25,7 @@ namespace LogicC
 
         protected override List<BasePort> GetPorts(List<BasePort> ports)
         {
+            inputPort = new InputPort<bool>("Input", () => defaultActive, PortCapacityMode.Single);
             ports.Add(inputPort);
             return ports;
         }

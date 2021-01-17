@@ -9,6 +9,9 @@ namespace BehaviourT
     {
         public BehaviourTree Parent { get; private set; }
 
+        public BehaviourTreeComponent Component => Parent?.BehaviourTreeComponent;
+        public Transform Transform => Component.transform;
+
         [SerializeField]
         [NodeEditorField(NodeEditorField.NodePlace.Hide)]
         private SerInputPort[] serInputPorts = new SerInputPort[0];
@@ -32,6 +35,8 @@ namespace BehaviourT
         internal void Initialize(BehaviourTree parent)
         {
             Parent = parent;
+            if (_portList == null)
+                _portList = new PortList();
             _portList.Clear();
             GetPorts(_portList);
         }
@@ -64,6 +69,16 @@ namespace BehaviourT
 
         internal protected virtual void Awake() { }
         internal protected virtual void Destroy() { }
+
+#if UNITY_EDITOR
+        internal void OnDrawGizmos(BehaviourTree parent)
+        {
+            this.Parent = parent;
+            OnDrawGizmos();
+        }
+
+        public virtual void OnDrawGizmos() { }
+#endif
     } 
 
     public class PortList : IEnumerable<BasePort>

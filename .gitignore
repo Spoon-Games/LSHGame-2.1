@@ -59,10 +59,9 @@ sysinfo.txt
 crashlytics-build.properties
 
 
-fmod_editor.log
-
 # FMOD
 /LSHGame-FMod-Project/.chache/
 /LSHGame-FMod-Project/.user/
 /LSHGame-FMod-Project/.unsaved/
+fmod_editor
 

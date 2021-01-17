@@ -82,11 +82,21 @@ namespace SceneM
         #region Load Scene Methods
         private static void LoadMainScene(MainSceneInfo sceneInfo)
         {
+            LoadMainScene(sceneInfo, sceneInfo.Transition);
+        }
+
+        private static void LoadMainScene(MainSceneInfo sceneInfo, TransitionInfo transition)
+        {
             SaveAllData();
-            LoadMainSceneRaw(sceneInfo);
+            LoadMainSceneRaw(sceneInfo, transition);
         }
 
         private static void LoadMainSceneRaw(MainSceneInfo sceneInfo)
+        {
+            LoadMainSceneRaw(sceneInfo, sceneInfo.Transition);
+        }
+
+        private static void LoadMainSceneRaw(MainSceneInfo sceneInfo, TransitionInfo transition)
         {
             AsyncOperation operation = null;
 
@@ -103,9 +113,9 @@ namespace SceneM
                         return operation.progress;
                 }
             }, sceneInfo);
-            if (sceneInfo.Transition != null && sceneInfo.Transition.StartDurration > 0)
+            if (transition != null && transition.StartDurration > 0)
             {
-                TimeSystem.Delay(sceneInfo.Transition.StartDurration, t => LoadMainSceneRaw2(sceneInfo, out operation));
+                TimeSystem.Delay(transition.StartDurration, t => LoadMainSceneRaw2(sceneInfo, out operation));
             }
             else
                 LoadMainSceneRaw2(sceneInfo, out operation);

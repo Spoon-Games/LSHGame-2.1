@@ -43,15 +43,16 @@ namespace BehaviourT
             if(EvaluatingWhenFailure && State == TaskState.Failure ||
                 EvaluatingWhenSuccess && State == TaskState.Success)
             {
+                TaskState prevState = State;
                 ResetState();
                 TaskState potState = OnEvaluate();
 
                 if (potState == TaskState.NotEvaluated)
                     potState = TaskState.Running;
 
-                if(State != potState)
+                State = potState;
+                if (prevState != potState)
                 {
-                    State = potState;
                     return true;
                 }
             }

@@ -2,7 +2,7 @@
 
 namespace BehaviourT
 {
-    [AddComponentMenu("Tasks/Composites/Paralell")]
+    [AddComponentMenu("Tasks/Composite/Paralell")]
     [System.Serializable]
     public class Paralell : CompositeTask
     {

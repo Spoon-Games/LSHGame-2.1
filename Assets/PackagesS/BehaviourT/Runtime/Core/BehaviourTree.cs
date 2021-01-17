@@ -11,6 +11,8 @@ namespace BehaviourT
         public float BTDeltaTime => Time.fixedDeltaTime;
         public float BTTime => Time.fixedTime;
 
+        public BehaviourTreeComponent BehaviourTreeComponent { get; private set; }
+
         [SerializeReference]
         private Node[] nodes = new Node[] { new RootTask() };
 
@@ -39,8 +41,9 @@ namespace BehaviourT
                 return exposedProperties;
             } }
 
-        public void Initialize()
+        public void Initialize(BehaviourTreeComponent behaviourTreeComponent)
         {
+            this.BehaviourTreeComponent = behaviourTreeComponent;
             List<ExposedProperty> expProps = new List<ExposedProperty>();
 
             foreach(Node node in nodes)
@@ -127,5 +130,16 @@ namespace BehaviourT
         {
             return dataExNodes;
         }
+
+#if UNITY_EDITOR
+       public void DrawGizmos(BehaviourTreeComponent treeComponent)
+        {
+            BehaviourTreeComponent = treeComponent;
+            foreach(var node in nodes)
+            {
+                node.OnDrawGizmos(this);
+            }
+        }
+#endif
     }
 }

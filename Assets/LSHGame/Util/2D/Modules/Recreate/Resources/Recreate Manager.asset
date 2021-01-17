@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c5cdae9f6358f4787e592cb87bf15c, type: 3}
+  m_Name: Recreate Manager
+  m_EditorClassIdentifier: 
+  serializedModules:
+  - {fileID: 8379343162713799278, guid: ba7680bbd87131f43af17873b2f98e36, type: 3}
+  - {fileID: 7222601689438408290, guid: 0abaae98e65aea64a8ad81756eb8fda3, type: 3}
+  - {fileID: 9179692091273367421, guid: 378fe85c5287a6141993feaab79954da, type: 3}

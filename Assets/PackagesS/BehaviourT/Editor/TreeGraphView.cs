@@ -17,7 +17,7 @@ namespace BehaviourT.Editor
         {
             this.editor = editor;
             this.inspectorContainer = inspectorContainer;
-            
+
             name = "BehaviourTreeGraph";
 
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
@@ -36,30 +36,32 @@ namespace BehaviourT.Editor
             AddNodeView(new Vector2(100, 100), typeof(RootTask));
 
             this.StretchToParentSize();
-            this.graphViewChanged += (e) => { editor.IsUnsaved = true; return e; };
-            
+            graphViewChanged += (e) => { editor.IsUnsaved = true; return e; };
+
         }
 
         internal void RuntimeUpdate()
         {
-            foreach(var node in nodes.ToList().Cast<NodeView>())
+            foreach (var node in nodes.ToList().Cast<NodeView>())
             {
                 node.RuntimeUpdate();
             }
         }
 
-        internal void AddNodeView(Vector2 pos,Type type)
+        internal void AddNodeView(Vector2 pos, Type type)
         {
             GraphElement nodeView = null;
             if (type.IsSubclassOf(typeof(RootTask)))
             {
                 nodeView = new RootTaskView((RootTask)Activator.CreateInstance(type), pos);
 
-            }else if (type.IsSubclassOf(typeof(CompositeTask)))
+            }
+            else if (type.IsSubclassOf(typeof(CompositeTask)))
             {
                 nodeView = new CompositeTaskView((CompositeTask)Activator.CreateInstance(type), pos);
 
-            }else if (type.IsSubclassOf(typeof(DecoratorTask)))
+            }
+            else if (type.IsSubclassOf(typeof(DecoratorTask)))
             {
                 nodeView = new DecoratorTaskView((DecoratorTask)Activator.CreateInstance(type), pos);
             }
@@ -67,13 +69,14 @@ namespace BehaviourT.Editor
             {
                 nodeView = new TaskNodeView((Task)Activator.CreateInstance(type), pos);
 
-            }else if (type.IsSubclassOf(typeof(LogicNode)))
+            }
+            else if (type.IsSubclassOf(typeof(LogicNode)))
             {
                 nodeView = new LogicNodeView((LogicNode)Activator.CreateInstance(type), pos);
             }
 
             if (nodeView != null)
-                this.AddElement(nodeView);
+                AddElement(nodeView);
         }
 
         internal void AddNodeView(Vector2 pos, Node node)
@@ -101,12 +104,20 @@ namespace BehaviourT.Editor
             }
 
             if (nodeView != null)
-                this.AddElement(nodeView);
+                AddElement(nodeView);
         }
 
         internal void AddGroup(Vector2 pos)
         {
-            AddElement(new GroupView("New Group", pos));
+
+            GroupView groupView = new GroupView("New Group", pos);
+            AddElement(groupView);
+
+            if(selection.Count > 0)
+            {
+                groupView.AddElements(selection.Where(s => s is NodeView).Cast<GraphElement>());
+            }
+
         }
 
         internal GroupView AddGroup(string title, Rect position)
@@ -116,7 +127,7 @@ namespace BehaviourT.Editor
             return groupView;
         }
 
-        
+
 
         private void AddSearchWindow()
         {
@@ -183,7 +194,7 @@ namespace BehaviourT.Editor
         {
             ISelectable selectable = selection.FirstOrDefault((s) => s is IInspectable);
             inspectorContainer.Clear();
-            if(selectable is IInspectable inspectable)
+            if (selectable is IInspectable inspectable)
             {
                 inspectorContainer.Add(inspectable.GetInspectorView());
             }

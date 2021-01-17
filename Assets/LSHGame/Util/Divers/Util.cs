@@ -67,7 +67,7 @@ namespace LSHGame.Util
             if (value >= curve.Evaluate(0) ^ descending)
             {
                 if (value >= curve.keys[curve.length - 1].value ^ descending)
-                    return curve.keys[curve.length - 1].value;
+                    value = curve.keys[curve.length - 1].value;
 
                 float t = 0;
                 int protection = 0;
@@ -98,7 +98,7 @@ namespace LSHGame.Util
             else
             {
                 if (value <= curve.keys[0].value ^ descending)
-                    return curve.keys[0].value;
+                    value = curve.keys[0].value;
 
                 float t = 0;
                 float protection = 0;
