@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5b18cef33bdeda4ea6b30c922b18485, type: 3}
-  m_Name: CoinItem
+  m_Name: LSHlerItem
   m_EditorClassIdentifier: 
-  ItemName: Coin
+  ItemName: 
+  ItemType: 
   PersistenceType: 0
