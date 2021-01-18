@@ -97,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 1237907439196370261}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fbc6a479ed30f4e44abe1d464fb44a26, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -119,9 +119,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataSettings:
-    dataKey: 624ffb86-55d4-4130-9902-ef53fa2768a9
+    dataKey: cad2f4eb-0118-47df-9295-22d87abddde7
     persistenceType: 0
-    InstanceId: -226264
+    InstanceId: -255876
   inventoryItem: {fileID: 11400000, guid: e6e4ba139368e544c80dcacce2a84b47, type: 2}
   onActivateEvent:
     m_PersistentCalls:
