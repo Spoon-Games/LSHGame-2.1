@@ -2,29 +2,16 @@
 
 namespace SceneM
 {
-    public class Singleton<T> : MonoBehaviour where T : Singleton<T>
+    public class ScriptableSingleton : ScriptableObject
     {
 
-        public static T Instance { get; protected set; }
-
-        public virtual void Awake()
-        {
-            T[] objects = FindObjectsOfType<T>();
-            if(objects.Length > 1)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                Instance = (T)this;
-            }
-        }
     }
 
-    public class ScriptableSingleton<T> : ScriptableObject where T : ScriptableSingleton<T>
+    public class ScriptableSingleton<T> : ScriptableSingleton where T : ScriptableSingleton<T>
     {
         private static T instance;
-        public static T Instance {
+        public static T Instance
+        {
             get
             {
                 if (instance == null)
