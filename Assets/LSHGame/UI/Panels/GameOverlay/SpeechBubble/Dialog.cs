@@ -5,8 +5,17 @@ namespace LSHGame.UI
     [CreateAssetMenu(menuName = "LSHGame/Dialog/Dialog")]
     public class Dialog : BaseDialog
     {
+        [SerializeField]
+        public string speakerName;
+
         [Multiline]
         public string Text;
+
+        [SerializeField]
+        public Sprite speakerSprite;
+
+        [SerializeField]
+        public bool isLeft = true;
 
         private string parsingText = "";
 

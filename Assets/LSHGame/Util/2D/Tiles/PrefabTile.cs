@@ -16,6 +16,9 @@ namespace LSHGame.Util
         [SerializeField]
         private Sprite previewSprite;
 
+        [SerializeField]
+        public Vector2 pivot = Vector2.zero;
+
         private Sprite previewInstance;
         // This refreshes itself and other RoadTiles that are orthogonally and diagonally adjacent
         public override void RefreshTile(Vector3Int location, ITilemap tilemap)
@@ -26,13 +29,12 @@ namespace LSHGame.Util
         // As the rotation is determined by the RoadTile, the TileFlags.OverrideTransform is set for the tile.
         public override void GetTileData(Vector3Int location, ITilemap tilemap, ref TileData tileData)
         {
-            UniversalBrush.RegisterPrefabTile(this, location);
             //Debug.Log("GetTileData: " + tileName);
 
             tileData.sprite = previewInstance;
             tileData.color = Color.clear;
             var m = tileData.transform;
-            tileData.transform = m;
+            tileData.transform = Matrix4x4.TRS((Vector3)pivot,Quaternion.identity,Vector3.one) * m;
             tileData.flags = TileFlags.LockTransform;
             tileData.colliderType = ColliderType.Grid;
         }

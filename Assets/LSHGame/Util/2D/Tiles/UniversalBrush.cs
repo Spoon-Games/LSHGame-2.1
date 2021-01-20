@@ -6,28 +6,12 @@ using UnityEngine.Tilemaps;
 
 namespace LSHGame.Util
 {
-    [CustomGridBrush(true, false, false, "Test Brush")]
+    [CustomGridBrush(true, false, false, "Universal Brush")]
     public class UniversalBrush : GridBrush
     {
-        internal static bool IsPainting { get; private set; }
-
-        private static PrefabTile registeredPrefabTile;
-        private static Vector3Int registeredPosition;
 
         private static bool eraseByPaint = false;
-        /// <summary>
-        /// Added option to fill gaps for continuous lines.
-        /// </summary>
-        internal static void RegisterPrefabTile(PrefabTile prefabTile,Vector3Int position)
-        {
-            registeredPrefabTile = prefabTile;
-            registeredPosition = position;
-        }
 
-        private static void Deregister()
-        {
-            registeredPrefabTile = null;
-        }
 
         [MenuItem("Assets/Create/Universal Brush")]
         public static void CreateBrush()
@@ -42,23 +26,37 @@ namespace LSHGame.Util
 
         public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
         {
-            Deregister();
-            IsPainting = true;
 
             base.Paint(gridLayout, brushTarget, position);
 
-            IsPainting = false;
+            var tileMap = brushTarget.GetComponent<Tilemap>();
 
-            if (registeredPrefabTile != null && registeredPosition == position)
+            if (tileMap.GetTile(position) is PrefabTile prefabTile)
             {
                 //Debug.Log("Painted PrefabTile: " + registeredPrefabTile.tileName);
-                InstantiatePrefab(gridLayout, brushTarget, position, registeredPrefabTile.GetPrefab());
+                InstantiatePrefab(gridLayout, brushTarget, position, prefabTile);
 
                 eraseByPaint = true;
                 base.Erase(gridLayout, brushTarget, position);
                 eraseByPaint = false;
             }
-            Deregister();
+        }
+
+        public override void BoxFill(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
+        {
+            base.BoxFill(gridLayout, brushTarget, position);
+            var tileMap = brushTarget.GetComponent<Tilemap>();
+
+            foreach (var pos in position.allPositionsWithin)
+            {
+                if (tileMap.GetTile(pos) is PrefabTile prefabTile)
+                {
+                    InstantiatePrefab(gridLayout, brushTarget, pos, prefabTile);
+                    eraseByPaint = true;
+                    base.Erase(gridLayout, brushTarget, pos);
+                    eraseByPaint = false;
+                }
+            }
         }
 
         //public override void Erase(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
@@ -78,7 +76,6 @@ namespace LSHGame.Util
         public override void BoxErase(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
         {
             base.BoxErase(gridLayout, brushTarget, position);
-            
             if(!eraseByPaint)
                 EraseGameObjects(gridLayout, brushTarget, position);
         }
@@ -154,27 +151,27 @@ namespace LSHGame.Util
 
         #region Helper Methods
 
-        private void InstantiatePrefab(GridLayout gridLayout, GameObject brushTarget, Vector3Int position,GameObject prefab)
+        private void InstantiatePrefab(GridLayout gridLayout, GameObject brushTarget, Vector3Int position,PrefabTile prefabTile)
         {
-            if (prefab == null)
+            if (prefabTile.GetPrefab() == null)
                 return;
-            GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+            GameObject instance = (GameObject)PrefabUtility.InstantiatePrefab(prefabTile.GetPrefab());
             Undo.RegisterCreatedObjectUndo((Object)instance, "Paint Prefabs");
             if (instance != null)
             {
                 instance.transform.SetParent(brushTarget.transform);
-                instance.transform.position = gridLayout.LocalToWorld(gridLayout.CellToLocalInterpolated(position + new Vector3(.5f, .5f, .5f)));
+                instance.transform.position = gridLayout.LocalToWorld(gridLayout.CellToLocalInterpolated(position + new Vector3(.5f, .5f, .5f))) + (Vector3)prefabTile.pivot;
             }
         }
 
         private void EraseGameObjects(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
         {
-            Transform erased = GetObjectInCell(gridLayout, brushTarget.transform, position);
-            if (erased != null)
-                Undo.DestroyObjectImmediate(erased.gameObject);
+            List<Transform> erased = GetObjectsInCell(gridLayout, brushTarget.transform, position);
+            foreach(var e in erased)
+                Undo.DestroyObjectImmediate(e.gameObject);
         }
 
-        private static Transform GetObjectInCell(GridLayout grid, Transform parent, BoundsInt position)
+        private static List<Transform> GetObjectsInCell(GridLayout grid, Transform parent, BoundsInt position)
         {
             int childCount = parent.childCount;
             if (childCount == 0)
@@ -183,13 +180,15 @@ namespace LSHGame.Util
             Vector3 max = grid.LocalToWorld(grid.CellToLocalInterpolated(position.max));
             Bounds bounds = new Bounds((max + min) * .5f, max - min);
 
+            List<Transform> transforms = new List<Transform>();
+
             for (int i = 0; i < childCount; i++)
             {
                 Transform child = parent.GetChild(i);
                 if (bounds.Contains(child.position))
-                    return child;
+                    transforms.Add(child);
             }
-            return null;
+            return transforms;
         }
 
         #endregion

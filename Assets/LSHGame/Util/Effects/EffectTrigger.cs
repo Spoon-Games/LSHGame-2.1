@@ -37,6 +37,12 @@ namespace LSHGame.Util
             }
         }
 
+        public void Trigger()
+        {
+            Debug.Log("Trigger");
+            Trigger(null);
+        }
+
         public void Trigger(Bundle parameters)
         {
             foreach(var p in EffectPlayers)
