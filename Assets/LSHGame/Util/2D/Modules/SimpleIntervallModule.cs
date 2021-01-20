@@ -33,7 +33,6 @@ namespace LSHGame.Util
                 {
                     timer = TimeIntervall + Time.time;
                     OnImpulseEvent.Invoke();
-                    Debug.Log("Invoke");
                 }
             }
 

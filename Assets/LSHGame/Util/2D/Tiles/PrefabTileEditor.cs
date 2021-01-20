@@ -13,18 +13,19 @@ namespace LSHGame.Editor
 
         public override void OnInspectorGUI()
         {
-            SerializedObject o = new SerializedObject(target);
-            SerializedProperty property = o.FindProperty("prefabs");
+            serializedObject.Update();
 
             EditorGUI.BeginChangeCheck();
 
+            SerializedProperty property = serializedObject.FindProperty("prefabs");
             EditorGUILayout.PropertyField(property);
-            EditorGUILayout.PropertyField(o.FindProperty("previewSprite"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("previewSprite"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("pivot"));
             //EditorGUILayout.PropertyField(o.FindProperty("m_previewSprite"));
 
             if (EditorGUI.EndChangeCheck())
             {
-                o.ApplyModifiedProperties();
+                serializedObject.ApplyModifiedProperties();
             }
         }
     }

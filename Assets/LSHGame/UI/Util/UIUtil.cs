@@ -14,8 +14,7 @@ namespace LSHGame.UI
 
         public static TweenerCore<string,string,StringOptions> DOTypeWrite(this TMP_Text textField,string target,float durration,string from = "")
         {
-            textField.text = from;
-            return DOTween.To(() => textField.text, (string t) => textField.SetText(t),target, durration);
+            return DOTween.To(() => textField.text, (string t) => textField.SetText(t),target, durration).From(from,false);
         }
     }
 }

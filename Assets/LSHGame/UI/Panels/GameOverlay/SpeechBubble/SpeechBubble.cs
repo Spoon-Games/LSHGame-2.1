@@ -16,6 +16,9 @@ namespace LSHGame.UI
         [SerializeField]
         private float typeSpeed = 1;
 
+        [SerializeField]
+        private float delayOfCompletion = 1;
+
         [Header("References")]
         [SerializeField]
         private TMP_Text textField;
@@ -24,6 +27,8 @@ namespace LSHGame.UI
         private Button nextButton;
 
         private Dialog currantDialog;
+
+        private Tween typewriteTween;
 
         public override void Awake()
         {
@@ -44,24 +49,21 @@ namespace LSHGame.UI
             textField.DOKill(true);
             textField.SetText("");
             canvasGroup.DOFade(1, 1).SetEase(Ease.OutQuad).OnComplete(GetNext);
-
-            RectTransform r;
             
-            Debug.Log("Fade in");
         }
 
         private void GetNext()
         {
-            textField.DOComplete();
-            textField.DOKill(true);
+            bool wasActive = typewriteTween != null ?  typewriteTween.active : false;
+            //textField.DOKill(false);
+            typewriteTween?.Kill(true);
 
             if (currantDialog.GetNext(out string text))
-                textField.DOTypeWritePerSpeed(text, typeSpeed);
+                typewriteTween = textField.DOTypeWritePerSpeed(text, typeSpeed).SetDelay(wasActive?delayOfCompletion:0);
             else
             {
-                canvasGroup.DOFade(0, 1).SetEase(Ease.InQuad);
+                canvasGroup.DOFade(0, 1).SetEase(Ease.InQuad).SetDelay(wasActive ? delayOfCompletion : 0);
                 textField.DOComplete();
-                Debug.Log("Fade Out");
             }
         }
     } 
