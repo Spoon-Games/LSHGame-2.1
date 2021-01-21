@@ -57,3 +57,6 @@ TagManager:
   - name: Foreground
     uniqueID: 4060513327
     locked: 0
+  - name: Interactables
+    uniqueID: 4172504053
+    locked: 0
