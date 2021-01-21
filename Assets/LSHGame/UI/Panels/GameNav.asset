@@ -17,13 +17,13 @@ MonoBehaviour:
     EditorPosition: {x: 0, y: 0}
     OutputPort:
       Name: 
-      ConnectedGuid: 1927ea4f-7ad6-47ea-b97e-9182a5855ae8
+      ConnectedGuid: 05d9e388-eaec-4a23-a71b-57f107be63a4
   NestedEndNode:
     Guid: 75e542fb-eaff-438d-960d-139ede88d3be
     EditorPosition: {x: -56, y: 304}
     BackPort:
       Name: 
-      ConnectedGuid: 
+      ConnectedGuid: 05d9e388-eaec-4a23-a71b-57f107be63a4
   StateNodes:
   - Guid: 1927ea4f-7ad6-47ea-b97e-9182a5855ae8
     EditorPosition: {x: 252, y: 10}
@@ -45,7 +45,7 @@ MonoBehaviour:
     EditorPosition: {x: 387, y: 407}
     CoicePorts:
     - Name: StartButton
-      ConnectedGuid: ebbc479e-4e6f-4fcd-b3d4-bcf22c5191b8
+      ConnectedGuid: 1927ea4f-7ad6-47ea-b97e-9182a5855ae8
     - Name: SettingsButton
       ConnectedGuid: 9d5128c7-9d08-4061-90a7-d541f75e7f23
     - Name: back

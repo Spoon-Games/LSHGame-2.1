@@ -5,8 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/MainMenu/MainMenu_Scene.unity
+    guid: b2926610af9ab3342a6703b76fbbff41
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Roberts Levels/Ruinen.unity
+    guid: dcccf05b9bd8efc499dcfdc0406331af
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Pascal Lvl/Ruine_Ground.unity
+    guid: 2dc6879a2012e704b804f06e6b2a62f7
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Pascal Lvl/Storehouse.unity
+    guid: e8a9f30de8982614e813af13f4614ac8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5a9d1c19c99372e4eb8d3f6b9797fdee, type: 2}

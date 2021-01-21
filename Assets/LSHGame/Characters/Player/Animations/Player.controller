@@ -93,7 +93,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0
+  m_ExitTime: 0.1
   m_HasExitTime: 1
   m_HasFixedDuration: 0
   m_InterruptionSource: 0
@@ -228,6 +228,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: SClimbinLadder
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: StateChanged
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102105724234260244}
   m_Solo: 0
@@ -236,7 +239,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 1
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -285,6 +288,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: SDash
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: StateChanged
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4841827150166645598}
   m_Solo: 0
@@ -327,6 +333,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: SClimbingWall
     m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: StateChanged
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8161441958454089159}
   m_Solo: 0
@@ -335,7 +344,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 1
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -350,7 +359,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 3ddbf84ccfc986d42ac3ae330bc48e3e, type: 2}
+    m_Motion: {fileID: 7400000, guid: 99754bf8126cf1b42998bdfa1b114ac2, type: 2}
     m_Threshold: -0.01
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -358,7 +367,7 @@ BlendTree:
     m_DirectBlendParameter: HorizontalSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 5d8109fe0810b584586e1f403b6528ec, type: 2}
+    m_Motion: {fileID: 7400000, guid: 27ac960d3ce0af1409e9bcb091633973, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -366,7 +375,7 @@ BlendTree:
     m_DirectBlendParameter: HorizontalSpeed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 3ddbf84ccfc986d42ac3ae330bc48e3e, type: 2}
+    m_Motion: {fileID: 7400000, guid: 99754bf8126cf1b42998bdfa1b114ac2, type: 2}
     m_Threshold: 0.01
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -488,32 +497,6 @@ MonoBehaviour:
   OnEnter: 1
   OnExit: 0
   TriggerAgainThreshold: 0.2
---- !u!1102 &-1556900897995748314
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Player_LadderClimb
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 99754bf8126cf1b42998bdfa1b114ac2, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!114 &-961791876824177306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -545,49 +528,55 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: VerticalSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: SLocomotion
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: SAireborne
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: SClimbingWall
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: SClimbinLadder
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: SDash
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: SDeath
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: StateChanged
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -625,6 +614,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: SDeath
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: StateChanged
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102709919964654982}
@@ -706,19 +698,16 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102105724234260244}
-    m_Position: {x: 60, y: 490, z: 0}
+    m_Position: {x: 20, y: 520, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102709919964654982}
     m_Position: {x: -80, y: 680, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3992436742124753962}
-    m_Position: {x: 570, y: 40, z: 0}
+    m_Position: {x: 460, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8161441958454089159}
-    m_Position: {x: 60, y: 340, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -1556900897995748314}
-    m_Position: {x: 95, y: 405, z: 0}
+    m_Position: {x: 100, y: 360, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 2380593708686935847}
@@ -740,7 +729,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -150, y: 340, z: 0}
   m_EntryPosition: {x: -140, y: -30, z: 0}
-  m_ExitPosition: {x: 300, y: 430, z: 0}
+  m_ExitPosition: {x: 420, y: 450, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 3992436742124753962}
 --- !u!1101 &1248887863637940035
@@ -1039,6 +1028,45 @@ MonoBehaviour:
   OnEnter: 1
   OnExit: 0
   TriggerAgainThreshold: 0.1
+--- !u!206 &7716323410871710413
+BlendTree:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Blend Tree
+  m_Childs:
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: b164cf96808893e43ac5ec0fc8de6c41, type: 2}
+    m_Threshold: -0.02
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: HorizontalSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: a954f42c352fd334aacf21bd573ccc7d, type: 2}
+    m_Threshold: 0
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: HorizontalSpeed
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: b164cf96808893e43ac5ec0fc8de6c41, type: 2}
+    m_Threshold: 0.02
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: HorizontalSpeed
+    m_Mirror: 0
+  m_BlendParameter: VerticalSpeed
+  m_BlendParameterY: HorizontalSpeed
+  m_MinThreshold: -0.02
+  m_MaxThreshold: 0.02
+  m_UseAutomaticThresholds: 0
+  m_NormalizedBlendValues: 0
+  m_BlendType: 0
 --- !u!1109 &7968450619057264243
 AnimatorTransition:
   m_ObjectHideFlags: 1
@@ -1074,7 +1102,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 667b4a827f2ebb14b8e570721682b289, type: 2}
+  m_Motion: {fileID: 7716323410871710413}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1132,6 +1160,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: SAireborne
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: StateChanged
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3323329823182523419}

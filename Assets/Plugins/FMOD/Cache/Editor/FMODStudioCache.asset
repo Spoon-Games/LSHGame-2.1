@@ -88,7 +88,7 @@ MonoBehaviour:
   ID:
     data1: 0
     data2: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &-7680738762892739846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +152,26 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 1
+--- !u!114 &-7328364744445775269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/IsStone
+  m_EditorClassIdentifier: 
+  Name: IsStone
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &-7202647282894253709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +215,26 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 0
+--- !u!114 &-6210257357917883283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music_1/LoopChorus
+  m_EditorClassIdentifier: 
+  Name: LoopChorus
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &-5783260285776121985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,8 +298,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 1946587805602000244}
-  - {fileID: 331071587083797572}
+  - {fileID: -6210257357917883283}
+  - {fileID: 254464349136066864}
   MinDistance: 0
   MaxDistance: 0
   Length: 150070
@@ -281,7 +321,7 @@ MonoBehaviour:
   - {fileID: 6757865504091281301}
   IsStream: 0
   Is3D: 0
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
@@ -306,8 +346,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 8471811954776792504}
-  - {fileID: -8101190774868633356}
+  - {fileID: -7328364744445775269}
+  - {fileID: 7792502200866977731}
   MinDistance: 0
   MaxDistance: 0
   Length: 405
@@ -531,14 +571,15 @@ MonoBehaviour:
   - {fileID: -3003775039516600554}
   - {fileID: -5783260285776121985}
   - {fileID: 5501348481602283717}
+  - {fileID: 6822700626977212257}
   EditorParameters: []
   MasterBanks:
   - {fileID: 6757865504091281301}
   StringsBanks:
   - {fileID: 5401350676521943974}
-  stringsBankWriteTime: 637468235359513540
+  stringsBankWriteTime: 637468277470831478
   cacheVersion: 5
---- !u!114 &331071587083797572
+--- !u!114 &254464349136066864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -558,6 +599,26 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 1
+--- !u!114 &331071587083797572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music_1/LoopVerse
+  m_EditorClassIdentifier: 
+  Name: LoopVerse
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 0
 --- !u!114 &448466036183330569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -726,7 +787,7 @@ MonoBehaviour:
   ID:
     data1: 0
     data2: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &2322329105554924117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -901,11 +962,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: LSHGame-FMod-Project/Build/Desktop/Master.strings.bank
   Name: Master.strings
-  lastModified: 637468235359513540
+  lastModified: 637468277470831478
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 2634
+    Value: 2690
   Exists: 1
 --- !u!114 &5501348481602283717
 MonoBehaviour:
@@ -1004,9 +1065,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: LSHGame-FMod-Project/Build/Desktop/Master.bank
   Name: Master
-  lastModified: 637468235359423924
+  lastModified: 637468277470731736
   LoadResult: 0
   FileSizes: []
+  Exists: 1
+--- !u!114 &6822700626977212257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Scene/Hazards/Enemies/Demon_Chewing
+  m_EditorClassIdentifier: 
+  Path: event:/Scene/Hazards/Enemies/Demon_Chewing
+  guid: 07be717f72145248935ee734c43497b8
+  Banks:
+  - {fileID: 6757865504091281301}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5328
+--- !u!114 &7792502200866977731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/IsDirt
+  m_EditorClassIdentifier: 
+  Name: IsDirt
+  Min: 0
+  Max: 1
+  Default: 1
+  ID:
+    data1: 0
+    data2: 0
   Exists: 1
 --- !u!114 &8198016921254547152
 MonoBehaviour:
@@ -1090,7 +1194,7 @@ MonoBehaviour:
   ID:
     data1: 0
     data2: 0
-  Exists: 1
+  Exists: 0
 --- !u!114 &8927183874358610446
 MonoBehaviour:
   m_ObjectHideFlags: 0

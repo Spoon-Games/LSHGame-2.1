@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d21a2fc2d25c0f45b5869b081a79208, type: 3}
+  m_Name: Beth_Ruins_2_Dialog
+  m_EditorClassIdentifier: 
+  Lines:
+  - image: {fileID: 21300000, guid: abb9dafe0aee6254ea8166b96f84aefd, type: 3}
+    sound: 
+    name: Katharina
+    isRight: 0
+    text: 'Bettie, da bist du endlich! '
+  - image: {fileID: 21300000, guid: 1d3047f35b632ce4aac8e85f24e12b52, type: 3}
+    sound: 
+    name: Beth
+    isRight: 1
+    text: 'Oh, hi. '
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: "Freut mich, dass du nicht abgest\xFCrzt bist...\n "
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: "Die Steine des Schlosses Chester sind schon so alt, \nsie k\xF6nnten jeden
+      Moment unter dir zusammen brechen."
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 0
+    text: ...
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 0
+    text: "Wie hast du diesen Ort \xFCberhaupt gefunden?"
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: Ich bin Sam gefolgt.
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 0
+    text: Sam?
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 0
+    text: Hast du einen Typen gestalkt?
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: 'Was? Nein!
+
+'
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: Sam ist eine Zauneidechse!
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 0
+    text: Was-eidechse?
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: "Zauneidechsen sind eine gef\xE4hrdete Spezies, welche sich in ganz Europa
+      finden l\xE4sst."
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 0
+    text: ...
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 0
+    text: Und du bist also Sam gefolgt?
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: Ja, genau! Seit zwei Jahren komme ich her und leiste ihm Geselschaft.
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: "Aus irgendeinem Grund hat er gro\xDFes Interesse an diesen Steinen."
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 0
+    text: Warum auch nicht...
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 0
+    text: Was wolltest du mir zeigen?
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 0
+    text: Weshalb bin ich hier hinaufgestapft?
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: Ich habe was interessantes gefaunden.
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: Komm ich zeig es dir.

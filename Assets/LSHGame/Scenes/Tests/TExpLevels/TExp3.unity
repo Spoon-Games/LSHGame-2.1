@@ -38814,7 +38814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39233a9087a6231478bf2d0aa54a26a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialog: {fileID: 11400000, guid: 20869b6b73510d24fb6636df65cb4ce1, type: 2}
+  dialog: {fileID: 11400000, guid: f750e54cb32aed44dbb994cef144c30f, type: 2}
   speekText: "Dr\xFCcke [I], um zu reden"
   layerMask:
     serializedVersion: 2

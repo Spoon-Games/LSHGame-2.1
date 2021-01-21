@@ -35,14 +35,14 @@ namespace LSHGame.UI
             helpTextImage.DOFade(0, fadeInTime).SetEase(Ease.InQuad).OnComplete(() => helpTextImage.gameObject.SetActive(false));
         }
 
-        private void OnEnable()
-        {
-            GameInput.Controller.Player.Enable();
-        }
+        //private void OnEnable()
+        //{
+        //    GameInput.Controller.Player.Enable();
+        //}
 
-        private void OnDisable()
-        {
-            GameInput.Controller.Player.Disable();
-        }
+        //private void OnDisable()
+        //{
+        //    GameInput.Controller.Player.Disable();
+        //}
     }
 }
