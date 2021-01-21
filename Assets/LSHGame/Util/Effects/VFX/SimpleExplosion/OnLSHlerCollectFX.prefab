@@ -4941,6 +4941,7 @@ GameObject:
   - component: {fileID: 5157896950024816054}
   - component: {fileID: 4911171390573976299}
   - component: {fileID: 7117828341582835559}
+  - component: {fileID: 8486766605356165106}
   m_Layer: 0
   m_Name: OnLSHlerCollectFX
   m_TagString: Untagged
@@ -9932,3 +9933,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 1
   destroyOnStart: 1
+--- !u!114 &8486766605356165106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6866491338565626677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Scene/Interactables/Items/LSHler_Pickup
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20

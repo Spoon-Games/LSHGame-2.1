@@ -28,6 +28,7 @@ namespace LSHGame.PlayerN
         public bool IsDead { get; set; }
 
         private PlayerLSM animatorMachine;
+        private bool animatorStateChanged = false;
 
         public PlayerStateMachine(PlayerLSM animatorMachine)
         {
@@ -47,6 +48,7 @@ namespace LSHGame.PlayerN
                 State = newState;
 
                 OnStateChanged?.Invoke(oldState, newState);
+                animatorStateChanged = true;
             }
         }
 
@@ -61,6 +63,12 @@ namespace LSHGame.PlayerN
             animatorMachine.SDash = State == PlayerStates.Dash;
             animatorMachine.SDeath = State == PlayerStates.Death;
             animatorMachine.SLocomotion = State == PlayerStates.Locomotion || State == PlayerStates.ClimbLadderTop;
+
+            if (animatorStateChanged)
+            {
+                animatorStateChanged = false;
+                animatorMachine.Animator.SetTrigger("StateChanged");
+            }
 
         }
 

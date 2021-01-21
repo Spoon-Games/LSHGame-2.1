@@ -222,8 +222,8 @@ MonoBehaviour:
   OnBounceEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AudioP.AudioPlayer, Assembly-CSharp
+      - m_Target: {fileID: 31768049922938199}
+        m_TargetAssemblyTypeName: FMODUnity.StudioEventEmitter, FMODUnity
         m_MethodName: Play
         m_Mode: 1
         m_Arguments:

@@ -20,7 +20,7 @@ MonoBehaviour:
     text: 'Hallo, ich bin Beth.
 
       Wie geht es dir?'
-  - image: {fileID: 21300000, guid: 1d3047f35b632ce4aac8e85f24e12b52, type: 3}
+  - image: {fileID: 21300000, guid: abb9dafe0aee6254ea8166b96f84aefd, type: 3}
     sound: 
     name: Katharina
     isRight: 0
