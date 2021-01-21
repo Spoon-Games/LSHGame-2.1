@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
-using UnityEditor;
+﻿#if UNITY_EDITOR
+using System.Collections.Generic;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+
+using UnityEditor;
+
 
 namespace LSHGame.Util
 {
@@ -76,7 +79,7 @@ namespace LSHGame.Util
         public override void BoxErase(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
         {
             base.BoxErase(gridLayout, brushTarget, position);
-            if(!eraseByPaint)
+            if (!eraseByPaint)
                 EraseGameObjects(gridLayout, brushTarget, position);
         }
 
@@ -151,7 +154,7 @@ namespace LSHGame.Util
 
         #region Helper Methods
 
-        private void InstantiatePrefab(GridLayout gridLayout, GameObject brushTarget, Vector3Int position,PrefabTile prefabTile)
+        private void InstantiatePrefab(GridLayout gridLayout, GameObject brushTarget, Vector3Int position, PrefabTile prefabTile)
         {
             if (prefabTile.GetPrefab() == null)
                 return;
@@ -167,7 +170,7 @@ namespace LSHGame.Util
         private void EraseGameObjects(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
         {
             List<Transform> erased = GetObjectsInCell(gridLayout, brushTarget.transform, position);
-            foreach(var e in erased)
+            foreach (var e in erased)
                 Undo.DestroyObjectImmediate(e.gameObject);
         }
 
@@ -194,7 +197,7 @@ namespace LSHGame.Util
         #endregion
     }
 
-    [CustomEditor(typeof(UniversalBrush))] 
+    [CustomEditor(typeof(UniversalBrush))]
     public class UniversalBrushEditor : UnityEditor.Tilemaps.GridBrushEditor
     {
         private UniversalBrush lineBrush { get { return target as UniversalBrush; } }
@@ -242,4 +245,7 @@ namespace LSHGame.Util
             //}
         }
     }
+
 }
+
+#endif

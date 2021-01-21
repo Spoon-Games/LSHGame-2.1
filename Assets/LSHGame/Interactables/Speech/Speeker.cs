@@ -6,11 +6,11 @@ namespace LSHGame
     public class Speeker : MonoBehaviour
     {
         [SerializeField]
-        private Dialog dialog;
+        private BaseDialog dialog;
 
         public void Show()
         {
-            SpeechBubble.Instance.SetDialog(dialog);
+            DialogView.Instance.SetDialog(dialog);
         }
     }
 }

@@ -127,6 +127,7 @@ namespace LSHGame.PlayerN
             CheckDash();
             CheckPlayerEnabled();
             CheckGravity();
+            this.AsignEffectMaterials();
 
             stateMachine.UpdateState();
 
@@ -228,6 +229,7 @@ namespace LSHGame.PlayerN
 
         private void AsignEffectMaterials()
         {
+            effectsController.SetAllMaterialsToDefault();
             foreach (var em in Stats.EffectMaterials)
             {
                 effectsController.SetMaterial(em.Key, em.Value);

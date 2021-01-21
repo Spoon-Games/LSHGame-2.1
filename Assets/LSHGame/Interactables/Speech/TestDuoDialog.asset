@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d21a2fc2d25c0f45b5869b081a79208, type: 3}
+  m_Name: TestDuoDialog
+  m_EditorClassIdentifier: 
+  Lines:
+  - image: {fileID: 21300000, guid: 1d3047f35b632ce4aac8e85f24e12b52, type: 3}
+    sound: 
+    name: Beth
+    isRight: 1
+    text: 'Hallo, ich bin Beth.
+
+      Wie geht es dir?'
+  - image: {fileID: 21300000, guid: 1d3047f35b632ce4aac8e85f24e12b52, type: 3}
+    sound: 
+    name: Katharina
+    isRight: 0
+    text: 'Gut, danke der Nachfrage.
+
+      Was machst du hier?'
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: Ich studiere Drachen
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 0
+    text: Eidechsen also...
+  - image: {fileID: 0}
+    sound: 
+    name: 
+    isRight: 1
+    text: Drachen!!

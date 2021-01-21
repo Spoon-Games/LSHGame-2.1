@@ -55,7 +55,14 @@ namespace LSHGame.PlayerN
 
         public PlayerStats Clone()
         {
-            return (PlayerStats)this.MemberwiseClone();
+            var stats = (PlayerStats)this.MemberwiseClone();
+            stats.Reset();
+            return stats;
+        }
+
+        private void Reset()
+        {
+            EffectMaterials.Clear();
         }
     }
 }

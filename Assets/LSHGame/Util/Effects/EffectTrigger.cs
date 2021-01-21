@@ -29,6 +29,11 @@ namespace LSHGame.Util
 
         public void SetMaterial(string material){}
 
+        public void SetMaterialToDefault()
+        {
+            
+        }
+
         public void Stop()
         {
             foreach (var p in EffectPlayers)

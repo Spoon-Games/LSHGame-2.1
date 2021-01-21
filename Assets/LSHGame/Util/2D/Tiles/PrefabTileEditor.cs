@@ -1,6 +1,6 @@
-﻿using LSHGame.Util;
+﻿#if UNITY_EDITOR
+using LSHGame.Util;
 using UnityEditor;
-using UnityEngine;
 
 namespace LSHGame.Editor
 {
@@ -9,7 +9,7 @@ namespace LSHGame.Editor
     public class PrefabTileEditor : UnityEditor.Editor
     {
         public PrefabTile tile { get { return (target as PrefabTile); } }
-        
+
 
         public override void OnInspectorGUI()
         {
@@ -30,3 +30,5 @@ namespace LSHGame.Editor
         }
     }
 }
+
+#endif

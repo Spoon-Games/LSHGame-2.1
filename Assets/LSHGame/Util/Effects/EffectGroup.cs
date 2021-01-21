@@ -34,6 +34,7 @@ namespace LSHGame.Util
         public void SetMaterial(string material)
         {
             currentMaterial = material;
+            
         }
 
         public void Stop()
@@ -46,6 +47,12 @@ namespace LSHGame.Util
             {
                 base.StopEffect(currentMaterial);
             }
+        }
+
+        public void SetMaterialToDefault()
+        {
+            currentMaterial = "";
+            //Debug.Log("SetMaterialToDefault " + name);
         }
     }
 }

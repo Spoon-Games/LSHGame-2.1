@@ -65,7 +65,6 @@ namespace LSHGame.Util
 
         private void OnPrefabSaved(GameObject prefab)
         {
-            Debug.Log("OnInstanceUpdate");
             if(prefab != null && prefab.TryGetComponent<RecreateModule>(out RecreateModule module) && string.IsNullOrEmpty(module.prefabGuid))
             {
                 //module.prefabPath = Guid.NewGuid().ToString();

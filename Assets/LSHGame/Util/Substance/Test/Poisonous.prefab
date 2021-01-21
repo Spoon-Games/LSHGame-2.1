@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -1169419988815676469}
   - component: {fileID: 8629977239283824079}
   - component: {fileID: 7729917428287165668}
+  - component: {fileID: -188697632249957547}
   m_Layer: 0
   m_Name: Poisonous
   m_TagString: Untagged
@@ -85,3 +86,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilesOfSubstance:
   - {fileID: 11400000, guid: 5ae754288b685ee49ac7ea93516a10dc, type: 2}
+--- !u!114 &-188697632249957547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925394928832320303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb70cbe99c8324143bb92a6bcab40874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Effects:
+  - Death
+  EffectMaterial: Spikes

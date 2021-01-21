@@ -286,6 +286,14 @@ namespace LSHGame.Util
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Further"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e1901ee-05e0-4afb-9765-28abfa513df8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -297,6 +305,39 @@ namespace LSHGame.Util
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
                     ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a11ab0b-6159-4505-ba2f-77e29b18839d"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Further"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6d2596fb-0be3-4233-9e01-2a3ee09e5154"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Further"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3fe0bb69-75f6-4b21-870e-2213da928160"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Further"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -335,6 +376,7 @@ namespace LSHGame.Util
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
+            m_UI_Further = m_UI.FindAction("Further", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -474,11 +516,13 @@ namespace LSHGame.Util
         private readonly InputActionMap m_UI;
         private IUIActions m_UIActionsCallbackInterface;
         private readonly InputAction m_UI_Back;
+        private readonly InputAction m_UI_Further;
         public struct UIActions
         {
             private @InputController m_Wrapper;
             public UIActions(@InputController wrapper) { m_Wrapper = wrapper; }
             public InputAction @Back => m_Wrapper.m_UI_Back;
+            public InputAction @Further => m_Wrapper.m_UI_Further;
             public InputActionMap Get() { return m_Wrapper.m_UI; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -491,6 +535,9 @@ namespace LSHGame.Util
                     @Back.started -= m_Wrapper.m_UIActionsCallbackInterface.OnBack;
                     @Back.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnBack;
                     @Back.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnBack;
+                    @Further.started -= m_Wrapper.m_UIActionsCallbackInterface.OnFurther;
+                    @Further.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnFurther;
+                    @Further.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnFurther;
                 }
                 m_Wrapper.m_UIActionsCallbackInterface = instance;
                 if (instance != null)
@@ -498,6 +545,9 @@ namespace LSHGame.Util
                     @Back.started += instance.OnBack;
                     @Back.performed += instance.OnBack;
                     @Back.canceled += instance.OnBack;
+                    @Further.started += instance.OnFurther;
+                    @Further.performed += instance.OnFurther;
+                    @Further.canceled += instance.OnFurther;
                 }
             }
         }
@@ -525,6 +575,7 @@ namespace LSHGame.Util
         public interface IUIActions
         {
             void OnBack(InputAction.CallbackContext context);
+            void OnFurther(InputAction.CallbackContext context);
         }
     }
 }
