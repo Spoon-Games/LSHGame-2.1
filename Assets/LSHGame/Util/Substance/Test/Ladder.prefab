@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilesOfSubstance:
   - {fileID: 11400000, guid: 6a4111af41588214aa413b901f81af4c, type: 2}
+  - {fileID: 11400000, guid: 26a0d8dd7013d864ca60f80385ef5210, type: 2}
 --- !u!1 &2830077516417997375
 GameObject:
   m_ObjectHideFlags: 0

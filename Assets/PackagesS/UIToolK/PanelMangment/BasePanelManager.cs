@@ -18,6 +18,7 @@ namespace UINavigation
         {
             panels.Clear();
             GetChildren(transform);
+            Debug.Log("Awake");
         }
 
         protected virtual void Start()
@@ -49,6 +50,11 @@ namespace UINavigation
         public void ShowPanelByP(P panel)
         {
             ShowPanel(panel.PanelName);
+        }
+
+        private void OnDestroy()
+        {
+            panels.Clear();
         }
 
         private void GetChildren(Transform parent)
@@ -90,7 +96,8 @@ namespace UINavigation
 
         internal virtual void SetVisible(bool visible)
         {
-            gameObject.SetActive(visible);
+            if(gameObject!=null)
+                gameObject.SetActive(visible);
         }
     }
 }

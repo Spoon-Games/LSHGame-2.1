@@ -24,6 +24,8 @@ namespace LSHGame
         private bool isFalling = false;
         private float impactThreasholdTimer = float.NegativeInfinity;
 
+        private bool wasDestroyed = false;
+
         protected override void Awake()
         {
             base.Awake();
@@ -82,17 +84,25 @@ namespace LSHGame
             }
         }
 
+        private void OnDestroy()
+        {
+            wasDestroyed = true;
+        }
+
         private void Reset()
         {
-            animator.SetBool("IsStalling", false);
-            effectsController.StopEffect("StallingEffect");
-            effectsController.StopEffect("FallingEffect");
-            rb.bodyType = RigidbodyType2D.Static;
-            hitArea.SetActive(false);
-            wasActivated = false;
-            isFalling = false;
+            if (!wasDestroyed)
+            {
+                animator.SetBool("IsStalling", false);
+                effectsController.StopEffect("StallingEffect");
+                effectsController.StopEffect("FallingEffect");
+                rb.bodyType = RigidbodyType2D.Static;
+                hitArea.SetActive(false);
+                wasActivated = false;
+                isFalling = false;
 
-        transform.position = startPosition;
+                transform.position = startPosition;
+            }
         }
     } 
 }
