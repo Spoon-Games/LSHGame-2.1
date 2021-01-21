@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd86278c396dd6a45906039bab323b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDashEnabled: 1
+  IsDashEnabled: 0
   IsWallClimbEnabled: 1
 --- !u!114 &501302906
 MonoBehaviour:

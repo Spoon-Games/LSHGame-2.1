@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1918952650497071464}
   - component: {fileID: 428872015439023562}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Gradient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,8 +91,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4395216761926080651}
-  - component: {fileID: 7551223913306978761}
-  m_Layer: 0
+  - component: {fileID: 2770781953638227708}
+  m_Layer: 16
   m_Name: LevelTransition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7551223913306978761
+--- !u!114 &2770781953638227708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,10 +126,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4395216761926080694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc51328590adb5746964a91f4dccc0a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 20bdf7cc87171fb43a50a58fcabb9192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelInfo: {fileID: 0}
+  sceneInfo: {fileID: 0}
 --- !u!1 &8575793879637649353
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5650039452462205928}
   - component: {fileID: 1091537118815272507}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 285958193159347667}
   - component: {fileID: 8029874371355801858}
   - component: {fileID: 7749624982504318203}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,9 +278,9 @@ MonoBehaviour:
   OnTriggerEnteredEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7551223913306978761}
-        m_TargetAssemblyTypeName: SceneM.LevelLoadComponent, SceneM
-        m_MethodName: Load
+      - m_Target: {fileID: 2770781953638227708}
+        m_TargetAssemblyTypeName: SceneM.SceneLoadComponent, SceneM
+        m_MethodName: LoadScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 2812920275525476394}
   - component: {fileID: 1755942636144659092}
   - component: {fileID: 6539144853023321876}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

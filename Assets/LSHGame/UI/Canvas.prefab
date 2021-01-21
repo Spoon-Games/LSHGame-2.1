@@ -1540,7 +1540,7 @@ MonoBehaviour:
   dialogField: {fileID: 1630085025852052290}
   colorNoneFocusedImage: {r: 0.35686275, g: 0.36862746, b: 0.42352942, a: 1}
   colorNoneFocusedText: {r: 0.35686275, g: 0.36862746, b: 0.42352942, a: 1}
-  fadeFocusTime: 0.5
+  fadeFocusTime: 0.3
   typeSpeed: 0.1
 --- !u!1 &5825507923678139652
 GameObject:
