@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{578635dd-7230-4ee7-a93b-8b631e156657}">
+		<property name="name">
+			<value>LoopChorus</value>
+		</property>
+		<relationship name="folder">
+			<destination>{67e23cf1-58e4-4554-8deb-6d9a405e0b16}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{09b9e9c5-fab7-4bed-b8bd-0220f120dcd9}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{09b9e9c5-fab7-4bed-b8bd-0220f120dcd9}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>2</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

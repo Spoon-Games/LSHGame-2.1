@@ -19,14 +19,16 @@ namespace LSHGame
         protected void Awake()
         {
             triggerCollider = GetComponent<Collider2D>();
-            GameInput.Controller.Player.Interact.performed += (ctx) =>
+            GameInput.OnInteract += OnInteract;
+        }
+
+        private void OnInteract()
+        {
+            if (isActive)
             {
-                if (isActive)
-                {
-                    base.Show();
-                    GameOverlayPanel.Instance.HideHelpText();
-                }
-            };
+                base.Show();
+                GameOverlayPanel.Instance.HideHelpText();
+            }
         }
 
         private void FixedUpdate()
@@ -45,6 +47,11 @@ namespace LSHGame
                     GameOverlayPanel.Instance.HideHelpText();
                 }
             }
+        }
+
+        private void OnDestroy()
+        {
+            GameInput.OnInteract -= OnInteract;
         }
     }
 }

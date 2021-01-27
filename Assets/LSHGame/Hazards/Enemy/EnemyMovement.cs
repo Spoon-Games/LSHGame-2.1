@@ -1,69 +1,64 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace LSHGame
 {
     public class EnemyMovement : MonoBehaviour
     {
         [SerializeField]
-        float moveSpeed = 1f;
-        [SerializeField]
-        private float minRandomRot = 1;
-        [SerializeField]
-        private float maxRandomRot = 4;
+        private float moveSpeed = 1f;
 
-        private float rotTime;
+        [SerializeField]
+        private Vector2 frontDetOrigin;
+        [SerializeField]
+        private LayerMask frontDetLayers;
 
-        Rigidbody2D myRigidbody;
+        [SerializeField]
+        private Vector2 bottomDetOrigin;
+        [SerializeField]
+        private LayerMask bottomDetLayers;
+
+        private Rigidbody2D rb;
         // Use this for initialization
         void Start()
         {
-            myRigidbody = GetComponent<Rigidbody2D>();
-            rotTime = Time.time + UnityEngine.Random.Range(minRandomRot, maxRandomRot);
+            rb = GetComponent<Rigidbody2D>();
+
         }
 
         // Update is called once per frame
         void Update()
         {
-            Move();
-            UpdateRandom();
-        }
-
-        private void UpdateRandom()
-        {
-            if(Time.time > rotTime)
+            if (HasDetected())
             {
-                rotTime = Time.time + UnityEngine.Random.Range(minRandomRot, maxRandomRot);
-                transform.localScale = new Vector2(-transform.localScale.x,transform.localScale.y);
+                transform.localScale = transform.localScale * new Vector2(-1, 1);
             }
-        }
-
-        private void Move()
-        {
-
-            if (isFacingRight())
-            {
-                myRigidbody.velocity = new Vector2(moveSpeed, 0f);
-            }
+            if (transform.localScale.x > 0)
+                rb.velocity = new Vector2(moveSpeed, 0);
             else
-            {
-                myRigidbody.velocity = new Vector2(-moveSpeed, 0f);
-            }
-
+                rb.velocity = new Vector2(-moveSpeed, 0);
         }
 
-        private bool isFacingRight()
+
+        private bool HasDetected()
         {
-            return transform.localScale.x > 0;
+            return !Physics2D.Raycast(transform.TransformPoint(bottomDetOrigin), Vector2.down, 0.5f, bottomDetLayers) ||
+                Physics2D.Raycast(transform.TransformPoint(frontDetOrigin), transform.TransformVector(Vector2.right), 0.5f, bottomDetLayers);
         }
 
-        private void OnTriggerExit2D(Collider2D collison)
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
         {
-            transform.localScale = new Vector2(-(Mathf.Sign(myRigidbody.velocity.x)), 1f);
+            Gizmos.color = Color.blue;
+            DrawRay(bottomDetOrigin, Vector2.down, 0.5f);
+            DrawRay(frontDetOrigin, transform.TransformVector(Vector2.right), 0.5f);
         }
 
-
-    } 
+        private void DrawRay(Vector2 localOrigin, Vector2 direction, float length)
+        {
+            Vector2 from = transform.TransformPoint(localOrigin);
+            var to = from + direction * length;
+            Gizmos.DrawLine(from, to);
+        }
+#endif
+    }
 }

@@ -18,7 +18,7 @@ namespace UINavigation
         {
             panels.Clear();
             GetChildren(transform);
-            Debug.Log("Awake");
+            //Debug.Log("Awake "+name);
         }
 
         protected virtual void Start()
@@ -96,8 +96,10 @@ namespace UINavigation
 
         internal virtual void SetVisible(bool visible)
         {
-            if(gameObject!=null)
+            if (gameObject != null)
                 gameObject.SetActive(visible);
+            else
+                Debug.Log("GameObject is null "+PanelName);
         }
     }
 }

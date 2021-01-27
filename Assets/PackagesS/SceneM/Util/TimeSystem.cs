@@ -9,7 +9,21 @@ namespace SceneM
     {
         public static Action OnFixedUpdate;
 
+        public static Action OnLateUpdate;
+
+        public static Action OnUpdate;
+
         private static SortedDictionary<float, Action<float>> delayActions = new SortedDictionary<float, Action<float>>();
+
+        private void Update()
+        {
+            OnUpdate?.Invoke();
+        }
+
+        private void LateUpdate()
+        {
+            OnLateUpdate?.Invoke();
+        }
 
         private void FixedUpdate()
         {

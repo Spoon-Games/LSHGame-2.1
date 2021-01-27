@@ -44,7 +44,6 @@ namespace LSHGame.PlayerN
         private EffectsController effectsController;
         private PlayerStateMachine stateMachine;
 
-        private InputController inputController;
         private Player parent;
 
         private bool isDashStartDisableByGround = true;
@@ -85,8 +84,6 @@ namespace LSHGame.PlayerN
             stateMachine = new PlayerStateMachine(GetComponent<PlayerLSM>());
             stateMachine.OnStateChanged += OnPlayerStateChanged;
 
-            inputController = GameInput.Controller;
-
             playerColliders.Initialize(this, stateMachine);
 
             localScale = transform.localScale;
@@ -120,7 +117,7 @@ namespace LSHGame.PlayerN
 
             Stats = defaultStats.Clone();
 
-            inputMovement = inputController.Player.Movement.ReadValue<Vector2>();
+            inputMovement = GameInput.MovmentInput;
 
             playerColliders.CheckUpdate();
             CheckClimbWall();
@@ -140,6 +137,7 @@ namespace LSHGame.PlayerN
             FlipSprite();
 
             stateMachine.Velocity = localVelocity;
+            stateMachine.Position = transform.position;
             stateMachine.UpdateAnimator();
 
             rb.velocity = localVelocity + Stats.MovingVelocity;
@@ -168,7 +166,7 @@ namespace LSHGame.PlayerN
             stateMachine.IsFeetTouchingClimbLadder &= localVelocity.y <= 0 + 0.1f;
 
             stateMachine.IsTouchingClimbWall &= Time.fixedTime > climbWallDisableTimer;
-            stateMachine.IsTouchingClimbWall &= inputController.Player.WallClimbHold.GetBC().isPressed;
+            stateMachine.IsTouchingClimbWall &= GameInput.IsWallClimbHold;
 
             //Debug.Log("CheckClimbWall: " + stateMachine.IsTouchingClimbWall + " isPress: " + inputController.Player.WallClimbHold.GetBC().isPressed);
 
@@ -190,7 +188,7 @@ namespace LSHGame.PlayerN
         {
             isDashStartDisableByGround &= !stateMachine.IsGrounded;
 
-            if (dashInput.Check(inputController.Player.Dash.GetBC().isPressed,
+            if (dashInput.Check(GameInput.IsDash,
                 stateMachine.State != PlayerStates.Dash
                 && !isDashStartDisableByGround
                 && dashStartDisableTimer + Stats.DashRecoverDurration <= Time.fixedTime))
@@ -201,7 +199,7 @@ namespace LSHGame.PlayerN
             if (stateMachine.State == PlayerStates.Dash)
             {
 
-                stateMachine.IsDash &= !inputController.Player.Dash.GetBC().wasReleasedThisFrame;
+                stateMachine.IsDash &= !GameInput.WasDashRealeased;
                 stateMachine.IsDash &= localVelocity.Approximately(dashVelocity, 0.5f) && estimatedDashPosition.Approximately(rb.transform.position, 0.5f);
                 stateMachine.IsDash &= Time.fixedTime < dashEndTimer + Stats.DashDurration;
 
@@ -344,10 +342,9 @@ namespace LSHGame.PlayerN
 
         private void Jump()
         {
-            ButtonControl j = inputController.Player.Jump.GetBC();
             bool buttonReleased = false;
 
-            if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.Locomotion || stateMachine.State == PlayerStates.ClimbLadder || stateMachine.State == PlayerStates.ClimbLadderTop || (stateMachine.State == PlayerStates.Aireborne && Stats.IsJumpableInAir), ref buttonReleased))
+            if (jumpInput.Check(GameInput.IsJump, stateMachine.State == PlayerStates.Locomotion || stateMachine.State == PlayerStates.ClimbLadder || stateMachine.State == PlayerStates.ClimbLadderTop || (stateMachine.State == PlayerStates.Aireborne && Stats.IsJumpableInAir), ref buttonReleased))
             {
                 localVelocity.y = Stats.JumpSpeed * flipedDirection.y;
                 climbWallDisableTimer = Time.fixedTime + 0.2f;
@@ -355,12 +352,12 @@ namespace LSHGame.PlayerN
                 Stats.OnJump?.Invoke();
                 //rb.AddForce(new Vector2(0, jumpSpeed),ForceMode2D.Impulse);
             }
-            else if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.ClimbWall, ref buttonReleased, 1))
+            else if (jumpInput.Check(GameInput.IsJump, stateMachine.State == PlayerStates.ClimbWall, ref buttonReleased, 1))
             {
                 localVelocity = Stats.ClimbingWallJumpVelocity * new Vector2(inputMovement.x, flipedDirection.y);
                 climbWallDisableTimer = Time.fixedTime + 0.2f;
             }
-            else if (jumpInput.Check(j.isPressed, stateMachine.State == PlayerStates.ClimbWallExhaust, ref buttonReleased, 2))
+            else if (jumpInput.Check(GameInput.IsJump, stateMachine.State == PlayerStates.ClimbWallExhaust, ref buttonReleased, 2))
             {
                 localVelocity = Stats.ClimbingWallJumpVelocity * new Vector2(JumpXVelClimbWallDir(), flipedDirection.y);
                 climbWallDisableTimer = Time.fixedTime + 0.2f;

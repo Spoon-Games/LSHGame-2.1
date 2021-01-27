@@ -35,7 +35,6 @@ namespace LSHGame
             rb = GetComponent<Rigidbody2D>();
 
             LevelManager.OnResetLevel += Reset;
-            Reset();
         }
 
         protected override void OnActivated()

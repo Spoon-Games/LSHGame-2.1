@@ -22,9 +22,12 @@ namespace SceneM
                     if (objects.Length != 1)
                         throw new System.Exception("There does exists no instance of the singleton or there are more than one.");
                     instance = objects[0];
+                    instance.Awake();
                 }
                 return instance;
             }
         }
+
+        protected virtual void Awake() { }
     }
 }

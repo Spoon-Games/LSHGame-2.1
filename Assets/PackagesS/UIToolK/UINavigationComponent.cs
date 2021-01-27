@@ -5,23 +5,35 @@ namespace UINavigation
     //[RequireComponent(typeof(UIDocument))]
     public class UINavigationComponent : PanelManager
     {
+        public static UINavigationComponent Instance;
+
         [SerializeField]
-        private UINavRepository navigationGraph;
+        private UINavRepository navGraph;
+
+        public UINavRepository NavGraph { get => navGraph; set
+            {
+                if (value == null || value == navGraph)
+                    return;
+
+                navGraph = value;
+                LoadNavGraph();
+            }
+        }
 
         public Application Application { get; private set; }
 
         protected override void Awake()
         {
             base.Awake();
-            Application = new Application();
-
-            if (navigationGraph != null)
-                NavigationGraph.SetUp(navigationGraph, Application, this)?.Run();
+            if (Instance == null)
+                Instance = this;
             //document = GetComponent<UIDocument>();
         }
 
         protected override void Start()
         {
+            if (Application == null)
+                LoadNavGraph();
         }
 
         public override Panel ShowPanel(string panelName)
@@ -43,52 +55,13 @@ namespace UINavigation
             base.ShowPanel(panelName);
         }
 
-        //internal void SetAsset(VisualTreeAsset asset)
-        //{
-        //    //document.visualTreeAsset = asset;
+        private void LoadNavGraph()
+        {
+            Application = new Application();
+            if (NavGraph != null)
+                NavigationGraph.SetUp(NavGraph, Application, this)?.Run();
+        }
 
-        //    //OnPanelChanged?.Invoke(asset);
-
-        //    //SetUpEvents();
-        //}
-
-        //public VisualElement GetRootElement()
-        //{
-        //    return null;
-        //    //return document.rootVisualElement;
-        //}
-
-        //private void SetUpEvents()
-        //{
-        //    //VisualElement root = GetRootElement();
-
-        //    //Application.BackStack.OnBeforPopListener = null;
-
-        //    //foreach (GlobalUIEvent e in globalUIEvents)
-        //    //{
-        //    //    if (e.panel == null || Equals(e.panel, document.visualTreeAsset))
-        //    //    {
-        //    //        if (string.IsNullOrEmpty(e.eventName))
-        //    //            continue;
-
-        //    //        if (e.eventName.IsBackKey())
-        //    //        {
-        //    //            Application.BackStack.OnBeforPopListener += () =>
-        //    //            {
-        //    //                e.action.Invoke();
-        //    //            };
-        //    //        }
-        //    //        else
-        //    //        {
-        //    //            var buttons = root.Query<Button>(name: e.eventName).ToList();
-        //    //            foreach (var b in buttons)
-        //    //            {
-        //    //                b.RegisterCallback<ClickEvent>(evt => e.action.Invoke());
-        //    //            }
-        //    //        }
-        //    //    }
-        //    //}
-        //}
 
         public void PopBackStack()
         {
@@ -96,14 +69,4 @@ namespace UINavigation
             //Debug.Log("PopBackStack");
         }
     }
-
-    //[System.Serializable]
-    //public class GlobalUIEvent
-    //{
-    //    public string eventName;
-
-    //    public VisualTreeAsset panel;
-
-    //    public UnityEvent action = new UnityEvent();
-    //}
 }

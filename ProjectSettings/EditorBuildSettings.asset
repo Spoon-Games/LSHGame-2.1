@@ -17,5 +17,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/LSHGame/Scenes/Pascal Lvl/Storehouse.unity
     guid: e8a9f30de8982614e813af13f4614ac8
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Tests/TExpLevels/Texp5.unity
+    guid: 919d069d7eb70774484a2d485945316f
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Tests/TExpLevels/TExp4.unity
+    guid: 31dfa46161b9637429fdaad3390fc36d
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5a9d1c19c99372e4eb8d3f6b9797fdee, type: 2}

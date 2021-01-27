@@ -12,7 +12,8 @@ using System;
 
 namespace LSHGame.Util
 {
-    public class SubstanceManager : Singleton<SubstanceManager>
+    [CreateAssetMenu(menuName ="LSHGame/Editor/SubstanceManager")]
+    public class SubstanceManager : SceneM.ScriptableSingleton<SubstanceManager>
     {
         [SerializeField]
         private Substance[] serializedSubstances = new Substance[0];
@@ -28,7 +29,7 @@ namespace LSHGame.Util
         private List<Tuple<Vector3, Color>> debugPoints = new List<Tuple<Vector3, Color>>(); 
 #endif
 
-        public override void Awake()
+        protected override void Awake()
         {
             base.Awake();
             LoadSubstances();

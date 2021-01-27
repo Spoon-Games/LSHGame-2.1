@@ -17,13 +17,13 @@ MonoBehaviour:
     EditorPosition: {x: 0, y: 0}
     OutputPort:
       Name: 
-      ConnectedGuid: 05d9e388-eaec-4a23-a71b-57f107be63a4
+      ConnectedGuid: 1927ea4f-7ad6-47ea-b97e-9182a5855ae8
   NestedEndNode:
     Guid: 75e542fb-eaff-438d-960d-139ede88d3be
     EditorPosition: {x: -56, y: 304}
     BackPort:
       Name: 
-      ConnectedGuid: 05d9e388-eaec-4a23-a71b-57f107be63a4
+      ConnectedGuid: 
   StateNodes:
   - Guid: 1927ea4f-7ad6-47ea-b97e-9182a5855ae8
     EditorPosition: {x: 252, y: 10}
@@ -38,19 +38,7 @@ MonoBehaviour:
       ConnectedGuid: 9d5128c7-9d08-4061-90a7-d541f75e7f23
     - Name: back
       ConnectedGuid: 1927ea4f-7ad6-47ea-b97e-9182a5855ae8
-    - Name: MainMenuButton
-      ConnectedGuid: 05d9e388-eaec-4a23-a71b-57f107be63a4
     PanelName: PauseMenuPanel
-  - Guid: 05d9e388-eaec-4a23-a71b-57f107be63a4
-    EditorPosition: {x: 387, y: 407}
-    CoicePorts:
-    - Name: StartButton
-      ConnectedGuid: 1927ea4f-7ad6-47ea-b97e-9182a5855ae8
-    - Name: SettingsButton
-      ConnectedGuid: 9d5128c7-9d08-4061-90a7-d541f75e7f23
-    - Name: back
-      ConnectedGuid: 75e542fb-eaff-438d-960d-139ede88d3be
-    PanelName: MainMenuPanel
   NestedNodes:
   - Guid: 9d5128c7-9d08-4061-90a7-d541f75e7f23
     EditorPosition: {x: 663, y: 191}

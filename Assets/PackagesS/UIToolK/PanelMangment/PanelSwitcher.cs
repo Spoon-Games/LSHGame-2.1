@@ -14,7 +14,7 @@ namespace UINavigation
             panelManager = GetComponentInParent<PanelManager>();
             if(panelManager == null)
             {
-                Debug.LogError("No PanelManager was found in parents");
+                Debug.LogError("No PanelManager was found in parents PanelSwitcher: "+name);
             }
         }
 

@@ -10,11 +10,13 @@ namespace SceneM
         #region Attributes
         public static LevelInfo CurrantLevel { get; private set; }
 
-        public static Action<Func<float>, MainSceneInfo> OnStartLoadingMainScene;
+        public static Action<Func<float>, TransitionInfo> OnStartLoadingMainScene;
 
         private static List<int> loadedScenesInLevel = new List<int>();
 
         public static Action OnResetLevel;
+
+        public static TransitionInfo DefaultTransition = null;
 
         #endregion
 
@@ -100,6 +102,9 @@ namespace SceneM
         {
             AsyncOperation operation = null;
 
+            if (transition == null)
+                transition = DefaultTransition;
+
             OnStartLoadingMainScene?.Invoke(() => {
                 if (operation == null)
                     return 0;
@@ -112,7 +117,7 @@ namespace SceneM
                     else
                         return operation.progress;
                 }
-            }, sceneInfo);
+            }, transition);
             if (transition != null && transition.StartDurration > 0)
             {
                 TimeSystem.Delay(transition.StartDurration, t => LoadMainSceneRaw2(sceneInfo, out operation));

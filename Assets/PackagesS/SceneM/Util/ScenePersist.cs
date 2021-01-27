@@ -8,5 +8,10 @@
 
             DontDestroyOnLoad(gameObject);
         }
+
+        private void Update()
+        {
+            
+        }
     } 
 }
