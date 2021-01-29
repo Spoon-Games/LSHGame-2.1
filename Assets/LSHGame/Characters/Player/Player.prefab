@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd86278c396dd6a45906039bab323b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDashEnabled: 0
+  IsDashEnabled: 1
   IsWallClimbEnabled: 1
 --- !u!114 &501302906
 MonoBehaviour:
@@ -697,6 +697,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: VC Main
       objectReference: {fileID: 0}
+    - target: {fileID: 1266786797511139434, guid: 7286af60e1cea10449402db6301dca53, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1266786797511139434, guid: 7286af60e1cea10449402db6301dca53, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1607685507205838464, guid: 7286af60e1cea10449402db6301dca53, type: 3}
       propertyPath: m_Lens.OrthographicSize
       value: 4.9
@@ -721,6 +729,18 @@ PrefabInstance:
       propertyPath: m_ChildCameras.Array.data[2]
       value: 
       objectReference: {fileID: 5626840070337011270}
+    - target: {fileID: 5375695394430064612, guid: 7286af60e1cea10449402db6301dca53, type: 3}
+      propertyPath: m_ChildCameras.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6676720962969372795, guid: 7286af60e1cea10449402db6301dca53, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6676720962969372795, guid: 7286af60e1cea10449402db6301dca53, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7286af60e1cea10449402db6301dca53, type: 3}
 --- !u!4 &5063396093396162582 stripped
