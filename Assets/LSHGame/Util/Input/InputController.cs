@@ -342,6 +342,52 @@ namespace LSHGame.Util
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""76fb155f-bf3c-4160-9beb-83f21a69f9c3"",
+            ""actions"": [
+                {
+                    ""name"": ""ToggleConsole"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5e70adf-85c0-49eb-82b2-cfdd349fbe69"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ToggleSceneView"",
+                    ""type"": ""Button"",
+                    ""id"": ""379f4d62-ac41-4e99-9ad3-967208ceee87"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""035ae003-1910-4861-8910-762505be02ea"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleConsole"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a48a7f9-0528-4c54-bedc-46bd4721a620"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleSceneView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -377,6 +423,10 @@ namespace LSHGame.Util
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
             m_UI_Further = m_UI.FindAction("Further", throwIfNotFound: true);
+            // Debug
+            m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+            m_Debug_ToggleConsole = m_Debug.FindAction("ToggleConsole", throwIfNotFound: true);
+            m_Debug_ToggleSceneView = m_Debug.FindAction("ToggleSceneView", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -552,6 +602,47 @@ namespace LSHGame.Util
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // Debug
+        private readonly InputActionMap m_Debug;
+        private IDebugActions m_DebugActionsCallbackInterface;
+        private readonly InputAction m_Debug_ToggleConsole;
+        private readonly InputAction m_Debug_ToggleSceneView;
+        public struct DebugActions
+        {
+            private @InputController m_Wrapper;
+            public DebugActions(@InputController wrapper) { m_Wrapper = wrapper; }
+            public InputAction @ToggleConsole => m_Wrapper.m_Debug_ToggleConsole;
+            public InputAction @ToggleSceneView => m_Wrapper.m_Debug_ToggleSceneView;
+            public InputActionMap Get() { return m_Wrapper.m_Debug; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+            public void SetCallbacks(IDebugActions instance)
+            {
+                if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+                {
+                    @ToggleConsole.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
+                    @ToggleConsole.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
+                    @ToggleConsole.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleConsole;
+                    @ToggleSceneView.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleSceneView;
+                    @ToggleSceneView.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleSceneView;
+                    @ToggleSceneView.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnToggleSceneView;
+                }
+                m_Wrapper.m_DebugActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @ToggleConsole.started += instance.OnToggleConsole;
+                    @ToggleConsole.performed += instance.OnToggleConsole;
+                    @ToggleConsole.canceled += instance.OnToggleConsole;
+                    @ToggleSceneView.started += instance.OnToggleSceneView;
+                    @ToggleSceneView.performed += instance.OnToggleSceneView;
+                    @ToggleSceneView.canceled += instance.OnToggleSceneView;
+                }
+            }
+        }
+        public DebugActions @Debug => new DebugActions(this);
         private int m_KeyboardandMouseSchemeIndex = -1;
         public InputControlScheme KeyboardandMouseScheme
         {
@@ -576,6 +667,11 @@ namespace LSHGame.Util
         {
             void OnBack(InputAction.CallbackContext context);
             void OnFurther(InputAction.CallbackContext context);
+        }
+        public interface IDebugActions
+        {
+            void OnToggleConsole(InputAction.CallbackContext context);
+            void OnToggleSceneView(InputAction.CallbackContext context);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using LSHGame.Util;
 using SceneM;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace LSHGame
 {
@@ -10,10 +11,13 @@ namespace LSHGame
         private bool wasTriggered = false;
 
         [SerializeField]
-        private Animator animator;
+        private float delayTime = 1;
 
         [SerializeField]
-        private float delayTime = 1;
+        private UnityEvent onStartBreaking;
+
+        [SerializeField]
+        private UnityEvent onBreak;
 
         private Collider2D col;
 
@@ -27,8 +31,7 @@ namespace LSHGame
             if (!wasTriggered)
             {
                 wasTriggered = true;
-
-                animator.SetTrigger("OnTouch");
+                onStartBreaking?.Invoke();
                 TimeSystem.Delay(delayTime, t => Break());
 
             }
@@ -37,6 +40,7 @@ namespace LSHGame
         private void Break()
         {
             col.enabled = false;
+            onBreak?.Invoke();
             foreach(var rb in this.GetComponentsInChildren<Rigidbody2D>())
             {
                 rb.bodyType = RigidbodyType2D.Dynamic;

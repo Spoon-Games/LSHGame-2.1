@@ -19,6 +19,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_c413cb4b093d4de0867ccb94ff2c5c69:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AlphaTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -56,6 +60,8 @@ Material:
     - _EnableExternalAlpha: 0
     - _T: 0
     m_Colors:
-    - _Color: {r: 1, g: 0, b: 0, a: 1}
-    - _Origin: {r: 0.64, g: 0.43, b: 0, a: 0}
+    - Color_50657856539447a5ac1bced2a8b5d74b: {r: 0.13937713, g: 0.12317551, b: 0.1509434, a: 1}
+    - Vector4_3fc7d7db3525434d8b41651a07af91a5: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Origin: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []

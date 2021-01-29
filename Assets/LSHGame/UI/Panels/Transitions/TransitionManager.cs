@@ -1,6 +1,7 @@
 ﻿using SceneM;
 using System;
 using UINavigation;
+using UnityEngine;
 
 namespace LSHGame.UI
 {
@@ -10,8 +11,12 @@ namespace LSHGame.UI
 
         protected override void Awake()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
             base.Awake();
+            
         }
 
         protected override void Start()
@@ -21,10 +26,10 @@ namespace LSHGame.UI
         }
 
 
-        private void OnStartLoadingMainScene(Func<float> getProgress, MainSceneInfo sceneInfo)
+        private void OnStartLoadingMainScene(Func<float> getProgress, TransitionInfo transition)
         {
 
-            ShowTransition(sceneInfo.Transition, getProgress);
+            ShowTransition(transition, getProgress);
 
         }
 

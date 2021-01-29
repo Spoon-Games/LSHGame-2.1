@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionTag: 
-  Event: event:/Scene/Interactables/VanishingPlatform/VanishingPlatform_break
+  Event: event:/Scene/Interactables/VanishingPlatform_JumpDestruct
   PlayEvent: 11
   StopEvent: 0
   AllowFadeout: 1

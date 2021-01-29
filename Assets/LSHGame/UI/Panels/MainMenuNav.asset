@@ -23,13 +23,15 @@ MonoBehaviour:
     EditorPosition: {x: 0, y: 200}
     BackPort:
       Name: 
-      ConnectedGuid: 
+      ConnectedGuid: a5c00bf0-6092-4d26-8598-38e4e19f4467
   StateNodes:
   - Guid: a5c00bf0-6092-4d26-8598-38e4e19f4467
     EditorPosition: {x: 303, y: 46}
     CoicePorts:
     - Name: SettingsButton
       ConnectedGuid: 683363ec-c40a-45a1-a446-78447904ebee
+    - Name: back
+      ConnectedGuid: 8b8c18a5-f9ce-4392-a8ab-6254beaaab1a
     PanelName: MainMenuPanel
   NestedNodes:
   - Guid: 683363ec-c40a-45a1-a446-78447904ebee

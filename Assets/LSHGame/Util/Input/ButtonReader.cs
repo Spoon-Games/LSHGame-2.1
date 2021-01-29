@@ -6,11 +6,6 @@ namespace LSHGame.Util
 {
     public class ButtonReader : MonoBehaviour
     {
-        private enum ButtonBinding { Player_I, UI_ESC }
-
-        [SerializeField]
-        private ButtonBinding buttonBinding;
-
         [SerializeField]
         private UnityEvent OnPressedButton;
 
@@ -25,21 +20,9 @@ namespace LSHGame.Util
 
         private void Awake()
         {
-            InputController ic = GameInput.Controller;
-
-            if (buttonBinding == ButtonBinding.Player_I)
-            {
-                SetUp(ic.Player.Interact);
-            }else if(buttonBinding == ButtonBinding.UI_ESC)
-            {
-                //SetUp(ic.UI.OpenPauseScreen);
-            }
-        }
-
-        private void SetUp(InputAction inputAction)
-        {
-            inputAction.started += _ => Press();
-            inputAction.canceled += _ => Release();
+            GameInput.OnInteract += Press;
+            GameInput.OnInteractCancel += Release;
+            
         }
 
         private void Press()
@@ -63,6 +46,12 @@ namespace LSHGame.Util
         private void OnDisable()
         {
             Release();
+        }
+
+        private void OnDestroy()
+        {
+            GameInput.OnInteract -= Press;
+            GameInput.OnInteractCancel -= Release;
         }
 
     } 

@@ -13,6 +13,8 @@ namespace LSHGame.PlayerN
 
         public Vector2 Velocity { get; set; }
 
+        public Vector2 Position { get; set; }
+
         public bool IsGrounded { get; set; }
 
         public bool IsTouchingClimbWall { get; set; }
@@ -57,6 +59,8 @@ namespace LSHGame.PlayerN
             animatorMachine.VerticalSpeed = Velocity.y;
             animatorMachine.HorizontalSpeed = Velocity.x;
 
+            animatorMachine.VerticalPosition = Position.y;
+
             animatorMachine.SAireborne = State == PlayerStates.Aireborne;
             animatorMachine.SClimbingWall = State == PlayerStates.ClimbWall || State == PlayerStates.ClimbWallExhaust;
             animatorMachine.SClimbinLadder = State == PlayerStates.ClimbLadder;
@@ -67,7 +71,7 @@ namespace LSHGame.PlayerN
             if (animatorStateChanged)
             {
                 animatorStateChanged = false;
-                animatorMachine.Animator.SetTrigger("StateChanged");
+                animatorMachine.StateChanged();
             }
 
         }

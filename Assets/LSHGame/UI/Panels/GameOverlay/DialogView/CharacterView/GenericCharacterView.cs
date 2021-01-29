@@ -32,7 +32,7 @@ namespace LSHGame.UI
 
             furtherButton?.onClick.AddListener(GetNext);
 
-            GameInput.Controller.UI.Further.performed += ctx => GetNext();
+            GameInput.OnFurther += GetNext;
         }
 
         public override bool TrySetDialog(BaseDialog baseDialog)
@@ -55,7 +55,7 @@ namespace LSHGame.UI
 
         protected virtual void OnStart()
         {
-            GameInput.Controller.Player.Disable();
+            //GameInput.Controller.Player.Disable();
             gameObject.SetActive(true);
             canvasGroup.DOFade(1, fadeInTime).SetEase(fadeInEase).OnComplete(GetNext);
         }
@@ -72,8 +72,13 @@ namespace LSHGame.UI
 
         protected virtual void OnCompleteEnd()
         {
-            GameInput.Controller.Player.Enable();
+            //GameInput.Controller.Player.Enable();
             gameObject.SetActive(false);
+        }
+
+        protected virtual void OnDestroy()
+        {
+            GameInput.OnFurther -= GetNext;
         }
     }
 }

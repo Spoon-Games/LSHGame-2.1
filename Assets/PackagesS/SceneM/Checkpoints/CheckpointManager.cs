@@ -15,7 +15,7 @@ namespace SceneM
             LevelManager.OnStartLoadingMainScene += Reset;
         }
 
-        internal static void Reset(Func<float> o,MainSceneInfo mainSceneInfo)
+        internal static void Reset(Func<float> o,TransitionInfo transition)
         {
             currantCheckPos = Vector3.negativeInfinity;
         }

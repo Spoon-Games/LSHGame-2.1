@@ -577,6 +577,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: VerticalPosition
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -644,7 +650,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8213839941319508506}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 7073568393085857399}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -653,7 +660,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -4829434109743272272}
+  m_Motion: {fileID: 7400000, guid: faac8b8fc7348fd44baea1905c3aec9f, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -727,7 +734,7 @@ AnimatorStateMachine:
   - first: {fileID: 2380593708686935847}
     second: []
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -150, y: 340, z: 0}
+  m_AnyStatePosition: {x: -140, y: 360, z: 0}
   m_EntryPosition: {x: -140, y: -30, z: 0}
   m_ExitPosition: {x: 420, y: 450, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
@@ -1011,6 +1018,47 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &7073568393085857399
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ea81c03533e3e4a9c31f1013d61b3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 3423d9df849aefd46bb092dfeae769b8, type: 3}
+  - {fileID: 21300000, guid: 81a4f98b17e1ef445ab269b8c54ec9fc, type: 3}
+  - {fileID: 21300000, guid: 7bd9098d4b3eb954198531d2b3a9348b, type: 3}
+  - {fileID: 21300000, guid: 251f5142e7a7a4b4dbe6aae99d5fe0a0, type: 3}
+  - {fileID: 21300000, guid: 86cfc2eb9da5072489be712bedcb7d1b, type: 3}
+  - {fileID: 21300000, guid: edf28d8d3ef1bf448a6dedc21aaed796, type: 3}
+  - {fileID: 21300000, guid: 36cec2e2900244245a1645a7247c1abe, type: 3}
+  - {fileID: 21300000, guid: 3643f8d0498af0947b38259b3dc8226a, type: 3}
+  - {fileID: 21300000, guid: 7b85d92188d6abd4499e4a47b28de66e, type: 3}
+  - {fileID: 21300000, guid: 33a1d516bb63f074a8a12762c32315bb, type: 3}
+  - {fileID: 21300000, guid: 083d21629f772964f834f7417e3ede17, type: 3}
+  - {fileID: 21300000, guid: 832558e4ac860834f96af668e9d760ff, type: 3}
+  - {fileID: 21300000, guid: 4904305bd01a1fe4bb4a820a45ae123a, type: 3}
+  - {fileID: 21300000, guid: 37e93781b45b6ea40a78bb9c9df5608d, type: 3}
+  - {fileID: 21300000, guid: 450b915b8fb3ce749b38c6db1a8f9e8e, type: 3}
+  - {fileID: 21300000, guid: 5ac86085775d85644a1441960721025b, type: 3}
+  - {fileID: 21300000, guid: 9add11352bc7b0a41a5ca1fc48fe73c5, type: 3}
+  - {fileID: 21300000, guid: f1ae65e2c95d9ca449b9968aae0eebf4, type: 3}
+  - {fileID: 21300000, guid: bb0abdc7bcf737f46b1e3aaa6e8b87f8, type: 3}
+  - {fileID: 21300000, guid: 70a0bba8bf6db934193e4fc367ccfd96, type: 3}
+  - {fileID: 21300000, guid: 6bd6f0c1f68f7aa4382458c5599631be, type: 3}
+  - {fileID: 21300000, guid: 60718a19b7943374db64f1acc486d692, type: 3}
+  - {fileID: 21300000, guid: 140f38237a3cec940a0c47e6cc8415d1, type: 3}
+  - {fileID: 21300000, guid: a29cbff8781548d41b84727df593bbaf, type: 3}
+  parameterName: VerticalPosition
+  SpritesPerUnit: 6
+  offset: 0
+  looping: 1
 --- !u!114 &7147813608475425817
 MonoBehaviour:
   m_ObjectHideFlags: 1

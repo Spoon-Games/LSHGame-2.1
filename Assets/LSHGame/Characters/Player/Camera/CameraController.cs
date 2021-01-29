@@ -14,15 +14,18 @@ namespace LSHGame.PlayerN
         private void Awake()
         {
             stateMachine = GetComponent<CameraControllerLSM>();
-            inputController = GameInput.Controller;
 
-            inputController.Player.CameraLook.performed += (ctx) => OnPerformedLookDown(true);
-            inputController.Player.CameraLook.canceled += (ctx) => OnPerformedLookDown(false);
+            GameInput.OnCameraLookDown += OnPerformedLookDown;
         }
 
         private void OnPerformedLookDown(bool pressed)
         {
             stateMachine.LookDown = pressed;
+        }
+
+        private void OnDestroy()
+        {
+            GameInput.OnCameraLookDown -= OnPerformedLookDown;
         }
     } 
 }
