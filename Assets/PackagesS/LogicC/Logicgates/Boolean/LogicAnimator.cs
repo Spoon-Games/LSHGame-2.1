@@ -14,7 +14,7 @@ namespace LogicC
 
         private Animator animator;
 
-        private void Awake()
+        protected override void Awake()
         {
             animator = GetComponent<Animator>();
         }

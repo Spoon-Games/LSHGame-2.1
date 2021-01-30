@@ -52,7 +52,6 @@ namespace LSHGame.PlayerN
         private Vector2 estimatedDashPosition;
         private float dashEndTimer = 0;
 
-        private float climbLadderDisableTimer = float.NegativeInfinity;
         private float climbWallDisableTimer = float.NegativeInfinity;
         private float climbWallExhaustTimer = 0;
 
@@ -519,7 +518,6 @@ namespace LSHGame.PlayerN
             estimatedDashPosition = Vector2.zero;
             dashEndTimer = 0;
 
-            climbLadderDisableTimer = float.NegativeInfinity;
             climbWallDisableTimer = float.NegativeInfinity;
             climbWallExhaustTimer = 0;
             lastFrameMovingVelocity = default;

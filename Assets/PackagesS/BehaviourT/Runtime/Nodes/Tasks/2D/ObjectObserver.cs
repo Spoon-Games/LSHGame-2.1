@@ -24,8 +24,10 @@ namespace BehaviourT
 
         private Transform target = null;
 
+#if UNITY_EDITOR
         private Vector3 debugHitPos = Vector3.negativeInfinity;
         private bool hasHitTarget = false;
+#endif
 
         protected internal override void GetPorts(PortList portList)
         {
@@ -44,20 +46,25 @@ namespace BehaviourT
 
         private Transform TryFindTarget()
         {
+#if UNITY_EDITOR
             hasHitTarget = false;
+            debugHitPos = Vector3.negativeInfinity; 
+#endif
+
             Vector2 origin = (Vector2)Transform.position + lookOriginOffset;
             var targetCol = Physics2D.OverlapCircle(origin, maxLookDistance, targetLayer);
             if (targetCol == null)
             {
-                debugHitPos = Vector3.negativeInfinity;
                 return null;
             }
 
             var hit = Physics2D.Raycast(origin, (Vector2)targetCol.transform.position - origin, maxLookDistance, targetLayer | obstacleLayers);
-            debugHitPos = hit.point;
             if (hit && IsInLayerMask(hit.collider.gameObject.layer,targetLayer))
             {
-                hasHitTarget = true;
+#if UNITY_EDITOR
+                debugHitPos = hit.point;
+                hasHitTarget = true; 
+#endif
                 return hit.collider.transform;
             }
             return null;
