@@ -6,6 +6,10 @@ namespace LSHGame.Util
 {
     public class ButtonReader : MonoBehaviour
     {
+        public enum InputType { Interact,Back}
+        [SerializeField]
+        private InputType inputType;
+
         [SerializeField]
         private UnityEvent OnPressedButton;
 
@@ -20,9 +24,17 @@ namespace LSHGame.Util
 
         private void Awake()
         {
-            GameInput.OnInteract += Press;
-            GameInput.OnInteractCancel += Release;
-            
+            switch (inputType)
+            {
+                case InputType.Interact:
+                    GameInput.OnInteract += Press;
+                    GameInput.OnInteractCancel += Release;
+                    break;
+                case InputType.Back:
+                    GameInput.Mix_OnUIBack += Press;
+                    GameInput.Mix_OnUIBack_Release += Release;
+                    break;
+            }
         }
 
         private void Press()
@@ -54,5 +66,5 @@ namespace LSHGame.Util
             GameInput.OnInteractCancel -= Release;
         }
 
-    } 
+    }
 }

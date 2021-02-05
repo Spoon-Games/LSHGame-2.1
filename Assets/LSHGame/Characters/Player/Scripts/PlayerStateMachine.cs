@@ -2,7 +2,7 @@
 
 namespace LSHGame.PlayerN
 {
-    internal enum PlayerStates { Locomotion,Aireborne,ClimbWall,ClimbWallExhaust,ClimbLadder,ClimbLadderTop,Dash,Death}
+    internal enum PlayerStates { Locomotion,Aireborne,ClimbWall,ClimbWallExhaust,ClimbLadder,ClimbLadderTop,Dash,Death,Crouching}
 
     internal class PlayerStateMachine
     {
@@ -14,6 +14,10 @@ namespace LSHGame.PlayerN
         public Vector2 Velocity { get; set; }
 
         public Vector2 Position { get; set; }
+
+        public bool IsInputCrouch { get; set; }
+
+        public bool IsHeadObstructed { get; set; }
 
         public bool IsGrounded { get; set; }
 
@@ -41,7 +45,7 @@ namespace LSHGame.PlayerN
 
         internal void UpdateState()
         {
-            PlayerStates newState = GetStateFromAny();
+            PlayerStates newState = GetStateFromAny(State);
 
             if(newState != State)
             {
@@ -67,6 +71,7 @@ namespace LSHGame.PlayerN
             animatorMachine.SDash = State == PlayerStates.Dash;
             animatorMachine.SDeath = State == PlayerStates.Death;
             animatorMachine.SLocomotion = State == PlayerStates.Locomotion || State == PlayerStates.ClimbLadderTop;
+            animatorMachine.SCrouching = State == PlayerStates.Crouching;
 
             if (animatorStateChanged)
             {
@@ -80,6 +85,8 @@ namespace LSHGame.PlayerN
         {
             Velocity = Vector2.zero;
             IsGrounded = false;
+            IsInputCrouch = false;
+            IsHeadObstructed = false;
             IsTouchingClimbLadder = false;
             IsClimbWallExhausted = false;
             IsTouchingClimbWall = false;
@@ -87,10 +94,13 @@ namespace LSHGame.PlayerN
             IsDead = false;
         }
 
-        private PlayerStates GetStateFromAny()
+        private PlayerStates GetStateFromAny(PlayerStates oldState)
         {
             if (IsDead)
                 return PlayerStates.Death;
+
+            if (oldState == PlayerStates.Crouching && IsHeadObstructed)
+                return PlayerStates.Crouching;
 
             if (IsDash)
                 return PlayerStates.Dash;
@@ -104,11 +114,14 @@ namespace LSHGame.PlayerN
             if (IsTouchingClimbWall)
                 return PlayerStates.ClimbWall;
 
+            if (!IsGrounded && IsFeetTouchingClimbLadder)
+                return PlayerStates.ClimbLadderTop;
+
+            if (IsInputCrouch && IsGrounded)
+                return PlayerStates.Crouching;
+
             if (IsGrounded)
                 return PlayerStates.Locomotion;
-
-            if (IsFeetTouchingClimbLadder)
-                return PlayerStates.ClimbLadderTop;
 
             return PlayerStates.Aireborne;
         }

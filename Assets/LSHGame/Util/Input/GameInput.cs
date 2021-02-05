@@ -26,8 +26,13 @@ namespace LSHGame.Util
         public static Action OnInteractCancel;
         #endregion
 
-        #region UI
+        #region Dialog
         public static Action OnFurther;
+        #endregion
+
+        #region Mix
+        public static Action Mix_OnUIBack;
+        public static Action Mix_OnUIBack_Release;
         #endregion
 
         #region Debug
@@ -58,26 +63,49 @@ namespace LSHGame.Util
             Controller.Player.Interact.canceled += ctx => OnInteractCancel?.Invoke();
 
             //UI
-            Controller.UI.Further.performed += ctx => OnFurther?.Invoke();
+            Controller.Dialog.Further.performed += ctx => OnFurther?.Invoke();
 
             //Debug
             Controller.Debug.ToggleConsole.performed += ctx => ToggleDebugConsole?.Invoke();
 
             Controller.Debug.ToggleSceneView.performed += ctx => ToggleDebugSceneView?.Invoke();
+
+            //Mix
+            Controller.Player.BackUI.performed += ctx => Mix_OnUIBack?.Invoke();
+            Controller.Dialog.Back.performed += ctx => Mix_OnUIBack?.Invoke();
+            Controller.UI.Back.performed += ctx => Mix_OnUIBack?.Invoke();
+
+            Controller.Player.BackUI.canceled += ctx => Mix_OnUIBack_Release?.Invoke();
+            Controller.Dialog.Back.canceled += ctx => Mix_OnUIBack_Release?.Invoke();
+            Controller.UI.Back.canceled += ctx => Mix_OnUIBack_Release?.Invoke();
+
+
+            UINavigation.Util.SetInputController += SetInputController;
         } 
 
-        public static void EnablePlayerInput()
+        public static void SetInputController(string inputController)
         {
-            Controller.Player.Enable();
-
-            Controller.UI.Disable();
+            switch (inputController)
+            {
+                case "Player":EnablePlayer();break;
+                case "UI": EnableMap(Controller.UI.Get()); break;
+                case "Dialog": EnableMap(Controller.Dialog.Get()); break;
+            }
         }
 
-        public static void EnableUIInput()
+        private static void EnablePlayer()
         {
-            Controller.UI.Enable();
+            Controller.Player.Enable();
+            Controller.UI.Disable();
+            Controller.Dialog.Disable();
+        }
 
-            Controller.Player.Disable();
+        private static void EnableMap(InputActionMap inputMap)
+        {
+            foreach (var map in Controller.asset.actionMaps)
+                if (map != inputMap || map != Controller.Debug.Get())
+                    map.Disable();
+            inputMap.Enable();
         }
         #endregion
     } 

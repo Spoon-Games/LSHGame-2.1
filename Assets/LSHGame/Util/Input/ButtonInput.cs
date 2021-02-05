@@ -8,7 +8,7 @@ namespace LSHGame.Util
     public class ButtonInput : MonoBehaviour
     {
         [SerializeField]
-        private InputActionReference inputAction;
+        private InputActionReference[] inputActions = new InputActionReference[1] { null };
          
         [SerializeField]
         private UnityEvent OnPressedButton;
@@ -24,19 +24,24 @@ namespace LSHGame.Util
 
         private void SetUp()
         {
-            if (inputAction == null)
-                return;
-            inputAction.action.Enable();
-            inputAction.action.started += Press;
-            inputAction.action.canceled += Release;
+            foreach (var inputAction in inputActions)
+            {
+                if (inputAction == null)
+                    return;
+                inputAction.action.started += Press;
+                inputAction.action.canceled += Release;
+            }
         }
 
         private void SetDown()
         {
-            if (inputAction == null)
-                return;
-            inputAction.action.started -= Press;
-            inputAction.action.canceled -= Release;
+            foreach (var inputAction in inputActions)
+            {
+                if (inputAction == null)
+                    return;
+                inputAction.action.started -= Press;
+                inputAction.action.canceled -= Release;
+            } 
         }
 
         private void Press(CallbackContext ctx)

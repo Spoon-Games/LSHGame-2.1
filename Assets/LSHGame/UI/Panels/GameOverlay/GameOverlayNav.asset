@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe541b4d31ec4af4382d037a6d908fdb, type: 3}
+  m_Name: GameOverlayNav
+  m_EditorClassIdentifier: 
+  StartNode:
+    Guid: f3b406d6-c739-42b8-b81c-c48c198a7208
+    EditorPosition: {x: 0, y: 0}
+    OutputPort:
+      Name: 
+      ConnectedGuid: efb3c9aa-6dd9-4a28-b402-1aa876ea0dd5
+  NestedEndNode:
+    Guid: 700f13cc-b2de-4020-a7a6-9c24930748f4
+    EditorPosition: {x: 472, y: 403}
+    BackPort:
+      Name: 
+      ConnectedGuid: 
+  StateNodes:
+  - Guid: efb3c9aa-6dd9-4a28-b402-1aa876ea0dd5
+    EditorPosition: {x: 207, y: 110}
+    CoicePorts:
+    - Name: StartDuoCharacterView
+      ConnectedGuid: caed62a3-867b-431b-897f-9b2f1880148f
+    PanelName: HubView
+    InputController: 
+    DoNotHide: 0
+    InAnimation: 
+    OutAnimation: 
+  - Guid: caed62a3-867b-431b-897f-9b2f1880148f
+    EditorPosition: {x: 601, y: 95}
+    CoicePorts: []
+    PanelName: DuoCharacterView
+    InputController: Dialog
+    DoNotHide: 0
+    InAnimation: fade
+    OutAnimation: fade
+  NestedNodes: []
+  DefaultInputController: Player
+  DefaultInAnimation: 
+  DefaultOutAnimation: 

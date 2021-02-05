@@ -82,6 +82,7 @@ GameObject:
   - component: {fileID: 2155283614113726286}
   - component: {fileID: 6466070709124640300}
   - component: {fileID: 7026969319120039754}
+  - component: {fileID: -6259627148890532533}
   m_Layer: 0
   m_Name: Ladder
   m_TagString: Untagged
@@ -132,6 +133,18 @@ MonoBehaviour:
   tilesOfSubstance:
   - {fileID: 11400000, guid: 6a4111af41588214aa413b901f81af4c, type: 2}
   - {fileID: 11400000, guid: 26a0d8dd7013d864ca60f80385ef5210, type: 2}
+--- !u!114 &-6259627148890532533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702053279706077740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d4d7aa538e95a4390f788982619ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2830077516417997375
 GameObject:
   m_ObjectHideFlags: 0

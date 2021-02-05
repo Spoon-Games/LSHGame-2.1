@@ -56,7 +56,7 @@ namespace LSHGame
 
                 spriteTransform.rotation = Quaternion.LookRotation(Vector3.forward, normal);
                 rb.velocity = (normal * -gravity);
-                rb.velocity += (Vector2.Perpendicular(-normal) * forward);
+                rb.velocity += (Vector2.Perpendicular(-normal) * forward * Mathf.Sign(transform.lossyScale.x));
 
                 allCPs.Clear();
                 curNormal = normal;
@@ -87,14 +87,14 @@ namespace LSHGame
             rb.gravityScale = 0.4f;
         }
 
-        public void Reset()
-        {
-            gameObject.layer = 14; // Enemy
-            alive = true;
-            transform.position = startPosition;
-            transform.rotation = startRotation;
-            rb.gravityScale = 0;
-        }
+        //public void Reset()
+        //{
+        //    gameObject.layer = 14; // Enemy
+        //    alive = true;
+        //    transform.position = startPosition;
+        //    transform.rotation = startRotation;
+        //    rb.gravityScale = 0;
+        //}
     }
 
 } 

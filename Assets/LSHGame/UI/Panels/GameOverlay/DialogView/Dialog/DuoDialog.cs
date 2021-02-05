@@ -23,6 +23,11 @@ namespace LSHGame.UI
             line = hasNext?(LineData)enumerator.Current:null;
             return hasNext;
         }
+
+        public override void Show()
+        {
+            DuoCharacterView.Instance.ShowDialog(this);
+        }
     }
 
     [System.Serializable]

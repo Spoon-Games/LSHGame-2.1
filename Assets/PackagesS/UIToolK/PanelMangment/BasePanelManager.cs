@@ -10,14 +10,14 @@ namespace UINavigation
 
         protected Dictionary<T, P> panels = new Dictionary<T, P>();
 
-        public P CurrentPanel => currentPanel;
+        public virtual P CurrentPanel => currentPanel;
 
         protected P currentPanel;
 
         protected virtual void Awake()
         {
             panels.Clear();
-            GetChildren(transform);
+            GetChildren();
             //Debug.Log("Awake "+name);
         }
 
@@ -57,29 +57,24 @@ namespace UINavigation
             panels.Clear();
         }
 
-        private void GetChildren(Transform parent)
+        private void GetChildren()
         {
-            foreach (Transform child in parent)
+            transform.GetChildren<P, PanelGroup>(p =>
             {
-                if (child.TryGetComponent<P>(out P p))
+                if (p.PanelName == null)
                 {
-                    if (p.PanelName == null)
-                    {
-                        Debug.Log("No PanelName was asigned to: " + p.name);
-                    }
-                    else
-                    {
-                        p.Parent = (M)this; 
-                        panels[p.PanelName] = p;
-                        p.SetVisible(false);
-                    }
+                    Debug.Log("No PanelName was asigned to: " + p.name);
                 }
-
-                if (child.TryGetComponent<PanelGroup>(out PanelGroup g))
+                else
                 {
-                    GetChildren(child);
+                    p.Parent = (M)this;
+                    if (panels.ContainsKey(p.PanelName))
+                        Debug.Log("Duplicate PanelName: " + p.PanelName + " for panel: " + p.name);
+                    panels[p.PanelName] = p;
+                    p.SetVisible(false);
                 }
-            }
+            });
+            
         }
     }
 

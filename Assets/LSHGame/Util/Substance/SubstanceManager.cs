@@ -15,8 +15,9 @@ namespace LSHGame.Util
     [CreateAssetMenu(menuName ="LSHGame/Editor/SubstanceManager")]
     public class SubstanceManager : SceneM.ScriptableSingleton<SubstanceManager>
     {
+        #region Attributes
         [SerializeField]
-        private Substance[] serializedSubstances = new Substance[0];
+        private SubstancePointer[] serializedPointers = new SubstancePointer[0];
 
         private Dictionary<TileBase, List<Substance>> tileBasedSubstances = new Dictionary<TileBase, List<Substance>>();
         private Dictionary<string, Substance> nameBasedSubstances = new Dictionary<string, Substance>();
@@ -27,14 +28,18 @@ namespace LSHGame.Util
 #if DEBUG_THIS
         private List<Tuple<Rect, Color>> debugRects = new List<Tuple<Rect, Color>>();
         private List<Tuple<Vector3, Color>> debugPoints = new List<Tuple<Vector3, Color>>(); 
-#endif
+#endif 
+        #endregion
 
+        #region Init
         protected override void Awake()
         {
             base.Awake();
             LoadSubstances();
-        }
+        } 
+        #endregion
 
+        #region Retrive Substances
         public static void RetrieveSubstances(BoxCollider2D collider2D, SubstanceSet set, ISubstanceFilter filter, LayerMask layerMask, out bool touch)
         {
             List<Collider2D> colliders = new List<Collider2D>();
@@ -91,7 +96,9 @@ namespace LSHGame.Util
             }
 
         }
+        #endregion
 
+        #region Get Substances From
         private static void GetSubstancesFromTilemap(Rect rect, Tilemap tilemap, Collider2D collider, ContactFilter2D cf, SubstanceSet set, ISubstanceFilter filter)
         {
             if ((cf.useLayerMask && tilemap.gameObject.layer.IsOtherAllInFlag(cf.layerMask))
@@ -182,55 +189,55 @@ namespace LSHGame.Util
                 if (endMat == -1)
                     break;
             }
-        }
+        } 
+        #endregion
 
-        private static List<Collider2D> GetTouchRect(Rect rect, ContactFilter2D contactFilter)
-        {
-            List<Collider2D> collider2Ds = new List<Collider2D>();
-            Physics2D.OverlapBox(rect.center, rect.size, 0, contactFilter, collider2Ds);
-            //Debug.Log("IsTouchingLayerRect: Center: " + ((Vector3)rect.center + transform.position) + "\n Size: " + rect.size + "\nLayers: " + layers.value + " isTouching: "+isTouching);
-
-            return collider2Ds;
-        }
-
-        private static ContactFilter2D GetContactFilter(LayerMask layers)
-        {
-            return new ContactFilter2D() { useTriggers = true, layerMask = layers, useLayerMask = true };
-        }
-
+        #region Load Substance Pointers
         private void LoadSubstances()
         {
 #if UNITY_EDITOR
-            LoadSubstancePrefabs();
+            LoadSubstancePointers();
 #endif
 
-            foreach (var s in serializedSubstances)
+            foreach (var s in serializedPointers)
             {
-                foreach (TileBase tileBase in s.GetTilesFormPointer())
-                    AddTileSubsEntry(s, tileBase);
+                foreach (TileBase tileBase in GetTilesFormPointer(s))
+                    AddTileSubsEntry(s.GetComponent<Substance>(), tileBase);
             }
 
-            foreach (var s in serializedSubstances)
+            foreach (var s in serializedPointers)
             {
-                if (nameBasedSubstances.ContainsKey(s.name))
+                if (s.TryGetComponent<SubstanceTagPointer>(out SubstanceTagPointer pointer))
                 {
-                    Debug.Log("You can not name two Substances the same. This will lead to unexpected behaviour with tags.");
-                    continue;
+                    if (nameBasedSubstances.ContainsKey(s.name))
+                    {
+                        Debug.Log("You can not name two Substances the same. This will lead to unexpected behaviour with tags.");
+                        continue;
+                    }
+                    nameBasedSubstances.Add(s.name, s.GetComponent<Substance>());
                 }
-                nameBasedSubstances.Add(s.name, s);
             }
+        }
+
+        private List<TileBase> GetTilesFormPointer(SubstancePointer pointer)
+        {
+            var pointers = pointer.GetComponents<SubstanceTilePointer>();
+            List<TileBase> tiles = new List<TileBase>();
+
+            foreach (var p in pointers)
+            {
+                tiles.AddRange(p.tilesOfSubstance);
+            }
+            return tiles;
+
+
         }
 
 #if UNITY_EDITOR
         [ContextMenu("Load Prefabs")]
-        private void LoadSubstancePrefabs()
+        private void LoadSubstancePointers()
         {
-            List<Substance> substances = new List<Substance>();
-            //var paths = UnityEditor.AssetDatabase.FindAssets("t:" + typeof(Substance).ToString());
-            //foreach (var path in paths)
-            //{
-            //    substances.Add(UnityEditor.AssetDatabase.LoadAssetAtPath<Substance>(path));
-            //}
+            List<SubstancePointer> pointers = new List<SubstancePointer>();
 
             string[] guids = AssetDatabase.FindAssets("t:GameObject");
             foreach (var guid in guids)
@@ -238,15 +245,17 @@ namespace LSHGame.Util
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 // Debug.Log("Path: " + path);
 
-                Substance s = AssetDatabase.LoadAssetAtPath<Substance>(path);
+                SubstancePointer s = AssetDatabase.LoadAssetAtPath<SubstancePointer>(path);
                 if (s != null)
-                    substances.Add(s);
+                    pointers.Add(s);
             }
-            serializedSubstances = substances.ToArray();
+            serializedPointers = pointers.ToArray();
         }
 
 #endif
+        #endregion
 
+        #region Helper Methods
 #if DEBUG_THIS
         private void OnDrawGizmos()
         {
@@ -276,5 +285,20 @@ namespace LSHGame.Util
                 tileBasedSubstances.Add(tileBase, new List<Substance>() { s });
             }
         }
+
+        private static List<Collider2D> GetTouchRect(Rect rect, ContactFilter2D contactFilter)
+        {
+            List<Collider2D> collider2Ds = new List<Collider2D>();
+            Physics2D.OverlapBox(rect.center, rect.size, 0, contactFilter, collider2Ds);
+            //Debug.Log("IsTouchingLayerRect: Center: " + ((Vector3)rect.center + transform.position) + "\n Size: " + rect.size + "\nLayers: " + layers.value + " isTouching: "+isTouching);
+
+            return collider2Ds;
+        }
+
+        private static ContactFilter2D GetContactFilter(LayerMask layers)
+        {
+            return new ContactFilter2D() { useTriggers = true, layerMask = layers, useLayerMask = true };
+        } 
+        #endregion
     }
 }

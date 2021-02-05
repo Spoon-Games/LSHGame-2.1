@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc2b91ca99ffe3141afc0a64ef8e4b06, type: 3}
+  m_Script: {fileID: 11500000, guid: fe541b4d31ec4af4382d037a6d908fdb, type: 3}
   m_Name: GameNav
   m_EditorClassIdentifier: 
   StartNode:
@@ -31,14 +31,22 @@ MonoBehaviour:
     - Name: back
       ConnectedGuid: ebbc479e-4e6f-4fcd-b3d4-bcf22c5191b8
     PanelName: GameOverlayPanel
+    InputController: Player
+    DoNotHide: 1
+    InAnimation: 
+    OutAnimation: 
   - Guid: ebbc479e-4e6f-4fcd-b3d4-bcf22c5191b8
-    EditorPosition: {x: 297, y: 183}
+    EditorPosition: {x: 285, y: 326}
     CoicePorts:
     - Name: SettingsButton
       ConnectedGuid: 9d5128c7-9d08-4061-90a7-d541f75e7f23
     - Name: back
       ConnectedGuid: 1927ea4f-7ad6-47ea-b97e-9182a5855ae8
     PanelName: PauseMenuPanel
+    InputController: 
+    DoNotHide: 0
+    InAnimation: 
+    OutAnimation: 
   NestedNodes:
   - Guid: 9d5128c7-9d08-4061-90a7-d541f75e7f23
     EditorPosition: {x: 663, y: 191}
@@ -49,3 +57,6 @@ MonoBehaviour:
       Name: 
       ConnectedGuid: 
     NestedGraph: {fileID: 11400000, guid: a2a65d98f173ba14db04eedd0089f351, type: 2}
+  DefaultInputController: UI
+  DefaultInAnimation: 
+  DefaultOutAnimation: 

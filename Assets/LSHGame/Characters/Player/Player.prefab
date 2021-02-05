@@ -96,6 +96,24 @@ MonoBehaviour:
     y: -1.09
     width: 0.74
     height: 0.15
+  mainColliderCrouchRect:
+    serializedVersion: 2
+    x: -0.375
+    y: -1.03
+    width: 0.75
+    height: 0.9
+  headTouchCrouchRect:
+    serializedVersion: 2
+    x: -0.45
+    y: -0.2
+    width: 0.9
+    height: 0.18
+  rightSideTouchCrouchRect:
+    serializedVersion: 2
+    x: 0.33
+    y: -1.04
+    width: 0.18
+    height: 0.8
   groundLayers:
     serializedVersion: 2
     m_Bits: 246784
@@ -529,6 +547,63 @@ MonoBehaviour:
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.13420828
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _runCrouchAccelCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.1463335
+        value: -15.48346
+        inSlope: 163.25916
+        outSlope: 163.25916
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.1328589
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 38.84824
+        outSlope: 38.84824
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.32740694
+        outWeight: 0.12857436
+      - serializedVersion: 3
+        time: 0.3
+        value: 4
+        inSlope: 0.23650259
+        outSlope: 0.23650259
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.20233591
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    _runCrouchDeaccelCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 9
+        inSlope: -24.798733
+        outSlope: -24.798733
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.13124536
+      - serializedVersion: 3
+        time: 0.15
+        value: 0
+        inSlope: -110.110306
+        outSlope: -110.110306
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.06040255
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

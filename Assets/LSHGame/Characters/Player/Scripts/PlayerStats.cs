@@ -6,23 +6,31 @@ using UnityEngine;
 namespace LSHGame.PlayerN
 {
     [System.Serializable]
-    public class PlayerStats : IPlayerLocomotionRec, IPlayerJumpRec, IPlayerClimbingRec, IPlayerDashRec, IGravityRec, 
-        IDataReciever, IDamageRec, IIsLadderRec, IIsLadderFeetRec, IMatVelocityRec,IMatBounceRec, IJumpCallbackRec, ISneekCallbackRec, IEffectsMaterialRec,IPlayerIsJumpableSubProp
+    public class PlayerStats : IPlayerLocomotionRec, IPlayerCrouchLocomotionRec, IPlayerJumpRec, IPlayerClimbingRec, IPlayerDashRec, IGravityRec,
+        IDataReciever, IDamageRec, IIsLadderRec, IIsLadderFeetRec, IMatVelocityRec, IMatBounceRec, IJumpCallbackRec, ISneekCallbackRec, IEffectsMaterialRec, IPlayerIsJumpableSubProp
     {
+        [Header("Locomotion")]
         [SerializeField] private AnimationCurve _runAccelCurve;
         [SerializeField] private AnimationCurve _runDeaccelCurve;
         [SerializeField] private AnimationCurve _runAccelAirborneCurve;
         [SerializeField] private AnimationCurve _runDeaccelAirborneCurve;
+        [Header("Crouching")]
+        [SerializeField] private AnimationCurve _runCrouchAccelCurve;
+        [SerializeField] private AnimationCurve _runCrouchDeaccelCurve;
+        [Header("Jump")]
         [SerializeField] private float _jumpSpeed;
         [SerializeField] private float _jumpSpeedCutter;
+        [Header("Climbing")]
         [SerializeField] private float _climbingLadderSpeed;
         [SerializeField] private float _climbingWallSlideSpeed;
         [SerializeField] private float _climbingWallExhaustSlideSpeed;
         [SerializeField] private float _climbingWallExhaustDurration;
         [SerializeField] private Vector2 _climbingWallJumpVelocity;
+        [Header("Dash")]
         [SerializeField] private float _dashDurration;
         [SerializeField] private float _dashSpeed;
         [SerializeField] private float _dashRecoverDurration;
+        [Header("Physics")]
         [SerializeField] private float _gravity;
         [SerializeField] private float _fallDamping;
 
@@ -52,6 +60,8 @@ namespace LSHGame.PlayerN
         public Dictionary<string, string> EffectMaterials { get; } = new Dictionary<string, string>();
         public bool IsFeetLadder { get; set; }
         public bool IsJumpableInAir { get; set; } = false;
+        public AnimationCurve RunCrouchAccelCurve { get => _runCrouchAccelCurve; set => _runCrouchAccelCurve = value; }
+        public AnimationCurve RunCrouchDeaccelCurve { get => _runCrouchDeaccelCurve; set => _runCrouchDeaccelCurve = value; }
 
         public PlayerStats Clone()
         {

@@ -68,6 +68,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "BackUI",
+                    "type": "Button",
+                    "id": "2d113f84-90c5-4f4e-bcd8-67976141038b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -257,6 +265,17 @@
                     "action": "CameraLook",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "71245e32-ef37-4f7c-841c-904296bd8a67",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BackUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -318,6 +337,74 @@
                 {
                     "name": "",
                     "id": "3fe0bb69-75f6-4b21-870e-2213da928160",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Further",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Dialog",
+            "id": "e7817095-c773-484a-8dc9-a8abf10652d7",
+            "actions": [
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "ad46db8f-0a19-4e10-b0dd-f403c06d19f0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Further",
+                    "type": "Button",
+                    "id": "d4ac18af-f48c-44ca-b180-f24ae61de392",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "cd503930-17a0-430a-bff3-2dfff18a5616",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae1df63f-3de2-450b-b717-0d0dab6e5384",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Further",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d1499a88-fa36-4c7f-8045-a7e0b8855ae0",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Further",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a0974a9e-327b-4b94-bd00-a8c19fd80885",
                     "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",

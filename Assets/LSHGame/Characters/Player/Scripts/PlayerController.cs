@@ -120,6 +120,7 @@ namespace LSHGame.PlayerN
 
             playerColliders.CheckUpdate();
             CheckClimbWall();
+            CheckCrouching();
             CheckDash();
             CheckPlayerEnabled();
             CheckGravity();
@@ -181,6 +182,11 @@ namespace LSHGame.PlayerN
             //    Debug.Log("TouchingClimbWall: Exhausted" + stateMachine.IsClimbWallExhausted + "\nIsGrounded: " + stateMachine.IsGrounded +
             //        "\nIsClimbLadder: " + stateMachine.IsTouchingClimbLadder + " \nIsDash: " + stateMachine.IsDash);
             //}
+        }
+
+        private void CheckCrouching()
+        {
+            stateMachine.IsInputCrouch = inputMovement.y < 0;
         }
 
         private void CheckDash()
@@ -269,7 +275,7 @@ namespace LSHGame.PlayerN
             {
                 case PlayerStates.Locomotion:
 
-                    Run(false);
+                    Run(isAirborne:false);
                     ExeSneek();
                     localGravity = Stats.Gravity;
                     break;
@@ -280,6 +286,11 @@ namespace LSHGame.PlayerN
 
                     if (SmalerY(localVelocity.y, 0))
                         localVelocity.y *= Stats.FallDamping;
+                    break;
+                case PlayerStates.Crouching:
+                    Run(isAirborne: false,isCrouching:true);
+                    ExeSneek();
+                    localGravity = Stats.Gravity;
                     break;
                 case PlayerStates.ClimbWall:
 
@@ -319,17 +330,29 @@ namespace LSHGame.PlayerN
             }
         }
 
-        private void Run(bool airborneCurve)
+        private void Run(bool isAirborne = false, bool isCrouching = false)
         {
             float horVelocityRel = localVelocity.x;
+            AnimationCurve accelCurve = Stats.RunAccelCurve;
+            AnimationCurve deaccelCurve = Stats.RunDeaccelCurve;
+
+            if(isAirborne)
+            {
+                accelCurve = Stats.RunAccelAirborneCurve;
+                deaccelCurve = Stats.RunDeaccelAirborneCurve;
+            }else if(isCrouching)
+            {
+                accelCurve = Stats.RunCrouchAccelCurve;
+                deaccelCurve = Stats.RunCrouchDeaccelCurve;
+            }
 
             if (Mathf.Abs(inputMovement.x) < 0.01f)
             {
-                horVelocityRel = (!airborneCurve ? Stats.RunDeaccelCurve : Stats.RunDeaccelAirborneCurve).EvaluateValueByStep(Mathf.Abs(horVelocityRel), Time.fixedDeltaTime, true) * Mathf.Sign(horVelocityRel);
+                horVelocityRel = deaccelCurve.EvaluateValueByStep(Mathf.Abs(horVelocityRel), Time.fixedDeltaTime, true) * Mathf.Sign(horVelocityRel);
             }
             else
             {
-                horVelocityRel = (!airborneCurve ? Stats.RunAccelCurve : Stats.RunAccelAirborneCurve).EvaluateValueByStep(horVelocityRel * Mathf.Sign(inputMovement.x), Time.fixedDeltaTime) * Mathf.Sign(inputMovement.x);
+                horVelocityRel = accelCurve.EvaluateValueByStep(horVelocityRel * Mathf.Sign(inputMovement.x), Time.fixedDeltaTime) * Mathf.Sign(inputMovement.x);
             }
 
             //Debug.Log("MovingPlatformVel: " + playerColliders.movingPlatformVelocity);

@@ -11,19 +11,7 @@ namespace LSHGame.Util
     [DisallowMultipleComponent]
     public class Substance : FilterableSubstance 
     {
-        internal List<TileBase> GetTilesFormPointer()
-        {
-            var pointers = GetComponents<SubstanceTilePointer>();
-            List<TileBase> tiles = new List<TileBase>();
-
-            foreach(var p in pointers)
-            {
-                tiles.AddRange(p.tilesOfSubstance);
-            }
-            return tiles;
-
-           
-        }
+        
 
 
 #if UNITY_EDITOR

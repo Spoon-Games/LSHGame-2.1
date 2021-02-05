@@ -4,8 +4,29 @@ namespace SceneM
 {
     public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {
+        private static T _instance;
+        public static T Instance { get {
+                if(_instance == null)
+                {
+                    T[] objects = Resources.FindObjectsOfTypeAll<T>();
+                    int count = 0;
+                    foreach(var o in objects)
+                    {
+                        if (o.gameObject.scene.rootCount > 0)
+                            count++;
+                    }
 
-        public static T Instance { get; protected set; }
+                    if (count > 1)
+                        Debug.Log("There are more than one singleton of type " + typeof(T).ToString() + " in the scene");
+
+                    if (count == 0)
+                        Debug.LogError("There is no singleton of type " + typeof(T).ToString() + " in the scene");
+                    else
+                        _instance = objects[0];
+                    
+                }
+                return _instance;
+            }}
 
         public virtual void Awake()
         {
@@ -16,7 +37,7 @@ namespace SceneM
             }
             else
             {
-                Instance = (T)this;
+                _instance = (T)this;
             }
         }
     }

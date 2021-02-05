@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 0
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -123,8 +124,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2489497907081692788}
-        m_TargetAssemblyTypeName: UINavigation.PanelSwitcher, UIToolK
-        m_MethodName: Activate
+        m_TargetAssemblyTypeName: UINavigation.GoToNextComponent, UIToolK
+        m_MethodName: GoToNext
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daa5f25db697cc64fa0f7e0a38078a47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonName: 
+  nextKey: 
 --- !u!1 &6148771675029090497
 GameObject:
   m_ObjectHideFlags: 0

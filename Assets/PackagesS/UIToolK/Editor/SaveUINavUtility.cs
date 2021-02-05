@@ -12,20 +12,22 @@ namespace UINavigation.Editor
     public class SaveUINavUtility
     {
         private UINavGraphView graphView;
+        private NavToolbar toolbar;
 
         private UINavRepository repository = null;
 
         private List<Edge> Edges => graphView.edges.ToList();
         private List<NavBaseNode> Nodes => graphView.nodes.ToList().Cast<NavBaseNode>().ToList();
 
-        private SaveUINavUtility(UINavGraphView graphView)
+        private SaveUINavUtility(UINavGraphView graphView,NavToolbar navToolbar)
         {
             this.graphView = graphView;
+            toolbar = navToolbar;
         }
 
-        public static SaveUINavUtility GetInstance(UINavGraphView graphView)
+        public static SaveUINavUtility GetInstance(UINavGraphView graphView,NavToolbar navToolbar)
         {
-            return new SaveUINavUtility(graphView);
+            return new SaveUINavUtility(graphView,navToolbar);
         }
 
         public void Save(string path, UINavRepository repository)
@@ -33,6 +35,10 @@ namespace UINavigation.Editor
             bool isNewRepository = repository == null;
             if (isNewRepository)
                 repository = ScriptableObject.CreateInstance<UINavRepository>();
+
+            repository.DefaultInputController = toolbar.DefaultInputControllerField.text;
+            repository.DefaultInAnimation = toolbar.DefaultInAnimationField.text;
+            repository.DefaultOutAnimation = toolbar.DefaultOutAnimationField.text;
 
             repository.NestedNodes.Clear();
             repository.StateNodes.Clear();
@@ -60,7 +66,13 @@ namespace UINavigation.Editor
 
                 if(node is NavStateNode stateNode)
                 {
-                    repository.StateNodes.Add(new NavStateNodeData(node.GUID, node.GetPosition().position, outputPorts,stateNode.PanelName));
+                    repository.StateNodes.Add(new NavStateNodeData(node.GUID, node.GetPosition().position, outputPorts, stateNode.PanelName) {
+                        InputController = stateNode.InputControllerField.text,
+                        DoNotHide = stateNode.DoNotHideField.value,
+                        InAnimation = stateNode.InAnimationField.text,
+                        OutAnimation = stateNode.OutAnimationField.text
+
+                    });
                 }else if(node is NavNestedNode nestedNode)
                 {
                     repository.NestedNodes.Add(new NavNestedNodeData(node.GUID, node.GetPosition().position, outputPorts.First(), outputPorts[1], nestedNode.Repository));
@@ -93,6 +105,10 @@ namespace UINavigation.Editor
 
             this.repository = repository;
 
+            toolbar.DefaultInputControllerField.SetValueWithoutNotify( repository.DefaultInputController);
+            toolbar.DefaultInAnimationField.SetValueWithoutNotify( repository.DefaultInAnimation);
+            toolbar.DefaultOutAnimationField.SetValueWithoutNotify( repository.DefaultOutAnimation);
+
             ClearGraph();
             CreateNodes();
 
@@ -115,6 +131,10 @@ namespace UINavigation.Editor
             foreach(NavStateNodeData d in repository.StateNodes)
             {
                 NavStateNode stateNode = new NavStateNode(graphView, d.EditorPosition, d.Guid, d.PanelName);
+                stateNode.InputControllerField.SetValueWithoutNotify(d.InputController);
+                stateNode.DoNotHideField.SetValueWithoutNotify(d.DoNotHide);
+                stateNode.InAnimationField.SetValueWithoutNotify(d.InAnimation);
+                stateNode.OutAnimationField.SetValueWithoutNotify(d.OutAnimation);
 
                 foreach(var portData in d.CoicePorts)
                 {

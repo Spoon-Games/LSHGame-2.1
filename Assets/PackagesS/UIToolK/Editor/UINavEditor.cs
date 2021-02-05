@@ -10,6 +10,7 @@ namespace UINavigation.Editor
     public class UINavEditor : EditorWindow
     {
         private UINavGraphView graphView;
+        private NavToolbar toolbar;
 
         private string filePath;
 
@@ -80,14 +81,14 @@ namespace UINavigation.Editor
 
         }
 
-        private void SaveData()
+        internal void SaveData()
         {
-            SaveUINavUtility.GetInstance(graphView).Save(filePath, repository);
+            SaveUINavUtility.GetInstance(graphView,toolbar).Save(filePath, repository);
         }
 
         private void LoadData()
         {
-            SaveUINavUtility.GetInstance(graphView).Load(repository);
+            SaveUINavUtility.GetInstance(graphView,toolbar).Load(repository);
         }
 
         private void CreateGraph()
@@ -100,20 +101,8 @@ namespace UINavigation.Editor
         }
 
         private void CreateToolbar()
-        {    
-            Toolbar toolbar = new Toolbar();
-
-            //toolbar.styleSheets.Add(Resources.Load<StyleSheet>("LSMToolbarUSS"));
-
-            toolbar.Add(new Button(SaveData) { text = "Save" });
-            //toolbar.Add(new Button(LoadData) { text = "Load Data" });
-
-
-            //Button nodeCreateButton = new Button(() => { graphView.CreateDialogNode(); });
-            //nodeCreateButton.text = "Create new node";
-            //toolbar.Add(nodeCreateButton);
-
-            rootVisualElement.Add(toolbar);
+        {
+            toolbar = new NavToolbar(this);
         }
 
         private void OnEnable()
@@ -126,15 +115,30 @@ namespace UINavigation.Editor
         {
             if (graphView != null)
             {
-                //if (this.repository != null)
-                //{
-                //    //if (EditorUtility.DisplayDialog("File Not Saved", "Save " + Path.GetFileNameWithoutExtension(filePath), "OK", "Cancel"))
-                //    //{
-                //    //    SaveData();
-                //    //}
-                //}
+
                 rootVisualElement.Remove(graphView);
             }
         }
     } 
+
+    public class NavToolbar : Toolbar
+    {
+        public TextField DefaultInputControllerField;
+        public TextField DefaultInAnimationField;
+        public TextField DefaultOutAnimationField;
+
+        public NavToolbar(UINavEditor parent)
+        {
+            Add(new Button(() => parent.SaveData()) { text = "Save" });
+
+            DefaultInputControllerField = new TextField("Default Input Controller");
+            Add(DefaultInputControllerField);
+            DefaultInAnimationField = new TextField("Default In Animation");
+            Add(DefaultInAnimationField);
+            DefaultOutAnimationField = new TextField("Default Out Animation");
+            Add(DefaultOutAnimationField);
+
+            parent.rootVisualElement.Add(this);
+        }
+    }
 }

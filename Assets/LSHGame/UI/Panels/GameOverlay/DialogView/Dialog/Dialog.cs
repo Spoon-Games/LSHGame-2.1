@@ -45,5 +45,10 @@ namespace LSHGame.UI
 
             return true;
         }
+
+        public override void Show()
+        {
+            Debug.Log("Show is not implemented");
+        }
     }
 }

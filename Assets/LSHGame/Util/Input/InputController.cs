@@ -83,6 +83,14 @@ namespace LSHGame.Util
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""BackUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""2d113f84-90c5-4f4e-bcd8-67976141038b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -272,6 +280,17 @@ namespace LSHGame.Util
                     ""action"": ""CameraLook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""71245e32-ef37-4f7c-841c-904296bd8a67"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BackUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -333,6 +352,74 @@ namespace LSHGame.Util
                 {
                     ""name"": """",
                     ""id"": ""3fe0bb69-75f6-4b21-870e-2213da928160"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Further"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Dialog"",
+            ""id"": ""e7817095-c773-484a-8dc9-a8abf10652d7"",
+            ""actions"": [
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad46db8f-0a19-4e10-b0dd-f403c06d19f0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Further"",
+                    ""type"": ""Button"",
+                    ""id"": ""d4ac18af-f48c-44ca-b180-f24ae61de392"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""cd503930-17a0-430a-bff3-2dfff18a5616"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae1df63f-3de2-450b-b717-0d0dab6e5384"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Further"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1499a88-fa36-4c7f-8045-a7e0b8855ae0"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Further"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0974a9e-327b-4b94-bd00-a8c19fd80885"",
                     ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -419,10 +506,15 @@ namespace LSHGame.Util
             m_Player_WallClimbHold = m_Player.FindAction("WallClimbHold", throwIfNotFound: true);
             m_Player_SneekThroughPlatform = m_Player.FindAction("SneekThroughPlatform", throwIfNotFound: true);
             m_Player_CameraLook = m_Player.FindAction("CameraLook", throwIfNotFound: true);
+            m_Player_BackUI = m_Player.FindAction("BackUI", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Back = m_UI.FindAction("Back", throwIfNotFound: true);
             m_UI_Further = m_UI.FindAction("Further", throwIfNotFound: true);
+            // Dialog
+            m_Dialog = asset.FindActionMap("Dialog", throwIfNotFound: true);
+            m_Dialog_Back = m_Dialog.FindAction("Back", throwIfNotFound: true);
+            m_Dialog_Further = m_Dialog.FindAction("Further", throwIfNotFound: true);
             // Debug
             m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
             m_Debug_ToggleConsole = m_Debug.FindAction("ToggleConsole", throwIfNotFound: true);
@@ -484,6 +576,7 @@ namespace LSHGame.Util
         private readonly InputAction m_Player_WallClimbHold;
         private readonly InputAction m_Player_SneekThroughPlatform;
         private readonly InputAction m_Player_CameraLook;
+        private readonly InputAction m_Player_BackUI;
         public struct PlayerActions
         {
             private @InputController m_Wrapper;
@@ -496,6 +589,7 @@ namespace LSHGame.Util
             public InputAction @WallClimbHold => m_Wrapper.m_Player_WallClimbHold;
             public InputAction @SneekThroughPlatform => m_Wrapper.m_Player_SneekThroughPlatform;
             public InputAction @CameraLook => m_Wrapper.m_Player_CameraLook;
+            public InputAction @BackUI => m_Wrapper.m_Player_BackUI;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -529,6 +623,9 @@ namespace LSHGame.Util
                     @CameraLook.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraLook;
                     @CameraLook.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraLook;
                     @CameraLook.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnCameraLook;
+                    @BackUI.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackUI;
+                    @BackUI.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackUI;
+                    @BackUI.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackUI;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -557,6 +654,9 @@ namespace LSHGame.Util
                     @CameraLook.started += instance.OnCameraLook;
                     @CameraLook.performed += instance.OnCameraLook;
                     @CameraLook.canceled += instance.OnCameraLook;
+                    @BackUI.started += instance.OnBackUI;
+                    @BackUI.performed += instance.OnBackUI;
+                    @BackUI.canceled += instance.OnBackUI;
                 }
             }
         }
@@ -602,6 +702,47 @@ namespace LSHGame.Util
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // Dialog
+        private readonly InputActionMap m_Dialog;
+        private IDialogActions m_DialogActionsCallbackInterface;
+        private readonly InputAction m_Dialog_Back;
+        private readonly InputAction m_Dialog_Further;
+        public struct DialogActions
+        {
+            private @InputController m_Wrapper;
+            public DialogActions(@InputController wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Back => m_Wrapper.m_Dialog_Back;
+            public InputAction @Further => m_Wrapper.m_Dialog_Further;
+            public InputActionMap Get() { return m_Wrapper.m_Dialog; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(DialogActions set) { return set.Get(); }
+            public void SetCallbacks(IDialogActions instance)
+            {
+                if (m_Wrapper.m_DialogActionsCallbackInterface != null)
+                {
+                    @Back.started -= m_Wrapper.m_DialogActionsCallbackInterface.OnBack;
+                    @Back.performed -= m_Wrapper.m_DialogActionsCallbackInterface.OnBack;
+                    @Back.canceled -= m_Wrapper.m_DialogActionsCallbackInterface.OnBack;
+                    @Further.started -= m_Wrapper.m_DialogActionsCallbackInterface.OnFurther;
+                    @Further.performed -= m_Wrapper.m_DialogActionsCallbackInterface.OnFurther;
+                    @Further.canceled -= m_Wrapper.m_DialogActionsCallbackInterface.OnFurther;
+                }
+                m_Wrapper.m_DialogActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Back.started += instance.OnBack;
+                    @Back.performed += instance.OnBack;
+                    @Back.canceled += instance.OnBack;
+                    @Further.started += instance.OnFurther;
+                    @Further.performed += instance.OnFurther;
+                    @Further.canceled += instance.OnFurther;
+                }
+            }
+        }
+        public DialogActions @Dialog => new DialogActions(this);
 
         // Debug
         private readonly InputActionMap m_Debug;
@@ -662,8 +803,14 @@ namespace LSHGame.Util
             void OnWallClimbHold(InputAction.CallbackContext context);
             void OnSneekThroughPlatform(InputAction.CallbackContext context);
             void OnCameraLook(InputAction.CallbackContext context);
+            void OnBackUI(InputAction.CallbackContext context);
         }
         public interface IUIActions
+        {
+            void OnBack(InputAction.CallbackContext context);
+            void OnFurther(InputAction.CallbackContext context);
+        }
+        public interface IDialogActions
         {
             void OnBack(InputAction.CallbackContext context);
             void OnFurther(InputAction.CallbackContext context);

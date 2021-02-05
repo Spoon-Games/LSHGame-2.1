@@ -230,6 +230,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Essentials
       objectReference: {fileID: 0}
+    - target: {fileID: 1012914411518704652, guid: b9c5fa5be5a2cb740a21e75caa06f637, type: 3}
+      propertyPath: m_Size.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012914411518704652, guid: b9c5fa5be5a2cb740a21e75caa06f637, type: 3}
+      propertyPath: m_Size.y
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012914411518704652, guid: b9c5fa5be5a2cb740a21e75caa06f637, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.08
+      objectReference: {fileID: 0}
     - target: {fileID: 1012914411899800446, guid: b9c5fa5be5a2cb740a21e75caa06f637, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.02
@@ -36909,6 +36921,7 @@ GameObject:
   - component: {fileID: 733698191}
   - component: {fileID: 733698190}
   - component: {fileID: 733698189}
+  - component: {fileID: 733698193}
   m_Layer: 19
   m_Name: Static Sprite
   m_TagString: Untagged
@@ -37028,6 +37041,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!225 &733698193
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733698188}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &772574275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37689,11 +37714,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4747772517403995606, guid: a8983c861bc90b347870aadd2f193fa1, type: 3}
+      propertyPath: inputAction
+      value: 
+      objectReference: {fileID: 1384819824293752823, guid: d130404f447c3e347ab55628ea8c7b41, type: 3}
     - target: {fileID: 7689412370275635007, guid: a8983c861bc90b347870aadd2f193fa1, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1255250524237720052, guid: a8983c861bc90b347870aadd2f193fa1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a8983c861bc90b347870aadd2f193fa1, type: 3}
 --- !u!1 &1158533749
 GameObject:
@@ -38766,6 +38796,10 @@ PrefabInstance:
     - target: {fileID: 4298589808309888389, guid: ba7680bbd87131f43af17873b2f98e36, type: 3}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4298589808309888389, guid: ba7680bbd87131f43af17873b2f98e36, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4298589808309888389, guid: ba7680bbd87131f43af17873b2f98e36, type: 3}
       propertyPath: m_LocalPosition.x

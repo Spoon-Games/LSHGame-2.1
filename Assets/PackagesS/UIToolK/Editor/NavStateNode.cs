@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.Experimental.GraphView;
+﻿using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,9 +8,14 @@ namespace UINavigation.Editor
     public class NavStateNode : NavBaseNode
     {
         internal string PanelName { get; private set; }
+
+        internal TextField InputControllerField;
+        internal Toggle DoNotHideField;
+        internal TextField InAnimationField;
+        internal TextField OutAnimationField;
         //internal string PanelName { get; private set; }
 
-        public NavStateNode(UINavGraphView graphView, Vector2 position,string guid,string panelName)
+        public NavStateNode(UINavGraphView graphView, Vector2 position, string guid, string panelName)
             : base(graphView, "NavState", position, guid)
         {
             AddChoicePortButton();
@@ -23,11 +24,11 @@ namespace UINavigation.Editor
             AddPort("In", Direction.Input, Port.Capacity.Multi);
         }
 
-        public NavStateNode(UINavGraphView graphView,Vector2 position) : this(graphView, position, null, "") { }
+        public NavStateNode(UINavGraphView graphView, Vector2 position) : this(graphView, position, null, "") { }
 
         private void CreateMainContainer(string panelName)
         {
-            this.PanelName = panelName;
+            PanelName = panelName;
 
             //ObjectField visualTreeField = new ObjectField("Source Asset") { objectType = typeof(VisualTreeAsset),value = panelName};
             //visualTreeField.RegisterValueChangedCallback(evt =>
@@ -37,19 +38,32 @@ namespace UINavigation.Editor
             //        PanelName = v;
             //    }
             //});
-            TextField panelNameField = new TextField("PanelName");
-            panelNameField.SetValueWithoutNotify(panelName);
+            TextField panelNameField = new TextField("Panel Name") { value = panelName };
             panelNameField.RegisterValueChangedCallback(s => PanelName = s.newValue);
-
-
             mainContainer.Add(panelNameField);
+
+            InputControllerField = new TextField("Input Controller");
+            mainContainer.Add(InputControllerField);
+
+            DoNotHideField = new Toggle("Do not hide");
+            mainContainer.Add(DoNotHideField);
+
+            InAnimationField = new TextField("In Animation");
+            mainContainer.Add(InAnimationField);
+
+            OutAnimationField = new TextField("Out Animation");
+            mainContainer.Add(OutAnimationField);
+
+
+
+
             mainContainer.style.backgroundColor = new Color(0.2f, 0.2f, 0.2f, 1);
         }
     }
 
     public class NavStartNode : NavBaseNode
     {
-        public NavStartNode(UINavGraphView graphView, Vector2 position,string guid = null)
+        public NavStartNode(UINavGraphView graphView, Vector2 position, string guid = null)
             : base(graphView, "START", position, guid)
         {
             AddPort("Out", Direction.Output, Port.Capacity.Single);
@@ -59,7 +73,7 @@ namespace UINavigation.Editor
 
     public class NavNestedEndNode : NavBaseNode
     {
-        public NavNestedEndNode(UINavGraphView graphView, Vector2 position,string guid = null)
+        public NavNestedEndNode(UINavGraphView graphView, Vector2 position, string guid = null)
             : base(graphView, "Nested End", position, guid)
         {
             AddPort("End", Direction.Input, Port.Capacity.Multi);
@@ -86,7 +100,7 @@ namespace UINavigation.Editor
 
         private void CreateMainContainer(UINavRepository repository)
         {
-            this.Repository = repository;
+            Repository = repository;
 
             ObjectField repositoryField = new ObjectField("UI Navigation Graph") { objectType = typeof(UINavRepository), value = repository };
             repositoryField.RegisterValueChangedCallback(evt =>
@@ -98,7 +112,7 @@ namespace UINavigation.Editor
             });
 
             mainContainer.Add(repositoryField);
-            mainContainer.style.backgroundColor = new Color(0.2f,0.2f,0.2f,1);
+            mainContainer.style.backgroundColor = new Color(0.2f, 0.2f, 0.2f, 1);
         }
     }
 }

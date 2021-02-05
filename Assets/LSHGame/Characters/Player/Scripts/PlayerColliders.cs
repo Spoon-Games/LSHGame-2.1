@@ -18,15 +18,27 @@ namespace LSHGame.PlayerN
         [Header("Touchpoints")]
         [SerializeField]
         private Rect headTouchRect;
+        private Rect HeadTouchRect => stateMachine.State == PlayerStates.Crouching ? headTouchCrouchRect : headTouchRect;
 
         [SerializeField]
         private Rect climbLadderTouchRect;
 
         [SerializeField]
         private Rect rightSideTouchRect;
+        private Rect RightSideTouchRect => stateMachine.State == PlayerStates.Crouching ? rightSideTouchCrouchRect : rightSideTouchRect;
 
         [SerializeField]
         private Rect feetTouchRect;
+
+        [Header("Touchpoints Crouch")]
+        [SerializeField]
+        private Rect mainColliderCrouchRect;
+
+        [SerializeField]
+        private Rect headTouchCrouchRect;
+
+        [SerializeField]
+        private Rect rightSideTouchCrouchRect;
 
         [Header("LayerMasks")]
         [SerializeField]
@@ -65,6 +77,8 @@ namespace LSHGame.PlayerN
         private bool isGroundCPValid = false;
 
         private PlayerStats Stats => parent.Stats;
+
+        private Rect mainColliderRect;
         #endregion
 
         #region Start
@@ -73,6 +87,9 @@ namespace LSHGame.PlayerN
         {
             this.stateMachine = stateMachine;
             this.parent = parent;
+            this.mainColliderRect = new Rect() { size = mainCollider.size, center = mainCollider.offset };
+
+            stateMachine.OnStateChanged += OnPlayerStateChanged;
         }
         #endregion
 
@@ -98,15 +115,15 @@ namespace LSHGame.PlayerN
 
             RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Ladders, climbLadderTouchRect);
 
-            IsTouchingClimbWallRight = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Sides, rightSideTouchRect, true);
-            IsTouchingClimbWallLeft = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Sides, InvertOnX(rightSideTouchRect), true);
+            IsTouchingClimbWallRight = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Sides, RightSideTouchRect, true);
+            IsTouchingClimbWallLeft = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Sides, InvertOnX(RightSideTouchRect), true);
             stateMachine.IsTouchingClimbWall = IsTouchingClimbWallLeft || IsTouchingClimbWallRight;
 
             RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Feet, feetTouchRect);
 
             RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Main, mainCollider);
 
-            RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Head, headTouchRect);
+            stateMachine.IsHeadObstructed = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Head, HeadTouchRect,true);
 
 
             /* Activate queried substances */
@@ -160,6 +177,19 @@ namespace LSHGame.PlayerN
             parent.localVelocity = bounceVelocity - parent.lastFrameMovingVelocity;
 
             Stats.OnBounce?.Invoke();
+        }
+
+        #endregion
+
+        #region OnPlayerStateChanged
+
+        private void OnPlayerStateChanged(PlayerStates from, PlayerStates to)
+        {
+            if(to == PlayerStates.Crouching)
+                SetColliderRect(mainCollider, mainColliderCrouchRect);
+
+            if(from == PlayerStates.Crouching)
+                SetColliderRect(mainCollider, mainColliderRect);
         }
 
         #endregion
@@ -407,6 +437,7 @@ namespace LSHGame.PlayerN
         {
             lastVelocity = Vector3.zero;
             gameObject.layer = 12;
+            SetColliderRect(mainCollider, mainColliderRect);
         }
 
 #if UNITY_EDITOR
@@ -423,6 +454,14 @@ namespace LSHGame.PlayerN
             DrawRectRelative(feetTouchRect);
 
             DrawRectRelative(headTouchRect);
+
+            Gizmos.color = Color.blue;
+            DrawRectRelative(mainColliderCrouchRect);
+
+            DrawRectRelative(rightSideTouchCrouchRect);
+            DrawRectRelative(InvertOnX(rightSideTouchCrouchRect));
+
+            DrawRectRelative(headTouchCrouchRect);
             //foreach(ContactPoint2D contactPoint2D in allCPs)
             //{
             //    Gizmos.color = Color.blue;
@@ -535,6 +574,12 @@ namespace LSHGame.PlayerN
                 groundLayers,
                 out bool touch);
             return touch;
+        }
+
+        private void SetColliderRect(BoxCollider2D collider, Rect rect)
+        {
+            collider.size = rect.size;
+            collider.offset = rect.center;
         }
 
         private Vector2 AbsVector2(Vector2 v)

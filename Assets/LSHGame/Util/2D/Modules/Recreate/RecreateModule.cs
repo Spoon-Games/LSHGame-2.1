@@ -11,6 +11,7 @@ namespace LSHGame.Util
         private Transform parent;
         private Vector3 position;
         private Quaternion rotation;
+        private Vector3 scale;
 
         private bool wasReset = false;
         private bool wasDestroied = false;
@@ -20,6 +21,7 @@ namespace LSHGame.Util
             parent = transform.parent;
             position = transform.position;
             rotation = transform.rotation;
+            scale = transform.localScale;
             LevelManager.OnResetLevel += OnReset;
         }
 
@@ -32,7 +34,7 @@ namespace LSHGame.Util
                     Destroy(gameObject);
                 }
                 LevelManager.OnResetLevel -= OnReset;
-                RecreateManager.Instance.Recreate(this, position, rotation,parent);
+                RecreateManager.Instance.Recreate(this, position, rotation,scale,parent);
                 wasReset = true;
             }
         }
