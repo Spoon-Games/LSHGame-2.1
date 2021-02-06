@@ -87,7 +87,7 @@ namespace LSHGame.PlayerN
         {
             this.stateMachine = stateMachine;
             this.parent = parent;
-            this.mainColliderRect = new Rect() { size = mainCollider.size, center = mainCollider.offset };
+            this.mainColliderRect = GetColliderRect(mainCollider);
 
             stateMachine.OnStateChanged += OnPlayerStateChanged;
         }
@@ -441,6 +441,7 @@ namespace LSHGame.PlayerN
         }
 
 #if UNITY_EDITOR
+        #region Draw Gizmos
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
@@ -474,8 +475,67 @@ namespace LSHGame.PlayerN
             Rect r = rect.LocalToWorldRect(transform);//TransformRectPS(rect);
             Gizmos.DrawWireCube(r.center, r.size);
         }
+        #endregion
+
+        #region Loco Preview
+        public PlayerStats GetStatePreview(Vector3 position,SubstanceSet prevSubSet,PlayerStateMachine stateMachine,PlayerController parent,out Rect mainColliderRect,out bool isTouchingClimbWallLeft)
+        {
+            PlayerStats prevStats = parent.defaultStats.Clone();
+            Matrix4x4 trs = Matrix4x4.Translate(position);
+            
+
+            RetrieveSubstancePreview(trs,prevSubSet,PlayerSubstanceColliderType.Ladders, climbLadderTouchRect);
+
+            bool IsTouchingClimbWallRight = RetrieveSubstancePreview(trs, prevSubSet, PlayerSubstanceColliderType.Sides, rightSideTouchRect, true);
+            isTouchingClimbWallLeft = RetrieveSubstancePreview(trs, prevSubSet, PlayerSubstanceColliderType.Sides, InvertOnX(rightSideTouchRect), true);
+            stateMachine.IsTouchingClimbWall = isTouchingClimbWallLeft || IsTouchingClimbWallRight;
+
+            RetrieveSubstancePreview(trs, prevSubSet, PlayerSubstanceColliderType.Feet, feetTouchRect);
+            stateMachine.IsGrounded = IsTouchingLayer(trs, feetTouchRect, groundLayers);
+
+            RetrieveSubstancePreview(trs, prevSubSet, PlayerSubstanceColliderType.Main, GetColliderRect(mainCollider));
+
+            stateMachine.IsHeadObstructed = RetrieveSubstancePreview(trs, prevSubSet, PlayerSubstanceColliderType.Head, headTouchRect, true);
+
+
+            /* Activate queried substances */
+            prevSubSet.ExecuteQuery();
+
+            /* Recieve data */
+            prevSubSet.RecieveDataAndReset(prevStats);
+
+
+            /* Update internal values */
+            stateMachine.IsTouchingClimbLadder = prevStats.IsLadder;
+            stateMachine.IsFeetTouchingClimbLadder = prevStats.IsFeetLadder;
+
+            stateMachine.IsDead = prevStats.IsDamage || IsTouchingLayer(trs,GetColliderRect(mainCollider),hazardsLayers); // if touching hazard
+
+            mainColliderRect = trs.Multiply(GetColliderRect(mainCollider));
+            return prevStats;
+        }
+
+        private bool RetrieveSubstancePreview(Matrix4x4 trs,SubstanceSet subSet,PlayerSubstanceColliderType colliderType, Rect localRect, bool noTouchOnTriggers = false)
+        {
+            SubstanceManager.RetrieveSubstances(
+                trs.Multiply(localRect),
+                subSet,
+                new PlayerSubstanceFilter { ColliderType = colliderType },
+                groundLayers,
+                out bool touch,
+                noTouchOnTriggers);
+            return touch;
+        }
+
+        private bool IsTouchingLayer(Matrix4x4 trs, Rect localRect, LayerMask layerMask, bool useTriggers = false)
+        {
+            Rect rect = trs.Multiply(localRect);
+            return Physics2D.OverlapBox(rect.center, rect.size, 0, layerMask);
+        }
+        #endregion
 #endif
 
+        #region IsTouching [obsolete]
         private bool IsTouchingLayers(Collider2D collider, LayerMask layers)
         {
             Collider2D[] colliders = new Collider2D[0];
@@ -510,7 +570,7 @@ namespace LSHGame.PlayerN
             return Physics2D.OverlapCircle(position, radius, layers) != null;
         }
 
-        private bool IsTouchingLayerRectRelative(Rect rect,LayerMask layers,out Transform touch,bool useTriggers = false)
+        private bool IsTouchingLayerRectRelative(Rect rect, LayerMask layers, out Transform touch, bool useTriggers = false)
         {
             rect = TransformRectPS(rect);
             List<Collider2D> collider2Ds = new List<Collider2D>();
@@ -527,33 +587,23 @@ namespace LSHGame.PlayerN
                 touch = null;
                 return false;
             }
- 
+
         }
 
-        private bool IsTouchingLayerRectRelative(Rect rect, LayerMask layers,bool useTriggers = false)
+        private bool IsTouchingLayerRectRelative(Rect rect, LayerMask layers, bool useTriggers = false)
         {
             rect = TransformRectPS(rect);
-            return IsTouchingLayerRectAbsolute(rect,layers,useTriggers);
+            return IsTouchingLayerRectAbsolute(rect, layers, useTriggers);
         }
 
         private bool IsTouchingLayerRectAbsolute(Rect rect, LayerMask layers, bool useTriggers = false)
         {
             return Physics2D.OverlapBox(rect.center, rect.size, 0, new ContactFilter2D() { useTriggers = useTriggers, layerMask = layers, useLayerMask = true }, new Collider2D[1]) > 0;
-        }
+        } 
+        #endregion
 
-        private Rect InvertOnX(Rect rect)
-        {
-            return new Rect(-rect.x - rect.width, rect.y, rect.width, rect.height);
-        }
-
-        private Rect TransformRectPS(Rect rect)
-        {
-            Rect r = new Rect() { size = rect.size * AbsVector2(transform.lossyScale) };
-            r.center = rect.center * transform.lossyScale + (Vector2)transform.position;
-            return r;
-        }
-
-        private bool RetrieveSubstanceOnRect(PlayerSubstanceColliderType colliderType,Rect localRect,bool noTouchOnTriggers = false)
+        #region Retrieve Substances
+        private bool RetrieveSubstanceOnRect(PlayerSubstanceColliderType colliderType, Rect localRect, bool noTouchOnTriggers = false)
         {
             SubstanceManager.RetrieveSubstances(
                 localRect.LocalToWorldRect(transform),
@@ -575,6 +625,13 @@ namespace LSHGame.PlayerN
                 out bool touch);
             return touch;
         }
+        #endregion
+
+        #region Util
+        private Rect GetColliderRect(BoxCollider2D collider)
+        {
+            return new Rect() { size = mainCollider.size, center = mainCollider.offset }; 
+        }
 
         private void SetColliderRect(BoxCollider2D collider, Rect rect)
         {
@@ -586,6 +643,19 @@ namespace LSHGame.PlayerN
         {
             return new Vector2(Mathf.Abs(v.x), Mathf.Abs(v.y));
         }
+
+        private Rect InvertOnX(Rect rect)
+        {
+            return new Rect(-rect.x - rect.width, rect.y, rect.width, rect.height);
+        }
+
+        private Rect TransformRectPS(Rect rect)
+        {
+            Rect r = new Rect() { size = rect.size * AbsVector2(transform.lossyScale) };
+            r.center = rect.center * transform.lossyScale + (Vector2)transform.position;
+            return r;
+        } 
+        #endregion
         #endregion
     }
 }

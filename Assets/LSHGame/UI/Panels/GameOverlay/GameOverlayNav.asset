@@ -20,7 +20,7 @@ MonoBehaviour:
       ConnectedGuid: efb3c9aa-6dd9-4a28-b402-1aa876ea0dd5
   NestedEndNode:
     Guid: 700f13cc-b2de-4020-a7a6-9c24930748f4
-    EditorPosition: {x: 472, y: 403}
+    EditorPosition: {x: 888, y: 682}
     BackPort:
       Name: 
       ConnectedGuid: 
@@ -30,6 +30,8 @@ MonoBehaviour:
     CoicePorts:
     - Name: StartDuoCharacterView
       ConnectedGuid: caed62a3-867b-431b-897f-9b2f1880148f
+    - Name: StartPictureView
+      ConnectedGuid: c37f5384-3df0-4c8b-81be-a76f4ef1fa96
     PanelName: HubView
     InputController: 
     DoNotHide: 0
@@ -39,6 +41,14 @@ MonoBehaviour:
     EditorPosition: {x: 601, y: 95}
     CoicePorts: []
     PanelName: DuoCharacterView
+    InputController: Dialog
+    DoNotHide: 0
+    InAnimation: fade
+    OutAnimation: fade
+  - Guid: c37f5384-3df0-4c8b-81be-a76f4ef1fa96
+    EditorPosition: {x: 642, y: 374}
+    CoicePorts: []
+    PanelName: PictureView
     InputController: Dialog
     DoNotHide: 0
     InAnimation: fade

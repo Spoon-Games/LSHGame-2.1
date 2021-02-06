@@ -2,9 +2,9 @@
 
 namespace LSHGame.PlayerN
 {
-    internal enum PlayerStates { Locomotion,Aireborne,ClimbWall,ClimbWallExhaust,ClimbLadder,ClimbLadderTop,Dash,Death,Crouching}
+    public enum PlayerStates { Locomotion,Aireborne,ClimbWall,ClimbWallExhaust,ClimbLadder,ClimbLadderTop,Dash,Death,Crouching}
 
-    internal class PlayerStateMachine
+    public class PlayerStateMachine
     {
         public PlayerStates State { get; private set; }
 
@@ -43,7 +43,7 @@ namespace LSHGame.PlayerN
             UpdateState();
         }
 
-        internal void UpdateState()
+        public void UpdateState()
         {
             PlayerStates newState = GetStateFromAny(State);
 
@@ -58,7 +58,7 @@ namespace LSHGame.PlayerN
             }
         }
 
-        internal void UpdateAnimator()
+        public void UpdateAnimator()
         {
             animatorMachine.VerticalSpeed = Velocity.y;
             animatorMachine.HorizontalSpeed = Velocity.x;

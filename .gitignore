@@ -64,4 +64,5 @@ crashlytics-build.properties
 /LSHGame-FMod-Project/.user/
 /LSHGame-FMod-Project/.unsaved/
 fmod_editor.log
+Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
 

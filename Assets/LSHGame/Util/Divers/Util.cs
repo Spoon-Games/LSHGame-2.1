@@ -59,17 +59,16 @@ namespace LSHGame.Util
                 AddChildrenTransform<T>(result, child);
         }
 
-        public static float EvaluateValueByStep(this AnimationCurve curve,float value,float timeStep,bool descending = false,float accuracy = 15)
+        public static float GetTimeOfValue(this AnimationCurve curve,float value,float timeStep, bool descending = false,float accuracy = 15)
         {
             //bool stz = value < 0;
             //float stzf = stz ? 1 : -1;
-            float result;
+            float t = 0;
             if (value >= curve.Evaluate(0) ^ descending)
             {
                 if (value >= curve.keys[curve.length - 1].value ^ descending)
                     value = curve.keys[curve.length - 1].value;
 
-                float t = 0;
                 int protection = 0;
                 while ((!descending && curve.Evaluate(t) < value) || (descending && curve.Evaluate(t) > value))
                 {
@@ -92,15 +91,12 @@ namespace LSHGame.Util
                         t -= partStep;
                     }
                 }
-
-                result = curve.Evaluate(t + timeStep);
             }
             else
             {
                 if (value <= curve.keys[0].value ^ descending)
                     value = curve.keys[0].value;
 
-                float t = 0;
                 float protection = 0;
                 while ((!descending && curve.Evaluate(t) > value) || (descending && curve.Evaluate(t) < value))
                 {
@@ -127,12 +123,17 @@ namespace LSHGame.Util
                 }
                 //Debug.Log("t: " + t + "\nInput value: " + value +  "\nresult: " + result+"\nEvaluate T: "+curve.Evaluate(t));
 
-                result = curve.Evaluate(t+timeStep);
+                
             }
 
             //Debug.Log("Input: "+value+" result: "+result+" desending: "+descending+"D: " + System.Math.Round((result - value) / timeStep, 2));
 
-            return result;
+            return t;
+        }
+
+        public static float EvaluateValueByStep(this AnimationCurve curve,float value,float timeStep,bool descending = false,float accuracy = 15)
+        {
+            return curve.Evaluate(curve.GetTimeOfValue(value,timeStep,descending,accuracy) + timeStep);
         }
 
         public static bool IsLayer(this LayerMask layermask,int layer)
@@ -166,6 +167,11 @@ namespace LSHGame.Util
             Rect r = new Rect() { size = rect.size * AbsVector2(transform.lossyScale) };
             r.center = rect.center * transform.lossyScale + (Vector2)transform.position;
             return r;
+        }
+
+        public static Rect Multiply(this Matrix4x4 trs,Rect rect)
+        {
+            return new Rect() { min = trs.MultiplyPoint(rect.min), max = trs.MultiplyPoint(rect.max) };
         }
 
         public static Vector2 AbsVector2(this Vector2 v)

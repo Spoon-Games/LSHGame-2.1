@@ -13,7 +13,7 @@ namespace LSHGame.PlayerN
 
         [Header("Default Stats")]
         [SerializeField]
-        private PlayerStats defaultStats = new PlayerStats();
+        internal PlayerStats defaultStats = new PlayerStats();
 
         internal PlayerStats Stats { get; private set; }
         internal SubstanceSet SubstanceSet { get; private set; }
@@ -326,6 +326,7 @@ namespace LSHGame.PlayerN
                     break;
                 case PlayerStates.Death:
                     localVelocity = Vector2.zero;
+                    localGravity = 0;
                     break;
             }
         }
