@@ -178,7 +178,7 @@ namespace LSHGame.Util
         {
             int childCount = parent.childCount;
             if (childCount == 0)
-                return null;
+                return new List<Transform>();
             Vector3 min = grid.LocalToWorld(grid.CellToLocalInterpolated(position.min));
             Vector3 max = grid.LocalToWorld(grid.CellToLocalInterpolated(position.max));
             Bounds bounds = new Bounds((max + min) * .5f, max - min);
