@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea1d548ae968c142a86d30d1299861e, type: 3}
   m_Name: LocoEditorRepository
   m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
+  playerController: {fileID: 9194877108901827145, guid: 07e7fdeea92021847a0cebc9763ea179, type: 3}
+  groundColor: {r: 0.2198736, g: 0.26515773, b: 0.764151, a: 1}
+  aireborneColor: {r: 0.5938057, g: 0.7566962, b: 0.9056604, a: 1}
+  climbWallColor: {r: 0.8773585, g: 0.80975777, b: 0.028969401, a: 1}
+  climbWallExhaustColor: {r: 0.468, g: 0.43105263, b: 0.0061578993, a: 1}
+  climbLadderColor: {r: 0.8773585, g: 0.30210927, b: 0.8773585, a: 1}
+  dashColor: {r: 0.004494493, g: 0.9528302, b: 0.6831036, a: 1}
+  deadColor: {r: 0.4811321, g: 0.04765931, b: 0.04765931, a: 1}
+  oneSecColorScalar: 0.38

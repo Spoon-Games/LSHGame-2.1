@@ -25,6 +25,11 @@ namespace LSHGame.Editor
             ToolbarExtender.LeftToolbarGUI.Add(OnToolbarGUI);
 
         }
+        private void OnEnable()
+        {
+            DisableEditor();
+            EnableEditor();
+        }
 
         internal static void OnToolbarGUI()
         {

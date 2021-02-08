@@ -132,8 +132,8 @@ namespace LSHGame.Util
 
         public override void AddToSet(SubstanceSet set, ISubstanceFilter filter)
         {
-            if (set.Contains(this))
-                return;
+            //if (set.Contains(this))
+                //return;
             if (SubstanceSpecifier.Count == 0)
             {
                 AddToSetHelper(set, filter);

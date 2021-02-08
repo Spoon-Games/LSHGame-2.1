@@ -18,7 +18,7 @@ namespace LSHGame.Util
     public interface IPlayerSubSpecifier : ISubstanceSpecifier
     {
         PlayerSubstanceColliderType ColliderType { get; }
-    }
+    } 
 
     public class PlayerSubstanceFilter : ISubstanceFilter
     {

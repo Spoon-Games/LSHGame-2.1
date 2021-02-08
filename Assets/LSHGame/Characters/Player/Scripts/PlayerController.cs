@@ -163,6 +163,8 @@ namespace LSHGame.PlayerN
             else
                 stateMachine.IsTouchingClimbLadder &= localVelocity.y <= 0 + 0.1f;
 
+            stateMachine.IsTouchingClimbLadder &= !(inputMovement.y <= 0 && stateMachine.IsGrounded);
+
             stateMachine.IsFeetTouchingClimbLadder &= localVelocity.y <= 0 + 0.1f;
 
             stateMachine.IsTouchingClimbWall &= Time.fixedTime > climbWallDisableTimer;

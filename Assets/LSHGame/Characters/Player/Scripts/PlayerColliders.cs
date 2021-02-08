@@ -30,6 +30,9 @@ namespace LSHGame.PlayerN
         [SerializeField]
         private Rect feetTouchRect;
 
+        [SerializeField]
+        private float crushedRectInset = 0.1f;
+
         [Header("Touchpoints Crouch")]
         [SerializeField]
         private Rect mainColliderCrouchRect;
@@ -55,6 +58,9 @@ namespace LSHGame.PlayerN
         [Header("Steps")]
         public float maxStepHeight = 0.4f;              ///< The maximum a player can set upwards in units when they hit a wall that's potentially a step
         public float stepSearchOvershoot = 0.01f;       ///< How much to overshoot into the direction a potential step in units when testing. High values prevent player from walking up small steps but may cause problems. 
+
+        [SerializeField]
+        private float maxClampStepHeightClimpWall = 0.2f;
         #endregion
 
         #region Attributes
@@ -107,7 +113,7 @@ namespace LSHGame.PlayerN
         }
         #endregion
 
-        #region Update Stuff
+        #region Update Touch
 
         private void CheckTouch()
         {
@@ -122,6 +128,7 @@ namespace LSHGame.PlayerN
             RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Feet, feetTouchRect);
 
             RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Main, mainCollider);
+            bool isCrushed = IsTouchingLayerRectRelative(GetColliderRect(mainCollider).InsetRect(crushedRectInset), groundLayers, false);
 
             stateMachine.IsHeadObstructed = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Head, HeadTouchRect,true);
 
@@ -137,7 +144,8 @@ namespace LSHGame.PlayerN
             stateMachine.IsTouchingClimbLadder = parent.Stats.IsLadder;
             stateMachine.IsFeetTouchingClimbLadder = parent.Stats.IsFeetLadder;
 
-            if (parent.Stats.IsDamage || mainCollider.IsTouchingLayers(hazardsLayers)) // if touching hazard
+
+            if (parent.Stats.IsDamage || mainCollider.IsTouchingLayers(hazardsLayers) || isCrushed) // if touching hazard
             {
                 parent.Kill();
             }
@@ -213,12 +221,13 @@ namespace LSHGame.PlayerN
             {
                 stepUp = FindStep(out stepUpOffset, allCPs, groundCP.point, velocity);
                 //Debug.Log("GroundCPPoint: " + groundCP.point);
-            }
-            else if ((stateMachine.State == PlayerStates.ClimbLadder || stateMachine.State == PlayerStates.ClimbWall || stateMachine.State == PlayerStates.Dash || stateMachine.State == PlayerStates.ClimbLadderTop)
-                && parent.GreaterEqualY(velocity.y,0) && Mathf.Abs(velocity.x) > 0)
+            }else if (stateMachine.State == PlayerStates.ClimbWall || stateMachine.State == PlayerStates.ClimbLadder && parent.GreaterEqualY(velocity.y, -0.02f))
             {
                 stepUp = FindStep(out stepUpOffset, allCPs, transform.TransformPoint(new Vector2(0, mainCollider.offset.y - mainCollider.size.y / 2)), velocity);
-                //Debug.Log("FindStep: " + stepUp);
+                stepUpOffset.y = Mathf.Min(maxClampStepHeightClimpWall, stepUpOffset.y);
+            }else if(stateMachine.State == PlayerStates.ClimbLadderTop || stateMachine.State == PlayerStates.Dash)  
+            {
+                stepUp = FindStep(out stepUpOffset, allCPs, transform.TransformPoint(new Vector2(0, mainCollider.offset.y - mainCollider.size.y / 2)), velocity);
             }
 
 
@@ -463,6 +472,10 @@ namespace LSHGame.PlayerN
             DrawRectRelative(InvertOnX(rightSideTouchCrouchRect));
 
             DrawRectRelative(headTouchCrouchRect);
+
+            Gizmos.color = Color.yellow;
+
+            DrawRectRelative(GetColliderRect(mainCollider).InsetRect(crushedRectInset));
             //foreach(ContactPoint2D contactPoint2D in allCPs)
             //{
             //    Gizmos.color = Color.blue;
