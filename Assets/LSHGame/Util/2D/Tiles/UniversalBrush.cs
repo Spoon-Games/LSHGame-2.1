@@ -1,11 +1,10 @@
 ﻿#if UNITY_EDITOR
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
-using UnityEditor;
-
+using UnityEngine.UIElements;
 
 namespace LSHGame.Util
 {
@@ -14,7 +13,6 @@ namespace LSHGame.Util
     {
 
         private static bool eraseByPaint = false;
-
 
         [MenuItem("Assets/Create/Universal Brush")]
         public static void CreateBrush()
@@ -33,8 +31,9 @@ namespace LSHGame.Util
             base.Paint(gridLayout, brushTarget, position);
 
             var tileMap = brushTarget.GetComponent<Tilemap>();
+            var tileBase = tileMap.GetTile(position);
 
-            if (tileMap.GetTile(position) is PrefabTile prefabTile)
+            if (tileBase is PrefabTile prefabTile)
             {
                 //Debug.Log("Painted PrefabTile: " + registeredPrefabTile.tileName);
                 InstantiatePrefab(gridLayout, brushTarget, position, prefabTile);
@@ -42,6 +41,7 @@ namespace LSHGame.Util
                 eraseByPaint = true;
                 base.Erase(gridLayout, brushTarget, position);
                 eraseByPaint = false;
+
             }
         }
 
@@ -200,49 +200,54 @@ namespace LSHGame.Util
     [CustomEditor(typeof(UniversalBrush))]
     public class UniversalBrushEditor : UnityEditor.Tilemaps.GridBrushEditor
     {
-        private UniversalBrush lineBrush { get { return target as UniversalBrush; } }
+        private UniversalBrush Brush { get { return target as UniversalBrush; } }
+
+        private int _rotation = 0;
+        private int Rotation { get => _rotation; set
+            {
+                _rotation = (value % 360 + 360) % 360;
+                
+                Brush.SetMatrix(Vector3Int.one / 2, Matrix4x4.Rotate(Quaternion.Euler(0, 0, _rotation)));
+            } }
 
         public override void OnPaintSceneGUI(GridLayout grid, GameObject brushTarget, BoundsInt position, GridBrushBase.Tool tool, bool executing)
         {
             base.OnPaintSceneGUI(grid, brushTarget, position, tool, executing);
-            //if (lineBrush.lineStartActive)
-            //{
-            //    Tilemap tilemap = brushTarget.GetComponent<Tilemap>();
-            //    if (tilemap != null)
-            //        tilemap.ClearAllEditorPreviewTiles();
+        }
 
-            //    // Draw preview tiles for tilemap
-            //    Vector2Int startPos = new Vector2Int(lineBrush.lineStart.x, lineBrush.lineStart.y);
-            //    Vector2Int endPos = new Vector2Int(position.x, position.y);
-            //    if (startPos == endPos)
-            //        PaintPreview(grid, brushTarget, position.min);
-            //    else
-            //    {
-            //        foreach (var point in LineBrush.GetPointsOnLine(startPos, endPos, lineBrush.fillGaps))
-            //        {
-            //            Vector3Int paintPos = new Vector3Int(point.x, point.y, position.z);
-            //            PaintPreview(grid, brushTarget, paintPos);
-            //        }
-            //    }
 
-            //    if (Event.current.type == EventType.Repaint)
-            //    {
-            //        var min = lineBrush.lineStart;
-            //        var max = lineBrush.lineStart + position.size;
+        public override void OnSceneGUI(GridLayout gridLayout, GameObject brushTarget)
+        {
+            GetInput();
+            base.OnSceneGUI(gridLayout, brushTarget);
+        }
 
-            //        // Draws a box on the picked starting position
-            //        GL.PushMatrix();
-            //        GL.MultMatrix(GUI.matrix);
-            //        GL.Begin(GL.LINES);
-            //        Handles.color = Color.blue;
-            //        Handles.DrawLine(new Vector3(min.x, min.y, min.z), new Vector3(max.x, min.y, min.z));
-            //        Handles.DrawLine(new Vector3(max.x, min.y, min.z), new Vector3(max.x, max.y, min.z));
-            //        Handles.DrawLine(new Vector3(max.x, max.y, min.z), new Vector3(min.x, max.y, min.z));
-            //        Handles.DrawLine(new Vector3(min.x, max.y, min.z), new Vector3(min.x, min.y, min.z));
-            //        GL.End();
-            //        GL.PopMatrix();
-            //    }
-            //}
+        public override void OnInspectorGUI()
+        {
+            //base.OnInspectorGUI();
+            //lineBrush.zp
+            Rotation = EditorGUILayout.IntField("Rotation", Rotation);
+        }
+
+        private void GetInput()
+        {
+            Event e = Event.current;
+
+            if (e.type == EventType.KeyDown)
+            {
+                if(e.keyCode == KeyCode.Q)
+                {
+                    Rotation += 90;
+                    e.Use();
+                }
+                else if(e.keyCode == KeyCode.E)
+                {
+                    Rotation -= 90;
+                    e.Use();
+                }
+
+                
+            }
         }
     }
 
