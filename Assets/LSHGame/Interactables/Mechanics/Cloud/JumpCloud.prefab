@@ -4938,7 +4938,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7501452760970794978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 997ea8a18a4ea034bb308e2a87480311, type: 3}
+  m_Script: {fileID: 11500000, guid: 5199073680e6e5d48968720134bc24b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsJumpableInAir: 1
@@ -4951,7 +4951,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7501452760970794978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93107d258ea24b44087c866fa3c2831a, type: 3}
+  m_Script: {fileID: 11500000, guid: ed7d4b9143974524fbff877e9cf31011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   JumpSpeed:

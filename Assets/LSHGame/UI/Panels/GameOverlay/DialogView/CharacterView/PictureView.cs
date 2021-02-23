@@ -26,6 +26,10 @@ namespace LSHGame.UI
         [SerializeField]
         private Ease outScaleEase = Ease.InQuad;
 
+        [SerializeField]
+        [FMODUnity.EventRef]
+        private string defaultOpeningSound;
+
         private Tween typewriteTween;
 
         public override void OnEnter()
@@ -37,6 +41,14 @@ namespace LSHGame.UI
             imageField.rectTransform.DOScale(Vector3.one, inScaleTime).SetEase(inScaleEase);
 
             dialogField.text = "";
+
+            if (!string.IsNullOrEmpty(Dialog.OpeningSound))
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(Dialog.OpeningSound);
+            }else if (!string.IsNullOrEmpty(defaultOpeningSound))
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(defaultOpeningSound);
+            }
         }
 
         protected override void GetNext()
@@ -49,8 +61,6 @@ namespace LSHGame.UI
 
             if (Dialog.GetNext(out string text))
             {
-                if (!string.IsNullOrEmpty(Dialog.Sound))
-                    FMODUnity.RuntimeManager.PlayOneShot(Dialog.Sound);
 
                 typewriteTween = dialogField.DOTypeWritePerSpeed(text, typeSpeed).SetEase(Ease.Linear);
                 return;

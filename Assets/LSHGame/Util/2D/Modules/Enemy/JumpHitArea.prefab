@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7937627366484432058}
   - component: {fileID: 2444079084155925344}
   - component: {fileID: 1647933779737611970}
-  - component: {fileID: 3309588681018924253}
   - component: {fileID: 6937428268549062145}
   - component: {fileID: 4708280605125495576}
+  - component: {fileID: 1742932645833083119}
   m_Layer: 16
   m_Name: JumpHitArea
   m_TagString: Untagged
@@ -87,19 +87,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colliderType: 1
---- !u!114 &3309588681018924253
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3990388838674830273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 997ea8a18a4ea034bb308e2a87480311, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsJumpableInAir: 1
 --- !u!114 &6937428268549062145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,3 +144,16 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1742932645833083119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3990388838674830273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5199073680e6e5d48968720134bc24b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsJumpableInAir: 1

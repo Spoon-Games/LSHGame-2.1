@@ -62,45 +62,45 @@ namespace LSHGame.Util
             }
         }
 
-        public class RepeatedSubExecutable : ISubSetQueryable
-        {
-            private readonly float exeTime;
-            private RepeatedSubstance parent;
-            private ISubstanceFilter filter;
+        //public class RepeatedSubExecutable : ISubSetQueryable
+        //{
+        //    private readonly float exeTime;
+        //    private RepeatedSubstance parent;
+        //    private ISubstanceFilter filter;
 
-            public RepeatedSubExecutable(float delay, RepeatedSubstance parent, ISubstanceFilter filter)
-            {
-                exeTime = delay + Time.fixedTime;
-                this.parent = parent;
-                this.filter = filter;
-            }
+        //    public RepeatedSubExecutable(float delay, RepeatedSubstance parent, ISubstanceFilter filter)
+        //    {
+        //        exeTime = delay + Time.fixedTime;
+        //        this.parent = parent;
+        //        this.filter = filter;
+        //    }
 
-            public bool ExeAddToSet(SubstanceSet substanceSet)
-            {
-                if (Time.fixedTime < exeTime)
-                {
-                    parent.DelayedAddToSet(substanceSet, filter);
-                    return false;
-                }
-                return true;
-            }
+        //    public bool ExeAddToSet(SubstanceSet substanceSet)
+        //    {
+        //        if (Time.fixedTime < exeTime)
+        //        {
+        //            parent.DelayedAddToSet(substanceSet, filter);
+        //            return false;
+        //        }
+        //        return true;
+        //    }
 
-            public override bool Equals(object obj)
-            {
-                if (obj == null || GetType() != obj.GetType())
-                {
-                    return false;
-                }
-                if (((RepeatedSubExecutable)obj).parent == parent)
-                    return true;
+        //    public override bool Equals(object obj)
+        //    {
+        //        if (obj == null || GetType() != obj.GetType())
+        //        {
+        //            return false;
+        //        }
+        //        if (((RepeatedSubExecutable)obj).parent == parent)
+        //            return true;
 
-                return false;
-            }
+        //        return false;
+        //    }
 
-            public override int GetHashCode()
-            {
-                return parent.GetHashCode();
-            }
-        }
+        //    public override int GetHashCode()
+        //    {
+        //        return parent.GetHashCode();
+        //    }
+        //}
     }
 }

@@ -51,6 +51,8 @@ namespace LSHGame.PlayerN
         private Vector2 dashVelocity;
         private Vector2 estimatedDashPosition;
         private float dashEndTimer = 0;
+        private Vector2 lastDashTurningCenter = Vector2.negativeInfinity;
+        private float dashTurningTargetAngle;
 
         private float climbWallDisableTimer = float.NegativeInfinity;
         private float climbWallExhaustTimer = 0;
@@ -209,8 +211,6 @@ namespace LSHGame.PlayerN
                 stateMachine.IsDash &= !GameInput.WasDashRealeased;
                 stateMachine.IsDash &= localVelocity.Approximately(dashVelocity, 0.5f) && estimatedDashPosition.Approximately(rb.transform.position, 0.5f);
                 stateMachine.IsDash &= Time.fixedTime < dashEndTimer + Stats.DashDurration;
-
-                estimatedDashPosition = ((Vector2)rb.transform.position) + (dashVelocity * Time.fixedDeltaTime);
             }
         }
 
@@ -260,6 +260,11 @@ namespace LSHGame.PlayerN
                 dashVelocity = new Vector2(direction.x * Stats.DashSpeed, direction.y * verticalDashSpeed);
                 estimatedDashPosition = rb.transform.position;
                 localVelocity = dashVelocity;
+            }
+
+            if(from == PlayerStates.Dash)
+            {
+                lastDashTurningCenter = Vector2.negativeInfinity;
             }
 
             if (to == PlayerStates.Death)
@@ -323,7 +328,7 @@ namespace LSHGame.PlayerN
                     localVelocity.y = Mathf.Min(0, inputMovement.y * Stats.ClimbingLadderSpeed);
                     break;
                 case PlayerStates.Dash:
-
+                    Dash();
                     localGravity = 0;
                     break;
                 case PlayerStates.Death:
@@ -405,6 +410,42 @@ namespace LSHGame.PlayerN
             {
                 Stats.OnSneek?.Invoke();
             }
+        }
+
+        private void Dash()
+        {
+            var currentRotation = Quaternion.FromToRotation(Vector3.right, localVelocity);
+            if (Stats.GlobalDashTurningCenter != Vector2.negativeInfinity)
+            {
+                Vector2 radius = (Vector2)transform.position - Stats.GlobalDashTurningCenter;
+                if (Stats.GlobalDashTurningCenter != lastDashTurningCenter)
+                {
+                    lastDashTurningCenter = Stats.GlobalDashTurningCenter;
+                    dashTurningTargetAngle = Stats.DashDeltaTurningAngle * Mathf.Sign(Vector2.SignedAngle(radius,localVelocity))  + currentRotation.eulerAngles.z;
+                    Debug.Log("Radius: " + radius + " Velocity: " + localVelocity + " AngleSign: " + Mathf.Sign(Vector2.SignedAngle(radius, localVelocity)) +
+                        "\nTurningCenter: "+Stats.GlobalDashTurningCenter);
+                }
+                
+                RotateDash(currentRotation, Quaternion.Euler(0, 0, dashTurningTargetAngle), radius.magnitude);
+            }
+            else if(Stats.DashTurningRadius >= 0)
+            {
+                var targetRotation = Quaternion.Euler(0, 0, Stats.TargetDashAngle);
+                RotateDash(currentRotation, targetRotation, Stats.DashTurningRadius);
+            }
+            estimatedDashPosition = ((Vector2)rb.transform.position) + (dashVelocity * Time.fixedDeltaTime);
+        }
+
+        private void RotateDash(Quaternion currentRotation, Quaternion targetRotation, float radius)
+        {
+            if (radius > 0)
+            {
+                float deltaAngle = localVelocity.magnitude / radius * Time.fixedDeltaTime * Mathf.Rad2Deg;
+                dashVelocity = Quaternion.RotateTowards(currentRotation, targetRotation, deltaAngle) * Vector2.right * Stats.DashSpeed;
+            }
+            else
+                dashVelocity = targetRotation * Vector2.right * Stats.DashSpeed;
+            localVelocity = dashVelocity;
         }
         #endregion
 
@@ -509,6 +550,7 @@ namespace LSHGame.PlayerN
         {
             Vector2 position = CheckpointManager.GetCheckpointPos();
             TransitionManager.Instance.ShowTransition(deathTransition, null, () => SetRespawn(position));
+            effectsController.TriggerEffect("Respawn");
             //LevelManager.LoadScene(LevelManager.CurrantLevel.StartScene, deathTransition);
         }
 
@@ -543,6 +585,8 @@ namespace LSHGame.PlayerN
             dashVelocity = Vector2.zero;
             estimatedDashPosition = Vector2.zero;
             dashEndTimer = 0;
+            lastDashTurningCenter = Vector2.negativeInfinity;
+            dashTurningTargetAngle = 0;
 
             climbWallDisableTimer = float.NegativeInfinity;
             climbWallExhaustTimer = 0;

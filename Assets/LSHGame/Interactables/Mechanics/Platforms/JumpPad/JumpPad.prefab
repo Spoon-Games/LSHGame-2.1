@@ -93,12 +93,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4731069970810412547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93107d258ea24b44087c866fa3c2831a, type: 3}
+  m_Script: {fileID: 11500000, guid: ed7d4b9143974524fbff877e9cf31011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   JumpSpeed:
     isDefault: 0
-    value: 28
+    value: 25
   JumpSpeedCutter:
     isDefault: 1
     value: 0

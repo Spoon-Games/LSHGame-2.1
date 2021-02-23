@@ -15,4 +15,4 @@ MonoBehaviour:
   Picture: {fileID: 21300000, guid: e89bcde4128cee34da5ca62581ebbab4, type: 3}
   Lines:
   - Sie laufen und laufen und laufen...
-  Sound: 
+  OpeningSound: 

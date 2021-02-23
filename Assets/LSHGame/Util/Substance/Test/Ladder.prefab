@@ -55,7 +55,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 578270151838726424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb594a6c7e544954faf0e039985e791b, type: 3}
+  m_Script: {fileID: 11500000, guid: b42980d5e9e60424994208fc98ea16d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isLadder: 1
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2830077516417997375}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39db48fb5a55db94b928b538f0fbe754, type: 3}
+  m_Script: {fileID: 11500000, guid: f84dc141207918940acc7b4af1cab9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isFeetLadder: 1

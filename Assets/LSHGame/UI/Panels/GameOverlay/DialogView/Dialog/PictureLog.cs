@@ -10,7 +10,7 @@ namespace LSHGame.UI
 
         public string[] Lines = new string[1] { "" };
         [FMODUnity.EventRef]
-        public string Sound;
+        public string OpeningSound;
 
         private IEnumerator enumerator;
 

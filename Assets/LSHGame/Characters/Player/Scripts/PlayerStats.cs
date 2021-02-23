@@ -7,7 +7,8 @@ namespace LSHGame.PlayerN
 {
     [System.Serializable]
     public class PlayerStats : IPlayerLocomotionRec, IPlayerCrouchLocomotionRec, IPlayerJumpRec, IPlayerClimbingRec, IPlayerDashRec, IGravityRec,
-        IDataReciever, IDamageRec, IIsLadderRec, IIsLadderFeetRec, IMatVelocityRec, IMatBounceRec, IJumpCallbackRec, ISneekCallbackRec, IEffectsMaterialRec, IPlayerIsJumpableSubProp
+        IDataReciever, IDamageRec, IIsLadderRec, IIsLadderFeetRec, IMatVelocityRec, IMatBounceRec, IJumpCallbackRec, ISneekCallbackRec, IEffectsMaterialRec,
+        ITriggerEffectRec, IPlayerIsJumpableSubProp, IDashRedirectorRec, IDashCenteredRedirectorRec
     {
         [Header("Locomotion")]
         [SerializeField] private AnimationCurve _runAccelCurve;
@@ -58,10 +59,15 @@ namespace LSHGame.PlayerN
         public Action OnBounce { get; set; }
         public Action OnSneek { get; set; }
         public Dictionary<string, string> EffectMaterials { get; } = new Dictionary<string, string>();
+        public HashSet<string> TriggerEffects { get; } = new HashSet<string>();
         public bool IsFeetLadder { get; set; }
         public bool IsJumpableInAir { get; set; } = false;
         public AnimationCurve RunCrouchAccelCurve { get => _runCrouchAccelCurve; set => _runCrouchAccelCurve = value; }
         public AnimationCurve RunCrouchDeaccelCurve { get => _runCrouchDeaccelCurve; set => _runCrouchDeaccelCurve = value; }
+        public float TargetDashAngle { get; set; }
+        public float DashTurningRadius { get; set; } = -1;
+        public Vector2 GlobalDashTurningCenter { get; set; } = Vector2.negativeInfinity;
+        public float DashDeltaTurningAngle { get; set; }
 
         public PlayerStats Clone()
         {
@@ -73,6 +79,7 @@ namespace LSHGame.PlayerN
         private void Reset()
         {
             EffectMaterials.Clear();
+            TriggerEffects.Clear();
         }
     }
 }

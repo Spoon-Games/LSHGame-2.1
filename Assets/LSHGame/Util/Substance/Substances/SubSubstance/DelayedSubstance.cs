@@ -45,7 +45,7 @@ namespace LSHGame.Util
             }
         }
 
-        public class DelayedSubExecutable : ISubSetQueryable
+        public struct DelayedSubExecutable : ISubSetQueryable
         {
             private readonly float exeTime;
             private DelayedSubstance parent;

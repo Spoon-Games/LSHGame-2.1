@@ -329,6 +329,7 @@ MonoBehaviour:
   inScaleEase: 6
   outScaleTime: 0.5
   outScaleEase: 5
+  defaultOpeningSound: event:/Scene/Interactables/PictureWhisper
 --- !u!1 &972878517887668112
 GameObject:
   m_ObjectHideFlags: 0

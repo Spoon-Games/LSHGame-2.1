@@ -783,7 +783,7 @@ PrefabInstance:
       objectReference: {fileID: 95034447922591508}
     - target: {fileID: 3795789133498224059, guid: 7286af60e1cea10449402db6301dca53, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3795789133498224059, guid: 7286af60e1cea10449402db6301dca53, type: 3}
       propertyPath: m_ChildCameras.Array.data[0]
@@ -797,9 +797,17 @@ PrefabInstance:
       propertyPath: m_ChildCameras.Array.data[2]
       value: 
       objectReference: {fileID: 5626840070337011270}
+    - target: {fileID: 4050853285161805398, guid: 7286af60e1cea10449402db6301dca53, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050853285161805398, guid: 7286af60e1cea10449402db6301dca53, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5375695394430064612, guid: 7286af60e1cea10449402db6301dca53, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6676720962969372795, guid: 7286af60e1cea10449402db6301dca53, type: 3}
       propertyPath: m_LocalPosition.x

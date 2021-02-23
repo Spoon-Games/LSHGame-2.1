@@ -43,6 +43,7 @@ namespace LSHGame.Util
             if (parameters.TryGet("startDelay", out float startDelay) && startDelay > 0)
             {
                 StartCoroutine(TriggerDelayed(flip, startDelay));
+                
             }
             else
                 Trigger(flip);
