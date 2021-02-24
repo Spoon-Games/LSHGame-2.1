@@ -8,7 +8,7 @@ namespace LSHGame.PlayerN
     [System.Serializable]
     public class PlayerStats : IPlayerLocomotionRec, IPlayerCrouchLocomotionRec, IPlayerJumpRec, IPlayerClimbingRec, IPlayerDashRec, IGravityRec,
         IDataReciever, IDamageRec, IIsLadderRec, IIsLadderFeetRec, IMatVelocityRec, IMatBounceRec, IJumpCallbackRec, ISneekCallbackRec, IEffectsMaterialRec,
-        ITriggerEffectRec, IPlayerIsJumpableSubProp, IDashRedirectorRec, IDashCenteredRedirectorRec
+        ITriggerEffectRec, IPlayerIsJumpableSubProp, IDashRedirectorRec, IDashCenteredRedirectorRec, ILiliumReciever,IBlackLiliumReciever
     {
         [Header("Locomotion")]
         [SerializeField] private AnimationCurve _runAccelCurve;
@@ -68,6 +68,8 @@ namespace LSHGame.PlayerN
         public float DashTurningRadius { get; set; } = -1;
         public Vector2 GlobalDashTurningCenter { get; set; } = Vector2.negativeInfinity;
         public float DashDeltaTurningAngle { get; set; }
+        public LiliumSubProp LiliumReference { get; set; }
+        public BlackLiliumSubProp BlackLiliumReference { get; set; }
 
         public PlayerStats Clone()
         {
@@ -80,6 +82,8 @@ namespace LSHGame.PlayerN
         {
             EffectMaterials.Clear();
             TriggerEffects.Clear();
+            LiliumReference = null;
+            BlackLiliumReference = null;
         }
     }
 }

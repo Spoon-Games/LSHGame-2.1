@@ -622,6 +622,7 @@ MonoBehaviour:
     _dashRecoverDurration: 1
     _gravity: 0.75
     _fallDamping: 0.948
+  liliumDeathDurration: 10
   deathTransition: {fileID: 11400000, guid: 287a4bd7f6a8bb842a2fb8976d134f0f, type: 2}
   verticalDashSpeed: 0
   isInvincible: 0
@@ -636,6 +637,8 @@ MonoBehaviour:
     needRepress: 1
     resetTimer: 0
   playerColliders: {fileID: 1741236182}
+  liliumEffect: {fileID: 8515514168544099954}
+  liliumState: 0
 --- !u!114 &736705763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,6 +713,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5878874932346358765, guid: 8fedbb310e2dbc049bca7a679da09c29, type: 3}
   m_PrefabInstance: {fileID: 5058083202099394540}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8515514168544099954 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3466862260165626270, guid: 8fedbb310e2dbc049bca7a679da09c29, type: 3}
+  m_PrefabInstance: {fileID: 5058083202099394540}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb8d8c521f38fc46ab1abf066481744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5355299996546397056
 PrefabInstance:
   m_ObjectHideFlags: 0

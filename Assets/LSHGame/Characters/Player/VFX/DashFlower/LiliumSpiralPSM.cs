@@ -1,6 +1,4 @@
 using LSHGame.Util;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace LSHGame.PlayerN
@@ -41,16 +39,32 @@ namespace LSHGame.PlayerN
         }
 
 
+#if UNITY_EDITOR
         private void LateUpdate()
         {
-            if (!ps.isPlaying)
+            if (!ps.isPlaying || Application.isPlaying)
                 return;
             if (!lifeTime.isInitialized || !orbitalZ.isInitialized || !startSize.isInitialized)
                 Awake();
 
             float t = (Time.time / Durration) % 1;
             Evaluate(t);
-            
+
+        } 
+#endif
+
+        public void Play(float t)
+        {
+            Evaluate(t);
+
+            if (!ps.isPlaying)
+                ps.Play();
+        }
+
+        public void Stop()
+        {
+            if(ps.isPlaying)
+                ps.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);
         }
 
         private void Evaluate(float t)

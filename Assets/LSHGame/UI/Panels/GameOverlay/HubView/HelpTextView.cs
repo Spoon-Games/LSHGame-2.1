@@ -30,6 +30,12 @@ namespace LSHGame.UI
         private Ease fadeOutEase = Ease.InQuad;
         private CanvasGroup _canvasGroup;
 
+        public override void Awake()
+        {
+            base.Awake();
+            gameObject.SetActive(false);
+        }
+
         public void SetHelpText(string text)
         {
             gameObject.SetActive(true);

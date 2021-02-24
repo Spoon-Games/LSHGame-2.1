@@ -19,6 +19,9 @@ namespace LSHGame.PlayerN
         internal SubstanceSet SubstanceSet { get; private set; }
 
         [SerializeField]
+        private float liliumDeathDurration = 30;
+
+        [SerializeField]
         private TransitionInfo deathTransition;
 
         [Header("Experimental")]
@@ -39,6 +42,8 @@ namespace LSHGame.PlayerN
         [Header("References")]
         [SerializeField]
         private PlayerColliders playerColliders;
+        [SerializeField]
+        private LiliumEffect liliumEffect;
 
         private Rigidbody2D rb => playerColliders.rb;
         private EffectsController effectsController;
@@ -46,6 +51,7 @@ namespace LSHGame.PlayerN
 
         private Player parent;
 
+        //Dash
         private bool isDashStartDisableByGround = true;
         private float dashStartDisableTimer = float.NegativeInfinity;
         private Vector2 dashVelocity;
@@ -53,6 +59,10 @@ namespace LSHGame.PlayerN
         private float dashEndTimer = 0;
         private Vector2 lastDashTurningCenter = Vector2.negativeInfinity;
         private float dashTurningTargetAngle;
+        //Lilium
+        public int liliumState = 0;
+        private float liliumStartTimer = 0;
+        
 
         private float climbWallDisableTimer = float.NegativeInfinity;
         private float climbWallExhaustTimer = 0;
@@ -108,6 +118,7 @@ namespace LSHGame.PlayerN
         #region Update Loop
         private void FixedUpdate()
         {
+            //Get Stats
             flipedDirection = transform.localScale;
             
             Vector2 rbVelocity = ((Vector2)transform.position - lastFramePosition) / Time.fixedDeltaTime;
@@ -120,7 +131,11 @@ namespace LSHGame.PlayerN
 
             inputMovement = GameInput.MovmentInput;
 
+            //Get Substances
             playerColliders.CheckUpdate();
+
+            //Check
+            CheckLilium();
             CheckClimbWall();
             CheckCrouching();
             CheckDash();
@@ -130,27 +145,28 @@ namespace LSHGame.PlayerN
 
             stateMachine.UpdateState();
 
+            //Exe Update
             ExeUpdate();
 
             playerColliders.ExeUpdate();
 
             Jump();
-
             FlipSprite();
-
+            ExeLilium();
+            //Update Animator
             stateMachine.Velocity = localVelocity;
             stateMachine.Position = transform.position;
             stateMachine.UpdateAnimator();
 
+            //Set Ridgidbody
             rb.velocity = localVelocity + Stats.MovingVelocity;
-
+            rb.gravityScale = localGravity;
             //Debug.Log("State: " + stateMachine.State + " MovingVelocity: " + Stats.MovingVelocity.x + " Local: " + localVelocity.x +
             //    "\nRB: " + rb.velocity.x + " previous RB: " + rbVelocity.x + " previous MV: " + lastFrameMovingVelocity.x);
 
             //Debug.Log("State: " + stateMachine.State + " MovingVelocity: " + Stats.MovingVelocity.y + " Local: " + localVelocity.y +
             //    "\nRB: " + rb.velocity.y + " previous RB: " + rbVelocity.y + " previous MV: " + lastFrameMovingVelocity);
 
-            rb.gravityScale = localGravity;
             //rb.MovePosition(rb.position + (localVelocity + Stats.MovingVelocity) * Time.fixedDeltaTime);
             //rb.AddForce(Stats.MovingVelocity, ForceMode2D.Impulse);
 
@@ -158,6 +174,35 @@ namespace LSHGame.PlayerN
         #endregion
 
         #region Check Methods
+        private void CheckLilium()
+        {
+            if(Stats.LiliumReference != null)
+            {
+                if (Stats.LiliumReference.GetLilium())
+                {
+                    if (liliumState <= 0)
+                        liliumStartTimer = Time.fixedTime;
+
+                    liliumState++;
+                    liliumEffect.Collect(Stats.LiliumReference);
+                }
+            }
+
+            if(Stats.BlackLiliumReference != null && liliumState > 0)
+            {
+                if (Stats.BlackLiliumReference.DeliverLilium())
+                {
+                    liliumState--;
+                    liliumEffect.Deliver(Stats.BlackLiliumReference);
+                }
+            }
+
+            if(liliumState > 0 && Time.fixedTime >= liliumStartTimer + liliumDeathDurration)
+            {
+                Kill();
+            }
+        }
+
         private void CheckClimbWall()
         {
             if (inputMovement.y > 0)
@@ -200,7 +245,7 @@ namespace LSHGame.PlayerN
             if (dashInput.Check(GameInput.IsDash,
                 stateMachine.State != PlayerStates.Dash
                 && !isDashStartDisableByGround
-                && dashStartDisableTimer + Stats.DashRecoverDurration <= Time.fixedTime))
+                && dashStartDisableTimer + Stats.DashRecoverDurration <= Time.fixedTime && liliumState > 0))
             {
                 stateMachine.IsDash = true;
             }
@@ -211,6 +256,8 @@ namespace LSHGame.PlayerN
                 stateMachine.IsDash &= !GameInput.WasDashRealeased;
                 stateMachine.IsDash &= localVelocity.Approximately(dashVelocity, 0.5f) && estimatedDashPosition.Approximately(rb.transform.position, 0.5f);
                 stateMachine.IsDash &= Time.fixedTime < dashEndTimer + Stats.DashDurration;
+
+                stateMachine.IsDash &= liliumState > 0; //Check for lilium
             }
         }
 
@@ -260,6 +307,8 @@ namespace LSHGame.PlayerN
                 dashVelocity = new Vector2(direction.x * Stats.DashSpeed, direction.y * verticalDashSpeed);
                 estimatedDashPosition = rb.transform.position;
                 localVelocity = dashVelocity;
+
+                liliumEffect.Dash();
             }
 
             if(from == PlayerStates.Dash)
@@ -447,6 +496,11 @@ namespace LSHGame.PlayerN
                 dashVelocity = targetRotation * Vector2.right * Stats.DashSpeed;
             localVelocity = dashVelocity;
         }
+
+        private void ExeLilium()
+        {
+            liliumEffect.UpdateState(liliumState, (Time.fixedTime - liliumStartTimer) / liliumDeathDurration);
+        }
         #endregion
 
         #region Helper Methods
@@ -587,6 +641,9 @@ namespace LSHGame.PlayerN
             dashEndTimer = 0;
             lastDashTurningCenter = Vector2.negativeInfinity;
             dashTurningTargetAngle = 0;
+
+            liliumState = 0;
+            liliumStartTimer = 0;
 
             climbWallDisableTimer = float.NegativeInfinity;
             climbWallExhaustTimer = 0;
