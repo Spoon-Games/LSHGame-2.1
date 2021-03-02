@@ -19860,6 +19860,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   liliumSpiralSystem: {fileID: 1412472501777667397}
+  deliverSFX: event:/Player/Lilium/LiliumDeliver
   spiralRadius: 1
   spiralThreshhold: 0.3
   blackLiliumTarget: {fileID: 0}
@@ -29890,6 +29891,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  collectSFX: event:/Player/Lilium/LiliumCollect
   spiralRadius: 2
   spiralThreshhold: 0.3
   liliumSystem: {fileID: 0}
@@ -44901,6 +44903,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  radiusThickness:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   orbitalZ:
     modifier:
       serializedVersion: 2
@@ -45037,6 +45045,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   liliumDashSubEmitterIndex: 0
+  spiralSFX: event:/Player/Lilium/LiliumSpiral
 --- !u!1 &5058083202574187137
 GameObject:
   m_ObjectHideFlags: 0
@@ -55110,7 +55119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   liliumSpiralSystem: {fileID: 4966542627856075985}
   StartPlay: 0
-  dashSFX: event:/Player/Locomotion/Dash
+  dashSFX: event:/Player/Lilium/LiliumDash
 --- !u!1 &6845227458209126240
 GameObject:
   m_ObjectHideFlags: 0

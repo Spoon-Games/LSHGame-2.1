@@ -5,7 +5,7 @@
 			<value>LoopVerse</value>
 		</property>
 		<relationship name="folder">
-			<destination>{67e23cf1-58e4-4554-8deb-6d9a405e0b16}</destination>
+			<destination>{474237fb-4a59-4243-9204-f509c73c1fcd}</destination>
 		</relationship>
 		<relationship name="parameter">
 			<destination>{98f45f1f-bdea-4893-be72-c20f8e77b3ba}</destination>

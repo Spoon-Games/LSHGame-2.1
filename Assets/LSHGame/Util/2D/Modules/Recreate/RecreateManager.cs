@@ -27,7 +27,7 @@ namespace LSHGame.Util
             if(vessel != null)
             {
                 RecreateModule o = Instantiate(vessel, originPosition, originRotation, originParent);
-                o.transform.localScale = originScale;
+                o.SetLocalScale(originScale);
             }
         }
 

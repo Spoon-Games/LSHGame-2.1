@@ -51,5 +51,11 @@ namespace LSHGame.UI
             CanvasGroup.DOKill();
             CanvasGroup.DOFade(0, fadeOutTime).SetEase(fadeOutEase).OnComplete(() => gameObject.SetActive(false));
         }
+
+        public void HideHelpText(string originText)
+        {
+            if (Equals(helpText.text, originText))
+                HideHelpText();
+        }
     }
 }

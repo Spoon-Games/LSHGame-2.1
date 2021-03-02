@@ -164,6 +164,9 @@ namespace LSHGame.Util
                 }
 
                 bool isTeleport = (vcam.Follow.position - extra.prevFollowPos).sqrMagnitude > 1f;
+                var wasTeleported = extra.wasTeleported;
+                extra.wasTeleported = isTeleport; //Set IsTeleport true on the frame after it was aktually valid, because we use the change of displacement to dertmine whether to transition 
+                isTeleport |= wasTeleported;
                 extra.prevFollowPos = vcam.Follow.position;
 
 
@@ -315,6 +318,8 @@ namespace LSHGame.Util
             public Vector3 prevDisplacement;
             public bool isInTransition = false;
             public float startTimeTransition = 0;
+
+            public bool wasTeleported = false;
 
             public VcamShapeCache m_VcamShapeCache;
             

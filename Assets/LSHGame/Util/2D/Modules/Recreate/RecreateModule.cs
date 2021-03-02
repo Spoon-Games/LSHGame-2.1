@@ -39,6 +39,12 @@ namespace LSHGame.Util
             }
         }
 
+        internal void SetLocalScale(Vector3 localScale)
+        {
+            transform.localScale = localScale;
+            scale = localScale;
+        }
+
         private void OnDestroy()
         {
             wasDestroied = true;

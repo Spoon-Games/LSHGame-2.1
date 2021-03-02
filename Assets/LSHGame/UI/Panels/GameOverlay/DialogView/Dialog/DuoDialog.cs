@@ -36,6 +36,7 @@ namespace LSHGame.UI
         public Sprite image;
         [EventRef]
         public string sound;
+        public BaseVoice voice;
         public string name;
         public bool isRight;
         [Multiline]

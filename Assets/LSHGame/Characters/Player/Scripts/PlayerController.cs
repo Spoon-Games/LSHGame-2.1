@@ -350,7 +350,7 @@ namespace LSHGame.PlayerN
                     break;
                 case PlayerStates.ClimbWall:
 
-                    //Run(true);
+                    GameInput.Hint_HasClimbed = true;
                     localGravity = 0;
                     SetClimbWallSpeedX();
                     localVelocity.y = Stats.ClimbingWallSlideSpeed * inputMovement.y;
@@ -389,6 +389,8 @@ namespace LSHGame.PlayerN
 
         private void Run(bool isAirborne = false, bool isCrouching = false)
         {
+            if (Mathf.Abs(inputMovement.x) > 0.01f)
+                GameInput.Hint_HasMoved = true;
             float horVelocityRel = localVelocity.x;
             AnimationCurve accelCurve = Stats.RunAccelCurve;
             AnimationCurve deaccelCurve = Stats.RunDeaccelCurve;
@@ -463,6 +465,8 @@ namespace LSHGame.PlayerN
 
         private void Dash()
         {
+            GameInput.Hint_HasDashed = true;
+
             var currentRotation = Quaternion.FromToRotation(Vector3.right, localVelocity);
             if (Stats.GlobalDashTurningCenter != Vector2.negativeInfinity)
             {

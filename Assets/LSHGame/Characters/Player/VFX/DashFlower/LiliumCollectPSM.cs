@@ -10,6 +10,10 @@ namespace LSHGame.PlayerN
     {
         [SerializeField] private AnimationCurve distanceByLifetime;
 
+        [FMODUnity.EventRef]
+        [SerializeField]
+        private string collectSFX;
+
         public float spiralRadius = 1;
         public float spiralThreshhold = 0.3f;
 
@@ -33,6 +37,7 @@ namespace LSHGame.PlayerN
         {
             this.liliumSystem = liliumSystem;
             Play();
+            FMODUnity.RuntimeManager.PlayOneShot(collectSFX);
         }
 
         private void Play()

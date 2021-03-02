@@ -29,6 +29,10 @@ namespace LSHGame.UI
 
         private Tween typewriteTween;
 
+        private BaseVoice rightVoice;
+        private BaseVoice leftVoice;
+        private BaseVoice currentVoice;
+
         public override void Awake()
         {
             base.Awake();
@@ -63,15 +67,20 @@ namespace LSHGame.UI
             if(typewriteTween != null && typewriteTween.active)
             {
                 typewriteTween.Complete();
+                currentVoice?.Stop();
                 return;
             }
 
             if(Dialog.GetNext(out LineData lineData))
             {
+
+                UpdateVoiceLine(lineData);
                 FadeFocus(lineData.isRight);
 
                 if (!string.IsNullOrEmpty(lineData.sound))
                     FMODUnity.RuntimeManager.PlayOneShot(lineData.sound);
+                else
+                    currentVoice?.Play(lineData.text);
 
                 if(lineData.image != null)
                 {
@@ -83,6 +92,20 @@ namespace LSHGame.UI
             }
 
             End();
+        }
+
+        private void UpdateVoiceLine(LineData lineData)
+        {
+            currentVoice?.Stop();
+            if (lineData.voice != null)
+            {
+                if (lineData.isRight)
+                    rightVoice = lineData.voice;
+                else
+                    leftVoice = lineData.voice;
+            }
+
+            currentVoice = lineData.isRight ? rightVoice : leftVoice;
         }
 
         private void SetFocus(bool isRight)

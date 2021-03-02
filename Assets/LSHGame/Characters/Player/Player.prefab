@@ -622,7 +622,7 @@ MonoBehaviour:
     _dashRecoverDurration: 1
     _gravity: 0.75
     _fallDamping: 0.948
-  liliumDeathDurration: 10
+  liliumDeathDurration: 13
   deathTransition: {fileID: 11400000, guid: 287a4bd7f6a8bb842a2fb8976d134f0f, type: 2}
   verticalDashSpeed: 0
   isInvincible: 0

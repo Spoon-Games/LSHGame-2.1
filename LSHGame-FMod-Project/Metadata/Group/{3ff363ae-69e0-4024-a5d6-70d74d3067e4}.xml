@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{3ff363ae-69e0-4024-a5d6-70d74d3067e4}">
+		<property name="name">
+			<value>ThomasTest_2</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{69adb013-e5d2-4932-9e88-3113b4d36091}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{f62df135-4d09-4323-9860-d51903334a9f}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{4355bc41-6378-43f7-9ab4-d7d975df6059}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{69adb013-e5d2-4932-9e88-3113b4d36091}">
+		<relationship name="effects">
+			<destination>{c70bc2f2-06dc-439c-866f-e1288fc97f5a}</destination>
+			<destination>{ce370126-079e-4b32-8774-104d95795d3b}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{f62df135-4d09-4323-9860-d51903334a9f}" />
+	<object class="PitchShifterEffect" id="{c70bc2f2-06dc-439c-866f-e1288fc97f5a}">
+		<property name="pitch">
+			<value>2</value>
+		</property>
+	</object>
+	<object class="MixerBusFader" id="{ce370126-079e-4b32-8774-104d95795d3b}" />
+</objects>

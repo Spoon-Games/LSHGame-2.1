@@ -12,6 +12,10 @@ namespace LSHGame.PlayerN
         [SerializeField]
         private ParticleSystem liliumSpiralSystem;
 
+        [FMODUnity.EventRef]
+        [SerializeField]
+        private string deliverSFX;
+
         public float spiralRadius = 1;
         public float spiralThreshhold = 0.3f;
 
@@ -36,6 +40,7 @@ namespace LSHGame.PlayerN
         {
             this.blackLiliumTarget = blackLiliumTarget;
             Play();
+            FMODUnity.RuntimeManager.PlayOneShot(deliverSFX);
         }
 
         private void Play()

@@ -17,6 +17,7 @@ namespace LSHGame.PlayerN
         [Space]
         [SerializeField] private AnimationCurve emissionOverTime;
         [SerializeField] private AnimationCurve shapeRadius;
+        [SerializeField] private AnimationCurve radiusThickness;
         [Space]
         [SerializeField] private PSCurveMultiplier orbitalZ;
         [SerializeField] private AnimationCurve radial;
@@ -24,6 +25,11 @@ namespace LSHGame.PlayerN
         [SerializeField] private AnimationCurve trailLength;
         [Space]
         [SerializeField] private int liliumDashSubEmitterIndex = 1;
+        [Space]
+        [FMODUnity.EventRef]
+        [SerializeField]
+        private string spiralSFX;
+        private FMOD.Studio.EventInstance spiralSoundInstance;
 
 
         protected override void Awake()
@@ -58,13 +64,19 @@ namespace LSHGame.PlayerN
             Evaluate(t);
 
             if (!ps.isPlaying)
+            {
                 ps.Play();
+                spiralSoundInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                spiralSoundInstance = FMODUnity.RuntimeManager.CreateInstance(spiralSFX);
+                spiralSoundInstance.start();
+            }
         }
 
         public void Stop()
         {
-            if(ps.isPlaying)
+            if (ps.isPlaying)
                 ps.Stop(true,ParticleSystemStopBehavior.StopEmittingAndClear);
+            spiralSoundInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
 
         private void Evaluate(float t)
@@ -82,6 +94,7 @@ namespace LSHGame.PlayerN
             emission.rateOverTimeMultiplier = emissionOverTime.Evaluate(t);
             var shape = ps.shape;
             shape.radius = shapeRadius.Evaluate(t);
+            shape.radiusThickness = radiusThickness.Evaluate(t);
 
             var vol = ps.velocityOverLifetime;
             orbitalZ.Evaluate(t);

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="AudioFile" id="{db961817-b134-44de-af09-b7583149045e}">
 		<property name="assetPath">
-			<value>Custom Created/Ladder_Climb.wav</value>
+			<value>Custom Created/Player/Ladder_Climb.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

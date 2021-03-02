@@ -41,6 +41,12 @@ namespace LSHGame.Util
         public static Action ToggleDebugSceneView;
         #endregion
 
+        #region HintStates
+        public static bool Hint_HasMoved = false;
+        public static bool Hint_HasClimbed = false;
+        public static bool Hint_HasDashed = false;
+        #endregion
+
 
 
         #region Init
