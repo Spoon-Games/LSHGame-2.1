@@ -10,6 +10,10 @@ namespace SceneM
         private bool isDefaultStartCheckpoint = false;
 
         [SerializeField]
+        private int order = 0;
+        internal int Order => order;
+
+        [SerializeField]
         private CheckpointInfo identifier;
 
         public enum CheckType { Stay,Vanish}
@@ -27,10 +31,11 @@ namespace SceneM
 
         public void TriggerCheckpoint()
         {
-            CheckpointManager.SetCheckpoint(this);
-
-            if (checkType == CheckType.Vanish)
-                Destroy(this.gameObject);
+            if (CheckpointManager.SetCheckpoint(this))
+            {
+                if (checkType == CheckType.Vanish)
+                    Destroy(this.gameObject);
+            }
         }
 
 #if UNITY_EDITOR
@@ -42,6 +47,10 @@ namespace SceneM
                 Gizmos.DrawIcon(transform.position, "checkpoint-start", true);
             else
                 Gizmos.DrawIcon(transform.position, "checkpoint", true);
+
+            UnityEditor.Handles.Label(transform.position,
+                new GUIContent() { text = order.ToString() },
+                new GUIStyle() { contentOffset = new Vector2(-14,-40),fontSize = 20 });
         } 
 #endif
     } 

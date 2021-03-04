@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: -4034279651561919166}
   - component: {fileID: 1704081312302857621}
   - component: {fileID: 1358425740655844411}
+  - component: {fileID: 7051558458443696134}
+  - component: {fileID: 1194134096478569578}
   m_Layer: 16
   m_Name: Lshler
   m_TagString: Untagged
@@ -144,9 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataSettings:
-    dataKey: c8572712-8262-45d1-9e66-c0ad975aa7cb
+    dataKey: 1bd372c1-b5fb-47bf-a89b-f641c8047981
     persistenceType: 0
-    InstanceId: -1233284
+    InstanceId: -46034
   inventoryItem: {fileID: 11400000, guid: e6e4ba139368e544c80dcacce2a84b47, type: 2}
   onPickUp:
     m_PersistentCalls:
@@ -193,3 +195,41 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
+--- !u!50 &7051558458443696134
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237907439196370261}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.1
+  m_LinearDrag: 2
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1194134096478569578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237907439196370261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a187093340f60e94ebfba13321812259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0}
+  minDistance: 1.5
+  maxDistance: 4
+  maxForce: 5
+  active: 0

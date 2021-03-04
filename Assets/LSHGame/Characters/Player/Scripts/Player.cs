@@ -16,6 +16,8 @@ namespace LSHGame.PlayerN
         [SerializeField]
         public bool IsWallClimbEnabled = true;
 
+        public bool IsSaveGround => characterController.IsSaveGround;
+
         public override void Awake()
         {
             base.Awake();

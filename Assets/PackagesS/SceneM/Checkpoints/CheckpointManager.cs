@@ -6,55 +6,65 @@ namespace SceneM
 {
     public static class CheckpointManager
     {
-        private static Vector3 currantCheckPos = Vector3.negativeInfinity;
+        private static Vector3 currentCheckPos = Vector3.negativeInfinity;
 
-        private static Dictionary<CheckpointInfo, Vector3> startCheckpoints = new Dictionary<CheckpointInfo, Vector3>();
+        private static Dictionary<CheckpointInfo, Checkpoint> startCheckpoints = new Dictionary<CheckpointInfo, Checkpoint>();
 
+        private static int currentOrder = 0;
+
+        #region Init
         static CheckpointManager()
         {
             LevelManager.OnStartLoadingMainScene += Reset;
         }
 
-        internal static void Reset(Func<float> o,TransitionInfo transition)
+        internal static void Reset(Func<float> o, TransitionInfo transition)
         {
-            currantCheckPos = Vector3.negativeInfinity;
+            currentCheckPos = Vector3.negativeInfinity;
         }
 
         internal static void SetDefaultStartCheckpoint(Checkpoint checkpoint)
         {
-            if (!Equals(currantCheckPos,Vector3.negativeInfinity))
+            if (!Equals(currentCheckPos, Vector3.negativeInfinity))
                 Debug.LogError("Multiple default start checkpoints in the scene. This will probably result in " +
                     "unexpected behaviour.");
-            currantCheckPos = checkpoint.transform.position;
+            currentCheckPos = checkpoint.transform.position;
         }
 
-        internal static void RegisterStartCheckpoint(Checkpoint checkpoint,CheckpointInfo identifier)
+        internal static void RegisterStartCheckpoint(Checkpoint checkpoint, CheckpointInfo identifier)
         {
-            startCheckpoints[identifier] = checkpoint.transform.position;
+            startCheckpoints[identifier] = checkpoint;
         }
 
-        public static void SetStartCheckpoint(CheckpointInfo identifier,bool clearStartCheckpoints = true)
+        public static void SetStartCheckpoint(CheckpointInfo identifier, bool clearStartCheckpoints = true)
         {
-            if (startCheckpoints.TryGetValue(identifier, out Vector3 pos))
+            if (startCheckpoints.TryGetValue(identifier, out Checkpoint checkpoint))
             {
-                currantCheckPos = pos;
+                SetCheckpoint(checkpoint);
             }
             else
                 Debug.LogError("The checkpoint with the identifier " + identifier.name + " was not found");
             if (clearStartCheckpoints)
                 startCheckpoints.Clear();
-        }
+        } 
+        #endregion
 
         public static Vector3 GetCheckpointPos()
         {
-            if (Equals(currantCheckPos, Vector3.negativeInfinity))
+            if (Equals(currentCheckPos, Vector3.negativeInfinity))
                 throw new SceneMException("No start checkpoint was assigned. Please change that!");
-            return currantCheckPos;
+            return currentCheckPos;
         }
 
-        internal static void SetCheckpoint(Checkpoint checkpoint)
+        internal static bool SetCheckpoint(Checkpoint checkpoint)
         {
-            currantCheckPos = checkpoint.transform.position;
+            if(checkpoint.Order >= currentOrder)
+            {
+                currentCheckPos = checkpoint.transform.position;
+                currentOrder = checkpoint.Order;
+                return true;
+            }
+            return false;
         }
     } 
 }

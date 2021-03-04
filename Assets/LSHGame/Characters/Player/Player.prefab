@@ -118,18 +118,12 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 246784
-  interactablePlatformsLayers:
-    serializedVersion: 2
-    m_Bits: 131072
-  climbWallLayers:
-    serializedVersion: 2
-    m_Bits: 197632
-  ladderLayers:
-    serializedVersion: 2
-    m_Bits: 2048
   hazardsLayers:
     serializedVersion: 2
     m_Bits: 49152
+  saveGroundLayers:
+    serializedVersion: 2
+    m_Bits: 1024
   maxStepHeight: 0.4
   stepSearchOvershoot: 0.02
   maxClampStepHeightClimpWall: 0.2

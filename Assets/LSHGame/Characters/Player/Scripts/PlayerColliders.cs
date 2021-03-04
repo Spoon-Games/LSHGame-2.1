@@ -47,13 +47,9 @@ namespace LSHGame.PlayerN
         [SerializeField]
         private LayerMask groundLayers;
         [SerializeField]
-        private LayerMask interactablePlatformsLayers;
-        [SerializeField]
-        private LayerMask climbWallLayers;
-        [SerializeField]
-        private LayerMask ladderLayers;
-        [SerializeField]
         private LayerMask hazardsLayers;
+        [SerializeField]
+        private LayerMask saveGroundLayers;
 
         [Header("Steps")]
         public float maxStepHeight = 0.4f;              ///< The maximum a player can set upwards in units when they hit a wall that's potentially a step
@@ -126,6 +122,7 @@ namespace LSHGame.PlayerN
             stateMachine.IsTouchingClimbWall = IsTouchingClimbWallLeft || IsTouchingClimbWallRight;
 
             RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Feet, feetTouchRect);
+            parent.IsSaveGround = IsTouchingLayerRectRelative(feetTouchRect, saveGroundLayers);
 
             RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Main, mainCollider);
             bool isCrushed = IsTouchingLayerRectRelative(GetColliderRect(mainCollider).InsetRect(crushedRectInset), groundLayers, false);

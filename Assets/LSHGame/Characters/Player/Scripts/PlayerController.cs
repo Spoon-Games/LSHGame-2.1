@@ -82,6 +82,8 @@ namespace LSHGame.PlayerN
         private bool isXFliped => flipedDirection.x == -1;
 
         private bool isJumpSpeedCutterActivated = false;
+
+        public bool IsSaveGround { get; internal set; }
         #endregion
 
         #region Initialization
@@ -176,7 +178,7 @@ namespace LSHGame.PlayerN
         #region Check Methods
         private void CheckLilium()
         {
-            if(Stats.LiliumReference != null)
+            if(Stats.LiliumReference != null && liliumState < 1)
             {
                 if (Stats.LiliumReference.GetLilium())
                 {
@@ -467,25 +469,25 @@ namespace LSHGame.PlayerN
         {
             GameInput.Hint_HasDashed = true;
 
-            var currentRotation = Quaternion.FromToRotation(Vector3.right, localVelocity);
-            if (Stats.GlobalDashTurningCenter != Vector2.negativeInfinity)
-            {
-                Vector2 radius = (Vector2)transform.position - Stats.GlobalDashTurningCenter;
-                if (Stats.GlobalDashTurningCenter != lastDashTurningCenter)
-                {
-                    lastDashTurningCenter = Stats.GlobalDashTurningCenter;
-                    dashTurningTargetAngle = Stats.DashDeltaTurningAngle * Mathf.Sign(Vector2.SignedAngle(radius,localVelocity))  + currentRotation.eulerAngles.z;
-                    Debug.Log("Radius: " + radius + " Velocity: " + localVelocity + " AngleSign: " + Mathf.Sign(Vector2.SignedAngle(radius, localVelocity)) +
-                        "\nTurningCenter: "+Stats.GlobalDashTurningCenter);
-                }
+            //var currentRotation = Quaternion.FromToRotation(Vector3.right, localVelocity);
+            //if (Stats.GlobalDashTurningCenter != Vector2.negativeInfinity)
+            //{
+            //    Vector2 radius = (Vector2)transform.position - Stats.GlobalDashTurningCenter;
+            //    if (Stats.GlobalDashTurningCenter != lastDashTurningCenter)
+            //    {
+            //        lastDashTurningCenter = Stats.GlobalDashTurningCenter;
+            //        dashTurningTargetAngle = Stats.DashDeltaTurningAngle * Mathf.Sign(Vector2.SignedAngle(radius,localVelocity))  + currentRotation.eulerAngles.z;
+            //        Debug.Log("Radius: " + radius + " Velocity: " + localVelocity + " AngleSign: " + Mathf.Sign(Vector2.SignedAngle(radius, localVelocity)) +
+            //            nTurningCenter: "+Stats.GlobalDashTurningCenter);
+            //    }
                 
-                RotateDash(currentRotation, Quaternion.Euler(0, 0, dashTurningTargetAngle), radius.magnitude);
-            }
-            else if(Stats.DashTurningRadius >= 0)
-            {
-                var targetRotation = Quaternion.Euler(0, 0, Stats.TargetDashAngle);
-                RotateDash(currentRotation, targetRotation, Stats.DashTurningRadius);
-            }
+            //    RotateDash(currentRotation, Quaternion.Euler(0, 0, dashTurningTargetAngle), radius.magnitude);
+            //}
+            //else if(Stats.DashTurningRadius >= 0)
+            //{
+            //    var targetRotation = Quaternion.Euler(0, 0, Stats.TargetDashAngle);
+            //    RotateDash(currentRotation, targetRotation, Stats.DashTurningRadius);
+            //}
             estimatedDashPosition = ((Vector2)rb.transform.position) + (dashVelocity * Time.fixedDeltaTime);
         }
 
