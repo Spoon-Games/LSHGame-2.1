@@ -1,0 +1,226 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a02e9282f4e21854d8b6806266d7b10d, type: 3}
+  m_Name: FrogAnimationBehaviour
+  m_EditorClassIdentifier: 
+  nodes:
+  - id: 0
+  - id: 1
+  - id: 2
+  - id: 3
+  - id: 4
+  - id: 5
+  - id: 6
+  - id: 7
+  - id: 8
+  - id: 9
+  - id: 10
+  - id: 11
+  - id: 12
+  - id: 13
+  dataExNodes:
+  - id: 14
+  - id: 15
+  references:
+    version: 1
+    00000000:
+      type: {class: RootTask, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 0, y: 0}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        child:
+          id: 1
+    00000001:
+      type: {class: Repeater, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: -48, y: 131}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        child:
+          id: 2
+        abortType: 0
+        cicles: -1
+    00000002:
+      type: {class: Sequence, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 11, y: 359}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        _children:
+          tasks:
+          - id: 4
+          - id: 3
+          - id: 11
+          - id: 6
+          - id: 7
+          - id: 8
+          - id: 9
+    00000003:
+      type: {class: BoolAnimatorNode, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts:
+        - outputPortNode:
+            id: 16
+          outputPortName: 
+          portName: Is Active
+        editorPos: {x: -190, y: 678}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        defaultIsActive: 0
+        parameterName: IsGround
+    00000004:
+      type: {class: ReturnDecorator, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: -501, y: 703}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        child:
+          id: 5
+        returnType: 2
+    00000005:
+      type: {class: Repeater, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: -507, y: 863}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        child:
+          id: 10
+        abortType: 1
+        cicles: -1
+    00000006:
+      type: {class: Repeater, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 403, y: 718}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        child:
+          id: 12
+        abortType: 2
+        cicles: -1
+    00000007:
+      type: {class: BoolAnimatorNode, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts:
+        - outputPortNode:
+            id: 16
+          outputPortName: 
+          portName: Is Active
+        editorPos: {x: 741, y: 734}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        defaultIsActive: 1
+        parameterName: IsGround
+    00000008:
+      type: {class: WaitTask, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 986, y: 755}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        waitTime: 0.08
+    00000009:
+      type: {class: Repeater, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 1169, y: 768}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        child:
+          id: 13
+        abortType: 2
+        cicles: -1
+    0000000A:
+      type: {class: IsGroundNode, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: -476, y: 1071}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        origin: {x: 0, y: 0}
+        rayLength: 0.15
+        groundLayers:
+          serializedVersion: 2
+          m_Bits: 1024
+    0000000B:
+      type: {class: WaitTask, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 90, y: 697}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        waitTime: 0.1
+    0000000C:
+      type: {class: IsGroundNode, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 443, y: 954}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        origin: {x: 0, y: 0}
+        rayLength: 0.9
+        groundLayers:
+          serializedVersion: 2
+          m_Bits: 1024
+    0000000D:
+      type: {class: IsGroundNode, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 1222, y: 972}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        origin: {x: 0, y: 0}
+        rayLength: 0.5
+        groundLayers:
+          serializedVersion: 2
+          m_Bits: 1024
+    0000000E:
+      type: {class: GroupDataExNode, ns: BehaviourT, asm: BehaviourT}
+      data:
+        GroupName: Jump
+        GroupPosition:
+          serializedVersion: 2
+          x: -532
+          y: 619
+          width: 759
+          height: 545
+        children:
+        - id: 3
+        - id: 4
+        - id: 5
+        - id: 11
+        - id: 10
+    0000000F:
+      type: {class: GroupDataExNode, ns: BehaviourT, asm: BehaviourT}
+      data:
+        GroupName: Landing
+        GroupPosition:
+          serializedVersion: 2
+          x: 378
+          y: 658.99994
+          width: 1047
+          height: 406
+        children:
+        - id: 6
+        - id: 7
+        - id: 12
+        - id: 8
+        - id: 9
+        - id: 13
+    00000010:
+      type: {class: , ns: , asm: }

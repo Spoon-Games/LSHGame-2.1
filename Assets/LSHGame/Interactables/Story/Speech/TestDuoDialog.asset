@@ -15,6 +15,7 @@ MonoBehaviour:
   Lines:
   - image: {fileID: 21300000, guid: 1d3047f35b632ce4aac8e85f24e12b52, type: 3}
     sound: 
+    voice: {fileID: 0}
     name: Beth
     isRight: 1
     text: 'Hallo, ich bin Beth.
@@ -22,6 +23,7 @@ MonoBehaviour:
       Wie geht es dir?'
   - image: {fileID: 21300000, guid: abb9dafe0aee6254ea8166b96f84aefd, type: 3}
     sound: 
+    voice: {fileID: 0}
     name: Katharina
     isRight: 0
     text: 'Gut, danke der Nachfrage.
@@ -29,16 +31,19 @@ MonoBehaviour:
       Was machst du hier?'
   - image: {fileID: 0}
     sound: 
+    voice: {fileID: 0}
     name: 
     isRight: 1
     text: Ich studiere Drachen
   - image: {fileID: 0}
     sound: 
+    voice: {fileID: 0}
     name: 
     isRight: 0
     text: Eidechsen also...
   - image: {fileID: 0}
     sound: 
+    voice: {fileID: 0}
     name: 
     isRight: 1
     text: Drachen!!

@@ -16,7 +16,7 @@ namespace BehaviourT
 
         [SerializeField]
         [NodeEditorField(NodeEditorField.NodePlace.MainContainer,"Return Type")]
-        private ReturnType returnType;
+        protected ReturnType returnType;
 
         protected override TaskState OnEvaluate()
         {

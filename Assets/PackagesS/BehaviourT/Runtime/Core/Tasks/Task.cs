@@ -29,7 +29,7 @@ namespace BehaviourT
 
             State = OnEvaluate();
 
-            if (State == TaskState.NotEvaluated) // Fail-save when wrong implementing OnEvaluate
+            if (State == TaskState.NotEvaluated) // Fail-save on false implementation of OnEvaluate
                 State = TaskState.Running;
 
             return State;

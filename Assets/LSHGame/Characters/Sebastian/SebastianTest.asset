@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d21a2fc2d25c0f45b5869b081a79208, type: 3}
+  m_Name: SebastianTest
+  m_EditorClassIdentifier: 
+  Lines:
+  - image: {fileID: 21300000, guid: bec933709ef7ff941908f0dbe0d23caf, type: 3}
+    sound: 
+    voice: {fileID: 0}
+    name: Sebastian, Graph von und zu Chester
+    isRight: 1
+    text: "Und die Bl\xFCte singen, von Zeit zu Zeit"
+  - image: {fileID: 21300000, guid: abb9dafe0aee6254ea8166b96f84aefd, type: 3}
+    sound: 
+    voice: {fileID: 0}
+    name: Katharina
+    isRight: 0
+    text: 'Hallo?
+
+'

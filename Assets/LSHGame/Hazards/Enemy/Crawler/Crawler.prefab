@@ -204,6 +204,7 @@ GameObject:
   - component: {fileID: 1998733623}
   - component: {fileID: 1998733624}
   - component: {fileID: 1998733625}
+  - component: {fileID: 8993678044928392224}
   m_Layer: 16
   m_Name: Crawler
   m_TagString: Untagged
@@ -347,6 +348,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4df5fd8cdfea0094f81cea9278241217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8993678044928392224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4298589808309888408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df40e8a41df15347a94c771f7f0f145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Effects:
+  - Death
+  EffectMaterial: Crawler
 --- !u!1001 &2636430573055312931
 PrefabInstance:
   m_ObjectHideFlags: 0

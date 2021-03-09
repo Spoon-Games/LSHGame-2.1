@@ -178,6 +178,8 @@ namespace LSHGame.PlayerN
         #region Check Methods
         private void CheckLilium()
         {
+            Debug.Log("liliumState: " + liliumState);
+
             if(Stats.LiliumReference != null && liliumState < 1)
             {
                 if (Stats.LiliumReference.GetLilium())
