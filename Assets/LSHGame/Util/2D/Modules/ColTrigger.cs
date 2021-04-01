@@ -15,28 +15,53 @@ public class ColTrigger : MonoBehaviour
     [SerializeField]
     public UnityEvent OnTriggerExitedEvent;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(layerMask == (layerMask | (1 << collision.gameObject.layer)))
+    private Collider2D col;
+
+    private bool _isTriggered = false;
+    public bool IsTriggered { get => _isTriggered; private set
         {
-            OnTriggerEntered(collision);
+            if (value && !_isTriggered)
+                OnTriggerEntered();
+            else if (!value && _isTriggered)
+                OnTriggerExited();
+
+            _isTriggered = value;
         }
     }
 
-    protected virtual void OnTriggerEntered(Collider2D collision)
+    private void Awake()
+    {
+        col = GetComponent<Collider2D>();
+    }
+
+    private void FixedUpdate()
+    {
+        IsTriggered = Physics2D.IsTouchingLayers(col, layerMask);
+    }
+
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(layerMask == (layerMask | (1 << collision.gameObject.layer)))
+    //    {
+    //        OnTriggerEntered(collision);
+    //    }
+    //}
+
+    protected virtual void OnTriggerEntered()
     {
         OnTriggerEnteredEvent.Invoke();
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (layerMask == (layerMask | (1 << collision.gameObject.layer)))
-        {
-            OnTriggerExited(collision);
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (layerMask == (layerMask | (1 << collision.gameObject.layer)))
+    //    {
+    //        OnTriggerExited(collision);
+    //    }
+    //}
 
-    protected virtual void OnTriggerExited(Collider2D collision)
+    protected virtual void OnTriggerExited()
     {
         OnTriggerExitedEvent.Invoke();
     }

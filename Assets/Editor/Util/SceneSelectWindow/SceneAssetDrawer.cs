@@ -60,8 +60,8 @@ namespace LSHGame.Editor
             {
                 if (GetSceneAsset(property, out SceneAsset a))
                 {
-                    EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
-                    EditorSceneManager.OpenScene(AssetDatabase.GetAssetPath(a));
+                    if(EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                        EditorSceneManager.OpenScene(AssetDatabase.GetAssetPath(a));
                 }
             }
 

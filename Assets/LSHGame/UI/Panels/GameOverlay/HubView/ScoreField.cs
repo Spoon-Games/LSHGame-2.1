@@ -66,6 +66,11 @@ namespace LSHGame.UI
             }
         }
 
+        private void OnDestroy()
+        {
+            Inventory.OnItemAdded -= OnItemAdded;
+        }
+
         private void GenerateSequence(string newText)
         {
             Sequence sequence = DOTween.Sequence();

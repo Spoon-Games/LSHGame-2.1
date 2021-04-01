@@ -10,9 +10,7 @@ namespace LSHGame.UI
         [SerializeField]
         private TMP_Text dialogField;
         [SerializeField]
-        private Image imageField;
-        [SerializeField]
-        private float typeSpeed = 0.1f;
+        private Image imageField; 
 
         [SerializeField]
         private float minScale = 0.3f;
@@ -29,8 +27,6 @@ namespace LSHGame.UI
         [SerializeField]
         [FMODUnity.EventRef]
         private string defaultOpeningSound;
-
-        private Tween typewriteTween;
 
         public override void OnEnter()
         {
@@ -51,23 +47,13 @@ namespace LSHGame.UI
             }
         }
 
-        protected override void GetNext()
+        #region Text
+
+        protected override void SetText(string text)
         {
-            if (typewriteTween != null && typewriteTween.active)
-            {
-                typewriteTween.Complete();
-                return;
-            }
-
-            if (Dialog.GetNext(out string text))
-            {
-
-                typewriteTween = dialogField.DOTypeWritePerSpeed(text, typeSpeed).SetEase(Ease.Linear);
-                return;
-            }
-
-            End();
+            dialogField.text = text;
         }
+        #endregion
 
         public override void OnLeave()
         {

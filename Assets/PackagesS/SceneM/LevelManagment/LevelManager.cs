@@ -12,6 +12,8 @@ namespace SceneM
 
         public static Action<Func<float>, TransitionInfo> OnStartLoadingMainScene;
 
+        public static Action OnExitScene;
+
         private static List<int> loadedScenesInLevel = new List<int>();
 
         public static Action OnResetLevel;
@@ -100,6 +102,7 @@ namespace SceneM
 
         private static void LoadMainSceneRaw(MainSceneInfo sceneInfo, TransitionInfo transition)
         {
+            OnExitScene?.Invoke();
             AsyncOperation operation = null;
 
             if (transition == null)

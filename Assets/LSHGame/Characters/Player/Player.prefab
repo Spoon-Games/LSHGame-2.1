@@ -117,6 +117,9 @@ MonoBehaviour:
     height: 0.8
   groundLayers:
     serializedVersion: 2
+    m_Bits: 1295360
+  crushLayers:
+    serializedVersion: 2
     m_Bits: 246784
   hazardsLayers:
     serializedVersion: 2

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Ruinen_LevelInfo
   m_EditorClassIdentifier: 
   Name: Ruinen
-  StartScene: {fileID: 11400000, guid: 6a26b3ad80937584db97fdfcd3249125, type: 2}
+  StartScene: {fileID: 11400000, guid: d8483cdd6cd529a498744f0060a8a968, type: 2}
   IsGlobal: 0

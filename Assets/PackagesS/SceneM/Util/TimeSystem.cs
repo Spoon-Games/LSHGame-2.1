@@ -13,7 +13,7 @@ namespace SceneM
 
         public static Action OnUpdate;
 
-        private static SortedDictionary<float, Action<float>> delayActions = new SortedDictionary<float, Action<float>>();
+        private static SortedList<float, Action<float>> delayActions = new SortedList<float, Action<float>>(new DuplicateKeyComparer<float>());
 
         private void Update()
         {
@@ -29,13 +29,15 @@ namespace SceneM
         {
             OnFixedUpdate?.Invoke();
 
-            if (delayActions.Count > 0) {
+            while (delayActions.Count > 0) {
                 var d = delayActions.First();
-                if(d.Key <= Time.fixedTime)
+                if (d.Key <= Time.fixedTime)
                 {
                     d.Value?.Invoke(Time.fixedTime);
-                    delayActions.Remove(d.Key);
+                    delayActions.RemoveAt(0);
                 }
+                else
+                    break;
             }
         }
 

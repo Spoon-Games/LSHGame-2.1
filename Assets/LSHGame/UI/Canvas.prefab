@@ -321,9 +321,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   furtherButton: {fileID: 0}
+  furtherButtonTextField: {fileID: 0}
+  defaultFurtherText: Weiter
+  typeSpeed: 7
   dialogField: {fileID: 7245865925377082862}
   imageField: {fileID: 3236050365921731986}
-  typeSpeed: 0.15
   minScale: 0.2
   inScaleTime: 2
   inScaleEase: 6
@@ -1895,6 +1897,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   furtherButton: {fileID: 8362345992924733399}
+  furtherButtonTextField: {fileID: 4329046249182620710}
+  defaultFurtherText: Weiter
+  typeSpeed: 13
   characterImageRight: {fileID: 2025504876516051943}
   characterImageLeft: {fileID: 7789101535258920335}
   nameFieldRight: {fileID: 7795465510126612696}
@@ -1903,7 +1908,6 @@ MonoBehaviour:
   colorNoneFocusedImage: {r: 0.5529412, g: 0.5568628, b: 0.5137255, a: 1}
   colorNoneFocusedText: {r: 0.3764706, g: 0.3764706, b: 0.3764706, a: 1}
   fadeFocusTime: 0.2
-  typeSpeed: 0.05
 --- !u!114 &1180500640744409890
 MonoBehaviour:
   m_ObjectHideFlags: 0

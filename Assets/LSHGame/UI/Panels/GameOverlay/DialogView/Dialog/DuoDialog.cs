@@ -1,5 +1,5 @@
-﻿using FMODUnity;
-using System.Collections;
+﻿using System;
+using TagInterpreterR;
 using UnityEngine;
 
 namespace LSHGame.UI
@@ -7,39 +7,23 @@ namespace LSHGame.UI
     [CreateAssetMenu(menuName = "LSHGame/Dialog/DuoDialog")]
     public class DuoDialog : BaseDialog
     {
-        public LineData[] Lines;
+        [Multiline(lines: 20,order = 5)]
+        public string Data;
 
-        private IEnumerator enumerator;
+        public Person PersonRight;
+        public Person PersonLeft;
 
-        public override void Reset()
+        [Header("Reference Data")]
+        public string[] Actions;
+
+        protected override string GetData()
         {
-            enumerator = Lines.GetEnumerator();
-            enumerator.Reset();
-        }
-
-        public bool GetNext(out LineData line)
-        {
-            bool hasNext = enumerator.MoveNext();
-            line = hasNext?(LineData)enumerator.Current:null;
-            return hasNext;
+            return Data;
         }
 
         public override void Show()
         {
-            DuoCharacterView.Instance.ShowDialog(this);
+            DuoCharacterView.Instance.Activate(this);
         }
-    }
-
-    [System.Serializable]
-    public class LineData
-    {
-        public Sprite image;
-        [EventRef]
-        public string sound;
-        public BaseVoice voice;
-        public string name;
-        public bool isRight;
-        [Multiline]
-        public string text;
     }
 }

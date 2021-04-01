@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: TestVoice_Thomas
   m_EditorClassIdentifier: 
   soundFolder: event:/Voices/Thomas_Test2
-  readSpeed: 0.05
-  probability: 0.7
+  probability: 1

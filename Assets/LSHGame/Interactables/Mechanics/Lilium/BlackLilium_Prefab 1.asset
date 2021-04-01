@@ -36,5 +36,5 @@ MonoBehaviour:
   m_ColliderType: 1
   prefabs:
   - {fileID: 4221853434555999450, guid: f544d422f0ce55c4cb4a499ee1eb1919, type: 3}
-  previewSprite: {fileID: 4558592362976074445, guid: 02907df39a013994f85a17c4dcb84e93, type: 3}
+  previewSprite: {fileID: 21300000, guid: 6a3476bc8c8a1a346946413396d66a4c, type: 3}
   pivot: {x: 0, y: 0.5}

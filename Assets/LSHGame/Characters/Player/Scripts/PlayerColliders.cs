@@ -47,6 +47,8 @@ namespace LSHGame.PlayerN
         [SerializeField]
         private LayerMask groundLayers;
         [SerializeField]
+        private LayerMask crushLayers;
+        [SerializeField]
         private LayerMask hazardsLayers;
         [SerializeField]
         private LayerMask saveGroundLayers;
@@ -125,7 +127,7 @@ namespace LSHGame.PlayerN
             parent.IsSaveGround = IsTouchingLayerRectRelative(feetTouchRect, saveGroundLayers);
 
             RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Main, mainCollider);
-            bool isCrushed = IsTouchingLayerRectRelative(GetColliderRect(mainCollider).InsetRect(crushedRectInset), groundLayers, false);
+            bool isCrushed = IsTouchingLayerRectRelative(GetColliderRect(mainCollider).InsetRect(crushedRectInset), crushLayers, false);
 
             stateMachine.IsHeadObstructed = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Head, HeadTouchRect,true);
 

@@ -6,10 +6,10 @@ namespace UnityEngine
 {
 	[Serializable]
 	[CreateAssetMenu(fileName = "Rule Tile", menuName = "Tiles/Rule Tile")]
-	public class RuleTile : TileBase
+	public class RuleTile : Tile
 	{
-		public Sprite m_DefaultSprite;
-		public Tile.ColliderType m_DefaultColliderType = Tile.ColliderType.Sprite;
+		public Sprite m_DefaultSprite { get => base.sprite; set => base.sprite = value; }
+		public Tile.ColliderType m_DefaultColliderType { get => base.colliderType; set => base.colliderType = value; }
 
 		[Serializable]
 		public class TilingRule
@@ -50,8 +50,8 @@ namespace UnityEngine
 
 		public override void GetTileData(Vector3Int position, ITilemap tileMap, ref TileData tileData)
 		{
-			tileData.sprite = m_DefaultSprite;
-			tileData.colliderType = m_DefaultColliderType;
+            tileData.sprite = base.sprite; //m_DefaultSprite;
+            tileData.colliderType = base.colliderType; //m_DefaultColliderTy
 			tileData.flags = TileFlags.LockTransform;
 			tileData.transform = Matrix4x4.identity;
 			
@@ -90,7 +90,7 @@ namespace UnityEngine
 		{
 			foreach (TilingRule rule in m_TilingRules)
 			{
-				Matrix4x4 transform = Matrix4x4.identity;
+				Matrix4x4 transform = base.transform;
 				if (RuleMatches(rule, position, tilemap, ref transform) && rule.m_Output == TilingRule.OutputSprite.Animation)
 				{
 					tileAnimationData.animatedSprites = rule.m_Sprites;

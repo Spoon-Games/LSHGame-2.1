@@ -22,7 +22,9 @@ namespace LSHGame.Util
             position = transform.position;
             rotation = transform.rotation;
             scale = transform.localScale;
+            LevelManager.OnExitScene += OnExitScene;
             LevelManager.OnResetLevel += OnReset;
+            
         }
 
         public void OnReset()
@@ -33,10 +35,21 @@ namespace LSHGame.Util
                 {
                     Destroy(gameObject);
                 }
-                LevelManager.OnResetLevel -= OnReset;
+                Deregister();
                 RecreateManager.Instance.Recreate(this, position, rotation,scale,parent);
                 wasReset = true;
             }
+        }
+
+        private void OnExitScene()
+        {
+            Deregister();
+        }
+
+        private void Deregister()
+        {
+            LevelManager.OnResetLevel -= OnReset;
+            LevelManager.OnExitScene -= OnExitScene;
         }
 
         internal void SetLocalScale(Vector3 localScale)
@@ -47,6 +60,7 @@ namespace LSHGame.Util
 
         private void OnDestroy()
         {
+            Deregister();
             wasDestroied = true;
         }
     }

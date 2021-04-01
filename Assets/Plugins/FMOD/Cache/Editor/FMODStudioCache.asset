@@ -470,6 +470,26 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 0
+--- !u!114 &-7365561221802058714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/IsStone
+  m_EditorClassIdentifier: 
+  Name: IsStone
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &-7328364744445775269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1003,6 +1023,29 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 0
+--- !u!114 &-5190586758555482867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Scene/Interactables/Portal/PortalOpening
+  m_EditorClassIdentifier: 
+  Path: event:/Scene/Interactables/Portal/PortalOpening
+  guid: 11b9b9b9b935104bbe44fccd69b03486
+  Banks:
+  - {fileID: 6757865504091281301}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 14000
 --- !u!114 &-5117106978671639972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1169,8 +1212,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 6968907681988246039}
-  - {fileID: 4427331218985537662}
+  - {fileID: 3299755248776115173}
+  - {fileID: 7623221999281922304}
   MinDistance: 0
   MaxDistance: 0
   Length: 150070
@@ -1449,8 +1492,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: 9214768416525745089}
-  - {fileID: -1359926670147160188}
+  - {fileID: -7365561221802058714}
+  - {fileID: 307867382084143533}
   MinDistance: 0
   MaxDistance: 0
   Length: 405
@@ -1921,6 +1964,30 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &-2098809132119966254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Scene/Interactables/Portal/PortalStatus
+  m_EditorClassIdentifier: 
+  Path: event:/Scene/Interactables/Portal/PortalStatus
+  guid: 09f79b8fcbb06346a0ffbcbcf6ba8657
+  Banks:
+  - {fileID: 6757865504091281301}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 2528861385948006840}
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 42000
 --- !u!114 &-1983194293792688001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2446,12 +2513,14 @@ MonoBehaviour:
   - {fileID: -7027121011887583446}
   - {fileID: -8141102998215607356}
   - {fileID: -5637581657516621903}
+  - {fileID: -2098809132119966254}
+  - {fileID: -5190586758555482867}
   EditorParameters: []
   MasterBanks:
   - {fileID: 6757865504091281301}
   StringsBanks:
   - {fileID: 5401350676521943974}
-  stringsBankWriteTime: 637509124399215611
+  stringsBankWriteTime: 637518309164336083
   cacheVersion: 5
 --- !u!114 &44931565216036795
 MonoBehaviour:
@@ -2533,6 +2602,26 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 0
+--- !u!114 &307867382084143533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/IsDirt
+  m_EditorClassIdentifier: 
+  Name: IsDirt
+  Min: 0
+  Max: 1
+  Default: 1
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &331071587083797572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3103,6 +3192,26 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 6000
+--- !u!114 &2528861385948006840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PortalStatus/PortalStatus
+  m_EditorClassIdentifier: 
+  Name: PortalStatus
+  Min: 0
+  Max: 3
+  Default: 1
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &2796899848714811517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3212,6 +3321,26 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &3299755248776115173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music_1/LoopChorus
+  m_EditorClassIdentifier: 
+  Name: LoopChorus
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &3434312049832907670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3709,11 +3838,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: LSHGame-FMod-Project/Build/Desktop/Master.strings.bank
   Name: Master.strings
-  lastModified: 637509124399215611
+  lastModified: 637518309164336083
   LoadResult: 0
   FileSizes:
   - Name: Desktop
-    Value: 4384
+    Value: 4552
   Exists: 1
 --- !u!114 &5403433634845503448
 MonoBehaviour:
@@ -4061,7 +4190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: LSHGame-FMod-Project/Build/Desktop/Master.bank
   Name: Master
-  lastModified: 637509124399085955
+  lastModified: 637518309164266259
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -4314,6 +4443,26 @@ MonoBehaviour:
     data1: 0
     data2: 0
   Exists: 0
+--- !u!114 &7623221999281922304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Music_1/LoopVerse
+  m_EditorClassIdentifier: 
+  Name: LoopVerse
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 0
+    data2: 0
+  Exists: 1
 --- !u!114 &7763179494479163079
 MonoBehaviour:
   m_ObjectHideFlags: 0

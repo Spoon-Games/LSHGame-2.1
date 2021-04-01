@@ -29,6 +29,12 @@ namespace SceneM
                 Debug.LogError("Multiple default start checkpoints in the scene. This will probably result in " +
                     "unexpected behaviour.");
             currentCheckPos = checkpoint.transform.position;
+
+#if UNITY_EDITOR
+            Debug.Log("IsTempCheckpoint: " + Editor.TempCheckpointEditor.IsTempCheckpoint + " Pos: "+Editor.TempCheckpointEditor.TempCheckpoint);
+            if (SceneM.Editor.TempCheckpointEditor.IsTempCheckpoint)
+                currentCheckPos = SceneM.Editor.TempCheckpointEditor.TempCheckpoint;
+#endif
         }
 
         internal static void RegisterStartCheckpoint(Checkpoint checkpoint, CheckpointInfo identifier)

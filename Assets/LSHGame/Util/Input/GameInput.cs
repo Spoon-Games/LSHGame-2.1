@@ -69,7 +69,7 @@ namespace LSHGame.Util
             Controller.Player.Interact.canceled += ctx => OnInteractCancel?.Invoke();
 
             //UI
-            Controller.Dialog.Further.performed += ctx => OnFurther?.Invoke();
+            Controller.Dialog.Further.performed += ctx => { OnFurther?.Invoke();};
 
             //Debug
             Controller.Debug.ToggleConsole.performed += ctx => ToggleDebugConsole?.Invoke();

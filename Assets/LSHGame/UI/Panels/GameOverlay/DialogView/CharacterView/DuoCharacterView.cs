@@ -1,4 +1,6 @@
 ﻿using DG.Tweening;
+using System.Linq;
+using TagInterpreterR;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,14 +26,7 @@ namespace LSHGame.UI
 
         private Color colorFocusedText;
 
-        [SerializeField]
-        private float typeSpeed = 0.1f;
-
-        private Tween typewriteTween;
-
-        private BaseVoice rightVoice;
-        private BaseVoice leftVoice;
-        private BaseVoice currentVoice;
+        private CharacterVoice currentVoice;
 
         public override void Awake()
         {
@@ -41,73 +36,134 @@ namespace LSHGame.UI
 
         public override void OnEnter()
         {
-            GetCharacterDefaultData(out Sprite leftSprite, out string leftName, false);
-            characterImageLeft.sprite = leftSprite;
-            nameFieldLeft.text = leftName;
-
-            GetCharacterDefaultData(out Sprite rightSprit, out string rightName, true);
-            characterImageRight.sprite = rightSprit;
-            nameFieldRight.text = rightName;
-
-            if (Dialog.Lines.Length > 0)
-                SetFocus(Dialog.Lines[0].isRight);
-
             base.OnEnter();
-        }
 
-        protected override void ResetView()
-        {
-            base.ResetView();
-            dialogField.DOKill(false);
             dialogField.text = "";
+            SetDefaultMood(Dialog.PersonLeft, false);
+            SetDefaultMood(Dialog.PersonRight, true);
         }
 
-        protected override void GetNext()
+        #region Tag Callbacks
+        protected override void OnCreateTag(BaseTag tag)
         {
-            if(typewriteTween != null && typewriteTween.active)
+            base.OnCreateTag(tag);
+
+            if (tag is TagReference tagReference && !tag.IsSingle)
             {
-                typewriteTween.Complete();
-                currentVoice?.Stop();
-                return;
-            }
-
-            if(Dialog.GetNext(out LineData lineData))
+                if (tag.Name == Dialog.PersonLeft.Name)
+                    CreatePersonTag(tagReference, Dialog.PersonLeft, false);
+                else if (tag.Name == Dialog.PersonRight.Name)
+                    CreatePersonTag(tagReference, Dialog.PersonRight, true);
+            }else if(tag is EndTag endTag && endTag.ReferenceTag is TagReference tagReference2)
             {
-
-                UpdateVoiceLine(lineData);
-                FadeFocus(lineData.isRight);
-
-                if (!string.IsNullOrEmpty(lineData.sound))
-                    FMODUnity.RuntimeManager.PlayOneShot(lineData.sound);
-                else
-                    currentVoice?.Play(lineData.text);
-
-                if(lineData.image != null)
+                if (tagReference2.Name == Dialog.PersonLeft.Name || tagReference2.Name == Dialog.PersonRight.Name)
                 {
-                    (lineData.isRight ? characterImageRight : characterImageLeft).sprite = lineData.image;
+                    if (!(tagReference2.IsAttribute("IsButton", "false")))
+                        ConsumeIsFurther();
                 }
-
-                typewriteTween = dialogField.DOTypeWritePerSpeed(lineData.text, typeSpeed).SetEase(Ease.Linear);
-                return;
             }
-
-            End();
         }
 
-        private void UpdateVoiceLine(LineData lineData)
+        protected override bool OnUpdateTag(BaseTag tag)
         {
-            currentVoice?.Stop();
-            if (lineData.voice != null)
+            if (base.OnUpdateTag(tag))
+                return true;
+
+            if(tag is EndTag endTag && endTag.ReferenceTag is TagReference tagReference)
             {
-                if (lineData.isRight)
-                    rightVoice = lineData.voice;
-                else
-                    leftVoice = lineData.voice;
+                if(tagReference.Name == Dialog.PersonLeft.Name || tagReference.Name == Dialog.PersonRight.Name)
+                {
+                    if (!(tagReference.IsAttribute("IsButton","false")))
+                        if (!ConsumeIsFurther())
+                            return true;
+                }
             }
 
-            currentVoice = lineData.isRight ? rightVoice : leftVoice;
+            return false;
         }
 
+        protected override void OnDestroyTag(BaseTag tag, bool returnToDefault)
+        {
+            base.OnDestroyTag(tag, returnToDefault);
+
+            if(tag is TagReference tagReference)
+            {
+                if (tagReference.Name == Dialog.PersonLeft.Name || tagReference.Name == Dialog.PersonRight.Name)
+                {
+                    if (!(tagReference.IsAttribute("Page","false")))
+                        ClearText();
+                }
+            }
+        }
+        #endregion
+
+        #region Person
+
+        private void CreatePersonTag(TagReference tag,Person person,bool isRight)
+        {
+            Mood mood= null;
+            Mood defaultMood = person.Moods.FirstOrDefault();
+            if (tag.Attributes.TryGetValue("value", out string moodName) || tag.Attributes.TryGetValue("Mood", out moodName))
+            {
+                foreach(var m in person.Moods)
+                {
+                    if (Equals(m.Name, moodName))
+                    {
+                        mood = m;
+                        break;
+                    }
+                }
+            }
+            
+            if(mood == null)
+            {
+                mood = defaultMood;
+            }
+
+            if(!tag.Attributes.TryGetValue("Name",out string name))
+                name = person.Name;
+
+
+            SetMood(mood, defaultMood, name, isRight);
+            SetFocus(isRight);
+
+            //if (!tag.IsAttribute("Page","false"))
+            //    ClearText();
+
+        }
+
+        private void SetDefaultMood(Person person,bool isRight)
+        {
+            Mood defaultMood = person.Moods.FirstOrDefault();
+            SetMood(defaultMood, defaultMood, person.Name, isRight);
+        }
+
+        private void SetMood(Mood mood,Mood defaultMood,string name,bool isRight)
+        {
+            if(mood != null && defaultMood != null){
+                (isRight ? characterImageRight : characterImageLeft).sprite = (mood.Picture != null ? mood.Picture : defaultMood.Picture);
+                currentVoice = (mood.Voice != null ? mood.Voice : defaultMood.Voice);
+            }
+
+            (isRight ? nameFieldRight : nameFieldLeft).text = name;
+        }
+
+        #endregion
+
+        #region Text
+
+        protected override void SetText(string text)
+        {
+            dialogField.text = text;
+        }
+
+        protected override void OnAddFractionChar(char c)
+        {
+            currentVoice?.PlayChar(c);
+        }
+        #endregion
+
+        #region Focus Helper
         private void SetFocus(bool isRight)
         {
             if (isRight)
@@ -134,7 +190,7 @@ namespace LSHGame.UI
             FadeFocus(characterImageLeft, nameFieldLeft, !isRight);
         }
 
-        private void FadeFocus(Image image,TMP_Text textField,bool focus)
+        private void FadeFocus(Image image, TMP_Text textField, bool focus)
         {
             image.DOKill(false);
             textField.DOKill(false);
@@ -154,26 +210,7 @@ namespace LSHGame.UI
                 if (textField.color != colorNoneFocusedText)
                     textField.DOColor(colorNoneFocusedText, fadeFocusTime).SetEase(Ease.OutCubic);
             }
-        }
-
-        private void GetCharacterDefaultData(out Sprite sprite, out string name,bool isRight)
-        {
-            sprite = null;
-            name = null;
-
-            foreach (var line in Dialog.Lines)
-            {
-                if (sprite != null && name != null)
-                    break;
-
-                if (line.isRight == isRight)
-                {
-                    if (sprite == null)
-                        sprite = line.image;
-                    if (name == null)
-                        name = line.name;
-                }
-            }
-        }
+        } 
+        #endregion
     }
 }

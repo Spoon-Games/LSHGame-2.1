@@ -14,6 +14,8 @@ namespace LSHGame.Util
 
         private static bool eraseByPaint = false;
 
+        internal float rotation;
+
         [MenuItem("Assets/Create/Universal Brush")]
         public static void CreateBrush()
         {
@@ -27,31 +29,36 @@ namespace LSHGame.Util
 
         public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
         {
-
             base.Paint(gridLayout, brushTarget, position);
 
             var tileMap = brushTarget.GetComponent<Tilemap>();
             var tileBase = tileMap.GetTile(position);
 
-            if (tileBase is PrefabTile prefabTile)
-            {
-                //Debug.Log("Painted PrefabTile: " + registeredPrefabTile.tileName);
-                InstantiatePrefab(gridLayout, brushTarget, position, prefabTile);
+            //if (tileBase is PrefabTile prefabTile)
+            //{
+            //    //Debug.Log("Painted PrefabTile: " + registeredPrefabTile.tileName);
+            //    InstantiatePrefab(gridLayout, brushTarget, position, prefabTile);
 
-                eraseByPaint = true;
-                base.Erase(gridLayout, brushTarget, position);
-                eraseByPaint = false;
+            //    eraseByPaint = true;
+            //    base.Erase(gridLayout, brushTarget, position);
+            //    eraseByPaint = false;
 
-            }
+            //}
         }
 
         public override void BoxFill(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
         {
+            SetMatrix(Vector3Int.zero, Matrix4x4.Rotate(Quaternion.Euler(0, 0, rotation)));
             base.BoxFill(gridLayout, brushTarget, position);
             var tileMap = brushTarget.GetComponent<Tilemap>();
 
             foreach (var pos in position.allPositionsWithin)
             {
+                //if (tileMap.GetTile(pos) is Tile t)
+                //{
+                //    t.transform *= Matrix4x4.Rotate(Quaternion.Euler(0, 0, rotation));
+                //}
+                
                 if (tileMap.GetTile(pos) is PrefabTile prefabTile)
                 {
                     InstantiatePrefab(gridLayout, brushTarget, pos, prefabTile);
@@ -164,6 +171,7 @@ namespace LSHGame.Util
             {
                 instance.transform.SetParent(brushTarget.transform);
                 instance.transform.position = gridLayout.LocalToWorld(gridLayout.CellToLocalInterpolated(position + new Vector3(.5f, .5f, .5f))) + (Vector3)prefabTile.pivot;
+                instance.transform.rotation = Quaternion.Euler(0, 0, rotation);
             }
         }
 
@@ -206,8 +214,8 @@ namespace LSHGame.Util
         private int Rotation { get => _rotation; set
             {
                 _rotation = (value % 360 + 360) % 360;
-                
-                Brush.SetMatrix(Vector3Int.one / 2, Matrix4x4.Rotate(Quaternion.Euler(0, 0, _rotation)));
+
+                Brush.rotation = _rotation;
             } }
 
         public override void OnPaintSceneGUI(GridLayout grid, GameObject brushTarget, BoundsInt position, GridBrushBase.Tool tool, bool executing)

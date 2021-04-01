@@ -27,7 +27,7 @@ TagManager:
   - InteractablePlatform
   - Foreground
   - DeadBody
-  - 
+  - NonCrushInteractables
   - 
   - 
   - 

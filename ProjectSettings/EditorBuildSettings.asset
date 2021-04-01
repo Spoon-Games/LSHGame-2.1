@@ -23,5 +23,35 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/LSHGame/Scenes/Tests/TExpLevels/TExp4.unity
     guid: 31dfa46161b9637429fdaad3390fc36d
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Pascal Lvl/Balcony.unity
+    guid: 60059c5b1472d2b4fb557bc8aba09a00
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Pascal Lvl/Bar.unity
+    guid: 5d41ffa4fca3d0c4994728b3e1ba9f05
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Pascal Lvl/Garage.unity
+    guid: 9e0a62a5f9d27f445a7622e4f2cf83de
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Pascal Lvl/Passage.unity
+    guid: 5d56944bd8c6b3e44bd0dabc19282825
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Areas/Ruins/Iteration 1/FirstMeeting.unity
+    guid: cfa080a8b34d64c478cc8130ae9916c1
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Pascal Lvl/Ruinen_Ground.unity
+    guid: f5295a950f99709429eccaf208283a12
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Areas/Ruins/Iteration 1/Liliumification.unity
+    guid: 084c3cca72ff5cd4192e4845a4ec66d5
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Areas/Ruins/Iteration 1/TheWierdCount.unity
+    guid: 73fedf50d9a9311418926bc23c26cddb
+  - enabled: 1
+    path: Assets/LSHGame/Scenes/Areas/Ruins/Iteration 1/MadameChesterIntroduction.unity
+    guid: 34097d847316a6744be569aba71cc767
+  - enabled: 1
+    path: "Assets/LSHGame/Scenes/Pascal Lvl/Accomplished/Ruine_Zugbr\xFCcke.unity"
+    guid: f1db46426cc08584ab8599afa7a0e09b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5a9d1c19c99372e4eb8d3f6b9797fdee, type: 2}

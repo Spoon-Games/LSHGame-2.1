@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TagInterpreterR;
 using UnityEngine;
 
 namespace LSHGame.UI
@@ -8,28 +9,19 @@ namespace LSHGame.UI
     {
         public Sprite Picture;
 
-        public string[] Lines = new string[1] { "" };
+        [Multiline(lines: 20,order = 5)]
+        public string Text;
         [FMODUnity.EventRef]
         public string OpeningSound;
 
-        private IEnumerator enumerator;
-
-        public override void Reset()
+        protected override string GetData()
         {
-            enumerator = Lines.GetEnumerator();
-            enumerator.Reset();
-        }
-
-        public bool GetNext(out string line)
-        {
-            bool hasNext = enumerator.MoveNext();
-            line = hasNext ? (string)enumerator.Current : null;
-            return hasNext;
+            return Text;
         }
 
         public override void Show()
         {
-            PictureView.Instance.ShowDialog(this);
+            PictureView.Instance.Activate(this);
         }
     }
 }

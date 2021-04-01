@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2988654865615928236}
   - component: {fileID: 2988654865615928239}
   - component: {fileID: 2988654865615928238}
-  m_Layer: 17
+  m_Layer: 20
   m_Name: SneekThroughPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}

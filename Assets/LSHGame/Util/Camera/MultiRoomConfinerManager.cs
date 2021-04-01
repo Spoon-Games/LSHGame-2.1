@@ -22,10 +22,12 @@ namespace LSHGame.Util
 
         private CompositeCollider2D currentCollider;
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             GetRoomColliders();
-        }
+        } 
+#endif
 
         private void Awake()
         {

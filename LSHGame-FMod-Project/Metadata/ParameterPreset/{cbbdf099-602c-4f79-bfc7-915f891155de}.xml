@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="ParameterPreset" id="{cbbdf099-602c-4f79-bfc7-915f891155de}">
+		<property name="name">
+			<value>PortalStatus</value>
+		</property>
+		<relationship name="folder">
+			<destination>{0d13e61a-0fb7-4b7a-b84a-8474ac0ac87c}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{91ee3f9b-6049-4a03-8c6c-c377f8986049}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{91ee3f9b-6049-4a03-8c6c-c377f8986049}">
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.099999994039535522</value>
+		</property>
+		<property name="seekSpeedAsymmetric">
+			<value>true</value>
+		</property>
+	</object>
+</objects>
