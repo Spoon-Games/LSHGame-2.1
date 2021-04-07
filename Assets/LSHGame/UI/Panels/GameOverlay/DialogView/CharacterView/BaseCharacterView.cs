@@ -24,6 +24,9 @@ namespace LSHGame.UI
         [SerializeField]
         private float typeSpeed = 0.1f;
 
+        [SerializeField]
+        private bool holdForLastStringTag = true;
+
         private float currentTypeSpeed;
         private float typeProgress = 0;
 
@@ -121,6 +124,7 @@ namespace LSHGame.UI
                 if (currentTypeSpeed > 0)
                 {
                     typeProgress += currentTypeSpeed * Time.deltaTime / ((float)stringTag.Text.Length);
+                    typeProgress = Mathf.Clamp01(typeProgress);
 
                     if (typeProgress < 1)
                     {
@@ -128,6 +132,13 @@ namespace LSHGame.UI
                         AddFractionText(s);
                         return true;
                     }
+                }
+                AddFractionText(stringTag.Text);
+
+                if(holdForLastStringTag && TagChain.Index == TagChain.TagCount - 1)
+                {
+                    if (!ConsumeIsFurther())
+                        return true;
                 }
             }
             else if (tag is ButtonTag buttonTag)
@@ -189,6 +200,9 @@ namespace LSHGame.UI
                 Active = true;
 
                 Activity.Parent.GoToNext(ActivityTransitionName);
+
+                //Debug.Log("Activate");
+                //Debug.Log("TagChain: " + TagChain.ToString());
             }
             else
                 Debug.Log("CharacterView already active");
@@ -205,6 +219,8 @@ namespace LSHGame.UI
                     TagChain.OnUpdate -= OnUpdateTag;
                     TagChain.OnDeactivate -= OnDeactivateTag;
                     TagChain.OnDestroy -= OnDestroyTag;
+
+                    //Debug.Log("Deactivate");
                 }
 
                 Active = false;
@@ -346,6 +362,7 @@ namespace LSHGame.UI
         {
             if (_isFurther)
             {
+                //Debug.Log("Consume Is Further");
                 _isFurther = false;
                 return true;
             }
@@ -361,6 +378,8 @@ namespace LSHGame.UI
         protected virtual void ResetView()
         {
             currentTypeSpeed = typeSpeed;
+            _isFurther = false;
+            ClearText();
         }
 
         #endregion

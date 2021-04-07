@@ -15,7 +15,7 @@ public class ColTrigger : MonoBehaviour
     [SerializeField]
     public UnityEvent OnTriggerExitedEvent;
 
-    private Collider2D col;
+    protected Collider2D col;
 
     private bool _isTriggered = false;
     public bool IsTriggered { get => _isTriggered; private set
@@ -29,14 +29,19 @@ public class ColTrigger : MonoBehaviour
         }
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         col = GetComponent<Collider2D>();
     }
 
     private void FixedUpdate()
     {
-        IsTriggered = Physics2D.IsTouchingLayers(col, layerMask);
+        IsTriggered = IsTouchingLayers();
+    }
+
+    protected bool IsTouchingLayers()
+    {
+        return Physics2D.IsTouchingLayers(col, layerMask);
     }
 
 

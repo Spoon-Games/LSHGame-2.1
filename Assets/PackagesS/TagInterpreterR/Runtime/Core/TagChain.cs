@@ -8,9 +8,11 @@ namespace TagInterpreterR
     public class TagChain
     {
         private List<BaseTag> tags = new List<BaseTag>();
-        private int index = -1;
-        public bool IsIterating => index >= 0 && !IsEnd;
-        public bool IsEnd => index >= tags.Count;
+        private int _index = -1;
+        public int Index => _index;
+        public int TagCount => tags.Count;
+        public bool IsIterating => Index >= 0 && !IsEnd;
+        public bool IsEnd => Index >= tags.Count;
         public BaseTag Current { get; private set; }
 
         public Action<BaseTag> OnCreate;
@@ -23,14 +25,14 @@ namespace TagInterpreterR
         #region Iterate
         public void Start()
         {
-            if (index == -1)
+            if (Index == -1)
             {
                 Reset();
 
-                index = 0;
-                if (index >= tags.Count)
+                _index = 0;
+                if (Index >= tags.Count)
                     return;
-                Current = tags[index];
+                Current = tags[Index];
                 Create();
             }
         }
@@ -54,14 +56,14 @@ namespace TagInterpreterR
                 ActivatePreviousTag(endTag.ReferenceTag.Name, true);
             }
 
-            index++;
-            if(index >= tags.Count)
+            _index++;
+            if(Index >= tags.Count)
             {
                 Current = null;
                 return true;
             }
 
-            Current = tags[index];
+            Current = tags[Index];
 
             ActivatePreviousTag(Current.Name, false); // Deactivate previous
             Create();
@@ -98,7 +100,7 @@ namespace TagInterpreterR
 
         private bool Update() {
             bool isOnUpdate = OnUpdate(Current);
-            //Debug.Log("Update: " + Current + " is " + isOnUpdate);
+            //Debug.Log("Update: "+index+" C: "+ Current + " is " + isOnUpdate);
             return Current.OnUpdate() || isOnUpdate;
         }
 
@@ -136,7 +138,7 @@ namespace TagInterpreterR
 
         public bool FindActive<T>(out T tag) where T : BaseTag
         {
-            for (int i = index; i >= 0; i--)
+            for (int i = Index; i >= 0; i--)
             {
                 if (tags[i].Exists && tags[i].Active && tags[i] is T t)
                 {
@@ -150,7 +152,7 @@ namespace TagInterpreterR
 
         private void Reset()
         {
-            index =-1;
+            _index =-1;
             foreach (var tag in tags)
             {
                 tag.Reset();
@@ -164,7 +166,7 @@ namespace TagInterpreterR
             if (name == null)
                 return false;
 
-            for (int i = index; i >= 0; i--)
+            for (int i = Index; i >= 0; i--)
             {
                 if (Equals(tags[i].Name, name) && tags[i].Exists && (tags[i].Active ^ isActive) && !tags[i].IsSingle)
                 {
@@ -213,8 +215,10 @@ namespace TagInterpreterR
                 if (Equals(tags[i].Name, name))
                 {
                     tags.Add(new EndTag(tags[i]));
+                    return;
                 }
             }
+            throw new InterpreterException("There is no tag for the end-tag: " + name);
         }
         #endregion
     }

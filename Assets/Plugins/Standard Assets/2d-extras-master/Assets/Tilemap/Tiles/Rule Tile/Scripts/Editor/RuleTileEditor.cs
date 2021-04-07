@@ -1,4 +1,5 @@
 using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor.Sprites;
@@ -142,8 +143,10 @@ namespace UnityEditor
 
 		public override void OnInspectorGUI()
 		{
+            //EditorGUI.BeginChangeCheck();
 			tile.m_DefaultSprite = EditorGUILayout.ObjectField("Default Sprite", tile.m_DefaultSprite, typeof(Sprite), false) as Sprite;
 			tile.m_DefaultColliderType = (Tile.ColliderType)EditorGUILayout.EnumPopup("Default Collider", tile.m_DefaultColliderType);
+            tile.SetColliderForAll = EditorGUILayout.Toggle("Set collider type for all",tile.SetColliderForAll);
 			EditorGUILayout.Space();
 
             if (m_ReorderableList != null && tile.m_TilingRules != null)
@@ -151,6 +154,13 @@ namespace UnityEditor
                 m_ReorderableList.DoLayoutList();
                 //Debug.Log("DoLayoutList");
             }
+
+            //if (EditorGUI.EndChangeCheck())
+            //{
+            //    EditorUtility.SetDirty(target);
+            //    AssetDatabase.SaveAssets();
+            //    Debug.Log("Save");
+            //}
 		}
 
 		private static void RuleMatrixOnGUI(Rect rect, RuleTile.TilingRule tilingRule)
@@ -193,10 +203,13 @@ namespace UnityEditor
                             case RuleTile.TilingRule.Neighbor.Other:
                                 GUI.Label(r, "Ot");
                                 break;
+                            case RuleTile.TilingRule.Neighbor.ThisOther:
+                                GUI.Label(r, "Bo");
+                                break;
 						}
 						if (Event.current.type == EventType.MouseDown && r.Contains(Event.current.mousePosition))
 						{
-							tilingRule.m_Neighbors[index] = (RuleTile.TilingRule.Neighbor) (((int)tilingRule.m_Neighbors[index] + 1) % 5);
+							tilingRule.m_Neighbors[index] = (RuleTile.TilingRule.Neighbor) (((int)tilingRule.m_Neighbors[index] + 1) % 6);
 							GUI.changed = true;
 							Event.current.Use();
 						}

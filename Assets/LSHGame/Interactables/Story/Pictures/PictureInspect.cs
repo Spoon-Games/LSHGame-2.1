@@ -19,7 +19,17 @@ namespace LSHGame
         private void OnValidate()
         {
             if (base.dialog is PictureLog pictureLog)
-                GetComponent<SpriteRenderer>().sprite = pictureLog.Picture;
+            {
+                if (TryGetComponent<SpriteRenderer>(out SpriteRenderer s)) {
+
+                    s.sprite = pictureLog.Picture;
+                    if (TryGetComponent(out BoxCollider2D box))
+                    {
+                        box.size = s.bounds.size;
+                        box.offset = transform.worldToLocalMatrix.MultiplyPoint(s.bounds.center);
+                    }
+                }
+            }
         }
 #endif
     } 

@@ -6,10 +6,11 @@ namespace UnityEngine
 {
 	[Serializable]
 	[CreateAssetMenu(fileName = "Rule Tile", menuName = "Tiles/Rule Tile")]
-	public class RuleTile : Tile
+	public class RuleTile : TileBase
 	{
-		public Sprite m_DefaultSprite { get => base.sprite; set => base.sprite = value; }
-		public Tile.ColliderType m_DefaultColliderType { get => base.colliderType; set => base.colliderType = value; }
+        public Sprite m_DefaultSprite; //{ get => base.sprite; set => base.sprite = value; }
+        public bool SetColliderForAll = true;
+        public Tile.ColliderType m_DefaultColliderType; //{ get => base.colliderType; set => base.colliderType = value; }
 
 		[Serializable]
 		public class TilingRule
@@ -42,7 +43,7 @@ namespace UnityEngine
 
             public enum SpriteRotation { Default, R90,R180,R270}
 			public enum Transform { Fixed, Rotated, MirrorX, MirrorY }
-			public enum Neighbor { DontCare, This, NotThis, Other,Air }
+			public enum Neighbor { DontCare, This, NotThis, Other,Air,ThisOther }
 			public enum OutputSprite { Single, Random, Animation }
 		}
 
@@ -50,8 +51,8 @@ namespace UnityEngine
 
 		public override void GetTileData(Vector3Int position, ITilemap tileMap, ref TileData tileData)
 		{
-            tileData.sprite = base.sprite; //m_DefaultSprite;
-            tileData.colliderType = base.colliderType; //m_DefaultColliderTy
+            tileData.sprite = m_DefaultSprite;
+            tileData.colliderType = m_DefaultColliderType;
 			tileData.flags = TileFlags.LockTransform;
 			tileData.transform = Matrix4x4.identity;
 			
@@ -74,7 +75,8 @@ namespace UnityEngine
 							break;
 					}
 					tileData.transform = transform;
-					tileData.colliderType = rule.m_ColliderType;
+                    if(!SetColliderForAll)
+					    tileData.colliderType = rule.m_ColliderType;
 
                     break;
                 }
@@ -90,7 +92,7 @@ namespace UnityEngine
 		{
 			foreach (TilingRule rule in m_TilingRules)
 			{
-				Matrix4x4 transform = base.transform;
+				Matrix4x4 transform = Matrix4x4.identity;
 				if (RuleMatches(rule, position, tilemap, ref transform) && rule.m_Output == TilingRule.OutputSprite.Animation)
 				{
 					tileAnimationData.animatedSprites = rule.m_Sprites;
@@ -209,6 +211,9 @@ namespace UnityEngine
                                 break;
                             case TilingRule.Neighbor.Air:
                                 isAcceptable = tile == null;
+                                break;
+                            case TilingRule.Neighbor.ThisOther:
+                                isAcceptable = tile != null;
                                 break;
                         }
 

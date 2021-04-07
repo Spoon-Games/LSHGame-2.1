@@ -11,9 +11,6 @@ namespace LSHGame.Util
         private Transform target;
 
         [SerializeField]
-        private SmoothConfiner[] confiners;
-
-        [SerializeField]
         private float removeConfinerThreshold = 2f;
 
         [SerializeField]
@@ -90,11 +87,9 @@ namespace LSHGame.Util
             {
                 currentCollider = newCollider;
 
-                foreach (var confiner in confiners)
-                {
-                    confiner.m_BoundingShape2D = currentCollider;
-                }
+                PlayerCameraConfinerManager.Instance.SetConfiner(newCollider);
             }
+
         }
 
         private void GetRoomColliders()

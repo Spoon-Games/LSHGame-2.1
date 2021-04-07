@@ -54,7 +54,7 @@ Material:
     - Color_857f8f4a610d4b27b04d6b845d995da1: {r: 766.9961, g: 349.36472, b: 349.36472, a: 0}
     - Vector2_94e2132463704c89b96b84c6958be219: {r: 0.5, g: 0.1, b: 0, a: 0}
     - Vector2_fb2cc28b724e439796f59ee7768607d7: {r: -0.01, g: 0, b: 0, a: 0}
-    - Vector2_ff5295de04e448028aae555725b53a2b: {r: 0.1, g: 0.7, b: 0, a: 0}
+    - Vector2_ff5295de04e448028aae555725b53a2b: {r: 0.1, g: 1.65, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

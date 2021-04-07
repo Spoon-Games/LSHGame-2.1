@@ -274,6 +274,7 @@ GameObject:
   - component: {fileID: 6834504851210295907}
   - component: {fileID: 3859775942007820618}
   - component: {fileID: 8673419295049025279}
+  - component: {fileID: 4363655298858296151}
   m_Layer: 0
   m_Name: VC Main
   m_TagString: Untagged
@@ -391,6 +392,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb138becf4d0b64babcbe6b4ceb4b9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4363655298858296151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1019713320876126684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2c90326226f2c4a9e1c7e17bd94199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  confiners:
+  - {fileID: 8749565292590720912}
+  - {fileID: 7612274467460791084}
+  - {fileID: 8191154167478252179}
+  - {fileID: 6752704654111519322}
 --- !u!1 &2079007982201975617
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6896542352020222434}
   - component: {fileID: 3149916133870087236}
-  - component: {fileID: 270920367872592846}
+  - component: {fileID: 7612274467460791084}
   m_Layer: 12
   m_Name: Vertual Camera Run
   m_TagString: Untagged
@@ -459,7 +477,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 4040871883599861573}
---- !u!114 &270920367872592846
+--- !u!114 &7612274467460791084
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -468,14 +486,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2079007982201975617}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a75dfef6af2604eb4247f8e9d80f89, type: 3}
+  m_Script: {fileID: 11500000, guid: 1278a9d6559007449921157ce97b0d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_BoundingShape2D: {fileID: 0}
-  smoothThreshold: 1
+  m_ConfineScreenEdges: 1
+  smoothThreshold: 0.5
   smoothing: 1
   transitionTime: 1
-  m_MaxWindowSize: 0
 --- !u!1 &2130616643484925538
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,7 +504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4050853285161805398}
   - component: {fileID: 308309393216335302}
-  - component: {fileID: 4171019933559724766}
+  - component: {fileID: 6752704654111519322}
   m_Layer: 12
   m_Name: Vertual Camera Climbing
   m_TagString: Untagged
@@ -502,7 +520,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2130616643484925538}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00000023841858, y: 0.00000011920929, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2952968657043973926}
@@ -544,7 +562,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2952968657043973926}
---- !u!114 &4171019933559724766
+--- !u!114 &6752704654111519322
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -553,14 +571,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2130616643484925538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a75dfef6af2604eb4247f8e9d80f89, type: 3}
+  m_Script: {fileID: 11500000, guid: 1278a9d6559007449921157ce97b0d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_BoundingShape2D: {fileID: 0}
-  smoothThreshold: 1
+  m_ConfineScreenEdges: 1
+  smoothThreshold: 0.5
   smoothing: 1
   transitionTime: 1
-  m_MaxWindowSize: 0
 --- !u!1 &2532647622148778159
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,7 +589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6676720962969372795}
   - component: {fileID: 7708654348104632169}
-  - component: {fileID: 7460771932715722278}
+  - component: {fileID: 8749565292590720912}
   m_Layer: 0
   m_Name: VC Look Down
   m_TagString: Untagged
@@ -587,7 +605,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2532647622148778159}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000035762787, y: -2.4999998, z: -10}
+  m_LocalPosition: {x: 0, y: -2.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1947786756244175102}
@@ -629,7 +647,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1947786756244175102}
---- !u!114 &7460771932715722278
+--- !u!114 &8749565292590720912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -638,14 +656,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2532647622148778159}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a75dfef6af2604eb4247f8e9d80f89, type: 3}
+  m_Script: {fileID: 11500000, guid: 1278a9d6559007449921157ce97b0d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_BoundingShape2D: {fileID: 0}
-  smoothThreshold: 1
+  m_ConfineScreenEdges: 1
+  smoothThreshold: 0.5
   smoothing: 1
   transitionTime: 1
-  m_MaxWindowSize: 0
 --- !u!1 &4068199577950966896
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,7 +918,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1266786797511139434}
   - component: {fileID: 1607685507205838464}
-  - component: {fileID: 21106063574728479}
+  - component: {fileID: 8191154167478252179}
   m_Layer: 12
   m_Name: Vertual Camera Idle
   m_TagString: Untagged
@@ -916,7 +934,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6836974365805742832}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00000023841858, y: 0.00000011920929, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1207517173942401115}
@@ -958,7 +976,7 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1207517173942401115}
---- !u!114 &21106063574728479
+--- !u!114 &8191154167478252179
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -967,11 +985,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6836974365805742832}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8a75dfef6af2604eb4247f8e9d80f89, type: 3}
+  m_Script: {fileID: 11500000, guid: 1278a9d6559007449921157ce97b0d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_BoundingShape2D: {fileID: 0}
-  smoothThreshold: 1
+  m_ConfineScreenEdges: 1
+  smoothThreshold: 0.5
   smoothing: 1
   transitionTime: 1
-  m_MaxWindowSize: 0

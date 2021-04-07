@@ -21,14 +21,16 @@ namespace LSHGame.Util
         [SerializeField]
         private RecreateModule[] serializedModules;   
 
-        public void Recreate(RecreateModule ghost, Vector3 originPosition, Quaternion originRotation,Vector3 originScale,Transform originParent)
+        public RecreateModule Recreate(RecreateModule ghost, Vector3 originPosition, Quaternion originRotation,Vector3 originScale,Transform originParent)
         {
             var vessel = serializedModules.FirstOrDefault(m => Equals(m.prefabGuid,ghost.prefabGuid)); // Maybe make it more specific
             if(vessel != null)
             {
                 RecreateModule o = Instantiate(vessel, originPosition, originRotation, originParent);
                 o.SetLocalScale(originScale);
+                return o;
             }
+            return null;
         }
 
 #if UNITY_EDITOR

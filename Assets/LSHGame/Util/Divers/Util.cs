@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -142,6 +145,13 @@ namespace LSHGame.Util
             //return layermask == (layermask | (1 << layer));
         }
 
+
+        /// <summary>
+        /// Test if the flag contains completly the otherFlag
+        /// </summary>
+        /// <param name="flag"></param>
+        /// <param name="otherFlag"></param>
+        /// <returns></returns>
         public static bool IsOtherAllInFlag(this int flag,int otherFlag)
         {
             return (flag & otherFlag) == otherFlag;

@@ -146,9 +146,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dataSettings:
-    dataKey: 1bd372c1-b5fb-47bf-a89b-f641c8047981
+    dataKey: fba422e7-e8d5-4bd5-8468-25475254191b
     persistenceType: 0
-    InstanceId: -46034
+    InstanceId: -154762
   inventoryItem: {fileID: 11400000, guid: e6e4ba139368e544c80dcacce2a84b47, type: 2}
   onPickUp:
     m_PersistentCalls:
@@ -165,6 +165,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  layermask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!114 &1358425740655844411
 MonoBehaviour:
   m_ObjectHideFlags: 0

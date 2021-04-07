@@ -155,6 +155,7 @@ namespace LSHGame.UI
         protected override void SetText(string text)
         {
             dialogField.text = text;
+
         }
 
         protected override void OnAddFractionChar(char c)

@@ -15,6 +15,7 @@ namespace LSHGame.Util
         private static bool eraseByPaint = false;
 
         internal float rotation;
+        internal Vector2 scale;
 
         [MenuItem("Assets/Create/Universal Brush")]
         public static void CreateBrush()
@@ -48,7 +49,7 @@ namespace LSHGame.Util
 
         public override void BoxFill(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
         {
-            SetMatrix(Vector3Int.zero, Matrix4x4.Rotate(Quaternion.Euler(0, 0, rotation)));
+            SetMatrix(Vector3Int.zero, Matrix4x4.Rotate(Quaternion.Euler(0, 0, rotation)) * Matrix4x4.Scale(scale));
             base.BoxFill(gridLayout, brushTarget, position);
             var tileMap = brushTarget.GetComponent<Tilemap>();
 
@@ -172,6 +173,7 @@ namespace LSHGame.Util
                 instance.transform.SetParent(brushTarget.transform);
                 instance.transform.position = gridLayout.LocalToWorld(gridLayout.CellToLocalInterpolated(position + new Vector3(.5f, .5f, .5f))) + (Vector3)prefabTile.pivot;
                 instance.transform.rotation = Quaternion.Euler(0, 0, rotation);
+                instance.transform.localScale = new Vector3(scale.x,scale.y,1);
             }
         }
 
@@ -218,6 +220,14 @@ namespace LSHGame.Util
                 Brush.rotation = _rotation;
             } }
 
+        private Vector2 _scale = Vector2.one;
+        private Vector2 Scale { get => _scale; set
+            {
+                _scale = value;
+                Brush.scale = _scale;
+            }
+        }
+
         public override void OnPaintSceneGUI(GridLayout grid, GameObject brushTarget, BoundsInt position, GridBrushBase.Tool tool, bool executing)
         {
             base.OnPaintSceneGUI(grid, brushTarget, position, tool, executing);
@@ -235,6 +245,7 @@ namespace LSHGame.Util
             //base.OnInspectorGUI();
             //lineBrush.zp
             Rotation = EditorGUILayout.IntField("Rotation", Rotation);
+            Scale = EditorGUILayout.Vector2Field("Scale", Scale);
         }
 
         private void GetInput()
@@ -252,6 +263,9 @@ namespace LSHGame.Util
                 {
                     Rotation -= 90;
                     e.Use();
+                }else if(e.keyCode == KeyCode.X)
+                {
+                    Scale = new Vector2(-Scale.x,Scale.y);
                 }
 
                 

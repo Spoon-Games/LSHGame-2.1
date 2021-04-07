@@ -2,6 +2,7 @@
 using SceneM;
 using UnityEngine;
 using UnityEngine.Events;
+using LSHGame.Util;
 
 namespace LSHGame
 {
@@ -11,6 +12,9 @@ namespace LSHGame
         [SerializeField] private InventoryItem inventoryItem;
         [SerializeField]
         private UnityEvent onPickUp;
+
+        [SerializeField]
+        private LayerMask layermask;
 
         private PlayerFollower followComponent;
 
@@ -28,7 +32,8 @@ namespace LSHGame
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
-            Activate();
+            if(layermask.IsLayer(collision.gameObject.layer))
+                Activate();
         }
 
         private void Activate()

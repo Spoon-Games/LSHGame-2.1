@@ -10,7 +10,8 @@ namespace SceneM
 
         private static Dictionary<CheckpointInfo, Checkpoint> startCheckpoints = new Dictionary<CheckpointInfo, Checkpoint>();
 
-        private static int currentOrder = 0;
+        private static int _currentOrder = 0;
+        public static int CurrentOrder => _currentOrder;
 
         #region Init
         static CheckpointManager()
@@ -21,6 +22,7 @@ namespace SceneM
         internal static void Reset(Func<float> o, TransitionInfo transition)
         {
             currentCheckPos = Vector3.negativeInfinity;
+            _currentOrder = 0;
         }
 
         internal static void SetDefaultStartCheckpoint(Checkpoint checkpoint)
@@ -31,7 +33,7 @@ namespace SceneM
             currentCheckPos = checkpoint.transform.position;
 
 #if UNITY_EDITOR
-            Debug.Log("IsTempCheckpoint: " + Editor.TempCheckpointEditor.IsTempCheckpoint + " Pos: "+Editor.TempCheckpointEditor.TempCheckpoint);
+            //Debug.Log("IsTempCheckpoint: " + Editor.TempCheckpointEditor.IsTempCheckpoint + " Pos: "+Editor.TempCheckpointEditor.TempCheckpoint);
             if (SceneM.Editor.TempCheckpointEditor.IsTempCheckpoint)
                 currentCheckPos = SceneM.Editor.TempCheckpointEditor.TempCheckpoint;
 #endif
@@ -64,10 +66,10 @@ namespace SceneM
 
         internal static bool SetCheckpoint(Checkpoint checkpoint)
         {
-            if(checkpoint.Order >= currentOrder)
+            if(checkpoint.Order >= CurrentOrder)
             {
                 currentCheckPos = checkpoint.transform.position;
-                currentOrder = checkpoint.Order;
+                _currentOrder = checkpoint.Order;
                 return true;
             }
             return false;

@@ -18,7 +18,7 @@ namespace LSHGame.Util
         public static bool IsJump => jumpWrapper.IsPerformed;
 
         private static InputActionWrapper wallClimbHoldWrapper;
-        public static bool IsWallClimbHold => wallClimbHoldWrapper.IsPerformed;
+        public static bool IsWallClimbHold => Keyboard.current.shiftKey.isPressed;//wallClimbHoldWrapper.IsPerformed;
 
         public static Action<bool> OnCameraLookDown;
 

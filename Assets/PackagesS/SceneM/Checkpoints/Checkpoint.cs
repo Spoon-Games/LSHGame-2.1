@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace SceneM
 {
@@ -16,9 +14,12 @@ namespace SceneM
         [SerializeField]
         private CheckpointInfo identifier;
 
-        public enum CheckType { Stay,Vanish}
+        public enum CheckType { Stay, Vanish }
 
         public CheckType checkType;
+
+        [SerializeField]
+        private bool autoPrioritize = true;
 
 
         private void Awake()
@@ -34,24 +35,39 @@ namespace SceneM
             if (CheckpointManager.SetCheckpoint(this))
             {
                 if (checkType == CheckType.Vanish)
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
             }
         }
 
 #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (autoPrioritize)
+            {
+                order = transform.GetSiblingIndex();
+                isDefaultStartCheckpoint = order == 0;
+            }
+        }
+
         private void OnDrawGizmos()
         {
+            if (autoPrioritize)
+            {
+                order = transform.GetSiblingIndex();
+                isDefaultStartCheckpoint = order == 0;
+            }
+
             if (isDefaultStartCheckpoint)
                 Gizmos.DrawIcon(transform.position, "checkpoint-default-start", true);
-            else if(identifier != null)
+            else if (identifier != null)
                 Gizmos.DrawIcon(transform.position, "checkpoint-start", true);
             else
                 Gizmos.DrawIcon(transform.position, "checkpoint", true);
 
             UnityEditor.Handles.Label(transform.position,
                 new GUIContent() { text = order.ToString() },
-                new GUIStyle() { contentOffset = new Vector2(-14,-40),fontSize = 20 });
-        } 
+                new GUIStyle() { contentOffset = new Vector2(-14, -40), fontSize = 20 });
+        }
 #endif
-    } 
+    }
 }

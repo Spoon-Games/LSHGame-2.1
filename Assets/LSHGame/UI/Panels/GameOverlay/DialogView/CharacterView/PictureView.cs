@@ -52,6 +52,7 @@ namespace LSHGame.UI
         protected override void SetText(string text)
         {
             dialogField.text = text;
+            //Debug.Log("PictureText: " + text);
         }
         #endregion
 
