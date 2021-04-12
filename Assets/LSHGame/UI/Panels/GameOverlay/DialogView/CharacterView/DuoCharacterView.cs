@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace LSHGame.UI
 {
-    public class DuoCharacterView : BaseCharacterView<DuoDialog,DuoCharacterView>
+    public class DuoCharacterView : BaseCharacterView<DuoDialog, DuoCharacterView>
     {
         [Header("References")]
         public Image characterImageRight;
@@ -41,6 +41,7 @@ namespace LSHGame.UI
             dialogField.text = "";
             SetDefaultMood(Dialog.PersonLeft, false);
             SetDefaultMood(Dialog.PersonRight, true);
+            Defocus();
         }
 
         #region Tag Callbacks
@@ -54,7 +55,8 @@ namespace LSHGame.UI
                     CreatePersonTag(tagReference, Dialog.PersonLeft, false);
                 else if (tag.Name == Dialog.PersonRight.Name)
                     CreatePersonTag(tagReference, Dialog.PersonRight, true);
-            }else if(tag is EndTag endTag && endTag.ReferenceTag is TagReference tagReference2)
+            }
+            else if (tag is EndTag endTag && endTag.ReferenceTag is TagReference tagReference2)
             {
                 if (tagReference2.Name == Dialog.PersonLeft.Name || tagReference2.Name == Dialog.PersonRight.Name)
                 {
@@ -69,11 +71,11 @@ namespace LSHGame.UI
             if (base.OnUpdateTag(tag))
                 return true;
 
-            if(tag is EndTag endTag && endTag.ReferenceTag is TagReference tagReference)
+            if (tag is EndTag endTag && endTag.ReferenceTag is TagReference tagReference)
             {
-                if(tagReference.Name == Dialog.PersonLeft.Name || tagReference.Name == Dialog.PersonRight.Name)
+                if (tagReference.Name == Dialog.PersonLeft.Name || tagReference.Name == Dialog.PersonRight.Name)
                 {
-                    if (!(tagReference.IsAttribute("IsButton","false")))
+                    if (!(tagReference.IsAttribute("IsButton", "false")))
                         if (!ConsumeIsFurther())
                             return true;
                 }
@@ -86,11 +88,11 @@ namespace LSHGame.UI
         {
             base.OnDestroyTag(tag, returnToDefault);
 
-            if(tag is TagReference tagReference)
+            if (tag is TagReference tagReference)
             {
                 if (tagReference.Name == Dialog.PersonLeft.Name || tagReference.Name == Dialog.PersonRight.Name)
                 {
-                    if (!(tagReference.IsAttribute("Page","false")))
+                    if (!(tagReference.IsAttribute("Page", "false")))
                         ClearText();
                 }
             }
@@ -99,13 +101,13 @@ namespace LSHGame.UI
 
         #region Person
 
-        private void CreatePersonTag(TagReference tag,Person person,bool isRight)
+        private void CreatePersonTag(TagReference tag, Person person, bool isRight)
         {
-            Mood mood= null;
+            Mood mood = null;
             Mood defaultMood = person.Moods.FirstOrDefault();
             if (tag.Attributes.TryGetValue("value", out string moodName) || tag.Attributes.TryGetValue("Mood", out moodName))
             {
-                foreach(var m in person.Moods)
+                foreach (var m in person.Moods)
                 {
                     if (Equals(m.Name, moodName))
                     {
@@ -114,33 +116,34 @@ namespace LSHGame.UI
                     }
                 }
             }
-            
-            if(mood == null)
+
+            if (mood == null)
             {
                 mood = defaultMood;
             }
 
-            if(!tag.Attributes.TryGetValue("Name",out string name))
+            if (!tag.Attributes.TryGetValue("Name", out string name))
                 name = person.Name;
 
 
             SetMood(mood, defaultMood, name, isRight);
-            SetFocus(isRight);
+            FadeFocus(isRight);
 
             //if (!tag.IsAttribute("Page","false"))
             //    ClearText();
 
         }
 
-        private void SetDefaultMood(Person person,bool isRight)
+        private void SetDefaultMood(Person person, bool isRight)
         {
             Mood defaultMood = person.Moods.FirstOrDefault();
-            SetMood(defaultMood, defaultMood, person.Name, isRight);
+            SetMood(defaultMood, defaultMood, person.TitleName, isRight);
         }
 
-        private void SetMood(Mood mood,Mood defaultMood,string name,bool isRight)
+        private void SetMood(Mood mood, Mood defaultMood, string name, bool isRight)
         {
-            if(mood != null && defaultMood != null){
+            if (mood != null && defaultMood != null)
+            {
                 (isRight ? characterImageRight : characterImageLeft).sprite = (mood.Picture != null ? mood.Picture : defaultMood.Picture);
                 currentVoice = (mood.Voice != null ? mood.Voice : defaultMood.Voice);
             }
@@ -185,6 +188,15 @@ namespace LSHGame.UI
             }
         }
 
+        private void Defocus()
+        {
+            characterImageLeft.color = colorNoneFocusedImage;
+            nameFieldLeft.color = colorNoneFocusedText;
+
+            characterImageRight.color = colorNoneFocusedImage;
+            nameFieldRight.color = colorNoneFocusedText;
+        }
+
         private void FadeFocus(bool isRight)
         {
             FadeFocus(characterImageRight, nameFieldRight, isRight);
@@ -211,7 +223,7 @@ namespace LSHGame.UI
                 if (textField.color != colorNoneFocusedText)
                     textField.DOColor(colorNoneFocusedText, fadeFocusTime).SetEase(Ease.OutCubic);
             }
-        } 
+        }
         #endregion
     }
 }

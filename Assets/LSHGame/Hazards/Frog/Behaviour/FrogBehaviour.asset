@@ -75,9 +75,9 @@ MonoBehaviour:
         _children:
           tasks:
           - id: 4
-          - id: 15
-          - id: 6
           - id: 13
+          - id: 6
+          - id: 15
     00000004:
       type: {class: IsGroundNode, ns: BehaviourT, asm: BehaviourT}
       data:
@@ -95,7 +95,7 @@ MonoBehaviour:
       data:
         serInputPorts:
         - outputPortNode:
-            id: 15
+            id: 13
           outputPortName: Target
           portName: Transform
         editorPos: {x: -739, y: 1304}
@@ -188,22 +188,6 @@ MonoBehaviour:
         gravity: 20
         jumpUpVelocity: 8
     0000000D:
-      type: {class: WaitTask, ns: BehaviourT, asm: BehaviourT}
-      data:
-        serInputPorts: []
-        editorPos: {x: -166, y: 1315}
-        EvaluatingWhenFailure: 0
-        EvaluatingWhenSuccess: 0
-        waitTime: 1
-    0000000E:
-      type: {class: WaitTask, ns: BehaviourT, asm: BehaviourT}
-      data:
-        serInputPorts: []
-        editorPos: {x: 68, y: 1415}
-        EvaluatingWhenFailure: 0
-        EvaluatingWhenSuccess: 0
-        waitTime: 3
-    0000000F:
       type: {class: ObjectObserver, ns: BehaviourT, asm: BehaviourT}
       data:
         serInputPorts: []
@@ -218,6 +202,24 @@ MonoBehaviour:
         obstacleLayers:
           serializedVersion: 2
           m_Bits: 230400
+    0000000E:
+      type: {class: WaitTask, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: 68, y: 1415}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        waitTime: 3
+        randomRange: 1
+    0000000F:
+      type: {class: WaitTask, ns: BehaviourT, asm: BehaviourT}
+      data:
+        serInputPorts: []
+        editorPos: {x: -166, y: 1315}
+        EvaluatingWhenFailure: 0
+        EvaluatingWhenSuccess: 0
+        waitTime: 1
+        randomRange: 0.5
     00000010:
       type: {class: GroupDataExNode, ns: BehaviourT, asm: BehaviourT}
       data:
@@ -232,10 +234,10 @@ MonoBehaviour:
         - id: 2
         - id: 3
         - id: 4
-        - id: 15
         - id: 5
         - id: 6
         - id: 7
+        - id: 15
         - id: 13
     00000011:
       type: {class: GroupDataExNode, ns: BehaviourT, asm: BehaviourT}

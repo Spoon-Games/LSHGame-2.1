@@ -582,7 +582,7 @@ MonoBehaviour:
   sceneElementContent: {fileID: 3241348910018492669}
   backButton: {fileID: 1758912988695403449}
   content: {fileID: 8982864971832468936}
-  serializedSceneInfos: []
+  sceneInfoRepository: {fileID: 11400000, guid: 77397c956c4929b49b8db3eaed73f97c, type: 2}
 --- !u!1 &3578501493748613613
 GameObject:
   m_ObjectHideFlags: 0
@@ -1791,8 +1791,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 445.5, y: -85.63}
-  m_SizeDelta: {x: 891, y: 10}
+  m_AnchoredPosition: {x: 386.5, y: -85.63}
+  m_SizeDelta: {x: 773, y: 10}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &2691022677448275898
 MonoBehaviour:
@@ -1841,7 +1841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3303495209800020074, guid: 5cf59cd67d278fe4a8e67f7707d57d6d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -313.37
+      value: -356.37
       objectReference: {fileID: 0}
     - target: {fileID: 4496615863025407330, guid: 5cf59cd67d278fe4a8e67f7707d57d6d, type: 3}
       propertyPath: m_Name
@@ -2016,7 +2016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1116112985071933348, guid: 5e6e7e733cbc27548978f7df08fe6b36, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 891
+      value: 773
       objectReference: {fileID: 0}
     - target: {fileID: 1116112985071933348, guid: 5e6e7e733cbc27548978f7df08fe6b36, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2052,7 +2052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1116112985071933348, guid: 5e6e7e733cbc27548978f7df08fe6b36, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 445.5
+      value: 386.5
       objectReference: {fileID: 0}
     - target: {fileID: 1116112985071933348, guid: 5e6e7e733cbc27548978f7df08fe6b36, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2113,7 +2113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3009586240647385625, guid: 48bc23cd7042b9648b6f75c94c86e62c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 891
+      value: 773
       objectReference: {fileID: 0}
     - target: {fileID: 3009586240647385625, guid: 48bc23cd7042b9648b6f75c94c86e62c, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2149,7 +2149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3009586240647385625, guid: 48bc23cd7042b9648b6f75c94c86e62c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 445.5
+      value: 386.5
       objectReference: {fileID: 0}
     - target: {fileID: 3009586240647385625, guid: 48bc23cd7042b9648b6f75c94c86e62c, type: 3}
       propertyPath: m_AnchoredPosition.y

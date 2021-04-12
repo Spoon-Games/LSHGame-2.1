@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Katharina
   m_EditorClassIdentifier: 
   Name: Katharina
+  TitleName: Katharina
   Moods:
   - Name: Default
     Picture: {fileID: 21300000, guid: abb9dafe0aee6254ea8166b96f84aefd, type: 3}

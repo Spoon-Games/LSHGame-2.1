@@ -6,40 +6,64 @@ namespace BehaviourT
     {
         [SerializeField]
         private BehaviourTree _behaviourTree;
-        public BehaviourTree BehaviourTree { get => _behaviourTree; set
+        public BehaviourTree BehaviourTreeObjectReference
+        {
+            get => _behaviourTree; set
             {
-                _behaviourTree.Destroy();
                 _behaviourTree = value;
-                _behaviourTree.Initialize(this);
+                InitializeInstance();
             }
         }
+
+        private BehaviourTree _behaviourTreeInstance;
+        public BehaviourTree BehaviourTreeInstance { get => _behaviourTreeInstance; }
 
         [SerializeField]
         public bool Run = true;
 
+        private bool isAwoken = false;
+
         protected virtual void Awake()
         {
-            BehaviourTree?.Initialize(this);
+            isAwoken = true;
+            InitializeInstance();
+        }
+
+        private void InitializeInstance()
+        {
+            _behaviourTreeInstance?.Destroy();
+
+            if (BehaviourTreeObjectReference != null && isAwoken)
+            {
+                _behaviourTreeInstance = Instantiate(BehaviourTreeObjectReference);
+                _behaviourTreeInstance.Initialize(this);
+            }
         }
 
         protected virtual void FixedUpdate()
         {
             if (Run)
-                BehaviourTree?.Update();
+                BehaviourTreeInstance?.Update();
 
         }
 
         protected virtual void OnDestroy()
         {
-            BehaviourTree?.Destroy();
+            
+            if(BehaviourTreeInstance != null)
+            {
+                BehaviourTreeInstance.Destroy();
+                Destroy(BehaviourTreeInstance);
+                _behaviourTreeInstance = null;
+            }
         }
 
-        public bool TrySetValue(string name,object value)
+        public bool TrySetValue(string name, object value)
         {
-            if (BehaviourTree == null)
+            if (BehaviourTreeInstance == null)
                 return false;
 
-            return BehaviourTree.TrySetValue(name, value);
+            return BehaviourTreeInstance.TrySetValue(name, value);
         }
 
         public T GetValue<T>(string name)
@@ -49,25 +73,25 @@ namespace BehaviourT
             return default;
         }
 
-        public bool TryGetValue<T>(string name,out T value)
+        public bool TryGetValue<T>(string name, out T value)
         {
-            if(BehaviourTree == null)
+            if (BehaviourTreeInstance == null)
             {
                 value = default;
                 return false;
             }
-            return BehaviourTree.TryGetValue<T>(name,out value);
+            return BehaviourTreeInstance.TryGetValue<T>(name, out value);
         }
 
         public void Reset()
         {
-            BehaviourTree?.Reset();
+            BehaviourTreeInstance?.Reset();
         }
 
 #if UNITY_EDITOR
         protected virtual void OnDrawGizmosSelected()
         {
-            BehaviourTree?.DrawGizmos(this);
+            BehaviourTreeObjectReference?.DrawGizmos(this);
         }
 #endif
     }

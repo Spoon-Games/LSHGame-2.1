@@ -30,14 +30,18 @@ namespace LSHGame.UI
         private Ease fadeOutEase = Ease.InQuad;
         private CanvasGroup _canvasGroup;
 
+        private GameObject ShowIdentifier = null;
+
         public override void Awake()
         {
             base.Awake();
             gameObject.SetActive(false);
         }
 
-        public void SetHelpText(string text)
+        public void SetHelpText(string text, GameObject identifier = null)
         {
+            ShowIdentifier = identifier;
+
             gameObject.SetActive(true);
             helpText.text = text;
 
@@ -46,8 +50,12 @@ namespace LSHGame.UI
 
         }
 
-        public void HideHelpText()
+        public void HideHelpText(GameObject identifier = null)
         {
+            if (identifier != null && !Equals(identifier, ShowIdentifier))
+                return;
+            ShowIdentifier = null;
+
             CanvasGroup.DOKill();
             CanvasGroup.DOFade(0, fadeOutTime).SetEase(fadeOutEase).OnComplete(() => gameObject.SetActive(false));
         }

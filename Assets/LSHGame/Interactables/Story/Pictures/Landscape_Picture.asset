@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Landscape_Picture
   m_EditorClassIdentifier: 
   Picture: {fileID: 21300000, guid: 5bd9269e633947b4bb0847c20f0519b3, type: 3}
-  Text: "Die sehns\xFCchtige Ferne"
+  Text: "Sehns\xFCchtige Ferne"
   OpeningSound: 

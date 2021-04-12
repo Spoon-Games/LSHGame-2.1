@@ -9,14 +9,21 @@ namespace BehaviourT
         [SerializeField]
         float waitTime = 3;
 
-        float endTimer = float.PositiveInfinity;
+        [SerializeField]
+        private float randomRange = 0;
+
+        float endTimer = float.NegativeInfinity;
 
         protected override TaskState OnEvaluate()
         {
             if(State == TaskState.NotEvaluated)
             {
-                endTimer = Parent.BTTime + waitTime;
+                float random = randomRange > 0 ? Random.Range(-randomRange * 0.5f, randomRange * 0.5f) : 0;
+                endTimer = Parent.BTTime + waitTime + random;
             }
+
+            if (endTimer == float.NegativeInfinity)
+                Debug.Log("entTimer is negative infinity");
 
             if (Parent.BTTime <= endTimer)
                 return TaskState.Running;

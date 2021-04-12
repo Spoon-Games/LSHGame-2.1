@@ -15,11 +15,11 @@ private const string behaviourTreePath = "Assets/LSHGame/Hazards/Frog/Behaviour/
 
 
  protected override void Awake() {
-if(BehaviourTree == null)
+if(BehaviourTreeInstance == null)
 {
 #if UNITY_EDITOR
 
-BehaviourTree = AssetDatabase.LoadAssetAtPath<BehaviourTree>(behaviourTreePath);
+            BehaviourTreeObjectReference = AssetDatabase.LoadAssetAtPath<BehaviourTree>(behaviourTreePath);
 #endif
 }
 base.Awake();

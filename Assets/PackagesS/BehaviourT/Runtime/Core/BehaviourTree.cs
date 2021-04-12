@@ -69,6 +69,7 @@ namespace BehaviourT
             {
                 node.Awake();
             }
+
         }
 
         public void Update()

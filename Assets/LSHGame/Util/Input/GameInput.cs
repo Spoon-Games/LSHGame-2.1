@@ -94,8 +94,8 @@ namespace LSHGame.Util
             switch (inputController)
             {
                 case "Player":EnablePlayer();break;
-                case "UI": EnableMap(Controller.UI.Get()); break;
-                case "Dialog": EnableMap(Controller.Dialog.Get()); break;
+                case "UI": EnableUI(); break;//EnableMap(Controller.UI.Get()); break;
+                case "Dialog": EnableDialog(); break;//EnableMap(Controller.Dialog.Get()); break;
             }
         }
 
@@ -104,6 +104,20 @@ namespace LSHGame.Util
             Controller.Player.Enable();
             Controller.UI.Disable();
             Controller.Dialog.Disable();
+        }
+
+        private static void EnableUI()
+        {
+            Controller.Player.Disable();
+            Controller.UI.Enable();
+            Controller.Dialog.Disable();
+        }
+
+        private static void EnableDialog()
+        {
+            Controller.Player.Disable();
+            Controller.UI.Disable();
+            Controller.Dialog.Enable();
         }
 
         private static void EnableMap(InputActionMap inputMap)

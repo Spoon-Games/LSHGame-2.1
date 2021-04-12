@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 736705763}
   m_Layer: 12
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -616,13 +616,15 @@ MonoBehaviour:
     _climbingWallJumpVelocity: {x: 10, y: 22}
     _dashDurration: 0.2
     _dashSpeed: 23
-    _dashRecoverDurration: 1
+    _dashRecoverDurration: 0.5
     _gravity: 0.75
     _fallDamping: 0.948
   liliumDeathDurration: 13
   deathTransition: {fileID: 11400000, guid: 287a4bd7f6a8bb842a2fb8976d134f0f, type: 2}
   verticalDashSpeed: 0
   isInvincible: 0
+  isCroushing: 0
+  isClimbExhaust: 0
   jumpInput:
     beforeConDeltaTime: 0.1
     afterConDeltaTime: 0.15
@@ -632,6 +634,11 @@ MonoBehaviour:
     beforeConDeltaTime: 0.1
     afterConDeltaTime: 0.05
     needRepress: 1
+    resetTimer: 0
+  wallClimbInput:
+    beforeConDeltaTime: 0.2
+    afterConDeltaTime: 0.2
+    needRepress: 0
     resetTimer: 0
   playerColliders: {fileID: 1741236182}
   liliumEffect: {fileID: 8515514168544099954}
@@ -794,7 +801,7 @@ PrefabInstance:
       objectReference: {fileID: 95034447922591508}
     - target: {fileID: 3795789133498224059, guid: 7286af60e1cea10449402db6301dca53, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3795789133498224059, guid: 7286af60e1cea10449402db6301dca53, type: 3}
       propertyPath: m_ChildCameras.Array.data[0]
@@ -818,7 +825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5375695394430064612, guid: 7286af60e1cea10449402db6301dca53, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6676720962969372795, guid: 7286af60e1cea10449402db6301dca53, type: 3}
       propertyPath: m_LocalPosition.x

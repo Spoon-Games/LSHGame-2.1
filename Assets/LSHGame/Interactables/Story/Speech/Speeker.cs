@@ -12,7 +12,7 @@ namespace LSHGame
         public UnityEvent OnShow;
         public SpeekingAction[] Actions;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             if(dialog != null)
             {
@@ -33,11 +33,12 @@ namespace LSHGame
                 if (Equals(a.Name, action))
                 {
                     a.Event?.Invoke();
+                    Debug.Log("Invoke Action: " + action);
                 }
             }
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if(dialog != null)
             {

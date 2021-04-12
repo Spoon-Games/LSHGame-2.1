@@ -87,9 +87,9 @@ namespace BehaviourT.Editor
 
         private void OnSelectionChange()
         {
-            if(Selection.activeGameObject != null && Selection.activeGameObject.TryGetComponent(out BehaviourTreeComponent c) && c.BehaviourTree != null)
+            if(Selection.activeGameObject != null && Selection.activeGameObject.TryGetComponent(out BehaviourTreeComponent c) && c.BehaviourTreeInstance != null)
             {
-                repository = c.BehaviourTree;
+                repository = c.BehaviourTreeInstance;
                 LoadData();
             }
         }

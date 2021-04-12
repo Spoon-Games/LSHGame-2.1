@@ -37,9 +37,6 @@ namespace LSHGame.PlayerN
         [SerializeField]
         private bool isClimbExhaust = false;
 
-        [SerializeField]
-        private float shiftPressExtensionTime = 0.1f;
-
 
         [Header("Input")]
         [SerializeField]
@@ -47,6 +44,9 @@ namespace LSHGame.PlayerN
 
         [SerializeField]
         private InputButton dashInput;
+
+        [SerializeField]
+        private InputButton wallClimbInput;
 
         [Header("References")]
         [SerializeField]
@@ -76,9 +76,6 @@ namespace LSHGame.PlayerN
         //Climbing
         private float climbWallDisableTimer = float.NegativeInfinity;
         private float climbWallExhaustTimer = 0;
-
-        private float climbWallExtendTimer = float.NegativeInfinity;
-        private bool IsShiftLastFrame = false;
 
         private Vector2 localScale;
 
@@ -232,20 +229,14 @@ namespace LSHGame.PlayerN
 
             stateMachine.IsFeetTouchingClimbLadder &= localVelocity.y <= 0 + 0.1f;
 
+
             //Climb wall
+            bool isTouchingClimbWall = playerColliders.IsTouchingClimbWallLeft || playerColliders.IsTouchingClimbWallRight;
+            stateMachine.IsTouchingClimbWall = wallClimbInput.Check(GameInput.IsWallClimbHold, isTouchingClimbWall);
+            stateMachine.IsTouchingClimbWall &= isTouchingClimbWall;
             stateMachine.IsTouchingClimbWall &= Time.fixedTime > climbWallDisableTimer;
-            bool isShift = GameInput.IsWallClimbHold;
-            stateMachine.IsTouchingClimbWall &= isShift || Time.fixedTime < climbWallExtendTimer;
 
-            if(isShift != IsShiftLastFrame)
-            {
-                if (isShift)
-                    Debug.Log("Shift");
-                else
-                    Debug.Log("Release Shift");
-                IsShiftLastFrame = isShift;
-            }
-
+            
             
 
             //Debug.Log("CheckClimbWall: " + stateMachine.IsTouchingClimbWall + " isPress: " + inputController.Player.WallClimbHold.GetBC().isPressed);
@@ -286,7 +277,7 @@ namespace LSHGame.PlayerN
             if (stateMachine.State == PlayerStates.Dash)
             {
 
-                stateMachine.IsDash &= !GameInput.WasDashRealeased;
+                //stateMachine.IsDash &= !GameInput.WasDashRealeased;
                 stateMachine.IsDash &= localVelocity.Approximately(dashVelocity, 0.5f) && estimatedDashPosition.Approximately(rb.transform.position, 0.5f);
                 stateMachine.IsDash &= Time.fixedTime < dashEndTimer + Stats.DashDurration;
 
@@ -349,11 +340,6 @@ namespace LSHGame.PlayerN
                 lastDashTurningCenter = Vector2.negativeInfinity;
             }
 
-            if(from == PlayerStates.ClimbWall)
-            {
-                climbWallExtendTimer = float.NegativeInfinity;
-            }
-
             if (to == PlayerStates.Death)
             {
                 Respawn();
@@ -396,8 +382,6 @@ namespace LSHGame.PlayerN
                     if (Mathf.Abs(Stats.Gravity) > 0.06f)
                         climbWallExhaustTimer += Time.fixedDeltaTime;
 
-                    if (GameInput.IsWallClimbHold )//&& Mathf.Abs(inputMovement.y) > 0)
-                        climbWallExtendTimer = Time.fixedTime + shiftPressExtensionTime;
                     break;
                 case PlayerStates.ClimbWallExhaust:
                     localGravity = Stats.Gravity;

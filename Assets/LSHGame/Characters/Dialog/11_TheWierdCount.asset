@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d21a2fc2d25c0f45b5869b081a79208, type: 3}
+  m_Name: 11_TheWierdCount
+  m_EditorClassIdentifier: 
+  Data: "<Bettie>\nHallo.\n</Bettie>\n<Katharina>\nWie schaffst du es immer vor mir
+    dazu sein.\n<Page/>\nIch laufe mir einen ab und du,\n</Katharina>\n<Bettie>\nHast
+    du Angst?\n</Bettie>\n<Katharina>\nUnd du, - ...\n<Page/>\nAngst... vor was?\n</Katharina>\n<Bettie>\nVor
+    dem was kommt.\n</Bettie>\n<Katharina>\nAlso, die Hindernisse habe ich doch bis
+    jetzt ganz gut \xFCberwunden.\n</Katharina>\n<Bettie>\nDem was danach kommt,\n<Page/>\nnach
+    dem Schloss, den B\xFCchern, den Steinen,\n<Page/>\n...nach dem Portal...\n</Bettie>\n<Katharina>\n...\n<Page/>\n...\n</Katharina>\n<Bettie>\nAuf
+    Wiedersehen.\n</Bettie>"
+  PersonRight: {fileID: 11400000, guid: 6c81a2256fa2f4b41a72836064d452f1, type: 2}
+  PersonLeft: {fileID: 11400000, guid: 5484a2a0cbfceec429961b33f0511a54, type: 2}
+  Actions: []

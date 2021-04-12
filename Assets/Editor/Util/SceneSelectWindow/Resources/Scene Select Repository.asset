@@ -47,6 +47,7 @@ MonoBehaviour:
     - {fileID: 102900000, guid: 60059c5b1472d2b4fb557bc8aba09a00, type: 3}
     - {fileID: 102900000, guid: 73fedf50d9a9311418926bc23c26cddb, type: 3}
     - {fileID: 102900000, guid: a7065feb32882fe4c99ec206f9a937ac, type: 3}
+    - {fileID: 102900000, guid: 0f18770dc9607fe45a640f9ee7f55e6f, type: 3}
   - name: Old
     scenes:
     - {fileID: 102900000, guid: dcccf05b9bd8efc499dcfdc0406331af, type: 3}

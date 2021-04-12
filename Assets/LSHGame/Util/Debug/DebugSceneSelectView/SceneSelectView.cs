@@ -1,19 +1,9 @@
-﻿using SceneM;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-
-#if UNITY_EDITOR
-using UnityEditor.Build.Reporting;
-#endif
 
 namespace LSHGame.Util
 {
     public class SceneSelectView : MonoBehaviour
-#if UNITY_EDITOR
-        , UnityEditor.Build.IPreprocessBuildWithReport
-#endif
     {
         [SerializeField]
         private SceneSelectElement elementPrefab;
@@ -26,11 +16,9 @@ namespace LSHGame.Util
 
         [SerializeField]
         private GameObject content;
-
+        
         [SerializeField]
-        private MainSceneInfo[] serializedSceneInfos;
-
-        public int callbackOrder { get; }
+        private SceneInfoRepository sceneInfoRepository;
 
         private void Awake()
         {
@@ -43,21 +31,18 @@ namespace LSHGame.Util
 
         private void Load()
         {
-#if UNITY_EDITOR
-            LoadMainSceneInfos();
-#endif
 
             foreach (Transform child in sceneElementContent)
                 Destroy(child.gameObject);
 
-            var querry = from info in serializedSceneInfos
-                         group info by info.ScenePath into newGroup
-                         select newGroup;
+            //var querry = from info in serializedSceneInfos
+            //             group info by info.ScenePath into newGroup
+            //             select newGroup;
 
-            foreach(var q in querry)
+            foreach(var info in sceneInfoRepository.MainSceneInfos)
             {
                 SceneSelectElement element = Instantiate(elementPrefab, sceneElementContent);
-                element.Initialize(q.ToArray());
+                element.Initialize(info);
             }
         }
 
@@ -75,39 +60,5 @@ namespace LSHGame.Util
         {
             GameInput.ToggleDebugSceneView -= ToggleVisible;
         }
-
-#if UNITY_EDITOR
-
-
-
-        [RuntimeInitializeOnLoadMethod]
-        private void LoadMainSceneInfos()
-        {
-            List<MainSceneInfo> sceneInfos = new List<MainSceneInfo>();
-            //var paths = UnityEditor.AssetDatabase.FindAssets("t:" + typeof(Substance).ToString());
-            //foreach (var path in paths)
-            //{
-            //    substances.Add(UnityEditor.AssetDatabase.LoadAssetAtPath<Substance>(path));
-            //}
-
-            string[] guids = UnityEditor.AssetDatabase.FindAssets("t:MainSceneInfo");
-            foreach (var guid in guids)
-            {
-                string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
-                // Debug.Log("Path: " + path);
-
-                MainSceneInfo s = UnityEditor.AssetDatabase.LoadAssetAtPath<MainSceneInfo>(path);
-                if (s != null)
-                    sceneInfos.Add(s);
-            }
-            serializedSceneInfos = sceneInfos.ToArray();
-        }
-
-        public void OnPreprocessBuild(BuildReport report)
-        {
-            LoadMainSceneInfos();
-        }
-
-#endif
     }
 }

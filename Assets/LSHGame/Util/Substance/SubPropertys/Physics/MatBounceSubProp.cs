@@ -6,6 +6,7 @@ namespace LSHGame.Util
 {
     public class MatBounceSubProp : SubstanceProperty
     {
+        [SerializeField]
         public BounceSettings BounceSettings;
 
         public bool AddGameObjectRotation = false;

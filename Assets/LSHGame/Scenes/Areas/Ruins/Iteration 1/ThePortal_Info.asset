@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec5302867d9df5489541371327a5585, type: 3}
+  m_Name: ThePortal_Info
+  m_EditorClassIdentifier: 
+  ScenePath: Assets/LSHGame/Scenes/Areas/Ruins/Iteration 1/ThePortal.unity
+  sceneAsset: {fileID: 102900000, guid: 0f18770dc9607fe45a640f9ee7f55e6f, type: 3}
+  AdditionalStartScenes: []
+  Transition: {fileID: 11400000, guid: 31208913e7fb6f74d91552886328fd0d, type: 2}
+  StartCheckpoint: {fileID: 0}

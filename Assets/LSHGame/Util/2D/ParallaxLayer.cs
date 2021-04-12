@@ -9,13 +9,13 @@ namespace LSHGame.Util
         [SerializeField] bool lockVertical = true;
         [SerializeField] bool lockHorizontal = false;
 
-        private Transform cameraTransform;
+        protected Transform cameraTransform;
 
-        private Vector3 startCameraPos;
-        private Vector3 startPos;
-        private Vector3 lastCameraPos;
+        protected Vector3 startCameraPos;
+        protected Vector3 startPos;
+        protected Vector3 lastCameraPos;
 
-        void Start()
+        protected virtual void Start()
         {
             cameraTransform = Camera.main.transform;
             startCameraPos = cameraTransform.position;
@@ -23,12 +23,12 @@ namespace LSHGame.Util
         }
 
 
-        private void LateUpdate()
+        protected virtual void LateUpdate()
         {
             //var position = startPos;
             Vector3 trans = Vector3.zero;
 
-            float multiplier = 1 - (-cameraTransform.position.z / (transform.position.z - cameraTransform.position.z));
+            float multiplier = GetMultiplier();
 
             if (!lockHorizontal)
                 //trans.x = multiplier * (cameraTransform.position.x - lastCameraPos.x);
@@ -44,6 +44,11 @@ namespace LSHGame.Util
 
             //astCameraPos = cameraTransform.position;
             transform.position = trans + startPos;
+        }
+
+        protected float GetMultiplier()
+        {
+            return 1 - (-cameraTransform.position.z / (transform.position.z - cameraTransform.position.z));
         }
 
     } 

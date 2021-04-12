@@ -9,7 +9,8 @@ namespace BehaviourT
     {
         public BehaviourTree Parent { get; private set; }
 
-        public BehaviourTreeComponent Component => Parent?.BehaviourTreeComponent;
+        public BehaviourTreeComponent Component { get {
+                return Parent?.BehaviourTreeComponent; } }
         public Transform Transform => Component.transform;
 
         [SerializeField]

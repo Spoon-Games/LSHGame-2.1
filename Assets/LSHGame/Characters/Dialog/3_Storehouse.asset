@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d21a2fc2d25c0f45b5869b081a79208, type: 3}
+  m_Name: 3_Storehouse
+  m_EditorClassIdentifier: 
+  Data: "<Katharina>\nIst ja nicht auszuhalten...\n</Katharina>\n<Bettie>\nHallo.\n</Bettie>\n<Katharina>\n...Da
+    laufe ich hier nichts ahnend durch die Gegend..\n</Katharina>\n<Bettie>\nWie
+    geht es?\n</Bettie>\n<Katharina>\n...ohne b\xF6se Absichten...\n</Katharina>\n<Bettie>\nIch
+    sehe du bist ganz sch\xF6n flott unterwegs.\n</Bettie>\n<Katharina>\n...und dann
+    die schon wieder!\n<Page/>\nWas gibt es??\n</Katharina>\n<Bettie>\nNichts. Ich
+    bewundere nur deine Entschlossenheit.\n</Bettie>\n<Katharina>\nDanke...\n</Katharina>\n<Bettie>\nEs
+    liegen sehr viele Gefahren vor dir auf deinem Weg zum Portal.\n</Bettie>\n<Katharina>\nIch
+    weis...\nkann ich jetzt gehen??\n</Katharina>\n<Bettie>\nDu solltest vorsichtig
+    sein.\n</Bettie>\n<Katharina>\nTsch\xFCss!\n</Katharina>\n<Bettie>\nAuf Wiedersehen.\n</Bettie>\n"
+  PersonRight: {fileID: 11400000, guid: 6c81a2256fa2f4b41a72836064d452f1, type: 2}
+  PersonLeft: {fileID: 11400000, guid: 5484a2a0cbfceec429961b33f0511a54, type: 2}
+  Actions: []

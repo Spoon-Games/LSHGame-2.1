@@ -32,7 +32,7 @@ namespace LSHGame.UI
 
         protected D Dialog { get; private set; }
 
-        private Activity _activity;
+        private Activity _activity = null;
         protected Activity Activity
         {
             get
@@ -46,8 +46,6 @@ namespace LSHGame.UI
         protected virtual string ActivityTransitionName => "Start" + name;
 
         protected TagChain TagChain { get; private set; }
-        //protected BaseTag CurrentTag => TagChain.Current;
-
         protected bool Active { get; private set; } = false;
 
         private string currentWrittenText = "";
@@ -71,7 +69,7 @@ namespace LSHGame.UI
             if (Active)
             {
                 int protection = 0;
-                while (TagChain.GetNext(skip:_isFurther) && protection < 1000) { protection++; }
+                while (TagChain.GetNext(skip: _isFurther) && protection < 1000) { protection++; }
                 if (protection == 1000)
                     Debug.Log("Protection");
                 if (TagChain.IsEnd)
@@ -100,7 +98,7 @@ namespace LSHGame.UI
             }
             else if (tag is ActionTag actionTag)
             {
-                Dialog.ActionCallback?.Invoke(actionTag.ActionName);
+                Dialog.InvokeAction(actionTag.ActionName);
             }
             else if (tag is TagReference tagReference)
             {
@@ -135,7 +133,7 @@ namespace LSHGame.UI
                 }
                 AddFractionText(stringTag.Text);
 
-                if(holdForLastStringTag && TagChain.Index == TagChain.TagCount - 1)
+                if (holdForLastStringTag && TagChain.Index == TagChain.TagCount - 1)
                 {
                     if (!ConsumeIsFurther())
                         return true;
@@ -202,6 +200,7 @@ namespace LSHGame.UI
                 Activity.Parent.GoToNext(ActivityTransitionName);
 
                 //Debug.Log("Activate");
+
                 //Debug.Log("TagChain: " + TagChain.ToString());
             }
             else
@@ -368,7 +367,7 @@ namespace LSHGame.UI
             }
             return false;
         }
-        
+
         private void SetFurtherButtonText(string text)
         {
             if (!string.IsNullOrEmpty(text) && furtherButtonTextField)

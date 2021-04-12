@@ -40,7 +40,7 @@ namespace BehaviourT.Editor
 
             builder.AppendLine("\n\n protected override void Awake() {");
             builder.AppendLine("if(BehaviourTree == null)\n{\n#if UNITY_EDITOR\n");
-            builder.AppendLine("BehaviourTree = AssetDatabase.LoadAssetAtPath<BehaviourTree>(behaviourTreePath);");
+            builder.AppendLine("BehaviourTreeObjectReference = AssetDatabase.LoadAssetAtPath<BehaviourTree>(behaviourTreePath);");
             builder.AppendLine("#endif\n}");
             builder.AppendLine("base.Awake();\n}");
 

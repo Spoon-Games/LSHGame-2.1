@@ -25,5 +25,18 @@ namespace LSHGame.UI
         {
             DuoCharacterView.Instance.Activate(this);
         }
+
+        public override void InvokeAction(string action)
+        {
+            foreach(var a in Actions)
+            {
+                if(a == action)
+                {
+                    base.InvokeAction(action);
+                    return;
+                }
+            }
+            Debug.Log("Action: " + action + " was not declared");
+        }
     }
 }

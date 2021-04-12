@@ -121,7 +121,7 @@ namespace LSHGame.PlayerN
 
             IsTouchingClimbWallRight = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Sides, RightSideTouchRect, true);
             IsTouchingClimbWallLeft = RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Sides, InvertOnX(RightSideTouchRect), true);
-            stateMachine.IsTouchingClimbWall = IsTouchingClimbWallLeft || IsTouchingClimbWallRight;
+            
 
             RetrieveSubstanceOnRect(PlayerSubstanceColliderType.Feet, feetTouchRect);
             parent.IsSaveGround = IsTouchingLayerRectRelative(feetTouchRect, saveGroundLayers);

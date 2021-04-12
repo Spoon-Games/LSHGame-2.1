@@ -1,4 +1,3 @@
-using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -6,21 +5,22 @@ using BehaviourT;
 
 
 
-public class NewBehaviourTreeBTC : BehaviourTreeComponent 
+public class NewBehaviourTreeBTC : BehaviourTreeComponent
 {
 
-private const string behaviourTreePath = "Assets/PackagesS/BehaviourT/Tests/New Behaviour Tree.asset";
+    private const string behaviourTreePath = "Assets/PackagesS/BehaviourT/Tests/New Behaviour Tree.asset";
 
 
 
- protected override void Awake() {
-if(BehaviourTree == null)
-{
+    protected override void Awake()
+    {
+        if (BehaviourTreeInstance == null)
+        {
 #if UNITY_EDITOR
 
-BehaviourTree = AssetDatabase.LoadAssetAtPath<BehaviourTree>(behaviourTreePath);
+            BehaviourTreeObjectReference = AssetDatabase.LoadAssetAtPath<BehaviourTree>(behaviourTreePath);
 #endif
-}
-base.Awake();
-}
+        }
+        base.Awake();
+    }
 }

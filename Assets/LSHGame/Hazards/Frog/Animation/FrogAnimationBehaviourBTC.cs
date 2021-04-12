@@ -7,21 +7,22 @@ using BehaviourT;
 
 
 [RequireComponent(typeof(UnityEngine.Animator))]
-public class FrogAnimationBehaviourBTC : BehaviourTreeComponent 
+public class FrogAnimationBehaviourBTC : BehaviourTreeComponent
 {
 
-private const string behaviourTreePath = "Assets/LSHGame/Hazards/Frog/Animation/FrogAnimationBehaviour.asset";
+    private const string behaviourTreePath = "Assets/LSHGame/Hazards/Frog/Animation/FrogAnimationBehaviour.asset";
 
 
 
- protected override void Awake() {
-if(BehaviourTree == null)
-{
+    protected override void Awake()
+    {
+        if (BehaviourTreeInstance == null)
+        {
 #if UNITY_EDITOR
 
-BehaviourTree = AssetDatabase.LoadAssetAtPath<BehaviourTree>(behaviourTreePath);
+            BehaviourTreeObjectReference = AssetDatabase.LoadAssetAtPath<BehaviourTree>(behaviourTreePath);
 #endif
-}
-base.Awake();
-}
+        }
+        base.Awake();
+    }
 }

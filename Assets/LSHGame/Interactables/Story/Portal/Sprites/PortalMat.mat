@@ -56,14 +56,14 @@ Material:
     - Vector1_576e2d5963184434b797471d61dedf2a: 1
     - Vector1_7d15195416db4b4f903d1461c823319a: 1
     - Vector1_b401f16e941649d68b36f8223386cff2: 0.1
-    - Vector1_b511995d6d9d40fdbb95eeedc03073ee: 1.15
+    - Vector1_b511995d6d9d40fdbb95eeedc03073ee: 0.31
     - Vector1_e7955cd8d3df4f1f8676d16b2d006d52: 0
     - _EnableExternalAlpha: 0
     - _Intensity: 1
     m_Colors:
     - Color_8390c3673cec4d59a9a947f0017c3326: {r: 0.27472162, g: 0, b: 1.981132, a: 1}
     - Vector2_30598862bf2648f79021a2d9432fc2e2: {r: 0, g: 1, b: 0, a: 0}
-    - Vector2_6b211e3887a04607851e3583a2fbea75: {r: 0, g: 1, b: 0, a: 0}
+    - Vector2_6b211e3887a04607851e3583a2fbea75: {r: -0.5, g: 1, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

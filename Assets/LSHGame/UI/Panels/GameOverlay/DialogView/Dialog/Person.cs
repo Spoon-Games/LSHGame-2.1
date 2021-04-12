@@ -7,6 +7,7 @@ namespace LSHGame.UI
     public class Person : ScriptableObject
     {
         public string Name;
+        public string TitleName;
 
         public Mood[] Moods = new Mood[1] { new Mood() { Name = "Default" } };
     }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d21a2fc2d25c0f45b5869b081a79208, type: 3}
+  m_Name: 6_TheMadMadame
+  m_EditorClassIdentifier: 
+  Data: "<Katharina>\nEine nicht zu \xF6ffnende Truhe,\n<Page/>\nWer w\xFCrde so
+    etwas tun?\n<Page/>\nOh, die Geheimnisse,\n<Page/>\nSensei,\nrette mich\n</Katharina>\n<Bettie>\nAber
+    noch mal zum Portal,\n<Page/>\nWas treibt dich an?\n</Bettie>\n<Katharina>\nDie
+    Geister, die Geister,\nund die Truhe nat\xFCrlich.\n</Katharina>\n<Bettie>\nBuh!\n</Bettie>\n<Katharina>\n...\n<Page/>\nTsch\xFCss\n</Katharina>\n<Bettie>\nAuf
+    Wiedersehen\n</Bettie>"
+  PersonRight: {fileID: 11400000, guid: 5484a2a0cbfceec429961b33f0511a54, type: 2}
+  PersonLeft: {fileID: 11400000, guid: 6c81a2256fa2f4b41a72836064d452f1, type: 2}
+  Actions: []

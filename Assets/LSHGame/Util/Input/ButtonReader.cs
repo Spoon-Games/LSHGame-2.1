@@ -64,6 +64,8 @@ namespace LSHGame.Util
         {
             GameInput.OnInteract -= Press;
             GameInput.OnInteractCancel -= Release;
+            GameInput.Mix_OnUIBack -= Press;
+            GameInput.Mix_OnUIBack_Release -= Release;
         }
 
     }

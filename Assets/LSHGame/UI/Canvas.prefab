@@ -324,6 +324,7 @@ MonoBehaviour:
   furtherButtonTextField: {fileID: 0}
   defaultFurtherText: Weiter
   typeSpeed: 7
+  holdForLastStringTag: 1
   dialogField: {fileID: 7245865925377082862}
   imageField: {fileID: 3236050365921731986}
   minScale: 0.2
@@ -1185,7 +1186,7 @@ RectTransform:
   m_GameObject: {fileID: 2651856400743095709}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 976532301781149046}
   m_RootOrder: 0
@@ -1900,6 +1901,7 @@ MonoBehaviour:
   furtherButtonTextField: {fileID: 4329046249182620710}
   defaultFurtherText: Weiter
   typeSpeed: 13
+  holdForLastStringTag: 1
   characterImageRight: {fileID: 2025504876516051943}
   characterImageLeft: {fileID: 7789101535258920335}
   nameFieldRight: {fileID: 7795465510126612696}

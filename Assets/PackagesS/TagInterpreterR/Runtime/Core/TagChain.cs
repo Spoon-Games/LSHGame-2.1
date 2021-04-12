@@ -212,7 +212,7 @@ namespace TagInterpreterR
         {
             for(int i = tags.Count - 1; i >= 0; i--)
             {
-                if (Equals(tags[i].Name, name))
+                if (Equals(tags[i].Name, name) && !tags[i].IsSingle)
                 {
                     tags.Add(new EndTag(tags[i]));
                     return;

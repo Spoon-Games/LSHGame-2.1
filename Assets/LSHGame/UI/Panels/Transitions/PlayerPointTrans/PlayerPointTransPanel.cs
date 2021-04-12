@@ -11,6 +11,9 @@ namespace LSHGame.UI
         [SerializeField]
         private Vector2 defaultOrigin = new Vector2(0.7f, 0.6f);
 
+        [SerializeField]
+        private string objectPointTag;
+
         private Image image;
 
         private const string T_NAME = "_T";
@@ -42,11 +45,12 @@ namespace LSHGame.UI
             }
         }
 
-        private Vector2 GetOrigin()
+        protected virtual Vector2 GetOrigin()
         {
-            if(Player.Instance != null)
+            var point = GameObject.FindGameObjectWithTag(objectPointTag);
+            if (point != null)
             {
-                Vector3 worldPos = Player.Instance.transform.position;
+                Vector3 worldPos = point.transform.position;
 
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(image.rectTransform, Camera.main.WorldToScreenPoint(worldPos), Camera.main, out Vector2 origin);
 

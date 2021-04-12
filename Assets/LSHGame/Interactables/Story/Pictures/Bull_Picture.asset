@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Bull_Picture
   m_EditorClassIdentifier: 
   Picture: {fileID: 21300000, guid: c902945722fbed84e807ac1240602b95, type: 3}
-  Text: Reite, Reite, bis du nicht mehr kannst
+  Text: Reite mit mir in den Sonnenuntergang
   OpeningSound: 

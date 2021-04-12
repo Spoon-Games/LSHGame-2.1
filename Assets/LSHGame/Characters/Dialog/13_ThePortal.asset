@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d21a2fc2d25c0f45b5869b081a79208, type: 3}
+  m_Name: 13_ThePortal
+  m_EditorClassIdentifier: 
+  Data: "<Katharina>\nBettie,\n<Button/>\nWas machst du denn hier?\n</Katharina>\n<Bettie>\nIch
+    kann dich das doch nicht alleine machen lassen,\n<Page/>\nDu k\xF6nntest noch
+    was kaputt machen.\n<Page/>\nSchere, Messer, Portal und Licht,\n<Button/>\nSind
+    f\xFCr kleine Kinder nicht.\n</Bettie>\n<Katharina>\nEs ist auch sch\xF6n dich
+    zu sehen\n</Katharina>\n<Bettie>\nBist du bereit?\n<Page/>\nUm das Portal zu\xF6ffnen?\n</Bettie>\n<Katharina>\nKurze
+    zwischen Frage:\n<Page/>\nWas sollen die ganzen Schildkr\xF6ten?\n<Page/>\nIst
+    das irgend ein Bild?\n<Page/>\nOder ein Ritual?\n<Page/>\nWir beten dich an\n<Page/>\nGott
+    aller G\xF6tter\n<Button/>\nH\xF6chster der H\xF6chsten\n<Page/>\nSchildie die
+    Schildkr\xF6te\n<Page/>\nGew\xE4hre uns Schutz und Schokolade\n</Katharina>\n<Bettie>\nNiemand
+    wei\xDF es so wirklich.\n<Page/>\nWillst du nun das Portal \xF6ffnen?\n<Button=\"\xD6ffnen\"/>\n<Action=OpenPortal/>\n</Bettie>\n<Pause=12/>\n<Katharina>\nBettie,\n<Page/>\nich
+    habe Angst...\n<Page/>\nWas wenn nichts auf der anderen Seite ist?\n</Katharina>\n<Bettie>\nEs
+    ist ok,\n<Page/>\nDu bist nicht alleine\n<Page/>\nIch bin hier.\n</Bettie>\n<Katharina>\n...\n</Katharina>\n<Bettie>\nDu
+    musst nun hineingehen.\n</Bettie>\n<Katharina>\nTsch\xFCss,\nBettie\n</Katharina>\n<Bettie>\nTsch\xFCss,\n<Page/>\nWir
+    werden uns ganz sicher wiedersehen!\n</Bettie>\n<Katharina>\nIch bin nicht alleine...\n<Button=\"Hineingehen\"/>\n<Action=EnterPortal/>\n</Katharina>"
+  PersonRight: {fileID: 11400000, guid: 6c81a2256fa2f4b41a72836064d452f1, type: 2}
+  PersonLeft: {fileID: 11400000, guid: 5484a2a0cbfceec429961b33f0511a54, type: 2}
+  Actions:
+  - OpenPortal
+  - EnterPortal

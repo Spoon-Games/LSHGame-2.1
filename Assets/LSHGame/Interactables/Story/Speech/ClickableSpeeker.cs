@@ -16,8 +16,9 @@ namespace LSHGame
         private Collider2D triggerCollider;
         private bool isActive = false;
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             triggerCollider = GetComponent<Collider2D>();
             GameInput.OnInteract += OnInteract;
         }
@@ -27,7 +28,7 @@ namespace LSHGame
             if (isActive)
             {
                 base.Show();
-                HelpTextView.Instance.HideHelpText();
+                HelpTextView.Instance.HideHelpText(gameObject);
             }
         }
 
@@ -40,17 +41,18 @@ namespace LSHGame
 
                 if (isActive)
                 {
-                    HelpTextView.Instance.SetHelpText(speekText);
+                    HelpTextView.Instance.SetHelpText(speekText,gameObject);
                 }
                 else
                 {
-                    HelpTextView.Instance.HideHelpText();
+                    HelpTextView.Instance.HideHelpText(gameObject);
                 }
             }
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
+            base.OnDestroy();
             GameInput.OnInteract -= OnInteract;
         }
     }

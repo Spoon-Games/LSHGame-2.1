@@ -80,7 +80,7 @@ namespace LSHGame.Util
 
         public void ToggleVisible()
         {
-            SetVisible(!content.activeSelf);
+            SetVisible(!content.activeInHierarchy);
         }
 
         public void SetVisible(bool visible)

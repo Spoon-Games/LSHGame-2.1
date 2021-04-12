@@ -48,16 +48,9 @@ public class TRSMatrixPropertyDrawer : PropertyDrawer
 
         Vector3 translation = matrix.GetColumn(3);
 
-        Quaternion rotation = Quaternion.LookRotation(
-            matrix.GetColumn(2),
-            matrix.GetColumn(1)
-        );
+        Quaternion rotation = matrix.rotation;
 
-        Vector3 scale = new Vector3(
-            matrix.GetColumn(0).magnitude,
-            matrix.GetColumn(1).magnitude,
-            matrix.GetColumn(2).magnitude
-        );
+        Vector3 scale = matrix.lossyScale;
 
         bool wasEnabled = GUI.enabled;
         position = EditorGUI.PrefixLabel(pos, GUIUtility.GetControlID(FocusType.Passive), new GUIContent("Translation"));

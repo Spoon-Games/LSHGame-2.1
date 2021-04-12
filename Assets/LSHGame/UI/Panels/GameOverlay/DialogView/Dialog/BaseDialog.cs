@@ -28,5 +28,10 @@ namespace LSHGame.UI
             }
             return new TagChain();
         }
+
+        public virtual void InvokeAction(string action)
+        {
+            ActionCallback?.Invoke(action);
+        }
     } 
 }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SittingGirl_Pictrue
   m_EditorClassIdentifier: 
   Picture: {fileID: 21300000, guid: 45ce0f269f760014c839e9fff67e65f5, type: 3}
-  Text: Der schaut, der starrt, der ist?
+  Text: "Allwissend bin ich nicht; \ndoch viel ist mir bewusst!"
   OpeningSound: 
