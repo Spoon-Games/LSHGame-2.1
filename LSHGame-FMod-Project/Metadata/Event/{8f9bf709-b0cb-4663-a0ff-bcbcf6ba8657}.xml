@@ -70,7 +70,7 @@
 			<destination>{bca65f7d-afec-4277-871c-88931caff76c}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{0f5c6cca-6890-4d76-b981-628b7d5897fe}</destination>
+			<destination>{176a1d62-6867-45af-8b0d-0d0156cce42a}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{651090c8-5553-4a43-8423-d48010c881c0}" />
@@ -216,6 +216,9 @@
 		</property>
 	</object>
 	<object class="EventMixerGroup" id="{109cd2b6-4c55-4fbe-8b42-e6c83e393a0f}">
+		<property name="volume">
+			<value>-2.5</value>
+		</property>
 		<property name="name">
 			<value>Ignite</value>
 		</property>
@@ -768,7 +771,7 @@
 			<value>1</value>
 		</property>
 		<property name="value">
-			<value>0</value>
+			<value>-8</value>
 		</property>
 	</object>
 	<object class="Automator" id="{5fb677e7-6375-4cf2-bee0-a4ce1b53b52c}">
@@ -784,7 +787,7 @@
 			<value>0</value>
 		</property>
 		<property name="value">
-			<value>-80</value>
+			<value>-51.6666679</value>
 		</property>
 		<property name="curveShape">
 			<value>1</value>
@@ -795,7 +798,7 @@
 			<value>2</value>
 		</property>
 		<property name="value">
-			<value>-5.5</value>
+			<value>-4</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{4b0491c8-c2cd-4c6f-a2d1-c4d98c0c858d}">
@@ -803,7 +806,7 @@
 			<value>1</value>
 		</property>
 		<property name="value">
-			<value>-80</value>
+			<value>-51.6666679</value>
 		</property>
 		<property name="curveShape">
 			<value>-0.226676434</value>
@@ -874,7 +877,7 @@
 			<value>2</value>
 		</property>
 		<property name="value">
-			<value>-15</value>
+			<value>-16</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{3dd635e2-9f52-40c6-a57a-4d43443962b1}">

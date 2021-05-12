@@ -30,12 +30,16 @@ namespace LSHGame.Util
                 o.SetLocalScale(originScale);
                 return o;
             }
+            else
+            {
+                Debug.Log("Recreate prefab was not found for: " + ghost.name + " guid: " + ghost.prefabGuid);
+            }
             return null;
         }
 
 #if UNITY_EDITOR
 
-        private void LoadPrefabs()
+        public void LoadPrefabs()
         {
             List<RecreateModule> modules = new List<RecreateModule>();
             //var paths = UnityEditor.AssetDatabase.FindAssets("t:" + typeof(Substance).ToString());
@@ -59,6 +63,9 @@ namespace LSHGame.Util
                 }
             }
             serializedModules = modules.ToArray();
+
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssets();
         }
 
         private void OnEnable()
@@ -75,6 +82,8 @@ namespace LSHGame.Util
                 so.FindProperty("prefabGuid").stringValue = Guid.NewGuid().ToString();
                 so.ApplyModifiedProperties();
                 Debug.Log("Saved Prefab "+module.prefabGuid);
+
+                LoadPrefabs();
             }
         }
 

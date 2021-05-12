@@ -11459,7 +11459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c55d8b6f24feaf4e840c3687f5dce37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabGuid: 9d067a8f-4c12-4394-b9af-4d6bae2fba18
+  prefabGuid: 0c0030f0-316c-4a2a-b0a0-227baa0940a7
+  maxCheckpointOrder: -1
 --- !u!114 &1311398488318608190
 MonoBehaviour:
   m_ObjectHideFlags: 0

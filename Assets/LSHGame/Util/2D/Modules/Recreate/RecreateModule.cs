@@ -47,7 +47,10 @@ namespace LSHGame.Util
                 Deregister();
 
                 RecreateModule newModule = RecreateManager.Instance.Recreate(this, position, rotation,scale,parent);
-                newModule.maxCheckpointOrder = maxCheckpointOrder;
+                if (newModule != null)
+                {
+                    newModule.maxCheckpointOrder = maxCheckpointOrder;
+                }
 
                 wasReset = true;
             }
