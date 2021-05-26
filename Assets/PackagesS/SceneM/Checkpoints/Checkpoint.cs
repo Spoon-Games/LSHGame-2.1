@@ -5,7 +5,7 @@ namespace SceneM
     public class Checkpoint : MonoBehaviour
     {
         [SerializeField]
-        private bool isDefaultStartCheckpoint = false;
+        public bool isDefaultStartCheckpoint ;
 
         [SerializeField]
         private int order = 0;
@@ -42,7 +42,7 @@ namespace SceneM
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            if (autoPrioritize)
+            if (autoPrioritize && Application.isEditor)
             {
                 order = transform.GetSiblingIndex();
                 isDefaultStartCheckpoint = order == 0;
@@ -51,7 +51,7 @@ namespace SceneM
 
         private void OnDrawGizmos()
         {
-            if (autoPrioritize)
+            if (autoPrioritize && Application.isEditor)
             {
                 order = transform.GetSiblingIndex();
                 isDefaultStartCheckpoint = order == 0;

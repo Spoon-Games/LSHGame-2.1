@@ -52,18 +52,19 @@ namespace LSHGame.Util
             foreach (var guid in guids)
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
-                // Debug.Log("Path: " + path);
-
+                 
                 RecreateModule m = AssetDatabase.LoadAssetAtPath<RecreateModule>(path);
                 if (m != null)
                 {
                     if (string.IsNullOrEmpty(m.prefabGuid))
                         m.prefabGuid = Guid.NewGuid().ToString();
                     modules.Add(m);
+                    //Debug.Log("Path: " + path + " GUID: " + guid);
                 }
             }
             serializedModules = modules.ToArray();
 
+            //AssetDatabase.SaveAssets();
             EditorUtility.SetDirty(this);
             AssetDatabase.SaveAssets();
         }

@@ -44,7 +44,7 @@ namespace LSHGame.Util
 
         public void Trigger()
         {
-            Debug.Log("Trigger");
+            //Debug.Log("Trigger");
             Trigger(null);
         }
 
