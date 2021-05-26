@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -188697632249957547}
   - component: {fileID: 8276673428004418950}
   m_Layer: 0
-  m_Name: Poisonous
+  m_Name: Spikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1925394928832320303}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb70cbe99c8324143bb92a6bcab40874, type: 3}
+  m_Script: {fileID: 11500000, guid: 6df40e8a41df15347a94c771f7f0f145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Effects:
