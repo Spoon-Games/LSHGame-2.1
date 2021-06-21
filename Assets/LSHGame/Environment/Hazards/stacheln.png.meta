@@ -47,12 +47,12 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -70,6 +70,8 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
@@ -103,52 +105,12 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
     sprites: []
-    outline:
-    - - {x: 21, y: -126}
-      - {x: 21, y: -90}
-      - {x: -3, y: -50}
-      - {x: -9, y: -47}
-      - {x: -10, y: -47}
-      - {x: -15, y: -62}
-      - {x: -17, y: -69}
-      - {x: -22, y: -84}
-      - {x: -52, y: -47}
-      - {x: -59, y: -47}
-      - {x: -61, y: -48}
-      - {x: -84, y: -47}
-      - {x: -104, y: -47}
-      - {x: -110, y: -49}
-      - {x: -128, y: -87}
-      - {x: -128, y: -119}
-      - {x: -125, y: -128}
-      - {x: -85, y: -128}
-      - {x: -80, y: -120}
-      - {x: -71, y: -128}
-      - {x: 15, y: -128}
-    - - {x: 55, y: -62}
-      - {x: 52, y: -56}
-      - {x: 48, y: -50}
-      - {x: 40, y: -50}
-      - {x: 24, y: -102}
-      - {x: 24, y: -122}
-      - {x: 31, y: -128}
-      - {x: 68, y: -128}
-      - {x: 75, y: -118}
-      - {x: 75, y: -110}
-    - - {x: 102, y: -51}
-      - {x: 95, y: -51}
-      - {x: 78, y: -97}
-      - {x: 78, y: -121}
-      - {x: 81, y: -128}
-      - {x: 123, y: -128}
-      - {x: 128, y: -123}
-      - {x: 128, y: -108}
-      - {x: 110, y: -56}
+    outline: []
     physicsShape:
-    - - {x: -128, y: -128}
-      - {x: -128, y: -58}
-      - {x: 128, y: -58}
-      - {x: 128, y: -128}
+    - - {x: -118, y: -128}
+      - {x: -118, y: -53}
+      - {x: 119, y: -53}
+      - {x: 121, y: -128}
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
     internalID: 0

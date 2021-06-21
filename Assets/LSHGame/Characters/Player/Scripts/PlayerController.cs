@@ -53,6 +53,8 @@ namespace LSHGame.PlayerN
         private PlayerColliders playerColliders;
         [SerializeField]
         private LiliumEffect liliumEffect;
+        [SerializeField]
+        private CameraController cameraController;
 
         private Rigidbody2D rb => playerColliders.rb;
         private EffectsController effectsController;
@@ -80,6 +82,7 @@ namespace LSHGame.PlayerN
         private Vector2 localScale;
 
         private Vector2 inputMovement;
+        private Vector2 lastInputMovement;
 
         internal Vector2 lastFrameMovingVelocity = default;
         internal Vector2 lastFramePosition = default;
@@ -142,7 +145,9 @@ namespace LSHGame.PlayerN
 
             Stats = defaultStats.Clone();
 
+            lastInputMovement = inputMovement;
             inputMovement = GameInput.MovmentInput;
+  
 
             //Get Substances
             playerColliders.CheckUpdate();
@@ -216,14 +221,16 @@ namespace LSHGame.PlayerN
             {
                 Kill();
             }
+
+            GameInput.Hint_IsLilium = liliumState > 0;
         }
 
         private void CheckClimbWall()
         {
-            if (inputMovement.y > 0)
-                stateMachine.IsTouchingClimbLadder &= localVelocity.y <= inputMovement.y * Stats.ClimbingLadderSpeed + 0.1f;
+            if (inputMovement.y > 0 || lastInputMovement.y > 0)
+                stateMachine.IsTouchingClimbLadder &= localVelocity.y <= Stats.ClimbingLadderSpeed + 0.1f;
             else
-                stateMachine.IsTouchingClimbLadder &= localVelocity.y <= 0 + 0.1f;
+                stateMachine.IsTouchingClimbLadder &= localVelocity.y <= 0.2f;
 
             stateMachine.IsTouchingClimbLadder &= !(inputMovement.y <= 0 && stateMachine.IsGrounded);
 
@@ -264,7 +271,9 @@ namespace LSHGame.PlayerN
 
         private void CheckDash()
         {
-            isDashStartDisableByGround &= !stateMachine.IsGrounded;
+            isDashStartDisableByGround &= ! (stateMachine.IsGrounded || stateMachine.State == PlayerStates.ClimbWall 
+                || stateMachine.State == PlayerStates.ClimbWallExhaust || stateMachine.State == PlayerStates.ClimbLadder ||
+                stateMachine.State == PlayerStates.ClimbLadderTop);
 
             if (dashInput.Check(GameInput.IsDash,
                 stateMachine.State != PlayerStates.Dash
@@ -319,12 +328,16 @@ namespace LSHGame.PlayerN
 
             if (from != PlayerStates.Dash && to == PlayerStates.Dash)
             {
+                GameInput.Hint_Dash?.Invoke();
+
                 dashStartDisableTimer = Time.fixedTime;
                 isDashStartDisableByGround = true;
 
                 dashEndTimer = Time.fixedTime;
                 if (!GetSign(inputMovement.x, out float sign))
                     sign = flipedDirection.x;
+                if (from == PlayerStates.ClimbWall || from == PlayerStates.ClimbWallExhaust)
+                    sign = playerColliders.IsTouchingClimbWallLeft ^ this.isXFliped ? 1 : -1;
 
                 Vector2 direction = verticalDashSpeed > 0 ? inputMovement.normalized : new Vector2(sign, 0);
 
@@ -333,6 +346,11 @@ namespace LSHGame.PlayerN
                 localVelocity = dashVelocity;
 
                 liliumEffect.Dash();
+            }
+
+            if(to == PlayerStates.ClimbWall)
+            {
+                GameInput.Hint_WallClimb?.Invoke();
             }
 
             if(from == PlayerStates.Dash)
@@ -344,7 +362,9 @@ namespace LSHGame.PlayerN
             {
                 Respawn();
                 playerColliders.SetToDeadBody();
+                cameraController.SetFallingDead(true);
             }
+
         }
         #endregion
 
@@ -374,7 +394,6 @@ namespace LSHGame.PlayerN
                     break;
                 case PlayerStates.ClimbWall:
 
-                    GameInput.Hint_HasClimbed = true;
                     localGravity = 0;
                     SetClimbWallSpeedX();
                     localVelocity.y = Stats.ClimbingWallSlideSpeed * inputMovement.y;
@@ -406,8 +425,8 @@ namespace LSHGame.PlayerN
                     localGravity = 0;
                     break;
                 case PlayerStates.Death:
-                    localVelocity = Vector2.zero;
-                    localGravity = 0;
+                    localVelocity.x = 0 ;
+                    //localGravity = 0;
                     break;
             }
         }
@@ -415,7 +434,11 @@ namespace LSHGame.PlayerN
         private void Run(bool isAirborne = false, bool isCrouching = false)
         {
             if (Mathf.Abs(inputMovement.x) > 0.01f)
-                GameInput.Hint_HasMoved = true;
+                GameInput.Hint_Movement?.Invoke();
+
+            if (Mathf.Abs(inputMovement.y) > 0.01f && stateMachine.State == PlayerStates.ClimbLadder)
+                GameInput.Hint_LadderClimb?.Invoke();
+                
             float horVelocityRel = localVelocity.x;
             AnimationCurve accelCurve = Stats.RunAccelCurve;
             AnimationCurve deaccelCurve = Stats.RunDeaccelCurve;
@@ -491,7 +514,6 @@ namespace LSHGame.PlayerN
 
         private void Dash()
         {
-            GameInput.Hint_HasDashed = true;
 
             //var currentRotation = Quaternion.FromToRotation(Vector3.right, localVelocity);
             //if (Stats.GlobalDashTurningCenter != Vector2.negativeInfinity)
@@ -659,6 +681,7 @@ namespace LSHGame.PlayerN
         {
             stateMachine.Reset();
             playerColliders.Reset();
+            cameraController.SetFallingDead(false);
 
             jumpInput.Reset();
             dashInput.Reset();

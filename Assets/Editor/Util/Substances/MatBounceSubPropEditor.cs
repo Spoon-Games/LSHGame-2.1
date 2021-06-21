@@ -1,5 +1,6 @@
 ﻿using LSHGame.Util;
 using UnityEditor;
+using UnityEngine;
 
 namespace LSHGame.Editor
 {
@@ -15,6 +16,7 @@ namespace LSHGame.Editor
 
         public override void OnInspectorGUI()
         {
+
             var s = matBounceSubProp.BounceSettings;
 
             s.IsRelativeSpeed = EditorGUILayout.Toggle("Is Relative Speed", s.IsRelativeSpeed);
@@ -60,7 +62,11 @@ namespace LSHGame.Editor
 
             matBounceSubProp.AddGameObjectRotation = EditorGUILayout.Toggle("AddGameObjectRotation", matBounceSubProp.AddGameObjectRotation);
 
+            if(GUI.changed)
+                EditorUtility.SetDirty(matBounceSubProp);
+
             EditorGUILayout.PropertyField(serializedObject.FindProperty("OnBounceEvent"));
+            
             serializedObject.ApplyModifiedProperties();
         }
     }

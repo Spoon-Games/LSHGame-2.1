@@ -42,9 +42,11 @@ namespace LSHGame.Util
         #endregion
 
         #region HintStates
-        public static bool Hint_HasMoved = false;
-        public static bool Hint_HasClimbed = false;
-        public static bool Hint_HasDashed = false;
+        public static Action Hint_WallClimb;
+        public static Action Hint_LadderClimb;
+        public static Action Hint_Dash;
+        public static bool Hint_IsLilium = false;
+        public static Action Hint_Movement;
         #endregion
 
 

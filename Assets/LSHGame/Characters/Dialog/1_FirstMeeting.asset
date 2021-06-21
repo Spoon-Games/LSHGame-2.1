@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: "<Bettie>\nHallo. \nDu siehst aber gestresst aus?\n<Page/>\nWo soll es denn
     so eilig hin gehen?\n</Bettie>\n<Katharina>\nWeiter. Jetzt halt mich nicht auf.\nIch
-    muss los.\n</Katharina>\n<Bettie>\nWo ist los?\n</Bettie>\n<Katharina>\nZum Protal.\n<Page/>\nJetzt
+    muss los.\n</Katharina>\n<Bettie>\nWo ist los?\n</Bettie>\n<Katharina>\nZum Portal.\n<Page/>\nJetzt
     aber Schluss.\nTsch\xFCss!\n</Katharina>\n<Bettie>\nAuf Wiedersehen?\n</Bettie>"
   PersonRight: {fileID: 11400000, guid: 6c81a2256fa2f4b41a72836064d452f1, type: 2}
   PersonLeft: {fileID: 11400000, guid: 5484a2a0cbfceec429961b33f0511a54, type: 2}

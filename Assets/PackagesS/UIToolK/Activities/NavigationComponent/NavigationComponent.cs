@@ -23,6 +23,7 @@ namespace UINavigation
                 LoadNavGraph();
             }
         }
+        private string startActivity = "";
 
         public string DefaultInputController;
         public string DefaultInAnimation;
@@ -57,6 +58,12 @@ namespace UINavigation
                 Debug.Log("Could not run activity " + activity + " because key was not found");
         }
 
+        public void ResetToStartActivity()
+        {
+            BackStack.Clear();
+            RunActivity(startActivity);
+        }
+
         public void GoToNext(string key)
         {
             if (string.IsNullOrEmpty(key))
@@ -76,7 +83,8 @@ namespace UINavigation
         #region Backstack
         public void PopBackStack()
         {
-            BackStack.Pop();
+            //if(BackStack.Count > 1)
+                BackStack.Pop();
         }
 
         public void PopBackStackTill(string activity)
@@ -97,7 +105,10 @@ namespace UINavigation
         {
             BackStack.Clear();
             if (NavGraph != null)
-                RunActivity(NavigationGraph.SetUp(NavGraph, this));
+            {
+                startActivity = NavigationGraph.SetUp(NavGraph, this);
+                RunActivity(startActivity);
+            }
         }
 
         private void GetChildren()

@@ -220,13 +220,20 @@ namespace LSHGame.PlayerN
             {
                 stepUp = FindStep(out stepUpOffset, allCPs, groundCP.point, velocity);
                 //Debug.Log("GroundCPPoint: " + groundCP.point);
-            }else if (stateMachine.State == PlayerStates.ClimbWall || stateMachine.State == PlayerStates.ClimbLadder && parent.GreaterEqualY(velocity.y, -0.02f))
+            }else if ((stateMachine.State == PlayerStates.ClimbWall || stateMachine.State == PlayerStates.ClimbLadder) && parent.GreaterEqualY(parent.localVelocity.y, -0.02f))
             {
                 stepUp = FindStep(out stepUpOffset, allCPs, transform.TransformPoint(new Vector2(0, mainCollider.offset.y - mainCollider.size.y / 2)), velocity);
                 stepUpOffset.y = Mathf.Min(maxClampStepHeightClimpWall, stepUpOffset.y);
-            }else if(stateMachine.State == PlayerStates.ClimbLadderTop || stateMachine.State == PlayerStates.Dash)  
+                if (stepUp && stateMachine.State == PlayerStates.ClimbLadder)
+                    lastVelocity.y = 0;
+
+            }
+            else if(stateMachine.State == PlayerStates.ClimbLadderTop || stateMachine.State == PlayerStates.Dash)  
             {
-                stepUp = FindStep(out stepUpOffset, allCPs, transform.TransformPoint(new Vector2(0, mainCollider.offset.y - mainCollider.size.y / 2)), velocity);
+                stepUp = FindStep(out stepUpOffset, allCPs, transform.TransformPoint(new Vector2(mainCollider.offset.x + mainCollider.size.x / 2, mainCollider.offset.y - mainCollider.size.y / 2)), Vector2.one);
+                //Debug.Log("stepUp: " + stepUp + "UPOfY: "+stepUpOffset.y);
+                if (stepUp && stateMachine.State == PlayerStates.ClimbLadderTop)
+                    lastVelocity.y = 0;
             }
 
 
@@ -348,8 +355,8 @@ namespace LSHGame.PlayerN
             Vector2 origin = new Vector2(stepTestCP.point.x, stepHeight) + (stepTestInvDir * stepSearchOvershoot);
             Vector2 direction = new Vector2(0, -parent.flipedDirection.y);
 
-            RaycastHit2D hit = Physics2D.Raycast(origin, direction, maxStepHeight, groundLayers);
-
+            RaycastHit2D[] hit = new RaycastHit2D[1];
+            int hitcount = Physics2D.Raycast(origin, direction,  contactFilter:new ContactFilter2D() { layerMask = groundLayers, useLayerMask = true, useTriggers = false }, hit, maxStepHeight);
             //Debug.Log("Resolvestep Origin: "+origin + " stepTestInvDir: "+stepTestInvDir + " stepHeight: "+stepHeight+" direchtion: "+direction+"" +
             //    " hit: "+ (hit.collider != null && hit.collider != stepCol));
             //Vector2 hitPoint = default;
@@ -365,18 +372,18 @@ namespace LSHGame.PlayerN
             //else
             //    return false;
 
-            if (hit.collider == null || hit.collider == stepCol)
+            if (hitcount == 0 || hit[0].collider == stepCol)
                 return false;
 
             //Debug.Log("ResolveStepUp 3");
 
             //We have enough info to calculate the points
-            Vector2 stepUpPoint = new Vector2(stepTestCP.point.x, hit.point.y + 0.0001f * parent.flipedDirection.y) + (stepTestInvDir * stepSearchOvershoot);
+            Vector2 stepUpPoint = new Vector2(stepTestCP.point.x, hit[0].point.y + 0.0001f * parent.flipedDirection.y) + (stepTestInvDir * stepSearchOvershoot);
             Vector2 stepUpPointOffset = stepUpPoint - new Vector2(stepTestCP.point.x, groundCPPoint.y);
 
             //We passed all the checks! Calculate and return the point!
-            if ( !parent.GreaterYAbs(stepUpPointOffset.y,0) || !parent.SmalerYAbs(stepUpPointOffset.y ,maxStepHeight))
-                return false;
+            //if ( !parent.GreaterYAbs(stepUpPointOffset.y,0) || !parent.SmalerYAbs(stepUpPointOffset.y ,maxStepHeight))
+                //return false;
 
             //Debug.Log("ResolveStepUp 4");
 
@@ -480,12 +487,20 @@ namespace LSHGame.PlayerN
             //    Gizmos.color = Color.blue;
             //    Gizmos.DrawSphere(contactPoint2D.point, 0.05f);
             //}
+
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawSphere(transform.TransformPoint(new Vector2(mainCollider.offset.x + mainCollider.size.x / 2, mainCollider.offset.y - mainCollider.size.y / 2)),0.05f);
         }
 
         private void DrawRectRelative(Rect rect)
         {
             Rect r = rect.LocalToWorldRect(transform);//TransformRectPS(rect);
             Gizmos.DrawWireCube(r.center, r.size);
+        }
+
+        private void OnDrawGizmos()
+        {
+            SubstanceManager.Instance.OnDrawGizmos();
         }
         #endregion
 

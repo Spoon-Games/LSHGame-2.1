@@ -49,7 +49,7 @@ namespace LSHGame.Util
             //Debug.Log("Colliders: " + colliders.Count);
             //if (touch)
             // Debug.Log("Touching: " + colliders[0].name);
-            RetrieveSubstances(new Rect() { size = collider2D.size, center = collider2D.offset + Vector2.one * 0.05f }.LocalToWorldRect(collider2D.transform), set, filter, colliders, GetContactFilter(layerMask));
+            RetrieveSubstances(new Rect() { size = collider2D.size, center = collider2D.offset }.LocalToWorldRect(collider2D.transform), set, filter, colliders, GetContactFilter(layerMask));
         }
 
         public static void RetrieveSubstances(Rect rect, SubstanceSet set, ISubstanceFilter filter, LayerMask layerMask, out bool touch, bool noTouchOnTriggers = false)
@@ -256,9 +256,10 @@ namespace LSHGame.Util
         #endregion
 
         #region Helper Methods
-#if DEBUG_THIS
-        private void OnDrawGizmos()
+
+        public void OnDrawGizmos()
         {
+#if DEBUG_THIS
             foreach (var t in debugRects)
             {
                 Gizmos.color = t.Item2;
@@ -270,8 +271,9 @@ namespace LSHGame.Util
                 Gizmos.color = p.Item2;
                 Gizmos.DrawWireSphere(p.Item1, 0.1f);
             }
-        } 
 #endif
+        }
+
 
         private void AddTileSubsEntry(Substance s, TileBase tileBase)
         {

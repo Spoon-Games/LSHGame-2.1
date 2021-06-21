@@ -49,6 +49,7 @@ MonoBehaviour:
     hoch und runter bewegen."
   hintType: 1
   delay: 2
+  disappearingDelay: 1
   hintOnStart: 0
 --- !u!61 &316263055356233086
 BoxCollider2D:

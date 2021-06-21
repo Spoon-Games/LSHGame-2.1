@@ -158,7 +158,7 @@
 			<value>startOffset</value>
 		</property>
 		<property name="amount">
-			<value>33</value>
+			<value>100</value>
 		</property>
 	</object>
 	<object class="MixerBusEffectChain" id="{edd57fc6-f39d-4395-9382-6bd3e93a0c6c}">

@@ -45,5 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helpText: "D\xFCrcke [W,S,A,D] zum Bewegen und [Leertaste] zum Springen "
   hintType: 0
-  delay: 5
+  delay: 3
+  disappearingDelay: 2
   hintOnStart: 1

@@ -92,9 +92,18 @@
 	</object>
 	<object class="MixerBusPanner" id="{bf713c6c-0c76-4b4c-a194-2f99af9bdd27}" />
 	<object class="SingleSound" id="{d44454dd-9703-4578-8c3a-60ecff34fba0}">
+		<property name="isAsync">
+			<value>true</value>
+		</property>
 		<property name="length">
 			<value>7.9842708333333334</value>
 		</property>
+		<property name="looping">
+			<value>true</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{56998bff-36ca-459a-9e19-f0ed643b6bbc}</destination>
+		</relationship>
 		<relationship name="audioFile">
 			<destination>{47e2329a-bf0b-4f16-a44b-4e9dcf9fe9af}</destination>
 		</relationship>
@@ -135,6 +144,14 @@
 	</object>
 	<object class="MixerBusPanner" id="{a2927678-c386-4670-aa68-638900392559}" />
 	<object class="MixerBusFader" id="{db2d68be-4a87-4191-bc14-2d8849628f22}" />
+	<object class="RandomizerModulator" id="{56998bff-36ca-459a-9e19-f0ed643b6bbc}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>startOffset</value>
+		</property>
+		<property name="amount">
+			<value>100</value>
+		</property>
+	</object>
 	<object class="MixerBusEffectChain" id="{5b31775d-5f9b-40ac-b9c9-e387d4a7007d}">
 		<relationship name="effects">
 			<destination>{7b6b8a7e-e52f-4187-ad65-35eb204c0e0d}</destination>

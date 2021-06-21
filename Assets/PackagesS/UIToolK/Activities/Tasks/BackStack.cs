@@ -7,6 +7,7 @@ namespace UINavigation
     public class BackStack
     {
         private List<ITaskable> stacked = new List<ITaskable>();
+        internal int Count => stacked.Count;
 
         public Action OnBeforPopListener;
 
@@ -21,13 +22,15 @@ namespace UINavigation
             if (GetCurrant() is IPopListener listener)
                 pop = !listener.OnPop();
 
+            pop &= stacked.Count > 1;
+
             if (pop)
                 RemoveLast();
         }
 
         public void Clear()
         {
-            while (stacked.Count > 1)
+            while (stacked.Count > 0)
             {
                 RemoveAt(0);
             }
@@ -127,6 +130,16 @@ namespace UINavigation
         public interface IPopListener
         {
             bool OnPop();
+        }
+
+        public override string ToString()
+        {
+            string s = "Backstack:";
+            foreach(var task in stacked)
+            {
+                s += "\n" + task.ToString();
+            }
+            return s;
         }
     }
 }

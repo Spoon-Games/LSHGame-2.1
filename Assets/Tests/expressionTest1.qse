@@ -1,0 +1,15 @@
+f00f5fa70e0d4fc59d9255928116d5dc = {
+	type = "results"
+	source = "97c47e12ba304088aee741c18b2cd83d"
+	position = [0 0]
+}
+97c47e12ba304088aee741c18b2cd83d = {
+	type = "select"
+	value = "Asset"
+	properties = {
+		type = "Texture2D"
+		field = "m_Width"
+		mapped = true
+	}
+	position = [-345 4]
+}

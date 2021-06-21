@@ -7,6 +7,7 @@ TagManager:
   - m:Ladder
   - m:Eater
   - PortalPoint
+  - VoidHazard
   layers:
   - Default
   - TransparentFX

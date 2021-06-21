@@ -10,7 +10,7 @@ namespace LSHGame
         [SerializeField]
         private string helpText;
 
-        public enum HintType { Movement, Climbing, Dash}
+        public enum HintType { Movement, Climbing, Dash, LadderClimbing}
         [SerializeField]
         private HintType hintType;
 
@@ -18,57 +18,73 @@ namespace LSHGame
         private float delay;
 
         [SerializeField]
+        private float disappearingDelay = 0;
+
+        [SerializeField]
         private bool hintOnStart = false;
 
-        private bool isShowingText = false;
+        private bool isActive = false;
 
         private void Start()
         {
+            switch (hintType)
+            {
+                case HintType.Movement:
+                    GameInput.Hint_Movement += ActionExecuted;
+                    break;
+                case HintType.Climbing:
+                    GameInput.Hint_WallClimb += ActionExecuted;
+                    break;
+                case HintType.Dash:
+                    GameInput.Hint_Dash += ActionExecuted;
+                    break;
+                case HintType.LadderClimbing:
+                    GameInput.Hint_LadderClimb += ActionExecuted;
+                    break;
+            }
+
             if (hintOnStart)
                 StartHint();
         }
 
         public void StartHint()
         {
-            if (!WasReleased())
+            if (!isActive && !(hintType == HintType.Dash && !GameInput.Hint_IsLilium))
             {
                 TimeSystem.Delay(delay, t => { Show(); });
+                isActive = true;
             }
         }
 
         private void Show()
         {
-            if (!WasReleased())
+            if (isActive)
             {
                 HelpTextView.Instance.SetHelpText(helpText);
-                isShowingText = true;
             }
         }
 
-        private void Update()
-        {
-            if (isShowingText && WasReleased())
-                Hide();
-        }
 
         public void Hide()
         {
-            HelpTextView.Instance.HideHelpText();
-            isShowingText = false;
+            if (isActive)
+            {
+                HelpTextView.Instance.HideHelpText(delay: disappearingDelay);
+                isActive = false;
+            }
         }
 
-        private bool WasReleased()
+        private void ActionExecuted()
         {
-            switch (hintType)
-            {
-                case HintType.Movement:
-                    return GameInput.Hint_HasMoved;
-                case HintType.Climbing:
-                    return GameInput.Hint_HasClimbed;
-                case HintType.Dash:
-                    return GameInput.Hint_HasDashed;
-            }
-            return true;
+            Hide();
+        }
+
+        private void OnDestroy()
+        {
+            GameInput.Hint_Movement -= ActionExecuted;
+            GameInput.Hint_WallClimb -= ActionExecuted;
+            GameInput.Hint_LadderClimb -= ActionExecuted;
+            GameInput.Hint_Dash -= ActionExecuted;
         }
     }
 }

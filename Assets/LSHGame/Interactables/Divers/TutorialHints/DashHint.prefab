@@ -47,7 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   helpText: "Dr\xFCcke [Rechtsclick] um zu dashen"
   hintType: 2
-  delay: 2
+  delay: 0.1
+  disappearingDelay: 0.5
   hintOnStart: 0
 --- !u!61 &6419707865065497058
 BoxCollider2D:

@@ -224,11 +224,11 @@ namespace LSHGame.UI
 
                 Active = false;
 
-                if (!isDestroied)
+                if (!isDestroied && Activity.IsRunning)
                     Activity.Parent.PopBackStack();
             }
-            else
-                Debug.Log("CharacterView was not active");
+            //else
+                //Debug.Log("CharacterView was not active");
         }
 
         #endregion
@@ -259,6 +259,7 @@ namespace LSHGame.UI
 
         public virtual void OnLeave()
         {
+            Deactivate();
         }
 
         public virtual void OnLeaveComplete()

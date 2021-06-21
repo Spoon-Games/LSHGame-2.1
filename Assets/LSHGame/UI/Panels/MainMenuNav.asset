@@ -30,6 +30,8 @@ MonoBehaviour:
     CoicePorts:
     - Name: SettingsButton
       ConnectedGuid: 07ddbd10-4f9c-4d08-8792-58a9a2c96cc2
+    - Name: back
+      ConnectedGuid: 
     PanelName: MainMenuPanel
     InputController: 
     DoNotHide: 0

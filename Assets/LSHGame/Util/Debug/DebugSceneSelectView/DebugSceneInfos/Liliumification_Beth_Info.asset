@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ec5302867d9df5489541371327a5585, type: 3}
+  m_Name: Liliumification_Beth_Info
+  m_EditorClassIdentifier: 
+  ScenePath: Assets/LSHGame/Scenes/Areas/Ruins/Iteration 1/Liliumification.unity
+  sceneAsset: {fileID: 102900000, guid: 084c3cca72ff5cd4192e4845a4ec66d5, type: 3}
+  AdditionalStartScenes: []
+  Transition: {fileID: 0}
+  StartCheckpoint: {fileID: 11400000, guid: 77882c8bdda990849ab7408fb273114c, type: 2}

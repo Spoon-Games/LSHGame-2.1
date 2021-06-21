@@ -32,6 +32,8 @@ namespace LSHGame.UI
 
         private GameObject ShowIdentifier = null;
 
+        private Tween fadeTween;
+
         public override void Awake()
         {
             base.Awake();
@@ -45,19 +47,19 @@ namespace LSHGame.UI
             gameObject.SetActive(true);
             helpText.text = text;
 
-            CanvasGroup.DOKill();
-            CanvasGroup.DOFade(1, fadeInTime).SetEase(fadeInEase);
+            fadeTween?.Kill();
+            fadeTween = CanvasGroup.DOFade(1, fadeInTime).SetEase(fadeInEase);
 
         }
 
-        public void HideHelpText(GameObject identifier = null)
+        public void HideHelpText(GameObject identifier = null, float delay = 0)
         {
             if (identifier != null && !Equals(identifier, ShowIdentifier))
                 return;
             ShowIdentifier = null;
 
-            CanvasGroup.DOKill();
-            CanvasGroup.DOFade(0, fadeOutTime).SetEase(fadeOutEase).OnComplete(() => gameObject.SetActive(false));
+            fadeTween?.Kill();
+            fadeTween = CanvasGroup.DOFade(0, fadeOutTime).SetEase(fadeOutEase).OnComplete(() => gameObject.SetActive(false)).SetDelay(delay);
         }
 
         public void HideHelpText(string originText)

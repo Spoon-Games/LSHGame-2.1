@@ -201,7 +201,7 @@ namespace LSHGame.Util
                 min = new Vector2(Mathf.Max(a.min.x, b.min.x), Mathf.Max(a.min.y, b.min.y)),
                 max = new Vector2(Mathf.Min(a.max.x, b.max.x), Mathf.Min(a.max.y, b.max.y))
             };
-            return overlap.width >= 0 && overlap.height >= 0;
+            return overlap.width > 0 && overlap.height > 0;
         }
 
         public static bool IsTouchingRect(this Collider2D collider, Rect rect, ContactFilter2D cf)
@@ -230,6 +230,11 @@ namespace LSHGame.Util
         public static Rect GetGlobalRectOfBox(this BoxCollider2D boxCollider)
         {
             return new Rect() { size = boxCollider.size, center = boxCollider.offset }.LocalToWorldRect(boxCollider.transform);
+        }
+
+        public static float GlobalGravity(this Rigidbody2D rb)
+        {
+            return Physics2D.gravity.magnitude * rb.gravityScale;
         }
     }
 }

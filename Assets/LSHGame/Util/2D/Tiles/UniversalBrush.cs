@@ -14,8 +14,69 @@ namespace LSHGame.Util
 
         private static bool eraseByPaint = false;
 
-        internal float rotation;
-        internal Vector2 scale;
+        private int _rotation = 0;
+        internal int Rotation
+        {
+            get => _rotation; set
+            {
+                _rotation = (value % 360 + 360) % 360;
+            }
+        }
+        internal Vector2 Scale { get; set; } = Vector2.one;
+
+        private bool _isSnap = false;
+        internal bool IsSnap
+        {
+            get => _isSnap; set
+            {
+                if (_isSnap != value)
+                {
+                    if (value)
+                    {
+                        if (!FindSnapTilemap())
+                            return;
+                        Rotation = 0;
+                    }
+                    _isSnap = value;
+
+                }
+            }
+        }
+
+        [SerializeField]
+        private string _snapTilemapName = "";
+        internal string SnapTilemapName { get => _snapTilemapName; set
+            {
+                if (value != _snapTilemapName)
+                {
+                    _snapTilemapName = value;
+                    IsSnap = false;
+                    EditorUtility.SetDirty(this);
+                }
+            }
+        }
+
+        private Tilemap snapTilemap;
+        private bool FindSnapTilemap()
+        {
+            if (!string.IsNullOrEmpty(SnapTilemapName)) {
+                var go = GameObject.Find(SnapTilemapName);
+                if (go != null && go.TryGetComponent<Tilemap>(out Tilemap tilemap)){
+
+                    snapTilemap = tilemap;
+                    return true;
+                }
+                else
+                {
+                    Debug.LogError("Could not find SnapTilemap: " + SnapTilemapName);
+                }
+            }
+            else
+            {
+                Debug.LogError("No SnapTilemap was specified");
+            }
+            return false;
+        }
 
         [MenuItem("Assets/Create/Universal Brush")]
         public static void CreateBrush()
@@ -31,25 +92,12 @@ namespace LSHGame.Util
         public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
         {
             base.Paint(gridLayout, brushTarget, position);
-
-            var tileMap = brushTarget.GetComponent<Tilemap>();
-            var tileBase = tileMap.GetTile(position);
-
-            //if (tileBase is PrefabTile prefabTile)
-            //{
-            //    //Debug.Log("Painted PrefabTile: " + registeredPrefabTile.tileName);
-            //    InstantiatePrefab(gridLayout, brushTarget, position, prefabTile);
-
-            //    eraseByPaint = true;
-            //    base.Erase(gridLayout, brushTarget, position);
-            //    eraseByPaint = false;
-
-            //}
         }
 
         public override void BoxFill(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
         {
-            SetMatrix(Vector3Int.zero, Matrix4x4.Rotate(Quaternion.Euler(0, 0, rotation)) * Matrix4x4.Scale(scale));
+            
+            SetMatrix(Vector3Int.zero, Matrix4x4.Rotate(Quaternion.Euler(0, 0, Rotation + GetSnapRotation(position))) * Matrix4x4.Scale(Scale));
             base.BoxFill(gridLayout, brushTarget, position);
             var tileMap = brushTarget.GetComponent<Tilemap>();
 
@@ -172,8 +220,8 @@ namespace LSHGame.Util
             {
                 instance.transform.SetParent(brushTarget.transform);
                 instance.transform.position = gridLayout.LocalToWorld(gridLayout.CellToLocalInterpolated(position + new Vector3(.5f, .5f, .5f))) + (Vector3)prefabTile.pivot;
-                instance.transform.rotation = Quaternion.Euler(0, 0, rotation);
-                instance.transform.localScale = new Vector3(scale.x,scale.y,1);
+                instance.transform.rotation = Quaternion.Euler(0, 0, Rotation + GetSnapRotation(position));
+                instance.transform.localScale = new Vector3(Scale.x,Scale.y,1);
             }
         }
 
@@ -204,6 +252,25 @@ namespace LSHGame.Util
             return transforms;
         }
 
+        private int GetSnapRotation(BoundsInt position)
+        {
+            return GetSnapRotation(position.min);
+        }
+
+        private int GetSnapRotation(Vector3Int position)
+        {
+            if (IsSnap && snapTilemap != null)
+            {
+                if (snapTilemap.HasTile(position + Vector3Int.up))
+                    return 180;
+                else if (snapTilemap.HasTile(position + Vector3Int.left))
+                    return 270;
+                else if (snapTilemap.HasTile(position + Vector3Int.right))
+                    return 90;
+            }
+            return 0;
+        }
+
         #endregion
     }
 
@@ -211,26 +278,12 @@ namespace LSHGame.Util
     public class UniversalBrushEditor : UnityEditor.Tilemaps.GridBrushEditor
     {
         private UniversalBrush Brush { get { return target as UniversalBrush; } }
-
-        private int _rotation = 0;
-        private int Rotation { get => _rotation; set
-            {
-                _rotation = (value % 360 + 360) % 360;
-
-                Brush.rotation = _rotation;
-            } }
-
-        private Vector2 _scale = Vector2.one;
-        private Vector2 Scale { get => _scale; set
-            {
-                _scale = value;
-                Brush.scale = _scale;
-            }
-        }
+        
 
         public override void OnPaintSceneGUI(GridLayout grid, GameObject brushTarget, BoundsInt position, GridBrushBase.Tool tool, bool executing)
         {
             base.OnPaintSceneGUI(grid, brushTarget, position, tool, executing);
+            GetInput();
         }
 
 
@@ -244,31 +297,47 @@ namespace LSHGame.Util
         {
             //base.OnInspectorGUI();
             //lineBrush.zp
-            Rotation = EditorGUILayout.IntField("Rotation", Rotation);
-            Scale = EditorGUILayout.Vector2Field("Scale", Scale);
+            GetInput();
+            Brush.Rotation = EditorGUILayout.IntField("Rotation", Brush.Rotation);
+            Brush.Scale = EditorGUILayout.Vector2Field("Scale", Brush.Scale);
+
+            Brush.IsSnap = EditorGUILayout.Toggle("Is Snap", Brush.IsSnap);
+            Brush.SnapTilemapName = EditorGUILayout.TextField("Snap Tilemap", Brush.SnapTilemapName);
+
+            if (GUI.changed)
+                EditorUtility.SetDirty(Brush);
+
+            
         }
+
 
         private void GetInput()
         {
+            int controllId = GUIUtility.GetControlID(FocusType.Keyboard);
             Event e = Event.current;
 
-            if (e.type == EventType.KeyDown)
+            if (e.GetTypeForControl(controllId) == EventType.KeyDown)
             {
                 if(e.keyCode == KeyCode.Q)
                 {
-                    Rotation += 90;
+                    Brush.Rotation += 90;
                     e.Use();
                 }
                 else if(e.keyCode == KeyCode.E)
                 {
-                    Rotation -= 90;
+                    Brush.Rotation -= 90;
                     e.Use();
                 }else if(e.keyCode == KeyCode.X)
                 {
-                    Scale = new Vector2(-Scale.x,Scale.y);
+                    Brush.Scale = new Vector2(-Brush.Scale.x, Brush.Scale.y);
+                    e.Use();
+                }else if(e.keyCode == KeyCode.S)
+                {
+                    Brush.IsSnap = !Brush.IsSnap;
+                    e.Use();
                 }
-
-                
+    
+                EditorUtility.SetDirty(this);
             }
         }
     }

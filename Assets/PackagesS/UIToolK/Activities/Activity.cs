@@ -189,6 +189,11 @@ namespace UINavigation
             SetVisible(DoNotHide);
         }
 
+        public override string ToString()
+        {
+            return "Activity "+name;
+        }
+
         #endregion
     }
 }

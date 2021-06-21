@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="MixerGroup" id="{2f4600b6-4fdf-4c82-ad14-26165aef8728}">
+		<property name="volume">
+			<value>5</value>
+		</property>
+		<property name="name">
+			<value>Pascal</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{62acc15e-4376-4ed1-951e-80183f3f70af}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{b9f89c3d-a59b-4338-b2f0-c886ebc43eb5}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{4355bc41-6378-43f7-9ab4-d7d975df6059}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{62acc15e-4376-4ed1-951e-80183f3f70af}">
+		<relationship name="effects">
+			<destination>{a77a498f-5a94-4f89-a88d-3c1c6fee4d6d}</destination>
+			<destination>{8920cd92-5aa8-43e4-940b-0f86fb77e714}</destination>
+			<destination>{57d8eae6-711c-44a0-82f9-aaf744a5ba50}</destination>
+			<destination>{9d3e7e27-854b-4d1e-84f3-f909cfd3ad90}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{b9f89c3d-a59b-4338-b2f0-c886ebc43eb5}" />
+	<object class="SFXReverbEffect" id="{a77a498f-5a94-4f89-a88d-3c1c6fee4d6d}">
+		<property name="decayTime">
+			<value>100</value>
+		</property>
+		<property name="lowShelfFrequency">
+			<value>430</value>
+		</property>
+		<property name="wetLevel">
+			<value>-35</value>
+		</property>
+	</object>
+	<object class="ThreeEQEffect" id="{8920cd92-5aa8-43e4-940b-0f86fb77e714}">
+		<property name="lowGain">
+			<value>3</value>
+		</property>
+		<property name="midGain">
+			<value>-3</value>
+		</property>
+		<property name="highGain">
+			<value>6.5</value>
+		</property>
+		<property name="lowCrossover">
+			<value>260</value>
+		</property>
+	</object>
+	<object class="PitchShifterEffect" id="{57d8eae6-711c-44a0-82f9-aaf744a5ba50}">
+		<property name="pitch">
+			<value>1.73000002</value>
+		</property>
+		<property name="fftSize">
+			<value>640</value>
+		</property>
+		<property name="overlap">
+			<value>4.4000001</value>
+		</property>
+	</object>
+	<object class="MixerBusFader" id="{9d3e7e27-854b-4d1e-84f3-f909cfd3ad90}" />
+</objects>
